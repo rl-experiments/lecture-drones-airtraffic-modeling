@@ -1,6 +1,6 @@
 # Content Map: Original PPTX → New Slide Deck
 
-Source: `20250322 Innovative Technologien für Drohnen - Luftverkehrsmodellierung.pptx` (59 slides, German).
+Source: `20250322 Innovative Technologien für Drohnen - Luftverkehrsmodellierung.pptx` (59 slides, German; not included in this repo).
 Target: `slides/json/module_0.json … module_15.json` (English, enriched).
 
 Translation policy: all German content translated to English; thin or image-only source slides were fleshed
