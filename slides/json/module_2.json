@@ -200,40 +200,43 @@
     "mod": "2",
     "tag": "important",
     "title": "Expectations: The Path to Grade 1.0",
-    "desc": "Two hard expectations — and what achieving them looks like",
+    "desc": "The bar is deliberately high — this is a master's module, and understanding is its currency",
     "body": [
       {
         "table": {
           "headers": [
-            "Expectation",
-            "Achieved when…"
+            "Requirement",
+            "The bar"
           ],
           "rows": [
             [
-              "<strong>≥ 60 hours</strong> of independent homework across the semester",
-              "The effort is <strong>visible over time</strong> — iterations, notes, commits — not a last-week sprint"
+              "<strong>&ge; 60 hours</strong> of independent work",
+              "That is the <strong>entry ticket, not the goal</strong> — a 1.0 usually takes more. The effort must be <strong>traceable</strong> across the whole semester: repo history, notes, iterations"
             ],
             [
-              "You are <strong>able to explain</strong> your practical project",
-              "In the Q&amp;A you can justify <strong>every design decision</strong> and answer “what happens if we change X?” — “the tutorial/AI did it that way” does not count"
+              "<strong>Explain &mdash; and modify &mdash; live</strong>",
+              "During the presentation expect <em>&quot;now change X&quot;</em> and follow-up questions that continue <strong>until it is clear the work is yours</strong>. Every design decision needs a reason you can defend"
             ],
             [
-              "<strong>Depth</strong> on your seminar topic",
-              "You go beyond the first search hit: working examples plus your <strong>own critical assessment</strong>"
+              "<strong>Depth</strong> on the seminar topic",
+              "Primary sources — standards, papers, SDK documentation — plus a <strong>working demo</strong> and your own critical judgement of the technology's limits"
             ],
             [
-              "<strong>Honest engineering</strong> in the competition",
-              "You can explain detection horizon, resolution maneuver and priorities — not just parameters tweaked until it worked"
+              "<strong>Engineering</strong> in the competition",
+              "An approach you designed, <strong>measured and can defend with data</strong>: why does your airspace survive, and at what traffic density does it stop surviving?"
             ]
           ]
         }
       },
       {
-        "card": "",
+        "card": "What does NOT count",
         "items": [
-          "Grade 1.0 = all four convincingly. <strong>Understanding is the currency of this course</strong>: if you built it, you can explain it — and modify it on request",
-          "Start early — the simulator, the standards, the SDK and the data formats all have a learning curve"
-        ]
+          "A last-week sprint &mdash; your repo history will show it",
+          "Code that runs but that you cannot explain &mdash; it is graded <strong>as if it were missing</strong>",
+          "Summarizing the first search hits, or pasting AI output without understanding it",
+          "Competition parameters tweaked until one demo run happened to pass"
+        ],
+        "warn": true
       }
     ]
   }
