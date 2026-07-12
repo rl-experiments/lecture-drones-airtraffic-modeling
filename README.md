@@ -2,8 +2,6 @@
 
 University lecture slides — elective master module (WPM), Albstadt-Sigmaringen University of Applied Sciences. Introduction, 14 modules, seminar presentations and a [BlueSky](https://github.com/TUDelft-CNS-ATM/bluesky) collision-avoidance competition.
 
-Content migrated to English and restructured from the original German lecture deck (`20250322 Innovative Technologien für Drohnen - Luftverkehrsmodellierung.pptx`, not included in this repo). See [md/CONTENT-MAP.md](md/CONTENT-MAP.md) for the slide-by-slide mapping.
-
 ![Cover slide](.github/cover.webp)
 
 ![Table of Contents](.github/toc.webp)
@@ -62,8 +60,6 @@ slides/
   images/
     bg/                   ← background images
     content/              ← slide content images (UTM diagram, METAR examples, etc.)
-md/
-  CONTENT-MAP.md          ← provenance: original PPTX slide → new module/slide
 tools/
   export_pdf.py           ← export all slides to landscape PDF
   _animate_cover.py       ← record cover slide as animated WebP (README)
