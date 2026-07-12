@@ -1,0 +1,128 @@
+[
+  {
+    "type": "cover",
+    "script": { "name": "drone", "opts": { "perched": true, "anchor": ".cover-card", "anchorOffsetX": 100, "anchorOffsetY": -15, "scale": 0.9 } },
+    "bg": 2,
+    "h1": "Module 6",
+    "lead": "RESTful APIs: OpenAPI",
+    "sub": "Technology block (a): describing every interface in the UTM diagram",
+    "badges": [
+      "OpenAPI 3.1",
+      "Swagger UI",
+      "Redoc",
+      "Code Generation",
+      "*Live Demo"
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "6",
+    "tag": "",
+    "title": "What Is OpenAPI?",
+    "desc": "A specification for describing RESTful APIs — machine-readable, human-friendly",
+    "body": [
+      {
+        "card": "The basics",
+        "items": [
+          "OpenAPI is a <strong>specification for describing RESTful APIs</strong>",
+          "Enables a standardized definition of API endpoints and their functions",
+          "Originally developed as <strong>Swagger</strong>, now governed under the Linux Foundation (OpenAPI Initiative)"
+        ]
+      },
+      {
+        "card": "Why use OpenAPI?",
+        "items": [
+          "<strong>Standardization</strong> — uniform API documentation across teams and vendors",
+          "<strong>Automatic generation</strong> — code, documentation and test cases generated from the spec",
+          "<strong>Interactive use</strong> — try APIs live, e.g. in Swagger UI",
+          "<strong>Easier API design</strong> — collaboration between developers and stakeholders on one artifact",
+          "Remember Module 4: a NOTAM service, a METAR service, a UTM clearance service — all of them need exactly this kind of contract"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "6",
+    "tag": "",
+    "title": "Anatomy of an OpenAPI Document",
+    "desc": "APIs are described in YAML or JSON — five top-level building blocks",
+    "body": [
+      {
+        "code": "<span class=\"kw\">openapi:</span> 3.1.0\n<span class=\"kw\">info:</span>\n  title: UTM Flight Clearance API\n  version: 1.0.0\n<span class=\"kw\">servers:</span>\n  - url: https://utm.example.com/v1\n<span class=\"kw\">paths:</span>\n  /drones/{droneId}/clearance:\n    post:\n      summary: Request flight clearance for a mission\n      responses:\n        <span class=\"str\">'201'</span>: { description: Clearance granted }\n        <span class=\"str\">'409'</span>: { description: Conflict with another mission }\n<span class=\"kw\">components:</span>\n  schemas:\n    Mission:\n      type: object\n      required: [route, startTime]",
+        "note": "A drone-flavored example: the same five blocks appear in every OpenAPI document."
+      },
+      {
+        "card": "The building blocks",
+        "items": [
+          "<code>openapi</code> — version of the specification",
+          "<code>info</code> — metadata: title, version, description",
+          "<code>paths</code> — definition of the API endpoints",
+          "<code>components</code> — reusable schema definitions",
+          "<code>servers</code> — available servers for the API"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "6",
+    "tag": "",
+    "title": "OpenAPI 3.0 vs. 3.1",
+    "desc": "Small version bump, important alignment",
+    "body": [
+      {
+        "img": "openapi-30-vs-31.png",
+        "alt": "Comparison of OpenAPI 3.0 and 3.1 components sections",
+        "height": 300
+      },
+      {
+        "card": "",
+        "items": [
+          "3.1 aligns the schema language with <strong>full JSON Schema</strong> — no more OpenAPI-specific dialect",
+          "<code>components</code> gains <strong>pathItems</strong> — reusable path definitions",
+          "Practical advice: start new projects on 3.1; most generators support it today"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "6",
+    "tag": "demo",
+    "title": "Tooling Around OpenAPI",
+    "desc": "The spec is only as useful as its tools — live demo",
+    "body": [
+      {
+        "img": "swagger-editor-petstore.jpg",
+        "alt": "Swagger Editor with the Petstore example: YAML on the left, rendered documentation on the right",
+        "height": 320
+      },
+      {
+        "card": "The toolbox",
+        "items": [
+          "<strong>Swagger UI</strong> — visual rendering and in-browser test calls",
+          "<strong>Redoc</strong> — modern, read-oriented API documentation",
+          "<strong>Postman</strong> — API testing and development",
+          "<strong>OpenAPI Generator</strong> — client/server code generation for dozens of languages"
+        ]
+      },
+      {
+        "card": "Conclusion",
+        "items": [
+          "OpenAPI makes API development and documentation dramatically easier",
+          "Standards lead to better collaboration — inside a team and across an industry"
+        ]
+      },
+      {
+        "resource": {
+          "title": "Try it",
+          "links": [
+            { "url": "https://swagger.io/tools/swagger-ui/", "label": "Swagger UI" },
+            { "url": "https://editor.swagger.io", "label": "Swagger Editor (live)" }
+          ]
+        }
+      }
+    ]
+  }
+]

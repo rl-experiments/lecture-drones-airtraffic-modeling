@@ -1,0 +1,70 @@
+[
+  {
+    "type": "cover",
+    "script": { "name": "drone", "opts": { "perched": true, "anchor": ".cover-card", "anchorOffsetX": 95, "anchorOffsetY": 0, "scale": 0.9 } },
+    "bg": 7,
+    "h1": "Module 10",
+    "lead": "Karate: Test Automation",
+    "sub": "Technology block (e): API tests everyone on the team can read",
+    "badges": [
+      "Gherkin",
+      "API Testing",
+      "Performance Tests",
+      "CI/CD"
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "10",
+    "tag": "",
+    "title": "What Is Karate?",
+    "desc": "An open-source test automation framework built for APIs and web services",
+    "body": [
+      {
+        "card": "In a nutshell",
+        "items": [
+          "Open-source tool for test automation, designed specifically for <strong>API tests and web services</strong>",
+          "Tests are written in a simple, readable syntax based on <strong>Gherkin</strong> — accessible even to non-programmers",
+          "Supports <strong>functional and performance tests</strong>, plus API, UI and end-to-end testing in one tool",
+          "Integrates quickly into <strong>CI/CD pipelines</strong> — known for efficiency and ease of use",
+          "For our domain: every UTM interface from Module 5/6 (clearance, telemetry, geo-zones) is a natural Karate target"
+        ]
+      },
+      {
+        "resource": {
+          "title": "Resources",
+          "links": [
+            { "url": "https://github.com/karatelabs/karate", "label": "Karate (GitHub)" },
+            { "url": "https://github.com/karatelabs/karate/tree/master/karate-demo", "label": "karate-demo — runnable examples" }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "10",
+    "tag": "",
+    "title": "Example 1: Testing a Greeting Endpoint",
+    "desc": "A complete Karate feature file — no Java code required",
+    "body": [
+      {
+        "code": "<span class=\"kw\">Feature:</span> greeting end-point\n\n<span class=\"kw\">Background:</span>\n  * url demoBaseUrl\n\n<span class=\"kw\">Scenario:</span> get default greeting\n\n    <span class=\"kw\">Given</span> path <span class=\"str\">'greeting'</span>\n    <span class=\"kw\">When</span> method get\n    <span class=\"kw\">Then</span> status 200\n    <span class=\"kw\">And</span> match response == { id: <span class=\"str\">'#number'</span>, content: <span class=\"str\">'Hello World!'</span> }\n\n<span class=\"kw\">Scenario:</span> get custom greeting\n\n    <span class=\"kw\">Given</span> path <span class=\"str\">'greeting'</span>\n    <span class=\"kw\">And</span> param name = <span class=\"str\">'Billie'</span>\n    <span class=\"kw\">When</span> method get\n    <span class=\"kw\">Then</span> status 200\n    <span class=\"kw\">And</span> match response == { id: <span class=\"str\">'#number'</span>, content: <span class=\"str\">'Hello Billie!'</span> }",
+        "note": "match validates the whole JSON payload structurally — '#number' is a fuzzy matcher: any numeric id passes."
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "10",
+    "tag": "",
+    "title": "Example 2: CSRF Token & Sign-In Flow",
+    "desc": "Chaining requests: capture a token, then use it in three submit variants",
+    "body": [
+      {
+        "code": "<span class=\"kw\">Feature:</span> csrf and sign-in end point\n\n<span class=\"kw\">Background:</span>\n  * url demoBaseUrl\n\n  <span class=\"kw\">Given</span> path <span class=\"str\">'signin'</span>, <span class=\"str\">'token'</span>\n  <span class=\"kw\">When</span> method get\n  <span class=\"kw\">Then</span> status 200\n  <span class=\"kw\">And</span> header X-CSRF-TOKEN = response\n\n<span class=\"kw\">Scenario:</span> html url encoded form submit - post\n    <span class=\"kw\">Given</span> path <span class=\"str\">'signin'</span>\n    <span class=\"kw\">And</span> form field username = <span class=\"str\">'john'</span>\n    <span class=\"kw\">And</span> form field password = <span class=\"str\">'secret'</span>\n    <span class=\"kw\">When</span> method post\n    <span class=\"kw\">Then</span> status 200\n    <span class=\"kw\">And</span> match response == <span class=\"str\">'success'</span>\n\n<span class=\"kw\">Scenario:</span> form submit - manually forming the request\n    <span class=\"kw\">Given</span> path <span class=\"str\">'signin'</span>\n    <span class=\"kw\">And</span> request <span class=\"str\">'username=john&amp;password=secret'</span>\n    <span class=\"kw\">And</span> header Content-Type = <span class=\"str\">'application/x-www-form-urlencoded'</span>\n    <span class=\"kw\">When</span> method post\n    <span class=\"kw\">Then</span> status 200\n    <span class=\"kw\">And</span> match response == <span class=\"str\">'success'</span>",
+        "note": "The Background runs before each scenario: it fetches the CSRF token once and injects it as a header — state flows naturally between steps."
+      }
+    ]
+  }
+]

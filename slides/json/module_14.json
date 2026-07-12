@@ -1,0 +1,123 @@
+[
+  {
+    "type": "cover",
+    "script": { "name": "drone", "opts": { "perched": true, "anchor": ".cover-card", "anchorOffsetX": 90, "anchorOffsetY": -20, "scale": 1 } },
+    "bg": 6,
+    "h1": "Module 14",
+    "lead": "Agile Processes & Conclusion",
+    "sub": "How to build all of this — and where it is heading",
+    "badges": [
+      "Iterative Development",
+      "DevOps",
+      "CI/CD",
+      "Standards & Outlook"
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "14",
+    "tag": "",
+    "title": "Agile Development in Software & Systems Engineering",
+    "desc": "Aviation-grade rigor and agile iteration are not enemies",
+    "body": [
+      {
+        "card": "The agile toolbox applied to drone systems",
+        "items": [
+          "<strong>Iterative development &amp; continuous improvement</strong> — short cycles, early feedback from simulation (Module 11) instead of big-bang integration",
+          "<strong>DevOps &amp; CI/CD pipelines</strong> — every commit builds, tests (Karate, Module 10) and deploys to a simulated airspace automatically",
+          "<strong>Fast adaptation to regulatory requirements</strong> — EU drone rules evolve yearly; architecture and pipelines must absorb rule changes as routine work, not as crises",
+          "<strong>Best practice</strong> — keep the safety artifacts (requirements, traceability, verification evidence from Module 3) inside the pipeline, not in a drawer: 'continuous compliance'"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "14",
+    "tag": "",
+    "title": "Opportunities & Challenges of Future Drone Technologies",
+    "body": [
+      {
+        "card": "Opportunities",
+        "items": [
+          "<strong>Logistics</strong> — more efficient transport, especially for the last mile and hard-to-reach areas",
+          "<strong>Agriculture</strong> — precise crop monitoring and targeted treatment",
+          "<strong>Environmental monitoring</strong> — large-area observation at low cost",
+          "<strong>Emergency response</strong> — reaching inaccessible areas in crisis situations quickly"
+        ]
+      },
+      {
+        "card": "Challenges",
+        "items": [
+          "Privacy concerns and security risks from unauthorized use",
+          "The need for clear regulatory frameworks",
+          "<strong>Integration into existing air traffic systems</strong> — the central theme of this entire lecture",
+          "Guaranteeing safe and ethical operation as fleets scale up"
+        ],
+        "warn": true
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "14",
+    "tag": "",
+    "title": "The Potential of AI & Autonomous Systems",
+    "body": [
+      {
+        "card": "",
+        "items": [
+          "AI and autonomous systems can <strong>automate processes, raise efficiency and improve decision-making</strong>",
+          "Industry: more precise production and predictive maintenance",
+          "Healthcare: personalized treatment plans and faster diagnoses",
+          "Transport: autonomous vehicles and drones could revolutionize mobility while increasing safety",
+          "The open problems mirror aviation's: <strong>ethical use, avoiding failures in critical situations, robust safeguards</strong> against misuse and malfunction — Module 3's principles apply to AI components too"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "14",
+    "tag": "",
+    "title": "International Standards & Regulations",
+    "body": [
+      {
+        "card": "Why they matter",
+        "items": [
+          "Standards ensure innovations are <strong>globally harmonized</strong>: products and services stay compatible and safe worldwide",
+          "They promote trade, protect user privacy and safety, and prevent technological abuse",
+          "They create fair competition — without unnecessarily slowing progress",
+          "The hard part: developing <strong>flexible, future-proof norms</strong> that keep pace with rapid technological change",
+          "You have now seen the aviation instances: EU 2019/947, DO-178C, ED-153, AIXM, ASTERIX, OLDI — one coherent regulatory-technical stack"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "14",
+    "tag": "takeaway",
+    "title": "Course Wrap-up & Open Questions",
+    "body": [
+      {
+        "card": "What you take home",
+        "items": [
+          "Why drone traffic needs modeling: regulation, density and safety (Modules 1, 3)",
+          "The data formats aviation speaks: NOTAM, METAR, AIXM, ASTERIX, OLDI (Module 4)",
+          "The system picture: UTM as a federation of services (Module 5)",
+          "The engineering toolbox: OpenAPI, WebFlux, message queues, CQRS, Karate (Modules 6–10)",
+          "The laboratory: BlueSky simulation, GIS integration, low-latency transmission (Modules 11–13)"
+        ]
+      },
+      {
+        "card": "Now it's on you",
+        "items": [
+          "Deliver your seminar presentation — depth beats breadth",
+          "Win the BlueSky competition — and be able to explain <em>why</em> your airspace survived",
+          "Open questions? Ask now, or bring them to the next session"
+        ]
+      }
+    ]
+  }
+]

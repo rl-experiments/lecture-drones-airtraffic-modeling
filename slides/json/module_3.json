@@ -1,0 +1,347 @@
+[
+  {
+    "type": "cover",
+    "script": { "name": "drone", "opts": { "perched": true, "anchor": ".cover-card", "anchorOffsetX": -70, "anchorOffsetY": -15, "scale": 1 } },
+    "bg": 6,
+    "h1": "Module 3",
+    "lead": "Principles of Software Safety Standards",
+    "sub": "Why aviation software is built differently — and what drones inherit from it",
+    "badges": [
+      "DO-178C",
+      "ED-109 / ED-153",
+      "SIL",
+      "ARP 4754A",
+      "*Boeing 777 FBW"
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "3",
+    "tag": "",
+    "title": "The Standards Landscape",
+    "desc": "Who writes the rules for safety-critical aviation software",
+    "body": [
+      {
+        "table": {
+          "headers": ["Standard", "Publisher", "Scope"],
+          "rows": [
+            ["<strong>DO-178C</strong>", "RTCA (Radio Technical Commission for Aeronautics, USA)", "Software considerations in airborne systems &mdash; <em>the</em> certification standard for flight software"],
+            ["<strong>ED-109</strong>", "EUROCAE (European Organisation for Civil Aviation Equipment)", "Software integrity assurance for ground and ATM systems (European counterpart of DO-278)"],
+            ["<strong>ED-153</strong>", "EUROCAE", "Software safety assurance for air navigation service (ANS) systems &mdash; air traffic systems"],
+            ["<strong>ARP 4754A</strong>", "SAE", "System-level development of civil aircraft &mdash; allocates Development Assurance Levels (DALs) to software"],
+            ["<strong>Mil-Std-882E</strong>", "US DoD", "Military system safety &mdash; allocates a Level of Rigour, translatable into a DO-178 DAL"]
+          ]
+        }
+      },
+      {
+        "resource": {
+          "title": "Further reading",
+          "links": [
+            { "url": "https://de.wikipedia.org/wiki/Radio_Technical_Commission_for_Aeronautics", "label": "RTCA (Wikipedia)" },
+            { "url": "https://www.eurocae.net", "label": "EUROCAE" }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "3",
+    "tag": "",
+    "title": "Safety Culture Predates Software",
+    "desc": "Aviation learned about redundancy, checklists and failure analysis long before code existed",
+    "body": [
+      {
+        "img": "ultralight-ground-1986.jpg",
+        "alt": "Ground crew preparing a home-built ultralight aircraft, 1986",
+        "height": 330,
+        "caption": "1986: even a home-built ultralight gets a pre-flight inspection. The mindset — assume failure, check everything, control change — is exactly what software safety standards later formalized."
+      },
+      {
+        "card": "",
+        "items": [
+          "Aviation safety engineering matured over a century of accidents and investigations",
+          "Software safety standards are that culture, <strong>translated into the language of code</strong>: requirements, traceability, verification evidence",
+          "Drones now inherit both worlds &mdash; and the standards that come with them"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "3",
+    "tag": "",
+    "title": "The Economics of Fixing Defects",
+    "desc": "Why standards front-load so much work into requirements and design",
+    "body": [
+      {
+        "img": "cost-of-fixing-defects.png",
+        "alt": "Bar chart: relative cost of fixing defects rises from 1 at design to 100 in maintenance",
+        "height": 300
+      },
+      {
+        "card": "Relative cost of fixing a defect",
+        "items": [
+          "Found during <strong>design</strong>: cost 1&times;",
+          "Found during <strong>implementation</strong>: 6.5&times;",
+          "Found during <strong>testing</strong>: 15&times;",
+          "Found in <strong>maintenance</strong> (i.e. in the field): <strong>100&times;</strong>",
+          "Source: Dawson, Burrell, Rahim &amp; Brewster (2010), <em>Integrating Software Assurance into the SDLC</em>",
+          "In aviation, 'found in the field' can mean an accident investigation &mdash; the 100&times; becomes incalculable"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "3",
+    "tag": "",
+    "title": "'Perfect' Software Can Kill",
+    "desc": "Correct code is not the same as a safe system",
+    "body": [
+      {
+        "img": "accidental-death-causes.png",
+        "alt": "Pie chart of computer-related accidental deaths: 91.9% human-computer interaction problems",
+        "height": 280
+      },
+      {
+        "card": "Computer-related accidental deaths (MacKenzie, 1994)",
+        "items": [
+          "<strong>91.9%</strong> — human-computer interaction problems",
+          "<strong>4.5%</strong> — physical causes",
+          "<strong>2.8%</strong> — software errors",
+          "<strong>0.8%</strong> — other",
+          "The software can meet every requirement and still contribute to a fatal accident &mdash; if the requirements or the interaction design are wrong",
+          "Source: Donald MacKenzie, <em>Computer-related accidental death</em>, Science and Public Policy 21(4), 1994"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "3",
+    "tag": "",
+    "title": "'Out of Control' — Where Failures Are Born",
+    "desc": "UK Health & Safety Executive study of control system failures (HSG 238, 2003)",
+    "body": [
+      {
+        "img": "control-system-failure-causes.png",
+        "alt": "Pie chart of control system failure causes by lifecycle phase, specification dominates with 44%",
+        "height": 290
+      },
+      {
+        "card": "Primary cause by lifecycle phase",
+        "items": [
+          "<strong>44%</strong> — specification",
+          "<strong>20%</strong> — changes after commissioning",
+          "<strong>15%</strong> — design and implementation",
+          "<strong>15%</strong> — operation and maintenance",
+          "<strong>6%</strong> — installation and commissioning",
+          "Almost two thirds of failures are created <strong>before or after</strong> the code is written &mdash; in the spec, or in uncontrolled change"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "3",
+    "tag": "important",
+    "title": "Safe Software Design: What It Is (and Isn't)",
+    "desc": "The uncomfortable conclusion from the failure statistics",
+    "body": [
+      {
+        "card": "Safe software design ISN'T so much about:",
+        "items": [
+          "Design and coding",
+          "Fault counts in code",
+          "Unit testing"
+        ],
+        "warn": true
+      },
+      {
+        "card": "Safe software design IS about:",
+        "items": [
+          "<strong>Understanding context</strong> — what system, what hazards, what environment",
+          "<strong>Requirements / specification</strong> — where 44% of failures are born",
+          "<strong>Understanding the human-control interaction</strong> — where 91.9% of fatal problems live",
+          "<strong>Controlling change</strong> — the second-largest failure source"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "3",
+    "tag": "",
+    "title": "Trust Levels & Categories: SIL",
+    "desc": "Safety Integrity Levels grade how much you must trust the software",
+    "body": [
+      {
+        "img": "sil-levels.png",
+        "alt": "Table of SIL levels 0-4 with requirements for specification, languages, configuration control, testing and assessment",
+        "height": 300
+      },
+      {
+        "card": "Reading the table",
+        "items": [
+          "<strong>SIL 0</strong> = ISO 9001 process only — <em>no safety claim at all; an accident is quite likely to happen</em>",
+          "<strong>SIL 1–2</strong> — structured methods, controlled changes, functional testing and reviews",
+          "<strong>SIL 3–4</strong> — formal specification, restricted language subsets, validated/proven compilers, static analysis up to 100% testing &amp; proof",
+          "The higher the level, the stronger the claim: at the top end, <em>this software may hold human lives</em>"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "3",
+    "tag": "",
+    "title": "Principle 1: Define the Safety Requirements",
+    "desc": "Software safety requirements must address the software's contribution to system hazards",
+    "body": [
+      {
+        "card": "The principle",
+        "items": [
+          "Software safety requirements <strong>must be defined</strong> to consider the software's contribution to system hazards",
+          "DO-178B/C <strong>assumes</strong> a system-level safety analysis has already derived safety requirements and allocated them to software",
+          "A system-level standard judges the criticality of software's contribution to hazards and expresses it as a quoted level",
+          "<strong>ARP 4754A</strong> (civil aerospace) allocates a software <strong>Development Assurance Level (DAL)</strong>",
+          "<strong>Mil-Std-882E</strong> (military) allocates a Level of Rigour, translatable into a DO-178 DAL"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "3",
+    "tag": "",
+    "title": "Principle 2: Preserve Intent During Decomposition",
+    "desc": "The intent of safety requirements must survive requirement decomposition",
+    "body": [
+      {
+        "img": "lufthansa-2904-warsaw.png",
+        "alt": "Burned-out Lufthansa Airbus A320 after the Warsaw runway overrun, 1993",
+        "height": 250,
+        "caption": "Lufthansa Flight 2904, Warsaw, 14 September 1993: thrust reversers and spoilers were locked out because the 'aircraft on ground' logic — a decomposed requirement — didn't match the actual landing conditions."
+      },
+      {
+        "card": "What DO-178C says",
+        "items": [
+          "DO-178 strongly emphasizes <strong>traceability</strong> through all software development stages",
+          "Decomposed requirements must be <strong>validated</strong>, e.g. through requirements review",
+          "Recording traceability information is required &mdash; but <strong>necessary, not sufficient</strong>: a written justification of the traceability is what actually preserves intent"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "3",
+    "tag": "",
+    "title": "Principle 3: Satisfy the Requirements",
+    "desc": "Safety requirements that exist on paper only are worthless",
+    "body": [
+      {
+        "img": "mars-polar-lander.png",
+        "alt": "Artist rendering of the Mars Polar Lander on the Martian surface",
+        "height": 250,
+        "caption": "Mars Polar Lander, lost on arrival 3 December 1999: the touchdown-detection software satisfied its spec — but a known transient signal on leg deployment shut the engines down 40 meters above the surface."
+      },
+      {
+        "card": "What DO-178C says",
+        "items": [
+          "This principle is addressed well by DO-178: it requires <strong>verification evidence</strong> demonstrating requirements under <strong>normal and fault conditions</strong>",
+          "DO-178 was historically heavily test-focused &mdash; <strong>DO-178C permits a wider range of verification techniques</strong>: analysis, reviews, formal methods, not just testing"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "3",
+    "tag": "",
+    "title": "Principle 4: Identify & Mitigate Hazardous Behavior",
+    "desc": "The software itself can introduce new failure modes",
+    "body": [
+      {
+        "img": "patriot-missile.png",
+        "alt": "Patriot missile launch",
+        "height": 250,
+        "caption": "Dhahran, 25 February 1991: a Patriot battery failed to intercept a Scud missile — a floating-point time-accumulation error after 100 hours of continuous operation. 28 soldiers died, 98 were injured."
+      },
+      {
+        "card": "What DO-178C says",
+        "items": [
+          "Software design process activities 'could introduce modes of failure into the software or, conversely, preclude others'",
+          "In such cases additional data must be defined as <strong>derived requirements</strong> and fed back to the <strong>system safety assessment process</strong>",
+          "An objective of DO-178 verification is to remove errors that would lead to unacceptable failure conditions",
+          "Watch out: the loop back to system safety is where projects often break down in practice"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "3",
+    "tag": "",
+    "title": "Principle 4+1: Confidence Proportionate to Risk",
+    "desc": "The more the software can hurt, the more evidence you owe",
+    "body": [
+      {
+        "card": "The principle",
+        "items": [
+          "Confidence in the implementation of the software safety principles must be <strong>commensurate with the software's contribution to system risk</strong>",
+          "In DO-178C this is captured through the <strong>DAL mechanism</strong>: the assigned level tailors how many objectives must be demonstrated (with independence, with formal rigor, ...)",
+          "Caveat: the system-level analysis determines the DAL but does <strong>not necessarily hand the developer derived safety requirements</strong> &mdash; the level alone is not a specification"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "3",
+    "tag": "industry",
+    "title": "Case Study: Boeing 777 Fly-By-Wire",
+    "desc": "What 'confidence commensurate with risk' looks like in hardware and software",
+    "body": [
+      {
+        "card": "The architecture",
+        "items": [
+          "The Boeing 777 flight control system is a full <strong>fly-by-wire (FBW)</strong> system with extreme integrity and availability requirements",
+          "<strong>Triple redundancy for every resource</strong>: computing system, electrical power, hydraulic power and communication path",
+          "The <strong>Primary Flight Computer (PFC)</strong> uses <strong>triple modular redundancy (TMR)</strong> — and additionally <strong>N-version diversity</strong>",
+          "Three similar channels (same part number), each containing <strong>three dissimilar computing lanes</strong> — different processors, different compilers",
+          "Communication runs over the <strong>ARINC 629</strong> data bus",
+          "One software bug in one lane cannot silently take down the flight controls — that is Principle 4+1 built in metal and code"
+        ]
+      },
+      {
+        "resource": {
+          "title": "Deep dive",
+          "links": [
+            { "url": "https://ieeexplore.ieee.org/document/495891", "label": "Yeh: Triple-Triple Redundant 777 Primary Flight Computer (IEEE)" }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "3",
+    "tag": "takeaway",
+    "title": "Module 3: Key Takeaways",
+    "body": [
+      {
+        "card": "",
+        "items": [
+          "Aviation software lives under <strong>DO-178C</strong> (airborne), <strong>ED-109</strong> (ground/ATM) and <strong>ED-153</strong> (air navigation services)",
+          "Defects get ~<strong>100&times; more expensive</strong> in the field &mdash; standards force the work to the front of the lifecycle",
+          "<strong>91.9%</strong> of computer-related accidental deaths come from human-computer interaction, only 2.8% from software errors &mdash; safe design means context, requirements, interaction and change control",
+          "<strong>44%</strong> of control-system failures are born in the specification",
+          "The <strong>4+1 principles</strong>: define safety requirements, preserve intent, satisfy them, mitigate hazardous behavior &mdash; with confidence proportionate to risk (DALs)",
+          "The Boeing 777 FBW shows the principles physically: triple-triple redundancy, N-version diversity, ARINC 629"
+        ]
+      }
+    ]
+  }
+]

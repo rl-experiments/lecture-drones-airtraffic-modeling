@@ -1,0 +1,122 @@
+{
+  "title": "Innovative Technologies for Drones: Air Traffic Modeling",
+  "modules": {
+    "0": { "label": "Intro", "color": "#737373" },
+    "1": { "label": "Module 1", "color": "#f97316" },
+    "2": { "label": "Module 2", "color": "#eab308" },
+    "3": { "label": "Module 3", "color": "#dc2626" },
+    "4": { "label": "Module 4", "color": "#3b82f6" },
+    "5": { "label": "Module 5", "color": "#14b8a6" },
+    "6": { "label": "Module 6", "color": "#22c55e" },
+    "7": { "label": "Module 7", "color": "#8b5cf6" },
+    "8": { "label": "Module 8", "color": "#ec4899" },
+    "9": { "label": "Module 9", "color": "#ef4444" },
+    "10": { "label": "Module 10", "color": "#f59e0b" },
+    "11": { "label": "Module 11", "color": "#06b6d4" },
+    "12": { "label": "Module 12", "color": "#84cc16" },
+    "13": { "label": "Module 13", "color": "#a855f7" },
+    "14": { "label": "Module 14", "color": "#64748b" }
+  },
+  "bg_rotation": [2, 3, 5, 6, 7, 4],
+  "tocGroups": [
+    { "label": "Introduction", "mods": ["0", "1"] },
+    { "label": "Assignments", "mods": ["2"] },
+    { "label": "Safety & Aviation Data", "mods": ["3", "4"] },
+    { "label": "Architecture & Technologies", "mods": ["5", "6", "7", "8", "9", "10"] },
+    { "label": "Simulation & Data", "mods": ["11", "12", "13"] },
+    { "label": "Process & Wrap-up", "mods": ["14"] }
+  ],
+  "toc": [
+    {
+      "mod": "0",
+      "title": "Course Overview",
+      "topics": "Lecturer, Scope, Organization, Grading"
+    },
+    {
+      "mod": "1",
+      "title": "Drones & Air Traffic: Introduction",
+      "topics": "Live Tracking, Near Misses, EU Regulation 2024, A1/A2/A3"
+    },
+    {
+      "mod": "2",
+      "title": "Seminar Topics & Competition",
+      "topics": "16 Presentation Topics, BlueSky Collision-Avoidance Contest"
+    },
+    {
+      "mod": "3",
+      "title": "Software Safety Standards",
+      "topics": "DO-178C, ED-109/ED-153, SIL, 4+1 Principles, Boeing 777 FBW"
+    },
+    {
+      "mod": "4",
+      "title": "Aeronautical Information Exchange",
+      "topics": "NOTAM, METAR, AIXM, ASTERIX, OLDI"
+    },
+    {
+      "mod": "5",
+      "title": "Control & Monitoring Systems",
+      "topics": "UTM, Fleet Control, Sensor Fusion"
+    },
+    {
+      "mod": "6",
+      "title": "RESTful APIs: OpenAPI",
+      "topics": "Specification, YAML, Swagger UI, Code Generation"
+    },
+    {
+      "mod": "7",
+      "title": "Reactive Java: Spring WebFlux",
+      "topics": "Reactive Streams, Mono/Flux, R2DBC, WebClient"
+    },
+    {
+      "mod": "8",
+      "title": "Message Queues",
+      "topics": "JMS, Queues vs. Topics, ActiveMQ, RabbitMQ, Kafka"
+    },
+    {
+      "mod": "9",
+      "title": "Design Pattern: CQRS",
+      "topics": "Commands vs. Queries, ATC Example, Trade-offs"
+    },
+    {
+      "mod": "10",
+      "title": "Karate: Test Automation",
+      "topics": "Gherkin Syntax, API Tests, CI/CD Integration"
+    },
+    {
+      "mod": "11",
+      "title": "Simulation Environments",
+      "topics": "BlueSky ATM Simulator, Validation, Competition Setup"
+    },
+    {
+      "mod": "12",
+      "title": "Real-Time Data in GIS",
+      "topics": "Geodata, Route Planning, Visualization, DiPUL"
+    },
+    {
+      "mod": "13",
+      "title": "Optimizing Data Transmission",
+      "topics": "QUIC, HTTP/3, URLLC, Edge Computing, RL"
+    },
+    {
+      "mod": "14",
+      "title": "Agile Processes & Conclusion",
+      "topics": "DevOps, CI/CD, Future Outlook, Standards"
+    }
+  ],
+  "cover": {
+    "type": "cover",
+    "script": { "name": "drone", "opts": { "perched": true, "anchor": ".cover-card", "anchorOffsetX": 105, "anchorOffsetY": -18, "scale": 1.05 } },
+    "bg": 2,
+    "h1": "Innovative Technologies for Drones",
+    "lead": "Air Traffic Modeling",
+    "sub": "<span style=\"font-weight:600;font-size:22px;color:var(--foreground)\">Dennis Piskovatskov</span><br><span style=\"font-size:17px\">Master's Program &middot; Albstadt-Sigmaringen University of Applied Sciences, Germany</span>",
+    "badges": [
+      "NOTAM / METAR / AIXM",
+      "DO-178C / ED-153",
+      "OpenAPI",
+      "Spring WebFlux",
+      "CQRS",
+      "*BlueSky Simulator"
+    ]
+  }
+}

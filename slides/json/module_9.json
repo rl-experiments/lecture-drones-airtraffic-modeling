@@ -1,0 +1,113 @@
+[
+  {
+    "type": "cover",
+    "script": { "name": "drone", "opts": { "perched": true, "anchor": ".cover-card", "anchorOffsetX": -70, "anchorOffsetY": -10, "scale": 0.95 } },
+    "bg": 6,
+    "h1": "Module 9",
+    "lead": "Design Pattern: CQRS",
+    "sub": "Technology block (d): Command Query Responsibility Segregation",
+    "badges": [
+      "Commands",
+      "Queries",
+      "Event Sourcing",
+      "*ATC Example"
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "9",
+    "tag": "",
+    "title": "What Is CQRS?",
+    "desc": "Split the write side from the read side — and optimize each on its own",
+    "body": [
+      {
+        "card": "The pattern",
+        "items": [
+          "CQRS separates the responsibilities of <strong>commands (write operations)</strong> and <strong>queries (read operations)</strong> into two distinct models",
+          "The write model guards consistency and business rules",
+          "The read model is shaped purely for fast, convenient queries",
+          "Both are synchronized — often through events on a message bus (see Module 8)"
+        ]
+      },
+      {
+        "img": "cqrs-flow.png",
+        "alt": "CQRS flow: write requests persist to the write DB, change data capture feeds a message bus, a transformation service builds the read store",
+        "height": 280
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "9",
+    "tag": "",
+    "title": "CQRS in Air Traffic Control",
+    "desc": "An ATC system processing airspace information — the textbook fit",
+    "body": [
+      {
+        "card": "Two kinds of operations",
+        "items": [
+          "<strong>Commands</strong> — change or create airspace state: issue a takeoff clearance, adjust flight zones",
+          "<strong>Queries</strong> — retrieve the current information about the airspace"
+        ]
+      },
+      {
+        "card": "Applying the pattern",
+        "items": [
+          "<strong>The write model</strong> stores the current state of the airspace and guarantees all data stays consistent",
+          "<strong>The read model</strong> serves fast airspace queries without putting load on the write model",
+          "Controllers get instant situational awareness; clearance processing keeps its transactional integrity"
+        ]
+      },
+      {
+        "resource": {
+          "title": "Working example",
+          "links": [
+            { "url": "https://github.com/reinforcement-learning-experiments/event-sourcing-spring-boot", "label": "event-sourcing-spring-boot — CQRS + event sourcing demo" }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "9",
+    "tag": "",
+    "title": "CQRS Advantages",
+    "body": [
+      {
+        "card": "",
+        "items": [
+          "<strong>&#10004; Scalability</strong> — read and write models scale independently; the read model is tuned for fast queries while the write model stays focused on consistency and safety",
+          "<strong>&#10004; Performance</strong> — air traffic controllers need instant airspace queries; a separate read model serves real-time data without slowing down write processing",
+          "<strong>&#10004; Reliability &amp; security</strong> — only authorized users can change flight routes, while others get read-only access to flight information",
+          "<strong>&#10004; Flexibility</strong> — different technologies per side: e.g. a relational database for commands, a memory-optimized store for queries"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "9",
+    "tag": "mistake",
+    "title": "CQRS Trade-offs",
+    "desc": "The pattern is powerful — and it charges for it",
+    "body": [
+      {
+        "card": "What you pay",
+        "items": [
+          "<strong>&#10008; Complexity</strong> — separating read and write models complicates the system: synchronization mechanisms become mandatory infrastructure",
+          "<strong>&#10008; Cost</strong> — multiple databases and a split codebase raise development and maintenance effort",
+          "<strong>&#10008; Eventual consistency</strong> — read data lags write data by design; brief inconsistencies are possible",
+          "In a critical environment like flight monitoring, that lag needs <strong>explicit countermeasures</strong>: staleness indicators, bounded lag monitoring, fallback to the write model for safety-relevant queries"
+        ],
+        "warn": true
+      },
+      {
+        "card": "Rule of thumb",
+        "items": [
+          "Use CQRS where read and write loads genuinely diverge — not as a default architecture"
+        ]
+      }
+    ]
+  }
+]

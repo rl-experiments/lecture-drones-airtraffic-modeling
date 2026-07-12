@@ -1,0 +1,88 @@
+[
+  {
+    "type": "cover",
+    "script": { "name": "drone", "opts": { "perched": true, "anchor": ".cover-card", "anchorOffsetX": -60, "anchorOffsetY": -25, "scale": 1 } },
+    "bg": 4,
+    "h1": "Module 11",
+    "lead": "Simulation Environments for Validation",
+    "sub": "Where your collision-avoidance code gets to fail safely",
+    "badges": [
+      "BlueSky",
+      "TU Delft",
+      "Real-Time Simulation",
+      "*Competition Arena"
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "11",
+    "tag": "",
+    "title": "Why Simulate?",
+    "desc": "Virtual test environments for drone flights and real-time simulation",
+    "body": [
+      {
+        "card": "The case for simulation",
+        "items": [
+          "You cannot flight-test a deconfliction algorithm against 200 real aircraft — <strong>simulation is the only safe laboratory</strong>",
+          "<strong>Virtual test environments</strong> reproduce airspace structure, traffic and aircraft performance models",
+          "<strong>Real-time simulation</strong> lets humans and systems interact with the scenario as it unfolds; fast-time simulation runs thousands of scenarios overnight",
+          "Remember Module 3: verification evidence under <strong>normal and fault conditions</strong> — simulation is how you produce it cheaply",
+          "Scenario coverage: rare events (link loss, sensor failure, rogue drones) can be triggered on demand"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "11",
+    "tag": "",
+    "title": "BlueSky: The Open ATM Simulator",
+    "desc": "TU Delft's open-source air traffic simulator — and our competition arena",
+    "body": [
+      {
+        "img": "bluesky-traffic-simulation.png",
+        "alt": "BlueSky simulator radar view with dense air traffic over the Balkans",
+        "height": 340,
+        "caption": "Traffic simulation using the BlueSky simulator."
+      },
+      {
+        "card": "What you get",
+        "items": [
+          "Open source (GPL), written in <strong>Python</strong> — easy to read, easy to extend",
+          "Scenario scripting, aircraft performance models, radar-style visualization",
+          "A <strong>plugin architecture</strong> — including the <code>asas</code> plugins for conflict detection &amp; resolution",
+          "Used in actual ATM research at TU Delft and beyond"
+        ]
+      },
+      {
+        "resource": {
+          "title": "Source",
+          "links": [
+            { "url": "https://github.com/TUDelft-CNS-ATM/bluesky", "label": "TUDelft-CNS-ATM/bluesky (GitHub)" }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "11",
+    "tag": "exercise",
+    "title": "Competition Setup: Your Turn",
+    "desc": "Build a collision-avoidance system, survive longer than everyone else",
+    "body": [
+      {
+        "code": "<span class=\"kw\"># get the simulator</span>\npip install bluesky-simulator[full]\n<span class=\"kw\"># or from source:</span>\ngit clone https://github.com/TUDelft-CNS-ATM/bluesky.git\n\n<span class=\"kw\"># start the GUI</span>\nbluesky\n\n<span class=\"kw\"># where your work goes</span>\nbluesky/plugins/        &lt;-- your plugin lives here\nbluesky/plugins/asas/   &lt;-- study these first"
+      },
+      {
+        "card": "Rules of the game",
+        "items": [
+          "Work in your groups from Module 2 — one plugin per group",
+          "Same traffic scenario for everyone; your system steers the drones",
+          "<strong>Scoring: time until first collision</strong> — the longest-surviving airspace wins",
+          "Honest engineering beats parameter tuning: be ready to <strong>explain</strong> your approach (detection horizon, resolution maneuver, priorities)"
+        ]
+      }
+    ]
+  }
+]

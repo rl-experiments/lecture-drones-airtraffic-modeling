@@ -1,0 +1,115 @@
+[
+  {
+    "type": "cover",
+    "script": { "name": "drone", "opts": { "perched": true, "anchor": ".cover-card", "anchorOffsetX": -55, "anchorOffsetY": -20, "scale": 0.95 } },
+    "bg": 4,
+    "h1": "Module 5",
+    "lead": "Efficient Control & Monitoring Systems",
+    "sub": "UTM — the air traffic control that has no controllers",
+    "badges": [
+      "UTM",
+      "U-space",
+      "Fleet Control",
+      "Sensor Fusion",
+      "ADS-B / FLARM"
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "5",
+    "tag": "",
+    "title": "UAS Traffic Management (UTM)",
+    "desc": "The ecosystem that keeps drones, aircraft and authorities in one picture",
+    "body": [
+      {
+        "img": "utm-ecosystem.png",
+        "alt": "UTM ecosystem diagram: drone, mobile network, drone detection, GBSAS, radar, UTM and ATM systems",
+        "height": 0,
+        "fill": true
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "5",
+    "tag": "",
+    "title": "Who Talks to Whom in UTM",
+    "desc": "Reading the ecosystem diagram as a data-flow problem",
+    "body": [
+      {
+        "table": {
+          "headers": ["Participant", "Sends", "To whom"],
+          "rows": [
+            ["<strong>Drone</strong>", "Location + payload data", "Mobile network &rarr; UTM; command &amp; control back to the operator"],
+            ["<strong>Drone operator</strong> (UTM app)", "Mission planning requests", "UTM — receives clearance and conflict warnings in return"],
+            ["<strong>Drone detection systems</strong>", "Location data of non-cooperative drones", "UTM"],
+            ["<strong>GBSAS</strong> (ground-based situational awareness: FLARM, ADS-B)", "Location data of cooperative traffic", "UTM"],
+            ["<strong>Radar</strong>", "Location data of manned aviation", "ATM &rarr; shared with UTM"],
+            ["<strong>UTM system</strong>", "Clearances, conflict warnings, airspace status", "DFS, authorities, pilots — and the ATM system"]
+          ]
+        }
+      },
+      {
+        "card": "Key insight",
+        "items": [
+          "UTM is not a tower with people — it is a <strong>federation of data services</strong>",
+          "Every arrow in the diagram is an interface: this is why Modules 6–10 are about APIs, streaming, messaging and testing"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "5",
+    "tag": "",
+    "title": "Automated Fleet Control",
+    "desc": "Operating one drone is a hobby — operating five hundred is a systems problem",
+    "body": [
+      {
+        "card": "What a fleet control system does",
+        "items": [
+          "<strong>Mission planning</strong> — routes computed against geo-zones, weather, battery range and payload",
+          "<strong>Geofencing</strong> — hard boundaries enforced on board and monitored on the ground",
+          "<strong>Telemetry ingestion</strong> — position, battery, health of every vehicle, continuously",
+          "<strong>Tasking &amp; scheduling</strong> — assigning vehicles to missions, handling battery swaps and hand-overs",
+          "<strong>Contingency management</strong> — lost link, low battery, weather change: pre-planned responses, not improvisation"
+        ]
+      },
+      {
+        "card": "Design consequence",
+        "items": [
+          "One operator supervises many drones — the software must escalate <strong>only</strong> what needs a human",
+          "Everything else is automation: exactly the 'efficient control &amp; monitoring' this module is named after"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "5",
+    "tag": "",
+    "title": "Sensor Fusion for Precise Control",
+    "desc": "No single sensor is good enough — the mix is the magic",
+    "body": [
+      {
+        "table": {
+          "headers": ["Sensor", "Strength", "Weakness"],
+          "rows": [
+            ["GNSS (GPS/Galileo)", "Absolute position", "Jamming, urban canyons, GPS-unreliable zones (remember the NOTAM!)"],
+            ["IMU (gyro + accelerometer)", "High-rate attitude &amp; acceleration", "Drifts within seconds without correction"],
+            ["Barometer", "Cheap, reliable altitude", "Weather-dependent, relative only"],
+            ["Vision / optical flow", "Position relative to terrain, obstacle detection", "Needs light and texture; compute-hungry"],
+            ["LIDAR / ultrasound", "Precise short-range distances", "Range, weight, cost"]
+          ]
+        }
+      },
+      {
+        "card": "",
+        "items": [
+          "A <strong>Kalman-filter</strong> (or similar estimator) fuses all inputs into one consistent state estimate",
+          "Fusion buys <strong>redundancy</strong>: when GNSS degrades, vision + IMU carry the drone — a direct application of Module 3's safety thinking"
+        ]
+      }
+    ]
+  }
+]

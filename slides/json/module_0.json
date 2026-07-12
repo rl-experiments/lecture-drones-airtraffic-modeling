@@ -1,0 +1,102 @@
+[
+  {
+    "type": "content",
+    "tag": "",
+    "title": "Table of Contents",
+    "body": "toc"
+  },
+  {
+    "type": "cover",
+    "script": { "name": "drone", "opts": { "perched": true, "anchor": ".cover-card", "anchorOffsetX": -60, "anchorOffsetY": -10, "scale": 0.9 } },
+    "bg": 6,
+    "h1": "Intro",
+    "lead": "Course Overview & Organization",
+    "sub": "What this elective module is about &mdash; and what is expected of you",
+    "badges": [
+      "WPM Master Module",
+      "Hochschule Sigmaringen",
+      "Presentations",
+      "*BlueSky Competition"
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "0",
+    "tag": "",
+    "title": "About the Lecturer",
+    "desc": "Aviation and software &mdash; a lifelong combination",
+    "body": [
+      {
+        "img": "ultralight-1986.jpg",
+        "alt": "Motorized ultralight aircraft, 1986",
+        "height": 330,
+        "caption": "First contact with aviation technology: a home-built motorized ultralight, 1986."
+      },
+      {
+        "card": "Background",
+        "items": [
+          "In information technology since the age of five &mdash; decades of hands-on experience",
+          "Software <strong>backend developer, lead and architect</strong> across many industries",
+          "Universities, major banks, insurance companies, government agencies, leading car manufacturers, large transport networks, startups, medical institutions &mdash; and <strong>aviation safety</strong>",
+          "This breadth is exactly what air traffic systems demand: they combine safety, data, real-time processing and regulation"
+        ]
+      },
+      {
+        "resource": {
+          "title": "Connect",
+          "links": [
+            { "url": "https://www.linkedin.com/in/tigraff/", "label": "LinkedIn Profile" }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "0",
+    "tag": "",
+    "title": "What This Lecture Covers",
+    "desc": "From regulation to running code: the full stack of drone air traffic",
+    "body": [
+      {
+        "card": "The journey",
+        "items": [
+          "<strong>Introduction</strong> &mdash; live flight tracking, drone regulation, the EU drone regulation 2024",
+          "<strong>Your assignments</strong> &mdash; seminar presentation topics and the BlueSky collision-avoidance competition",
+          "<strong>Software safety standards</strong> &mdash; DO-178C, ED-109, ED-153, and why 'perfect' software can still kill",
+          "<strong>Aeronautical information exchange</strong> &mdash; NOTAM, METAR, AIXM, ASTERIX, OLDI",
+          "<strong>Efficient control &amp; monitoring</strong> &mdash; UTM, automated fleet control, sensor fusion",
+          "<strong>Technologies</strong> &mdash; OpenAPI, Java Reactive (Spring WebFlux), message queues, CQRS, Karate test automation",
+          "<strong>Simulation &amp; data</strong> &mdash; BlueSky simulation environments, GIS integration, low-latency data transmission",
+          "<strong>Process</strong> &mdash; agile development in software &amp; systems engineering, conclusion &amp; outlook"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "0",
+    "tag": "important",
+    "title": "Course Organization & Grading",
+    "desc": "Two deliverables: a seminar presentation and the competition entry",
+    "body": [
+      {
+        "table": {
+          "headers": ["Deliverable", "What it is", "Where it is defined"],
+          "rows": [
+            ["<strong>Seminar presentation</strong>", "Pick one of the 16 topics and present it in depth", "Module 2"],
+            ["<strong>Competition entry</strong>", "In groups: build a collision-avoidance system for the BlueSky simulator", "Modules 2 &amp; 11"]
+          ]
+        }
+      },
+      {
+        "card": "Ground rules",
+        "items": [
+          "Topics are assigned first come, first served &mdash; choose early",
+          "The competition is scored objectively: the longest-surviving airspace wins",
+          "Both deliverables count towards the final grade &mdash; expectations are spelled out in Module 2"
+        ]
+      }
+    ]
+  }
+]

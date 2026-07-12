@@ -1,0 +1,221 @@
+[
+  {
+    "type": "cover",
+    "script": { "name": "drone", "opts": { "perched": true, "anchor": ".cover-card", "anchorOffsetX": 95, "anchorOffsetY": 0, "scale": 1 } },
+    "bg": 3,
+    "h1": "Module 1",
+    "lead": "Drones & Air Traffic: Introduction",
+    "sub": "Why unmanned aviation needs traffic modeling at all",
+    "badges": [
+      "FlightAware",
+      "EU 2019/947",
+      "A1 / A2 / A3",
+      "C0–C4",
+      "*Live Demo"
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "1",
+    "tag": "demo",
+    "title": "Live Flight Tracking",
+    "desc": "Every airliner around you is broadcasting its position right now",
+    "body": [
+      {
+        "img": "flightaware-live-map.png",
+        "alt": "FlightAware live map with hundreds of aircraft",
+        "height": 380
+      },
+      {
+        "card": "What you are looking at",
+        "items": [
+          "Live map of all aircraft in the sky &mdash; near you and anywhere else in the world",
+          "Positions come from <strong>ADS-B</strong> transponders, radar and receiver networks",
+          "Every symbol carries flight ID, altitude, speed and route &mdash; click one and follow it",
+          "Keep this picture in mind: <strong>drones must merge into exactly this traffic</strong>"
+        ]
+      },
+      {
+        "resource": {
+          "title": "Try it yourself",
+          "links": [
+            { "url": "https://de.flightaware.com", "label": "flightaware.com — live flight tracking" }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "1",
+    "tag": "industry",
+    "title": "A Near Miss at Nuremberg Airport",
+    "desc": "03.10.2020 — a drone passes 'within a few meters' of a passenger aircraft",
+    "body": [
+      {
+        "img": "drone-near-miss-news.png",
+        "alt": "News report: drone comes dangerously close to passenger aircraft",
+        "height": 300
+      },
+      {
+        "card": "What happened",
+        "items": [
+          "A pilot on final approach reported a sudden drone sighting at 11:00 in the morning",
+          "The multicopter hovered at <strong>several hundred meters altitude</strong>, about 8 km from Nuremberg airport",
+          "It obstructed the landing approach of an aircraft carrying <strong>170 passengers and crew</strong>",
+          "The aircraft landed safely &mdash; but only because the drone happened not to be in the flight path",
+          "This is why drone flight near airports is strictly regulated &mdash; and why we model drone traffic"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "1",
+    "tag": "",
+    "title": "Why Drone Air Traffic Matters",
+    "desc": "Small aircraft, serious kinetic energy",
+    "body": [
+      {
+        "img": "drone-wing-collision-test.gif",
+        "alt": "Wind tunnel test of a drone striking an aircraft wing",
+        "height": 260,
+        "caption": "University of Dayton Research Institute: a consumer quadcopter fired at an aircraft wing tears deep into the structure — unlike a bird of the same mass."
+      },
+      {
+        "card": "The bigger picture",
+        "items": [
+          "Drone numbers grow far faster than manned aviation &mdash; logistics, agriculture, inspection, emergency response",
+          "Low-altitude airspace over cities was <strong>never designed for traffic</strong> &mdash; no controllers, no routes, no separation services",
+          "A 1 kg drone hitting an airliner wing or engine is a structural threat, not an inconvenience",
+          "Conclusion: unmanned traffic needs its own <strong>rules, data exchange and traffic management</strong> &mdash; the subject of this lecture"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "1",
+    "tag": "",
+    "title": "How Are Drones Regulated Worldwide?",
+    "desc": "From 'unrestricted' to outright bans — a fragmented global picture",
+    "body": [
+      {
+        "img": "drone-regulation-worldmap.jpg",
+        "alt": "World map of drone regulation by country (Statista/Surfshark)",
+        "height": 420
+      },
+      {
+        "card": "",
+        "items": [
+          "Regulation ranges from <strong>unrestricted</strong> (green) over line-of-sight requirements to <strong>effective or outright bans</strong>",
+          "Many countries still have <strong>no legislation at all</strong> &mdash; a problem for international operators",
+          "The EU harmonized its rules in 2021: one framework for all member states &mdash; next slides"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "1",
+    "tag": "",
+    "title": "The EU Drone Regulation Framework",
+    "desc": "EU 2019/947 & 2019/945 — one rulebook, three risk categories, five drone classes",
+    "body": [
+      {
+        "table": {
+          "headers": ["Category", "Risk", "Typical operation", "Requirements"],
+          "rows": [
+            ["<strong>Open</strong>", "Low", "Hobby &amp; light commercial flights in subcategories A1 / A2 / A3", "No authorization; class marking C0–C4, max. 120 m altitude, visual line of sight"],
+            ["<strong>Specific</strong>", "Medium", "BVLOS flights, heavier drones, urban operations (STS-01 / STS-02)", "Operational authorization based on risk assessment (SORA)"],
+            ["<strong>Certified</strong>", "High", "Passenger transport, dangerous goods, large cargo drones", "Certified aircraft, licensed remote pilots — like manned aviation"]
+          ]
+        }
+      },
+      {
+        "card": "Since 2024",
+        "items": [
+          "New drones are divided into <strong>5 risk classes (C0–C4)</strong> &mdash; certified and labeled by the manufacturer",
+          "<strong>Legacy drones</strong> (built before 1.1.2024, no class marking) fall under transitional rules",
+          "Applies EU-wide, since 2023 also in Switzerland; national rules still add local specifics"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "1",
+    "tag": "",
+    "title": "EU Drone Regulation 2024 at a Glance",
+    "desc": "Classes, altitudes, distances, insurance, registration and training in one chart",
+    "body": [
+      {
+        "img": "eu-drone-regulation-2024.jpg",
+        "alt": "EU drone regulation 2024 overview chart with classes C0-C6 and categories A1-A3, STS and BOS",
+        "height": 470
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "1",
+    "tag": "",
+    "title": "Open Category: A1 / A2 / A3",
+    "desc": "The three subcategories decide how close to people you may fly",
+    "body": [
+      {
+        "table": {
+          "headers": ["Subcategory", "Rule of thumb", "Details"],
+          "rows": [
+            ["<strong>A1</strong> — fly close to people", "Overflight of individuals possible, never over crowds", "No flight over open-air assemblies and no deliberate flight over uninvolved persons; if an overflight happens unexpectedly, it must be ended as quickly as possible"],
+            ["<strong>A2</strong> — fly at a safe distance", "Min. <strong>30 m</strong> horizontal distance to uninvolved persons", "May be reduced to <strong>5 m</strong> in exceptional cases when the drone's low-speed mode is active"],
+            ["<strong>A3</strong> — fly far from people", "No uninvolved persons in the entire flight area", "Additionally min. <strong>150 m</strong> distance to residential, commercial, industrial or recreational areas"]
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "1",
+    "tag": "",
+    "title": "The Remote Pilot Certificate",
+    "desc": "Flying legally requires proof of competency — the 'drone driver's license'",
+    "body": [
+      {
+        "img": "easa-remote-pilot-certificate.jpg",
+        "alt": "EASA remote pilot certificate of competency card",
+        "height": 300
+      },
+      {
+        "card": "How to get certified",
+        "items": [
+          "<strong>A1/A3 proof of competency</strong>: online training + online exam at the national aviation authority (LBA in Germany)",
+          "<strong>A2 certificate of competency</strong>: additional theory exam &mdash; needed to fly closer to people",
+          "<strong>STS</strong>: standard scenarios in the Specific category require dedicated theory and practice",
+          "Operators must register and label their drones (e-ID); liability insurance is mandatory in Germany"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "1",
+    "tag": "takeaway",
+    "title": "Challenges of Air Traffic Modeling",
+    "desc": "What makes drone traffic a hard modeling problem",
+    "body": [
+      {
+        "card": "The core challenges",
+        "items": [
+          "<strong>Heterogeneous traffic</strong> &mdash; manned and unmanned aircraft with wildly different speeds, sizes and behavior share one airspace",
+          "<strong>Density</strong> &mdash; delivery and inspection scenarios put hundreds of drones over a single city district",
+          "<strong>Real-time data</strong> &mdash; positions, weather, geo-zones and clearances must flow with sub-second latency",
+          "<strong>Deconfliction</strong> &mdash; collisions must be predicted and avoided automatically, without human controllers",
+          "<strong>Regulation</strong> &mdash; every model must respect categories, geo-zones and altitude limits from Module 1",
+          "The rest of this lecture builds the toolbox to attack exactly these problems"
+        ]
+      }
+    ]
+  }
+]

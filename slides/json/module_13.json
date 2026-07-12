@@ -1,0 +1,74 @@
+[
+  {
+    "type": "cover",
+    "script": { "name": "drone", "opts": { "perched": true, "anchor": ".cover-card", "anchorOffsetX": -65, "anchorOffsetY": 0, "scale": 0.95 } },
+    "bg": 3,
+    "h1": "Module 13",
+    "lead": "Optimizing Data Transmission",
+    "sub": "When a conflict warning arrives 800 ms late, it isn't a warning anymore",
+    "badges": [
+      "QUIC",
+      "HTTP/3",
+      "5G URLLC",
+      "Edge Computing",
+      "Reinforcement Learning"
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "13",
+    "tag": "",
+    "title": "Minimizing Latency with Modern Protocols",
+    "desc": "Faster transmission, smarter error correction, less overhead",
+    "body": [
+      {
+        "table": {
+          "headers": ["Protocol", "What it does for latency"],
+          "rows": [
+            ["<strong>QUIC</strong> (Quick UDP Internet Connections)", "Developed by Google, built on UDP — cuts connection setup time and handles packet loss per-stream"],
+            ["<strong>HTTP/3</strong>", "Runs on QUIC — faster page and API response times through true multiplexing (no head-of-line blocking)"],
+            ["<strong>TLS 1.3</strong>", "Accelerated handshake for secure connections (1-RTT, resumption with 0-RTT)"],
+            ["<strong>BBR</strong> (Bottleneck Bandwidth and RTT)", "Google's TCP congestion-control algorithm — uses available bandwidth optimally and minimizes queuing delay"],
+            ["<strong>RDMA</strong> (Remote Direct Memory Access)", "Direct memory access over the network — drastic latency reduction, mainly inside data centers"],
+            ["<strong>WebRTC</strong>", "Real-time communication protocol for low-latency video and audio"],
+            ["<strong>5G URLLC</strong> (Ultra-Reliable Low Latency Communication)", "Designed for real-time applications: industry, autonomous driving, telemedicine — and drone command &amp; control"]
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "13",
+    "tag": "",
+    "title": "Edge Computing for Real-Time Processing",
+    "desc": "Process the data where it is produced — not in a distant data center",
+    "body": [
+      {
+        "card": "The idea",
+        "items": [
+          "Data is processed <strong>at the edge of the network</strong>, at or near its source — not centrally in remote data centers",
+          "Removes the round trip to the cloud: <strong>real-time processing</strong> becomes possible",
+          "For drones: obstacle avoidance, sensor fusion and flight control must run <strong>on board or at the nearest base station</strong> — a 100 ms cloud round trip is a crashed drone",
+          "The cloud still matters — for fleet analytics, model training and everything that is not time-critical"
+        ]
+      },
+      {
+        "card": "Edge + machine learning: reinforcement learning on drones",
+        "items": [
+          "RL agents learn control policies through trial and error — trained in simulation, executed at the edge",
+          "State of the art: RL-controlled racing drones beating human champion pilots (University of Zurich research)",
+          "The inference loop runs entirely on board — the ultimate edge deployment"
+        ]
+      },
+      {
+        "resource": {
+          "title": "Watch",
+          "links": [
+            { "url": "https://www.youtube.com/watch?v=M7mIX_0VK4g", "label": "Reinforcement learning for drones (video)" }
+          ]
+        }
+      }
+    ]
+  }
+]

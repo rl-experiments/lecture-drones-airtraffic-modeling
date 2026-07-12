@@ -1,0 +1,248 @@
+[
+  {
+    "type": "cover",
+    "script": { "name": "drone", "opts": { "perched": true, "anchor": ".cover-card", "anchorOffsetX": 90, "anchorOffsetY": 10, "scale": 0.9 } },
+    "bg": 7,
+    "h1": "Module 4",
+    "lead": "Aeronautical Information Exchange",
+    "sub": "The message formats aviation actually speaks",
+    "badges": [
+      "NOTAM",
+      "METAR",
+      "AIXM",
+      "ASTERIX",
+      "OLDI"
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "4",
+    "tag": "",
+    "title": "The Aviation Message Zoo",
+    "desc": "Five formats you will meet in every air traffic system",
+    "body": [
+      {
+        "table": {
+          "headers": ["Format", "Full name", "What it carries"],
+          "rows": [
+            ["<strong>NOTAM</strong>", "Notice to Airmen", "Time-critical notices: closed runways, GPS outages, airspace restrictions"],
+            ["<strong>METAR</strong>", "METeorological Aerodrome Report", "Coded weather observation at an aerodrome, typically every 30–60 min"],
+            ["<strong>AIXM</strong>", "Aeronautical Information Exchange Model", "Structured aeronautical data (airports, airspaces, routes, navaids) as an XML data model"],
+            ["<strong>ASTERIX</strong>", "All-purpose STructured Eurocontrol suRveillance Information eXchange", "Binary surveillance data: radar plots, system tracks (e.g. CAT062)"],
+            ["<strong>OLDI</strong>", "On-Line Data Interchange", "Coordination messages between air traffic control centres"]
+          ]
+        }
+      },
+      {
+        "resource": {
+          "title": "References",
+          "links": [
+            { "url": "https://de.wikipedia.org/wiki/NOTAM", "label": "NOTAM" },
+            { "url": "https://de.wikipedia.org/wiki/METAR", "label": "METAR" },
+            { "url": "https://aixm.aero/page/aixm-52-specification", "label": "AIXM 5.2" },
+            { "url": "https://www.eurocontrol.int/publication/eurocontrol-specification-line-data-interchange-oldi", "label": "OLDI spec" },
+            { "url": "https://skybrary.aero/articles/online-data-interchange-oldi", "label": "OLDI (SKYbrary)" }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "4",
+    "tag": "",
+    "title": "NOTAM: Notice to Airmen",
+    "desc": "A real NOTAM — GPS unreliable over southern Switzerland",
+    "body": [
+      {
+        "code": "LSAZ/ZURICH AREA A0195 03MAY21 LSAZ\nB) 04JUL210730  C) 04DEZ311159  D) PERM\nE) GPS SIGNAL UNREL FOR NAV WI SWITZERLAND\n   S OF 4605N (S OF MONTE CENERI)\nF) GND  G) FL150",
+        "note": "Why should a drone system care? A GPS-unreliable zone is exactly the kind of constraint an unmanned traffic system must ingest automatically — no human pilot reads NOTAMs for a delivery drone."
+      },
+      {
+        "card": "Plain English",
+        "items": [
+          "GPS signal unreliable for navigation within Switzerland, south of 46&deg;05'N (south of Monte Ceneri)",
+          "From ground level (<code>GND</code>) up to flight level 150 (<code>FL150</code> &asymp; 15,000 ft)",
+          "Valid 21 July 2004 07:30 UTC until 31 December 2004 11:59 UTC &mdash; permanent within that window"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "4",
+    "tag": "",
+    "title": "Decoding the NOTAM Fields",
+    "body": [
+      {
+        "table": {
+          "headers": ["Field", "Example", "Meaning"],
+          "rows": [
+            ["Header", "<code>LSAZ/ZURICH AREA</code>", "Validity within the FIR (flight information region); here: Zurich"],
+            ["Number", "<code>A0195</code>", "Publication number of the notice"],
+            ["Date", "<code>03MAY21</code>", "Date of publication (21 May 2003)"],
+            ["<code>A)</code>", "<code>LSAZ</code>", "Area of validity: a FIR or an aerodrome"],
+            ["<code>B)</code>", "<code>04JUL210730</code>", "Start of validity (21 July 2004, 07:30 UTC)"],
+            ["<code>C)</code>", "<code>04DEZ311159</code>", "End of validity (31 December 2004, 11:59 UTC)"],
+            ["<code>D)</code>", "<code>PERM</code>", "Schedule within the validity — permanent, or e.g. 'MON–FRI 0800–1200'"],
+            ["<code>E)</code>", "<code>GPS SIGNAL UNREL ...</code>", "The actual information, in heavily abbreviated aviation English"],
+            ["<code>F)</code>", "<code>GND</code>", "Lower limit (ground)"],
+            ["<code>G)</code>", "<code>FL150</code>", "Upper limit (flight level 150)"]
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "4",
+    "tag": "",
+    "title": "METAR: Aviation Weather Reports",
+    "desc": "One line tells a pilot — or a drone — everything about the weather at Stuttgart",
+    "body": [
+      {
+        "code": "METAR EDDS 081620Z 29010KT 9999 FEW040TCU 09/M03 Q1012 NOSIG"
+      },
+      {
+        "table": {
+          "headers": ["Group", "Meaning"],
+          "rows": [
+            ["<code>EDDS</code>", "Aerodrome identifier — Stuttgart Airport"],
+            ["<code>081620Z</code>", "Observation time: 8th of the month, 16:20 UTC ('Zulu')"],
+            ["<code>29010KT</code>", "Wind from 290&deg; true (WNW) at 10 knots"],
+            ["<code>9999</code>", "Visibility 10 km or more"],
+            ["<code>FEW040TCU</code>", "Few clouds (1–2 oktas) at 4,000 ft above ground, type: towering cumulus"],
+            ["<code>09/M03</code>", "Temperature 9&nbsp;&deg;C, dew point &minus;3&nbsp;&deg;C ('M' = minus)"],
+            ["<code>Q1012</code>", "QNH 1012 hPa — pressure reduced to sea level"],
+            ["<code>NOSIG</code>", "'No significant change' expected in the next two hours"]
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "4",
+    "tag": "",
+    "title": "AIXM: Aeronautical Information Exchange Model",
+    "desc": "The standardized data model behind aeronautical information",
+    "body": [
+      {
+        "card": "What it is",
+        "items": [
+          "A standardized data model to describe and exchange aeronautically relevant information",
+          "Enables standardized communication of airports, flight routes, airspaces and more",
+          "Widely used in aeronautical information processing and air traffic management",
+          "Technically: a UML model + <strong>XML/GML schema</strong> — temporality built in (features change validity over time)"
+        ]
+      },
+      {
+        "card": "What AIXM describes",
+        "items": [
+          "<strong>Airport information</strong> — ICAO code, position, runways",
+          "<strong>Airspace structures</strong> — control zones, airway routes",
+          "<strong>Flight plan data</strong> — planned routes and altitudes",
+          "<strong>Weather information</strong> — meteorological reports for air traffic",
+          "<strong>Navigation aids</strong> — VOR, NDB"
+        ]
+      },
+      {
+        "resource": {
+          "title": "Specification",
+          "links": [
+            { "url": "https://aixm.aero/page/aixm-52-specification", "label": "AIXM 5.2 specification" },
+            { "url": "https://aixm.aero/sites/default/files/imce/AIXM52HTML/index.html", "label": "AIXM 5.2 HTML model browser" }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "4",
+    "tag": "",
+    "title": "AIXM in Practice: A Runway as Data",
+    "desc": "A (shortened) AIXM feature — note the identifiers and validity periods",
+    "body": [
+      {
+        "code": "&lt;aixm:RunwayDirection gml:id=\"rwy-25-eddf\"&gt;\n  &lt;aixm:timeSlice&gt;\n    &lt;aixm:RunwayDirectionTimeSlice gml:id=\"ts1\"&gt;\n      &lt;gml:validTime&gt;\n        &lt;gml:TimePeriod gml:id=\"vt1\"&gt;\n          &lt;gml:beginPosition&gt;2024-03-28T00:00:00Z&lt;/gml:beginPosition&gt;\n          &lt;gml:endPosition indeterminatePosition=\"unknown\"/&gt;\n        &lt;/gml:TimePeriod&gt;\n      &lt;/gml:validTime&gt;\n      &lt;aixm:designator&gt;25&lt;/aixm:designator&gt;\n      &lt;aixm:trueBearing&gt;249.0&lt;/aixm:trueBearing&gt;\n    &lt;/aixm:RunwayDirectionTimeSlice&gt;\n  &lt;/aixm:timeSlice&gt;\n&lt;/aixm:RunwayDirection&gt;",
+        "note": "Every feature is versioned in time (timeSlice) — the model answers not only 'what is runway 25?' but 'what was runway 25 valid on a given date?'. Exactly what a UTM system needs for reproducible decisions."
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "4",
+    "tag": "",
+    "title": "ASTERIX: Surveillance Data Exchange",
+    "desc": "The binary format your radar tracks arrive in",
+    "body": [
+      {
+        "img": "asterix-protocol-analyzer.png",
+        "alt": "ASTERIX protocol analyzer decoding CAT062 system track records",
+        "height": 330
+      },
+      {
+        "card": "",
+        "items": [
+          "Eurocontrol's binary format family for surveillance data — organized in <strong>categories</strong> (e.g. CAT048 radar target reports, <strong>CAT062 system tracks</strong>)",
+          "Each record carries data items like position (WGS-84), track velocity, mode 3/A code, flight level",
+          "The <strong>ASTERIX toolkit</strong> shown above decodes, analyzes, records and replays this data",
+          "Compact and fast — but you need the category specification to read a single bit"
+        ]
+      },
+      {
+        "resource": {
+          "title": "Tooling",
+          "links": [
+            { "url": "https://www.sinoatc.com/products/asterixtk/", "label": "ASTERIX Toolkit" }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "4",
+    "tag": "",
+    "title": "OLDI: On-Line Data Interchange",
+    "desc": "How air traffic control centres coordinate a flight hand-over",
+    "body": [
+      {
+        "card": "What it is",
+        "items": [
+          "Standardized messages exchanged <strong>between flight data processing systems of adjacent ATC units</strong>",
+          "Replaces telephone coordination for routine hand-overs — faster, less error-prone",
+          "Typical messages: <code>ABI</code> (advance boundary information), <code>ACT</code> (activation), <code>LAM</code> (logical acknowledgement)",
+          "Defined by the <strong>EUROCONTROL OLDI specification</strong>; mandatory for many European centre pairs"
+        ]
+      },
+      {
+        "card": "Why it matters for drones",
+        "items": [
+          "UTM systems will need the same pattern: <strong>machine-to-machine coordination</strong> when a drone crosses from one service provider's area to another",
+          "The lesson from OLDI: agree the message semantics first, or every border becomes a phone call"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "4",
+    "tag": "takeaway",
+    "title": "Module 4: Key Takeaways",
+    "body": [
+      {
+        "card": "",
+        "items": [
+          "Aviation exchanges information in <strong>standardized, machine-readable formats</strong> — some 100 years old in spirit (NOTAM, METAR), some modern XML models (AIXM), some binary (ASTERIX)",
+          "<strong>NOTAM/METAR</strong>: compact coded text — you can now decode both by hand",
+          "<strong>AIXM</strong>: temporal XML data model for everything static in the airspace",
+          "<strong>ASTERIX</strong>: binary surveillance categories — the live positions",
+          "<strong>OLDI</strong>: coordination between control centres — the pattern UTM must reinvent for drones",
+          "Any serious drone traffic system is, at its heart, an <strong>integrator of these formats</strong>"
+        ]
+      }
+    ]
+  }
+]

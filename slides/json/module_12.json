@@ -1,0 +1,76 @@
+[
+  {
+    "type": "cover",
+    "script": { "name": "drone", "opts": { "perched": true, "anchor": ".cover-card", "anchorOffsetX": 100, "anchorOffsetY": -10, "scale": 0.9 } },
+    "bg": 2,
+    "h1": "Module 12",
+    "lead": "Real-Time Data in GIS Applications",
+    "sub": "Putting drone traffic on the map — literally",
+    "badges": [
+      "Geodata",
+      "Route Planning",
+      "Visualization",
+      "DiPUL"
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "12",
+    "tag": "",
+    "title": "Geodata for Flight Route Planning",
+    "desc": "A drone route is a query against many geographic layers at once",
+    "body": [
+      {
+        "card": "The layers a route planner needs",
+        "items": [
+          "<strong>Geo-zones</strong> — no-fly and restricted zones (airports, hospitals, prisons, nature reserves)",
+          "<strong>Terrain &amp; obstacles</strong> — elevation models, buildings, power lines, cranes",
+          "<strong>Population density</strong> — ground risk for the Specific category (SORA) depends on who is below",
+          "<strong>Weather layers</strong> — wind fields and precipitation as time-dependent rasters",
+          "<strong>Live traffic</strong> — other drones and manned aviation, streamed in real time (Modules 4, 5, 7)"
+        ]
+      },
+      {
+        "card": "Visualization of drone movements",
+        "items": [
+          "Live positions rendered on the map — the FlightAware picture from Module 1, now for unmanned traffic",
+          "Track history, planned route and actual route in one view: instant anomaly detection for operators"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "12",
+    "tag": "",
+    "title": "Applications & the German Data Source",
+    "desc": "Logistics, rescue services — and where the official geo-zones come from",
+    "body": [
+      {
+        "card": "Application examples",
+        "items": [
+          "<strong>Logistics</strong> — corridor planning for delivery routes, automatically re-routed around temporary geo-zones",
+          "<strong>Rescue services</strong> — fastest legal route for a medical-supply drone, computed against live airspace data",
+          "<strong>Inspection &amp; monitoring</strong> — pipelines, railways and power lines flown along precise geo-referenced paths"
+        ]
+      },
+      {
+        "card": "DiPUL — Digitale Plattform Unbemannte Luftfahrt",
+        "items": [
+          "Germany's official digital platform for unmanned aviation (BMDV / DFS)",
+          "Interactive map of all <strong>geographic zones</strong> relevant for drone flights — the authoritative source for German operations",
+          "Machine-readable access makes it a natural data layer for every route planner discussed on the previous slide"
+        ]
+      },
+      {
+        "resource": {
+          "title": "Explore",
+          "links": [
+            { "url": "https://maptool-dipul.dfs.de", "label": "DiPUL map tool" },
+            { "url": "https://www.dipul.de", "label": "dipul.de" }
+          ]
+        }
+      }
+    ]
+  }
+]

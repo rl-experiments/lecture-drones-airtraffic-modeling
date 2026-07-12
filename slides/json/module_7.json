@@ -1,0 +1,111 @@
+[
+  {
+    "type": "cover",
+    "script": { "name": "drone", "opts": { "perched": true, "anchor": ".cover-card", "anchorOffsetX": -65, "anchorOffsetY": 5, "scale": 1 } },
+    "bg": 3,
+    "h1": "Module 7",
+    "lead": "Reactive Java: Spring WebFlux",
+    "sub": "Technology block (b): handling thousands of live drone tracks without a thousand threads",
+    "badges": [
+      "Project Reactor",
+      "Mono / Flux",
+      "R2DBC",
+      "WebClient"
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "7",
+    "tag": "",
+    "title": "Why Reactive?",
+    "desc": "A non-blocking, asynchronous programming model for reactive applications",
+    "body": [
+      {
+        "img": "spring-mvc-vs-webflux.png",
+        "alt": "Comparison of Spring MVC servlet stack (blocking) and Spring WebFlux reactive stack (non-blocking)",
+        "height": 320
+      },
+      {
+        "card": "The case for Spring Reactive",
+        "items": [
+          "<strong>Efficiency</strong> — scales better than traditional blocking web frameworks: few event-loop threads instead of one thread per request",
+          "<strong>Reactive streams</strong> — processing large data volumes with minimal resources",
+          "<strong>Event-driven architecture</strong> — a natural fit for microservices and cloud applications",
+          "Part of <strong>Spring WebFlux</strong>, built on the <strong>Reactor core</strong> (Flux, Mono); integrates with Spring Boot and the whole Spring ecosystem",
+          "Air traffic reality check: 1,000 drones &times; 1 position/second = a permanent stream — exactly the reactive sweet spot"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "7",
+    "tag": "",
+    "title": "The Reactive Streams Specification",
+    "desc": "Four interfaces and one crucial idea: backpressure",
+    "body": [
+      {
+        "img": "reactive-streams-spec.png",
+        "alt": "Reactive streams: subscriber subscribes to publisher, subscription mediates request(n) and onNext/onComplete/onError",
+        "height": 300
+      },
+      {
+        "card": "The contract",
+        "items": [
+          "<strong>Publisher</strong> produces data, <strong>Subscriber</strong> consumes it, the <strong>Subscription</strong> mediates",
+          "The subscriber controls the flow: <code>request(n)</code> — 'send me at most n elements'",
+          "This is <strong>backpressure</strong>: a slow consumer never gets flooded by a fast producer",
+          "Signals: <code>onSubscribe &rarr; onNext* &rarr; onComplete | onError</code>"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "7",
+    "tag": "",
+    "title": "Core Concepts: Mono & Flux",
+    "desc": "Two publisher types cover every API you will ever write",
+    "body": [
+      {
+        "code": "<span class=\"kw\">// Mono: 0 or 1 element — a single drone's state</span>\nMono&lt;DroneState&gt; state = repository.findById(droneId);\n\n<span class=\"kw\">// Flux: 0..N elements — the live track stream</span>\nFlux&lt;TrackUpdate&gt; live = trackService.stream()\n    .filter(t -&gt; t.altitude() &lt; 120)          <span class=\"str\">// open category only</span>\n    .sample(Duration.ofSeconds(1))            <span class=\"str\">// throttle to 1 Hz</span>\n    .doOnNext(alertService::checkConflicts);\n\n<span class=\"kw\">// WebFlux functional router instead of @Controller</span>\nRouterFunction&lt;ServerResponse&gt; routes = route()\n    .GET(<span class=\"str\">\"/tracks\"</span>, req -&gt; ok()\n        .contentType(TEXT_EVENT_STREAM)\n        .body(live, TrackUpdate.class))\n    .build();"
+      },
+      {
+        "card": "Vocabulary",
+        "items": [
+          "<strong>Mono</strong> — represents 0 or 1 element",
+          "<strong>Flux</strong> — represents an unbounded number of elements",
+          "<strong>WebFlux router &amp; handlers</strong> — functional alternative to Spring MVC controllers",
+          "<strong>Reactive repositories</strong> — non-blocking database access"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "7",
+    "tag": "takeaway",
+    "title": "Tools, Libraries & When to Use It",
+    "body": [
+      {
+        "table": {
+          "headers": ["Tool", "Role"],
+          "rows": [
+            ["<strong>Project Reactor</strong>", "The reactive foundation under Spring WebFlux"],
+            ["<strong>Spring Boot</strong>", "Effortless integration of WebFlux into applications"],
+            ["<strong>R2DBC</strong>", "Reactive database connectivity — replaces blocking JDBC"],
+            ["<strong>WebClient</strong>", "Reactive HTTP client — replaces RestTemplate"]
+          ]
+        }
+      },
+      {
+        "card": "Conclusion",
+        "items": [
+          "Spring Reactive suits modern, scalable applications",
+          "Ideal for <strong>microservices, streaming data and high load</strong> — i.e. telemetry ingestion, live track distribution, conflict alerting",
+          "Not a silver bullet: for simple CRUD services, classic blocking Spring MVC remains simpler to write and debug"
+        ]
+      }
+    ]
+  }
+]

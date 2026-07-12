@@ -1,0 +1,93 @@
+[
+  {
+    "type": "cover",
+    "script": { "name": "drone", "opts": { "perched": true, "anchor": ".cover-card", "anchorOffsetX": 90, "anchorOffsetY": -30, "scale": 0.9 } },
+    "bg": 5,
+    "h1": "Module 8",
+    "lead": "Message Queues",
+    "sub": "Technology block (c): asynchronous communication between the systems that must never wait for each other",
+    "badges": [
+      "JMS",
+      "ActiveMQ",
+      "RabbitMQ",
+      "IBM MQ",
+      "Kafka"
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "8",
+    "tag": "",
+    "title": "Why Message Queues?",
+    "desc": "A system for asynchronous communication between applications",
+    "body": [
+      {
+        "card": "What it is",
+        "items": [
+          "Asynchronous communication: the sender does not wait for the receiver",
+          "In the Java world specified by <strong>JMS (Java Message Service)</strong>, part of Java/Jakarta EE",
+          "Supports <strong>loose coupling, scalability and reliability</strong>"
+        ]
+      },
+      {
+        "card": "Why use them",
+        "items": [
+          "<strong>Decoupling</strong> — sender and receiver work independently; a UTM service can restart without losing telemetry",
+          "<strong>Load distribution</strong> — messages are processed in parallel by many consumers",
+          "<strong>Reliability</strong> — persistent storage of messages until they are consumed",
+          "<strong>Scalability</strong> — add consumers dynamically as traffic grows"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "8",
+    "tag": "",
+    "title": "JMS Architecture: Queues & Topics",
+    "desc": "Two delivery models cover almost every messaging need",
+    "body": [
+      {
+        "code": "Point-to-Point (Queue)              Publish-Subscribe (Topic)\n\nProducer                             Publisher\n   |                                     |\n   v                                     v\n[ QUEUE ] --&gt; exactly one            [ TOPIC ] --&gt; every subscriber\n              consumer gets              |    \\\n              each message           Subscriber A  Subscriber B\n\nclearance requests,                  position broadcasts,\nwork distribution                    airspace status updates"
+      },
+      {
+        "card": "The building blocks",
+        "items": [
+          "<strong>Message producer</strong> — sends messages to a queue or topic",
+          "<strong>Message queue</strong> — waiting line for messages (point-to-point model)",
+          "<strong>Topic</strong> — broadcast model for multiple receivers (publish-subscribe)",
+          "<strong>Message consumer</strong> — receives messages",
+          "Message types: <code>Text</code>, <code>Bytes</code>, <code>Object</code>, <code>Map</code>, <code>Stream</code>"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "8",
+    "tag": "",
+    "title": "Implementations & Tools",
+    "body": [
+      {
+        "table": {
+          "headers": ["System", "Character", "Notes"],
+          "rows": [
+            ["<strong>ActiveMQ</strong> (Apache)", "Open-source JMS provider", "The classic choice for JMS in Java projects"],
+            ["<strong>RabbitMQ</strong>", "AMQP broker", "Supports JMS via plugins; very flexible routing"],
+            ["<strong>IBM MQ</strong>", "Enterprise messaging", "Banking-grade reliability, commercial"],
+            ["<strong>Kafka</strong>", "Distributed log (not JMS, but similar use cases)", "Massively scalable streaming — the natural fit for high-volume telemetry"]
+          ]
+        }
+      },
+      {
+        "card": "Takeaway",
+        "items": [
+          "JMS makes asynchronous communication in Java EE applications straightforward",
+          "Different implementations offer different guarantees — pick by <strong>throughput, ordering and persistence needs</strong>",
+          "Key concepts to remember: <strong>producer, consumer, queue, topic</strong>",
+          "In our domain: telemetry fan-out is a topic, clearance processing is a queue"
+        ]
+      }
+    ]
+  }
+]

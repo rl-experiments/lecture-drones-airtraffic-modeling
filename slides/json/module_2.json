@@ -1,0 +1,129 @@
+[
+  {
+    "type": "cover",
+    "script": { "name": "drone", "opts": { "perched": true, "anchor": ".cover-card", "anchorOffsetX": 100, "anchorOffsetY": -25, "scale": 0.95 } },
+    "bg": 5,
+    "h1": "Module 2",
+    "lead": "Seminar Topics & Competition",
+    "sub": "Your two deliverables: present a topic in depth, and survive the airspace",
+    "badges": [
+      "16 Topics",
+      "Seminar Presentation",
+      "Group Work",
+      "*BlueSky Competition"
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "2",
+    "tag": "",
+    "title": "Presentation Topics 1–6: Systems & Autonomy",
+    "desc": "Pick one topic — first come, first served",
+    "body": [
+      {
+        "table": {
+          "headers": ["#", "Topic", "Focus"],
+          "rows": [
+            ["1", "<strong>Real-Time and Embedded Specification for Java (RTSJ 2.0)</strong>", "How the Java platform supports real-time and embedded systems through improved memory management and deterministic execution"],
+            ["2", "<strong>AI and Machine Learning in Drone Control Systems</strong>", "How AI/ML increase drone autonomy and efficiency in complex environments"],
+            ["3", "<strong>Drones and 5G: The Future of Aviation Communication</strong>", "The role of 5G in communication and real-time data transfer between drones and control centers"],
+            ["4", "<strong>Air Traffic Management for UAVs</strong>", "Concepts for integrating drones into existing air traffic and managing drone flights in urban airspace"],
+            ["5", "<strong>Energy Efficiency and Battery Technologies</strong>", "Advances in battery technology and alternative energy sources for longer flight times"],
+            ["6", "<strong>Collision Avoidance in Dense Airspace</strong>", "LIDAR, ultrasound and camera systems for safe navigation &mdash; see the BlueSky <code>plugins/asas</code> module (also the competition topic!)"]
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "2",
+    "tag": "",
+    "title": "Presentation Topics 7–11: Modeling & Data",
+    "body": [
+      {
+        "table": {
+          "headers": ["#", "Topic", "Focus"],
+          "rows": [
+            ["7", "<strong>Flight Control Systems for Autonomous Drones</strong>", "Software and algorithms required to control autonomous drones, and their impact on safety and efficiency"],
+            ["8", "<strong>Air Traffic Modeling and Simulation for Drones</strong>", "Models to predict and simulate drone traffic in different scenarios and its influence on traditional air traffic"],
+            ["9", "<strong>Drones in the Smart Cities of the Future</strong>", "Delivery of goods, infrastructure inspection and environmental protection in smart cities"],
+            ["10", "<strong>Blockchain-Based Drone Data Management</strong>", "Using blockchain to guarantee data integrity and security in drone networks"],
+            ["11", "<strong>Security and Privacy in Drone Air Traffic</strong>", "Security challenges of operating drones in public and private airspace"]
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "2",
+    "tag": "",
+    "title": "Presentation Topics 12–16: Operations & Integration",
+    "body": [
+      {
+        "table": {
+          "headers": ["#", "Topic", "Focus"],
+          "rows": [
+            ["12", "<strong>Regulation and Legal Frameworks for Drones</strong>", "Existing legal rules and their evolution towards safe drone operation"],
+            ["13", "<strong>Multi-Drone Operations and Coordination</strong>", "Technology and algorithms for coordinating multiple drones in shared airspace"],
+            ["14", "<strong>Drones in Commercial Air Transport: The Future of Logistics</strong>", "The potential of drones for commercial cargo and the impact on the logistics industry"],
+            ["15", "<strong>Optimizing Drone Deployment in Disaster Areas</strong>", "Traffic models for efficient drone use in emergencies &mdash; fast relief and crisis logistics"],
+            ["16", "<strong>Airport Infrastructure and Drones</strong>", "Infrastructure changes and technologies to integrate UAVs into existing airport operations, e.g. inspection and maintenance"]
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "2",
+    "tag": "exercise",
+    "title": "The Competition: Collision Avoidance in BlueSky",
+    "desc": "We put theory aside and let your code fight for survival",
+    "body": [
+      {
+        "card": "The challenge",
+        "items": [
+          "We split into <strong>groups</strong> &mdash; each group develops a collision-avoidance system for the airspace",
+          "All systems run in the <strong>BlueSky air traffic simulator</strong> (TU Delft, open source)",
+          "Scoring is brutally simple: <strong>the group that survives longest without a collision wins</strong>",
+          "Starting point: the <code>bluesky/plugins/asas</code> conflict-resolution plugins &mdash; study them, then beat them",
+          "Setup, scenarios and rules of the game: Module 11"
+        ]
+      },
+      {
+        "resource": {
+          "title": "Resources",
+          "links": [
+            { "url": "https://github.com/TUDelft-CNS-ATM/bluesky", "label": "BlueSky simulator (GitHub)" },
+            { "url": "https://github.com/TUDelft-CNS-ATM/bluesky/tree/master/bluesky/plugins/asas", "label": "ASAS conflict-resolution plugins" }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "2",
+    "tag": "important",
+    "title": "Expectations: The Path to Grade 1.0",
+    "desc": "Quality has a price — plan your semester accordingly",
+    "body": [
+      {
+        "img": "sixty-hours.png",
+        "alt": "Stopwatch showing 60 hours",
+        "height": 240
+      },
+      {
+        "card": "",
+        "items": [
+          "Students are expected to invest <strong>at least 60 hours of preparation</strong> into the practical task and the presentation",
+          "A grade 1.0 presentation means: depth beyond the first Google hit, working examples, own critical assessment",
+          "A grade 1.0 competition entry means: an approach you can explain, not just parameters you tweaked until it worked",
+          "Start early &mdash; the simulator, the standards and the data formats all have a learning curve"
+        ]
+      }
+    ]
+  }
+]

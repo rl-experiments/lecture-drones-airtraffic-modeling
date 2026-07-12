@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Innovative Technologies for Drones: Air Traffic Modeling</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="progress"></div>
+<div class="zone zone-l" onclick="prev()"></div>
+<div class="zone zone-r" onclick="next()"></div>
+<div id="slides-container"></div>
+<div id="nav">
+  <span class="nav-hint">&copy; 2026 Dennis Piskovatskov &middot; <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">CC BY 4.0</a></span>
+  <button class="btn-ghost" onclick="go(0)" title="Home"><svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor" style="margin-right:6px;flex-shrink:0" aria-hidden="true"><rect x="3" y="3" width="2" height="10"/><path d="M13 3L6 8l7 5V3z"/></svg>Home</button>
+  <button class="btn-ghost" onclick="go(1)" title="Table of Contents">Table of Contents</button>
+  <button class="btn" id="bp" onclick="prev()">&larr; Prev</button>
+  <span id="counter" onclick="jumpPrompt()" style="cursor:pointer" title="Click to jump to slide">Loading&hellip;</span>
+  <button class="btn" id="bn" onclick="next()">Next &rarr;</button>
+  <span class="nav-fs">
+    <label style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#a3a3a3;cursor:pointer;user-select:none;margin-right:6px"><input type="checkbox" onchange="toggleCritters(!this.checked)" style="cursor:pointer">Ground Drone</label>
+    <button class="btn-ghost" onclick="fs()">Fullscreen</button>
+  </span>
+</div>
+<script src="js/drone.js"></script>
+<script src="js/slides.js"></script>
+</body>
+</html>
