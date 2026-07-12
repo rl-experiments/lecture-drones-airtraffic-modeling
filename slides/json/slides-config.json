@@ -15,12 +15,13 @@
     "11": { "label": "Module 11", "color": "#06b6d4" },
     "12": { "label": "Module 12", "color": "#84cc16" },
     "13": { "label": "Module 13", "color": "#a855f7" },
-    "14": { "label": "Module 14", "color": "#64748b" }
+    "14": { "label": "Module 14", "color": "#64748b" },
+    "15": { "label": "Lab", "color": "#0ea5e9" }
   },
   "bg_rotation": [2, 3, 5, 6, 7, 4],
   "tocGroups": [
     { "label": "Introduction", "mods": ["0", "1"] },
-    { "label": "Assignments", "mods": ["2"] },
+    { "label": "Assignments", "mods": ["2", "15"] },
     { "label": "Safety & Aviation Data", "mods": ["3", "4"] },
     { "label": "Architecture & Technologies", "mods": ["5", "6", "7", "8", "9", "10"] },
     { "label": "Simulation & Data", "mods": ["11", "12", "13"] },
@@ -101,6 +102,11 @@
       "mod": "14",
       "title": "Agile Processes & Conclusion",
       "topics": "DevOps, CI/CD, Future Outlook, Standards"
+    },
+    {
+      "mod": "15",
+      "title": "Hands-On: DJI Mobile SDK",
+      "topics": "Mini 4 Pro, Feasibility Test, KeyManager, Video, Simulator"
     }
   ],
   "cover": {

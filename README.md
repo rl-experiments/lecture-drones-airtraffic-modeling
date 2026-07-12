@@ -54,6 +54,7 @@ slides/
     module_12.json        ← M12: Real-Time Data in GIS
     module_13.json        ← M13: Optimizing Data Transmission
     module_14.json        ← M14: Agile Processes & Conclusion
+    module_15.json        ← Lab: Hands-On DJI Mobile SDK (feasibility test + deep dive)
   images/
     bg/                   ← background images
     content/              ← slide content images (UTM diagram, METAR examples, etc.)

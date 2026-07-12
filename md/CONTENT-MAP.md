@@ -50,6 +50,14 @@ were **transcribed into native slides** instead of being reused as images.
 | 56–57 | Agile processes | Module 14 | |
 | 58–59 | Conclusion & outlook | Module 14, three slides + wrap-up | |
 
+## Added content (not in the PPTX)
+
+**Module 15 "Lab: Hands-On DJI Mobile SDK"** — authored from the instructor's two assignment mails (July 2026):
+mail 1 = feasibility test (hardware shopping list: Mini 4 Pro / RC-N3 / Android; toolchain: Android Studio,
+DJI developer account + App Key, Mobile-SDK-Android-V5 sample; success = registration + battery via KeyManager),
+mail 2 = optional deep dive (levels A–D: telemetry subscriptions, KeyManager key groups, live video stream,
+simulator-only virtual stick) plus the guiding question "where does the SDK end?".
+
 ## Added assets (not in the PPTX)
 
 | Asset | Source | Placed in |
