@@ -53,10 +53,9 @@
       {
         "card": "The building blocks",
         "items": [
-          "<strong>Message producer</strong> — sends messages to a queue or topic",
+          "<strong>Message producer</strong> — sends messages to a queue or topic; <strong>message consumer</strong> — receives them",
           "<strong>Message queue</strong> — waiting line for messages (point-to-point model)",
           "<strong>Topic</strong> — broadcast model for multiple receivers (publish-subscribe)",
-          "<strong>Message consumer</strong> — receives messages",
           "Message types: <code>Text</code>, <code>Bytes</code>, <code>Object</code>, <code>Map</code>, <code>Stream</code>"
         ]
       }

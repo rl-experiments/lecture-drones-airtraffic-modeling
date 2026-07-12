@@ -24,24 +24,16 @@
       {
         "img": "flightaware-live-map.png",
         "alt": "FlightAware live map with hundreds of aircraft",
-        "height": 380
+        "height": 250
       },
       {
         "card": "What you are looking at",
         "items": [
           "Live map of all aircraft in the sky &mdash; near you and anywhere else in the world",
-          "Positions come from <strong>ADS-B</strong> transponders, radar and receiver networks",
-          "Every symbol carries flight ID, altitude, speed and route &mdash; click one and follow it",
-          "Keep this picture in mind: <strong>drones must merge into exactly this traffic</strong>"
+          "Positions from <strong>ADS-B</strong> transponders, radar and receiver networks; every symbol carries flight ID, altitude, speed and route",
+          "Keep this picture in mind: <strong>drones must merge into exactly this traffic</strong>",
+          "Try it yourself: <a href=\"https://de.flightaware.com\" target=\"_blank\">flightaware.com</a>"
         ]
-      },
-      {
-        "resource": {
-          "title": "Try it yourself",
-          "links": [
-            { "url": "https://de.flightaware.com", "label": "flightaware.com — live flight tracking" }
-          ]
-        }
       }
     ]
   },
@@ -55,15 +47,14 @@
       {
         "img": "drone-near-miss-news.png",
         "alt": "News report: drone comes dangerously close to passenger aircraft",
-        "height": 300
+        "height": 260
       },
       {
         "card": "What happened",
         "items": [
           "A pilot on final approach reported a sudden drone sighting at 11:00 in the morning",
           "The multicopter hovered at <strong>several hundred meters altitude</strong>, about 8 km from Nuremberg airport",
-          "It obstructed the landing approach of an aircraft carrying <strong>170 passengers and crew</strong>",
-          "The aircraft landed safely &mdash; but only because the drone happened not to be in the flight path",
+          "It obstructed the landing approach of an aircraft carrying <strong>170 passengers and crew</strong>; the aircraft landed safely &mdash; only because the drone happened not to be in the flight path",
           "This is why drone flight near airports is strictly regulated &mdash; and why we model drone traffic"
         ]
       }
@@ -79,7 +70,7 @@
       {
         "img": "drone-wing-collision-test.gif",
         "alt": "Wind tunnel test of a drone striking an aircraft wing",
-        "height": 260,
+        "height": 210,
         "caption": "University of Dayton Research Institute: a consumer quadcopter fired at an aircraft wing tears deep into the structure — unlike a bird of the same mass."
       },
       {
@@ -103,7 +94,7 @@
       {
         "img": "drone-regulation-worldmap.jpg",
         "alt": "World map of drone regulation by country (Statista/Surfshark)",
-        "height": 420
+        "height": 340
       },
       {
         "card": "",
@@ -185,7 +176,7 @@
       {
         "img": "easa-remote-pilot-certificate.jpg",
         "alt": "EASA remote pilot certificate of competency card",
-        "height": 300
+        "height": 270
       },
       {
         "card": "How to get certified",

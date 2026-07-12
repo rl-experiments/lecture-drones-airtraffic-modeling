@@ -52,8 +52,7 @@
       {
         "card": "Key insight",
         "items": [
-          "UTM is not a tower with people — it is a <strong>federation of data services</strong>",
-          "Every arrow in the diagram is an interface: this is why Modules 6–10 are about APIs, streaming, messaging and testing"
+          "UTM is not a tower with people — it is a <strong>federation of data services</strong>; every arrow in the diagram is an interface, which is why Modules 6–10 are about APIs, streaming, messaging and testing"
         ]
       }
     ]

@@ -201,8 +201,8 @@
     html += `<div id="toc-sws-count" data-total="${totalCount}" data-filtered="${swsCount}" style="display:none;text-align:right;font-variant-numeric:tabular-nums;color:var(--muted-foreground);font-size:13px;grid-column:4">${totalCount}</div>`;
     html += `</div>`;
 
-    // Module overview with groups as separate cards
-    html += `<div id="toc-modules">`;
+    // Module overview with groups as separate cards (15 modules: needs its own scroll)
+    html += `<div id="toc-modules" style="max-height:74vh;overflow-y:auto;padding-right:10px">`;
     const tocByMod = {};
     for (const entry of data.toc) tocByMod[entry.mod] = entry;
     const groups = data.tocGroups || [{ label: null, mods: data.toc.map(e => e.mod) }];

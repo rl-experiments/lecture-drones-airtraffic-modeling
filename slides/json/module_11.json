@@ -36,31 +36,38 @@
     "type": "content",
     "mod": "11",
     "tag": "",
+    "title": "Test Environment vs. Reality",
+    "desc": "What simulation can and cannot promise you",
+    "body": [
+      {
+        "img": "testing-vs-prod.png",
+        "alt": "MonkeyUser comic: a smooth flat test-environment track ends in a cliff into a production canyon full of spikes, lag hills and performance drops",
+        "height": 440,
+        "caption": "monkeyuser.com — Testing vs. Production Environment. Simulation is your smooth track; the real airspace is the canyon. Validate in BlueSky first."
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "11",
+    "tag": "",
     "title": "BlueSky: The Open ATM Simulator",
     "desc": "TU Delft's open-source air traffic simulator — and our competition arena",
     "body": [
       {
         "img": "bluesky-traffic-simulation.png",
         "alt": "BlueSky simulator radar view with dense air traffic over the Balkans",
-        "height": 340,
+        "height": 225,
         "caption": "Traffic simulation using the BlueSky simulator."
       },
       {
         "card": "What you get",
         "items": [
-          "Open source (GPL), written in <strong>Python</strong> — easy to read, easy to extend",
+          "Open source (GPL), written in <strong>Python</strong> — easy to read, easy to extend; used in actual ATM research at TU Delft and beyond",
           "Scenario scripting, aircraft performance models, radar-style visualization",
           "A <strong>plugin architecture</strong> — including the <code>asas</code> plugins for conflict detection &amp; resolution",
-          "Used in actual ATM research at TU Delft and beyond"
+          "Source: <a href=\"https://github.com/TUDelft-CNS-ATM/bluesky\" target=\"_blank\">TUDelft-CNS-ATM/bluesky (GitHub)</a>"
         ]
-      },
-      {
-        "resource": {
-          "title": "Source",
-          "links": [
-            { "url": "https://github.com/TUDelft-CNS-ATM/bluesky", "label": "TUDelft-CNS-ATM/bluesky (GitHub)" }
-          ]
-        }
       }
     ]
   },

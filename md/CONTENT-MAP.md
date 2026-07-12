@@ -50,6 +50,16 @@ were **transcribed into native slides** instead of being reused as images.
 | 56–57 | Agile processes | Module 14 | |
 | 58–59 | Conclusion & outlook | Module 14, three slides + wrap-up | |
 
+## Added assets (not in the PPTX)
+
+| Asset | Source | Placed in |
+|---|---|---|
+| `edge-cases.png` | [monkeyuser.com — Edge Cases](https://www.monkeyuser.com/2019/edge-cases/) | Module 10 "Why We Test: Cover All Edge Cases" |
+| `testing-vs-prod.png` | [monkeyuser.com — Testing vs. Production Environment](https://www.monkeyuser.com/2017/testing-vs-prod-env/) | Module 11 "Test Environment vs. Reality" |
+| `sprint.png` | [monkeyuser.com — Sprint](https://www.monkeyuser.com/2019/sprint/) | Module 14 "The Sprint, As Experienced" |
+
+Same comic source as the reference repo (lecture-se-tools-ai); watermarks/attribution preserved in the images and captions.
+
 ## Dropped assets
 
 | Asset | Reason |

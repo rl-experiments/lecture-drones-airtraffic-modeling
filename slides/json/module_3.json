@@ -54,7 +54,7 @@
       {
         "img": "ultralight-ground-1986.jpg",
         "alt": "Ground crew preparing a home-built ultralight aircraft, 1986",
-        "height": 330,
+        "height": 280,
         "caption": "1986: even the ultralight my father built by hand got a rigorous pre-flight inspection. The mindset — assume failure, check everything, control change — is exactly what software safety standards later formalized."
       },
       {
@@ -77,16 +77,14 @@
       {
         "img": "cost-of-fixing-defects.png",
         "alt": "Bar chart: relative cost of fixing defects rises from 1 at design to 100 in maintenance",
-        "height": 300
+        "height": 250,
+        "caption": "Source: Dawson, Burrell, Rahim & Brewster (2010), Integrating Software Assurance into the SDLC."
       },
       {
         "card": "Relative cost of fixing a defect",
         "items": [
-          "Found during <strong>design</strong>: cost 1&times;",
-          "Found during <strong>implementation</strong>: 6.5&times;",
-          "Found during <strong>testing</strong>: 15&times;",
+          "Found during <strong>design</strong>: 1&times; &mdash; during <strong>implementation</strong>: 6.5&times; &mdash; during <strong>testing</strong>: 15&times;",
           "Found in <strong>maintenance</strong> (i.e. in the field): <strong>100&times;</strong>",
-          "Source: Dawson, Burrell, Rahim &amp; Brewster (2010), <em>Integrating Software Assurance into the SDLC</em>",
           "In aviation, 'found in the field' can mean an accident investigation &mdash; the 100&times; becomes incalculable"
         ]
       }
@@ -102,17 +100,15 @@
       {
         "img": "accidental-death-causes.png",
         "alt": "Pie chart of computer-related accidental deaths: 91.9% human-computer interaction problems",
-        "height": 280
+        "height": 230,
+        "caption": "Source: Donald MacKenzie, Computer-related accidental death, Science and Public Policy 21(4), 1994."
       },
       {
         "card": "Computer-related accidental deaths (MacKenzie, 1994)",
         "items": [
           "<strong>91.9%</strong> — human-computer interaction problems",
-          "<strong>4.5%</strong> — physical causes",
-          "<strong>2.8%</strong> — software errors",
-          "<strong>0.8%</strong> — other",
-          "The software can meet every requirement and still contribute to a fatal accident &mdash; if the requirements or the interaction design are wrong",
-          "Source: Donald MacKenzie, <em>Computer-related accidental death</em>, Science and Public Policy 21(4), 1994"
+          "<strong>4.5%</strong> — physical causes, <strong>2.8%</strong> — software errors, <strong>0.8%</strong> — other",
+          "The software can meet every requirement and still contribute to a fatal accident &mdash; if the requirements or the interaction design are wrong"
         ]
       }
     ]
@@ -127,16 +123,13 @@
       {
         "img": "control-system-failure-causes.png",
         "alt": "Pie chart of control system failure causes by lifecycle phase, specification dominates with 44%",
-        "height": 290
+        "height": 240
       },
       {
         "card": "Primary cause by lifecycle phase",
         "items": [
-          "<strong>44%</strong> — specification",
-          "<strong>20%</strong> — changes after commissioning",
-          "<strong>15%</strong> — design and implementation",
-          "<strong>15%</strong> — operation and maintenance",
-          "<strong>6%</strong> — installation and commissioning",
+          "<strong>44%</strong> — specification, <strong>20%</strong> — changes after commissioning",
+          "<strong>15%</strong> — design and implementation, <strong>15%</strong> — operation and maintenance, <strong>6%</strong> — installation",
           "Almost two thirds of failures are created <strong>before or after</strong> the code is written &mdash; in the spec, or in uncontrolled change"
         ]
       }
@@ -179,15 +172,15 @@
       {
         "img": "sil-levels.png",
         "alt": "Table of SIL levels 0-4 with requirements for specification, languages, configuration control, testing and assessment",
-        "height": 300
+        "height": 260
       },
       {
         "card": "Reading the table",
         "items": [
           "<strong>SIL 0</strong> = ISO 9001 process only — <em>no safety claim at all; an accident is quite likely to happen</em>",
           "<strong>SIL 1–2</strong> — structured methods, controlled changes, functional testing and reviews",
-          "<strong>SIL 3–4</strong> — formal specification, restricted language subsets, validated/proven compilers, static analysis up to 100% testing &amp; proof",
-          "The higher the level, the stronger the claim: at the top end, <em>this software may hold human lives</em>"
+          "<strong>SIL 3–4</strong> — formal specification, restricted language subsets, validated compilers, static analysis up to 100% testing &amp; proof — <em>this software may hold human lives</em>",
+          "Coffee-break reality check: <a href=\"https://www.youtube.com/shorts/RJverdoLwTk\" target=\"_blank\">Developer vs. Tester (YouTube short)</a>"
         ]
       }
     ]
@@ -266,16 +259,15 @@
       {
         "img": "patriot-missile.png",
         "alt": "Patriot missile launch",
-        "height": 250,
+        "height": 170,
         "caption": "Dhahran, 25 February 1991: a Patriot battery failed to intercept a Scud missile — a floating-point time-accumulation error after 100 hours of continuous operation. 28 soldiers died, 98 were injured."
       },
       {
         "card": "What DO-178C says",
         "items": [
           "Software design process activities 'could introduce modes of failure into the software or, conversely, preclude others'",
-          "In such cases additional data must be defined as <strong>derived requirements</strong> and fed back to the <strong>system safety assessment process</strong>",
-          "An objective of DO-178 verification is to remove errors that would lead to unacceptable failure conditions",
-          "Watch out: the loop back to system safety is where projects often break down in practice"
+          "In such cases additional data must be defined as <strong>derived requirements</strong> and fed back to the <strong>system safety assessment process</strong> &mdash; the loop where projects often break down in practice",
+          "An objective of DO-178 verification is to remove errors that would lead to unacceptable failure conditions"
         ]
       }
     ]

@@ -45,11 +45,26 @@
     "type": "content",
     "mod": "10",
     "tag": "",
+    "title": "Why We Test: Cover All Edge Cases",
+    "desc": "Your collision-avoidance plugin will meet its stick-wielding tester in Module 11",
+    "body": [
+      {
+        "img": "edge-cases.png",
+        "alt": "MonkeyUser comic: a robot builder is asked 'did you cover all edge cases?' — weeks later the robot wears a helmet, pillows and a roll cage",
+        "height": 440,
+        "caption": "monkeyuser.com — Edge Cases"
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "10",
+    "tag": "",
     "title": "Example 1: Testing a Greeting Endpoint",
     "desc": "A complete Karate feature file — no Java code required",
     "body": [
       {
-        "code": "<span class=\"kw\">Feature:</span> greeting end-point\n\n<span class=\"kw\">Background:</span>\n  * url demoBaseUrl\n\n<span class=\"kw\">Scenario:</span> get default greeting\n\n    <span class=\"kw\">Given</span> path <span class=\"str\">'greeting'</span>\n    <span class=\"kw\">When</span> method get\n    <span class=\"kw\">Then</span> status 200\n    <span class=\"kw\">And</span> match response == { id: <span class=\"str\">'#number'</span>, content: <span class=\"str\">'Hello World!'</span> }\n\n<span class=\"kw\">Scenario:</span> get custom greeting\n\n    <span class=\"kw\">Given</span> path <span class=\"str\">'greeting'</span>\n    <span class=\"kw\">And</span> param name = <span class=\"str\">'Billie'</span>\n    <span class=\"kw\">When</span> method get\n    <span class=\"kw\">Then</span> status 200\n    <span class=\"kw\">And</span> match response == { id: <span class=\"str\">'#number'</span>, content: <span class=\"str\">'Hello Billie!'</span> }",
+        "code": "<span class=\"kw\">Feature:</span> greeting end-point\n\n<span class=\"kw\">Background:</span>\n  * url demoBaseUrl\n\n<span class=\"kw\">Scenario:</span> get default greeting\n    <span class=\"kw\">Given</span> path <span class=\"str\">'greeting'</span>\n    <span class=\"kw\">When</span> method get\n    <span class=\"kw\">Then</span> status 200\n    <span class=\"kw\">And</span> match response == { id: <span class=\"str\">'#number'</span>, content: <span class=\"str\">'Hello World!'</span> }\n\n<span class=\"kw\">Scenario:</span> get custom greeting\n    <span class=\"kw\">Given</span> path <span class=\"str\">'greeting'</span>\n    <span class=\"kw\">And</span> param name = <span class=\"str\">'Billie'</span>\n    <span class=\"kw\">When</span> method get\n    <span class=\"kw\">Then</span> status 200\n    <span class=\"kw\">And</span> match response == { id: <span class=\"str\">'#number'</span>, content: <span class=\"str\">'Hello Billie!'</span> }",
         "note": "match validates the whole JSON payload structurally — '#number' is a fuzzy matcher: any numeric id passes."
       }
     ]
@@ -59,11 +74,11 @@
     "mod": "10",
     "tag": "",
     "title": "Example 2: CSRF Token & Sign-In Flow",
-    "desc": "Chaining requests: capture a token, then use it in three submit variants",
+    "desc": "Chaining requests: capture a token, then use it in the next request",
     "body": [
       {
-        "code": "<span class=\"kw\">Feature:</span> csrf and sign-in end point\n\n<span class=\"kw\">Background:</span>\n  * url demoBaseUrl\n\n  <span class=\"kw\">Given</span> path <span class=\"str\">'signin'</span>, <span class=\"str\">'token'</span>\n  <span class=\"kw\">When</span> method get\n  <span class=\"kw\">Then</span> status 200\n  <span class=\"kw\">And</span> header X-CSRF-TOKEN = response\n\n<span class=\"kw\">Scenario:</span> html url encoded form submit - post\n    <span class=\"kw\">Given</span> path <span class=\"str\">'signin'</span>\n    <span class=\"kw\">And</span> form field username = <span class=\"str\">'john'</span>\n    <span class=\"kw\">And</span> form field password = <span class=\"str\">'secret'</span>\n    <span class=\"kw\">When</span> method post\n    <span class=\"kw\">Then</span> status 200\n    <span class=\"kw\">And</span> match response == <span class=\"str\">'success'</span>\n\n<span class=\"kw\">Scenario:</span> form submit - manually forming the request\n    <span class=\"kw\">Given</span> path <span class=\"str\">'signin'</span>\n    <span class=\"kw\">And</span> request <span class=\"str\">'username=john&amp;password=secret'</span>\n    <span class=\"kw\">And</span> header Content-Type = <span class=\"str\">'application/x-www-form-urlencoded'</span>\n    <span class=\"kw\">When</span> method post\n    <span class=\"kw\">Then</span> status 200\n    <span class=\"kw\">And</span> match response == <span class=\"str\">'success'</span>",
-        "note": "The Background runs before each scenario: it fetches the CSRF token once and injects it as a header — state flows naturally between steps."
+        "code": "<span class=\"kw\">Feature:</span> csrf and sign-in end point\n\n<span class=\"kw\">Background:</span>\n  * url demoBaseUrl\n  <span class=\"kw\">Given</span> path <span class=\"str\">'signin'</span>, <span class=\"str\">'token'</span>\n  <span class=\"kw\">When</span> method get\n  <span class=\"kw\">Then</span> status 200\n  <span class=\"kw\">And</span> header X-CSRF-TOKEN = response\n\n<span class=\"kw\">Scenario:</span> html url encoded form submit - post\n    <span class=\"kw\">Given</span> path <span class=\"str\">'signin'</span>\n    <span class=\"kw\">And</span> form field username = <span class=\"str\">'john'</span>\n    <span class=\"kw\">And</span> form field password = <span class=\"str\">'secret'</span>\n    <span class=\"kw\">When</span> method post\n    <span class=\"kw\">Then</span> status 200\n    <span class=\"kw\">And</span> match response == <span class=\"str\">'success'</span>",
+        "note": "The Background runs before each scenario: it fetches the CSRF token once and injects it as a header — state flows naturally between steps. The full demo also shows GET-based and manually-formed request variants."
       }
     ]
   }

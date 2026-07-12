@@ -35,6 +35,21 @@
     "type": "content",
     "mod": "14",
     "tag": "",
+    "title": "The Sprint, As Experienced",
+    "desc": "Agile is a discipline, not a magic word — plan for the obstacles",
+    "body": [
+      {
+        "img": "sprint.png",
+        "alt": "MonkeyUser comic: a sprint as an obstacle race through meetings, bugs, merge conflicts — ending at a wall labeled scope creep",
+        "height": 440,
+        "caption": "monkeyuser.com — Sprint"
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "14",
+    "tag": "",
     "title": "Opportunities & Challenges of Future Drone Technologies",
     "body": [
       {

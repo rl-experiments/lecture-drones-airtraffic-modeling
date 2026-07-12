@@ -32,7 +32,7 @@
       {
         "img": "cqrs-flow.png",
         "alt": "CQRS flow: write requests persist to the write DB, change data capture feeds a message bus, a transformation service builds the read store",
-        "height": 280
+        "height": 250
       }
     ]
   },

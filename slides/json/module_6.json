@@ -49,17 +49,14 @@
     "desc": "APIs are described in YAML or JSON — five top-level building blocks",
     "body": [
       {
-        "code": "<span class=\"kw\">openapi:</span> 3.1.0\n<span class=\"kw\">info:</span>\n  title: UTM Flight Clearance API\n  version: 1.0.0\n<span class=\"kw\">servers:</span>\n  - url: https://utm.example.com/v1\n<span class=\"kw\">paths:</span>\n  /drones/{droneId}/clearance:\n    post:\n      summary: Request flight clearance for a mission\n      responses:\n        <span class=\"str\">'201'</span>: { description: Clearance granted }\n        <span class=\"str\">'409'</span>: { description: Conflict with another mission }\n<span class=\"kw\">components:</span>\n  schemas:\n    Mission:\n      type: object\n      required: [route, startTime]",
-        "note": "A drone-flavored example: the same five blocks appear in every OpenAPI document."
+        "code": "<span class=\"kw\">openapi:</span> 3.1.0\n<span class=\"kw\">info:</span>\n  title: UTM Flight Clearance API\n  version: 1.0.0\n<span class=\"kw\">servers:</span>\n  - url: https://utm.example.com/v1\n<span class=\"kw\">paths:</span>\n  /drones/{droneId}/clearance:\n    post:\n      summary: Request flight clearance for a mission\n      responses:\n        <span class=\"str\">'201'</span>: { description: Clearance granted }\n        <span class=\"str\">'409'</span>: { description: Conflict with another mission }"
       },
       {
-        "card": "The building blocks",
+        "card": "The five building blocks",
         "items": [
-          "<code>openapi</code> — version of the specification",
-          "<code>info</code> — metadata: title, version, description",
-          "<code>paths</code> — definition of the API endpoints",
-          "<code>components</code> — reusable schema definitions",
-          "<code>servers</code> — available servers for the API"
+          "<code>openapi</code> — version of the specification, <code>info</code> — metadata: title, version, description",
+          "<code>servers</code> — available servers, <code>paths</code> — definition of the API endpoints",
+          "<code>components</code> — reusable schema definitions (e.g. a <code>Mission</code> object shared by several endpoints)"
         ]
       }
     ]
@@ -96,32 +93,17 @@
       {
         "img": "swagger-editor-petstore.jpg",
         "alt": "Swagger Editor with the Petstore example: YAML on the left, rendered documentation on the right",
-        "height": 320
+        "height": 230
       },
       {
         "card": "The toolbox",
         "items": [
-          "<strong>Swagger UI</strong> — visual rendering and in-browser test calls",
+          "<a href=\"https://swagger.io/tools/swagger-ui/\" target=\"_blank\"><strong>Swagger UI</strong></a> — visual rendering and in-browser test calls (try the <a href=\"https://editor.swagger.io\" target=\"_blank\">live editor</a>)",
           "<strong>Redoc</strong> — modern, read-oriented API documentation",
           "<strong>Postman</strong> — API testing and development",
-          "<strong>OpenAPI Generator</strong> — client/server code generation for dozens of languages"
+          "<strong>OpenAPI Generator</strong> — client/server code generation for dozens of languages",
+          "Conclusion: OpenAPI makes API development dramatically easier — <strong>standards lead to better collaboration</strong>"
         ]
-      },
-      {
-        "card": "Conclusion",
-        "items": [
-          "OpenAPI makes API development and documentation dramatically easier",
-          "Standards lead to better collaboration — inside a team and across an industry"
-        ]
-      },
-      {
-        "resource": {
-          "title": "Try it",
-          "links": [
-            { "url": "https://swagger.io/tools/swagger-ui/", "label": "Swagger UI" },
-            { "url": "https://editor.swagger.io", "label": "Swagger Editor (live)" }
-          ]
-        }
       }
     ]
   }
