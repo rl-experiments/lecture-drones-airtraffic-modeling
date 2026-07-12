@@ -1,7 +1,7 @@
 [
   {
     "type": "cover",
-    "script": { "name": "drone", "opts": { "perched": true, "anchor": ".cover-card", "anchorOffsetX": 100, "anchorOffsetY": -15, "scale": 0.9 } },
+    "script": { "name": "drone", "opts": { "perched": true, "anchor": ".cover-card", "anchorOffsetX": 100, "anchorOffsetY": -15, "scale": 1.05, "color": "#22c55e" } },
     "bg": 2,
     "h1": "Module 6",
     "lead": "RESTful APIs: OpenAPI",

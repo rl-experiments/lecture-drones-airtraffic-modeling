@@ -1,7 +1,7 @@
 [
   {
     "type": "cover",
-    "script": { "name": "drone", "opts": { "perched": true, "anchor": ".cover-card", "anchorOffsetX": 95, "anchorOffsetY": 0, "scale": 1 } },
+    "script": { "name": "drone", "opts": { "perched": true, "anchor": ".cover-card", "anchorOffsetX": 95, "anchorOffsetY": 0, "scale": 1.05, "color": "#f97316" } },
     "bg": 3,
     "h1": "Module 1",
     "lead": "Drones & Air Traffic: Introduction",

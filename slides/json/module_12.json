@@ -1,7 +1,7 @@
 [
   {
     "type": "cover",
-    "script": { "name": "drone", "opts": { "perched": true, "anchor": ".cover-card", "anchorOffsetX": 100, "anchorOffsetY": -10, "scale": 0.9 } },
+    "script": { "name": "drone", "opts": { "perched": true, "anchor": ".cover-card", "anchorOffsetX": 100, "anchorOffsetY": -10, "scale": 1.05, "color": "#84cc16" } },
     "bg": 2,
     "h1": "Module 12",
     "lead": "Real-Time Data in GIS Applications",

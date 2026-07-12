@@ -1,7 +1,7 @@
 [
   {
     "type": "cover",
-    "script": { "name": "drone", "opts": { "perched": true, "anchor": ".cover-card", "anchorOffsetX": 90, "anchorOffsetY": 10, "scale": 0.9 } },
+    "script": { "name": "drone", "opts": { "perched": true, "anchor": ".cover-card", "anchorOffsetX": 90, "anchorOffsetY": 10, "scale": 1.05, "color": "#3b82f6" } },
     "bg": 7,
     "h1": "Module 4",
     "lead": "Aeronautical Information Exchange",

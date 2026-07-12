@@ -1,7 +1,7 @@
 [
   {
     "type": "cover",
-    "script": { "name": "drone", "opts": { "perched": true, "anchor": ".cover-card", "anchorOffsetX": 90, "anchorOffsetY": -20, "scale": 1 } },
+    "script": { "name": "drone", "opts": { "perched": true, "anchor": ".cover-card", "anchorOffsetX": 90, "anchorOffsetY": -20, "scale": 1.05, "color": "#64748b" } },
     "bg": 6,
     "h1": "Module 14",
     "lead": "Agile Processes & Conclusion",

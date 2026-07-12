@@ -198,10 +198,7 @@
     html += `<button class="btn" id="toc-btn-modules" onclick="tocToggle('modules')" style="font-size:13px;height:30px;padding:4px 14px">Modules</button>`;
     html += `<button class="btn-ghost" id="toc-btn-slides" onclick="tocToggle('slides')" style="font-size:13px;height:30px;padding:4px 14px;border:1px solid var(--border)">All Slides</button>`;
     html += `</div>`;
-    html += `<div id="toc-slides-actions" style="display:none;text-align:center">`;
-    html += `<button class="btn-ghost" id="toc-btn-sws" onclick="tocSwsFilter()" style="font-size:13px;height:30px;padding:4px 10px;border:1px solid var(--border);white-space:nowrap">2 SWS</button>`;
-    html += `</div>`;
-    html += `<div id="toc-sws-count" data-total="${totalCount}" data-filtered="${swsCount}" style="display:none;text-align:right;font-variant-numeric:tabular-nums;color:var(--muted-foreground);font-size:13px">${totalCount}</div>`;
+    html += `<div id="toc-sws-count" data-total="${totalCount}" data-filtered="${swsCount}" style="display:none;text-align:right;font-variant-numeric:tabular-nums;color:var(--muted-foreground);font-size:13px;grid-column:4">${totalCount}</div>`;
     html += `</div>`;
 
     // Module overview with groups as separate cards

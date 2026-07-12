@@ -1,7 +1,7 @@
 [
   {
     "type": "cover",
-    "script": { "name": "drone", "opts": { "perched": true, "anchor": ".cover-card", "anchorOffsetX": 100, "anchorOffsetY": -25, "scale": 0.95 } },
+    "script": { "name": "drone", "opts": { "perched": true, "anchor": ".cover-card", "anchorOffsetX": 100, "anchorOffsetY": -25, "scale": 1.05, "color": "#eab308" } },
     "bg": 5,
     "h1": "Module 2",
     "lead": "Seminar Topics & Competition",

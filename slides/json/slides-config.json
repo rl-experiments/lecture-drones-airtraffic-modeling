@@ -115,8 +115,8 @@
       "DO-178C / ED-153",
       "OpenAPI",
       "Spring WebFlux",
-      "CQRS",
-      "*BlueSky Simulator"
+      "*CQRS",
+      "BlueSky Simulator"
     ]
   }
 }

@@ -12,6 +12,7 @@
  *   x, y           fallback position as viewport fractions (default 0.5/0.5)
  *   facing         initial body tilt in radians (visual only)
  *   scale          overall size multiplier
+ *   color          accent color (hex) — module color on cover slides
  *   fleeRadius     cursor distance that triggers evasive dodge (roaming mode)
  */
 function initDrone(opts = {}) {
@@ -19,6 +20,7 @@ function initDrone(opts = {}) {
   const FLEE_R     = opts.fleeRadius || 130;
   const BASE_SCALE = opts.scale || 1;
   const BASE_TILT  = (opts.facing || 0) * 180 / Math.PI;
+  const ACCENT     = opts.color || '#00b0c8';
 
   // ── create DOM ──
   const host = document.createElement('div');
@@ -46,14 +48,14 @@ function initDrone(opts = {}) {
     </linearGradient>
     <radialGradient id="drLens" cx="35%" cy="35%" r="70%">
       <stop offset="0%"  stop-color="#9fd8ff"/>
-      <stop offset="45%" stop-color="#1a4d70"/>
+      <stop id="dr-lens-mid" offset="45%" stop-color="#1a4d70"/>
       <stop offset="100%" stop-color="#08121c"/>
     </radialGradient>
   </defs>
 
-  <!-- rotor blur discs -->
-  <ellipse id="dr-disc-l" cx="38"  cy="34" rx="30" ry="6" fill="#9aa4ae" opacity=".22"/>
-  <ellipse id="dr-disc-r" cx="132" cy="34" rx="30" ry="6" fill="#9aa4ae" opacity=".22"/>
+  <!-- rotor blur discs (accent-tinted) -->
+  <ellipse class="dr-accent-disc" cx="38"  cy="34" rx="30" ry="6" fill="#9aa4ae" opacity=".28"/>
+  <ellipse class="dr-accent-disc" cx="132" cy="34" rx="30" ry="6" fill="#9aa4ae" opacity=".28"/>
 
   <!-- spinning blades (squashed to fake the side view) -->
   <g transform="translate(38,34) scale(1,.2)">
@@ -87,8 +89,8 @@ function initDrone(opts = {}) {
   <path d="M60,50 Q62,44 72,43 L98,43 Q108,44 110,50 L112,58
            Q112,66 102,68 L68,68 Q58,66 58,58Z"
         fill="url(#drBody)" stroke="#1d232a" stroke-width="1.1"/>
-  <path d="M62,50 Q72,46 85,46 Q98,46 108,50 L108,53 Q97,49 85,49 Q73,49 62,53Z"
-        fill="#aab3bd" opacity=".5"/>
+  <path id="dr-stripe" d="M62,50 Q72,46 85,46 Q98,46 108,50 L108,54 Q97,50 85,50 Q73,50 62,54Z"
+        fill="#aab3bd" opacity=".9"/>
   <!-- vents -->
   <g stroke="#252b33" stroke-width="1.4" opacity=".75">
     <path d="M73,58 L73,63"/><path d="M79,58 L79,64"/><path d="M85,58 L85,64"/>
@@ -96,7 +98,7 @@ function initDrone(opts = {}) {
   </g>
 
   <!-- camera gimbal -->
-  <rect x="76" y="66" width="18" height="7" rx="3" fill="#3a414a" stroke="#1d232a" stroke-width=".8"/>
+  <rect id="dr-gimbal" x="76" y="66" width="18" height="7" rx="3" fill="#3a414a" stroke="#1d232a" stroke-width=".8"/>
   <circle id="dr-cam" cx="85" cy="78" r="7.4" fill="#20262d" stroke="#12161b" stroke-width="1"/>
   <circle cx="85" cy="78" r="4.4" fill="url(#drLens)"/>
   <circle cx="83.4" cy="76.4" r="1.2" fill="#cfeaff" opacity=".8"/>
@@ -113,6 +115,12 @@ function initDrone(opts = {}) {
   const propR = host.querySelector('#dr-prop-r');
   const ledL  = host.querySelector('#dr-led-l');
   const ledR  = host.querySelector('#dr-led-r');
+
+  // apply the accent (module) color
+  host.querySelector('#dr-stripe').setAttribute('fill', ACCENT);
+  host.querySelector('#dr-gimbal').setAttribute('fill', ACCENT);
+  host.querySelector('#dr-lens-mid').setAttribute('stop-color', ACCENT);
+  host.querySelectorAll('.dr-accent-disc').forEach(el => el.setAttribute('fill', ACCENT));
 
   const vw = () => window.innerWidth;
   const vh = () => window.innerHeight;

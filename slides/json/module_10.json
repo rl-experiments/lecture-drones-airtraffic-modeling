@@ -1,7 +1,7 @@
 [
   {
     "type": "cover",
-    "script": { "name": "drone", "opts": { "perched": true, "anchor": ".cover-card", "anchorOffsetX": 95, "anchorOffsetY": 0, "scale": 0.9 } },
+    "script": { "name": "drone", "opts": { "perched": true, "anchor": ".cover-card", "anchorOffsetX": 95, "anchorOffsetY": 0, "scale": 1.05, "color": "#f59e0b" } },
     "bg": 7,
     "h1": "Module 10",
     "lead": "Karate: Test Automation",

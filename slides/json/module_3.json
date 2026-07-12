@@ -1,7 +1,7 @@
 [
   {
     "type": "cover",
-    "script": { "name": "drone", "opts": { "perched": true, "anchor": ".cover-card", "anchorOffsetX": -70, "anchorOffsetY": -15, "scale": 1 } },
+    "script": { "name": "drone", "opts": { "perched": true, "anchor": ".cover-card", "anchorOffsetX": 40, "anchorOffsetY": -15, "scale": 1.05, "color": "#dc2626" } },
     "bg": 6,
     "h1": "Module 3",
     "lead": "Principles of Software Safety Standards",

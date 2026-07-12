@@ -1,7 +1,7 @@
 [
   {
     "type": "cover",
-    "script": { "name": "drone", "opts": { "perched": true, "anchor": ".cover-card", "anchorOffsetX": -65, "anchorOffsetY": 5, "scale": 1 } },
+    "script": { "name": "drone", "opts": { "perched": true, "anchor": ".cover-card", "anchorOffsetX": 35, "anchorOffsetY": 5, "scale": 1.05, "color": "#8b5cf6" } },
     "bg": 3,
     "h1": "Module 7",
     "lead": "Reactive Java: Spring WebFlux",

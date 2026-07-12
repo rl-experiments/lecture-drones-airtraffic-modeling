@@ -1,7 +1,7 @@
 [
   {
     "type": "cover",
-    "script": { "name": "drone", "opts": { "perched": true, "anchor": ".cover-card", "anchorOffsetX": -60, "anchorOffsetY": -25, "scale": 1 } },
+    "script": { "name": "drone", "opts": { "perched": true, "anchor": ".cover-card", "anchorOffsetX": 30, "anchorOffsetY": -25, "scale": 1.05, "color": "#06b6d4" } },
     "bg": 4,
     "h1": "Module 11",
     "lead": "Simulation Environments for Validation",

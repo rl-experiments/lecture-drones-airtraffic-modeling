@@ -7,7 +7,7 @@
   },
   {
     "type": "cover",
-    "script": { "name": "drone", "opts": { "perched": true, "anchor": ".cover-card", "anchorOffsetX": -60, "anchorOffsetY": -10, "scale": 0.9 } },
+    "script": { "name": "drone", "opts": { "perched": true, "anchor": ".cover-card", "anchorOffsetX": 30, "anchorOffsetY": -10, "scale": 1.05, "color": "#737373" } },
     "bg": 6,
     "h1": "Intro",
     "lead": "Course Overview & Organization",

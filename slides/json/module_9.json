@@ -1,7 +1,7 @@
 [
   {
     "type": "cover",
-    "script": { "name": "drone", "opts": { "perched": true, "anchor": ".cover-card", "anchorOffsetX": -70, "anchorOffsetY": -10, "scale": 0.95 } },
+    "script": { "name": "drone", "opts": { "perched": true, "anchor": ".cover-card", "anchorOffsetX": 40, "anchorOffsetY": -10, "scale": 1.05, "color": "#ef4444" } },
     "bg": 6,
     "h1": "Module 9",
     "lead": "Design Pattern: CQRS",
