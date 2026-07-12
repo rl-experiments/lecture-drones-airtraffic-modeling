@@ -14,31 +14,13 @@
     },
     "bg": 6,
     "h1": "Module 15",
-    "lead": "Agile Processes & Conclusion",
-    "sub": "How to build all of this — and where it is heading",
+    "lead": "Conclusion & Outlook",
+    "sub": "Where drone technology is heading — and what stands in the way",
     "badges": [
-      "Iterative Development",
-      "DevOps",
-      "CI/CD",
-      "Standards & Outlook"
-    ]
-  },
-  {
-    "type": "content",
-    "mod": "15",
-    "tag": "",
-    "title": "Agile Development in Software & Systems Engineering",
-    "desc": "Aviation-grade rigor and agile iteration are not enemies",
-    "body": [
-      {
-        "card": "The agile toolbox applied to drone systems",
-        "items": [
-          "<strong>Iterative development &amp; continuous improvement</strong> — short cycles, early feedback from simulation (Module 12) instead of big-bang integration",
-          "<strong>DevOps &amp; CI/CD pipelines</strong> — every commit builds, tests (Karate, Module 11) and deploys to a simulated airspace automatically",
-          "<strong>Fast adaptation to regulatory requirements</strong> — EU drone rules evolve yearly; architecture and pipelines must absorb rule changes as routine work, not as crises",
-          "<strong>Best practice</strong> — keep the safety artifacts (requirements, traceability, verification evidence from Module 4) inside the pipeline, not in a drawer: 'continuous compliance'"
-        ]
-      }
+      "Opportunities",
+      "AI & Autonomy",
+      "International Standards",
+      "*Wrap-up"
     ]
   },
   {

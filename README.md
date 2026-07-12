@@ -54,7 +54,7 @@ slides/
     module_12.json        ← M12: Simulation Environments (BlueSky)
     module_13.json        ← M13: Real-Time Data in GIS
     module_14.json        ← M14: Optimizing Data Transmission
-    module_15.json        ← M15: Agile Processes & Conclusion
+    module_15.json        ← M15: Conclusion & Outlook
   images/
     bg/                   ← background images
     content/              ← slide content images (UTM diagram, METAR examples, etc.)

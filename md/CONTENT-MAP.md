@@ -47,8 +47,8 @@ were **transcribed into native slides** instead of being reused as images.
 | 48–50 | Simulation, BlueSky | Module 12 | Simulator screenshot kept; competition setup **enriched** |
 | 51–52 | GIS integration | Module 13 | DiPUL note expanded with links |
 | 53–55 | Data transmission, edge/RL | Module 14 | Protocol list turned into table; RL video link preserved |
-| 56–57 | Agile processes | Module 15 | |
-| 58–59 | Conclusion & outlook | Module 15, three slides + wrap-up | |
+| 56–57 | Agile processes | — | **Dropped at instructor's request** (July 2026): generic agile content didn't fit the drone-focused conclusion |
+| 58–59 | Conclusion & outlook | Module 15 ("Conclusion & Outlook"), three slides + wrap-up | |
 
 ## Added content (not in the PPTX)
 
