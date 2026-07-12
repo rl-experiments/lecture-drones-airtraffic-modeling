@@ -1,7 +1,7 @@
 # Content Map: Original PPTX → New Slide Deck
 
 Source: `20250322 Innovative Technologien für Drohnen - Luftverkehrsmodellierung.pptx` (59 slides, German).
-Target: `slides/json/module_0.json … module_14.json` (English, enriched).
+Target: `slides/json/module_0.json … module_15.json` (English, enriched).
 
 Translation policy: all German content translated to English; thin or image-only source slides were fleshed
 out with cards/tables in the style of the [lecture-se-tools-ai](https://github.com/rl-experiments/lecture-se-tools-ai)
@@ -22,37 +22,37 @@ were **transcribed into native slides** instead of being reused as images.
 | 9 | EU regulation 2024, A1/A2/A3 | Module 1: regulation chart slide + A1/A2/A3 table | Chart (helden.de) + EASA certificate image kept |
 | 10–12 | 16 presentation topics | Module 2, three topic tables | |
 | 13 | Competition announcement | Module 2 "The Competition" | EXERCISE tag |
-| 14 | Expectation: 60h, grade 1.0 | Module 2 "Expectations" (+ Module 0 grading overview) | Stopwatch image kept |
-| 15 | Section 3 overview | Module 3 cover + "The Standards Landscape" | **Enriched** with ARP 4754A / Mil-Std-882E rows |
-| 16 | Ultralight photo (image only) | Module 3 "Safety Culture Predates Software" | Photo rotation fixed; **enriched** framing |
-| 17 | Economics of defect fixing | Module 3 | Chart kept, Dawson et al. citation preserved |
-| 18 | "Perfect" software can kill | Module 3 | MacKenzie pie chart kept |
-| 19 | "Out of Control" | Module 3, two slides (HSG 238 chart + IS/ISN'T) | |
-| 20 | SIL levels | Module 3 "Trust Levels & Categories" | |
-| 21 | Principles 1–4 with accidents | Module 3, Principles 1/2/3/4 slides | Lufthansa 2904, Mars Polar Lander, Patriot images kept |
-| 22 | Principle 4+1 + Boeing 777 FBW | Module 3, two slides | IEEE link preserved |
-| 23–24 | DO-178C principle screenshots (image only) | Module 3, merged into Principles 1–4+1 | **Transcribed** from screenshots |
-| 25 | Section 4 overview | Module 4 cover + "The Aviation Message Zoo" | All reference links preserved |
-| 26 | NOTAM example | Module 4, two slides (example + field table) | |
-| 27 | METAR example | Module 4 "METAR" | |
-| 28 | AIXM | Module 4, two slides | **Enriched** with AIXM XML sample |
-| 29 | ASTERIX | Module 4 "ASTERIX" | Protocol-analyzer screenshot kept |
-| 25 (OLDI links) | OLDI | Module 4 "OLDI" | **Enriched** with message types and UTM relevance |
-| 30–31 | Section 5: control & monitoring, UTM | Module 5 | UTM ecosystem diagram kept; fleet control & sensor fusion **enriched** |
-| 32–34 | OpenAPI | Module 6 | YAML sample **enriched** (drone-flavored); 3.0-vs-3.1 + Swagger screenshots kept |
-| 35–37 | Spring Reactive | Module 7 | MVC-vs-WebFlux + reactive-streams diagrams kept; Mono/Flux code **enriched** |
-| 38–40 | Message queues / JMS | Module 8 | Queue-vs-topic ASCII diagram **enriched** |
-| 41–44 | CQRS | Module 9 | Flow diagram kept; example repo link preserved |
-| 45–47 | Karate | Module 10 | Both example screenshots **transcribed** into code blocks |
-| 48–50 | Simulation, BlueSky | Module 11 | Simulator screenshot kept; competition setup **enriched** |
-| 51–52 | GIS integration | Module 12 | DiPUL note expanded with links |
-| 53–55 | Data transmission, edge/RL | Module 13 | Protocol list turned into table; RL video link preserved |
-| 56–57 | Agile processes | Module 14 | |
-| 58–59 | Conclusion & outlook | Module 14, three slides + wrap-up | |
+| 14 | Expectation: 60h, grade 1.0 | Module 2 "Expectations" (+ Module 0 grading overview) | Reworked into expectation/achievement table: ≥60h homework + "able to explain the project" (stopwatch image dropped) |
+| 15 | Section 3 overview | Module 4 cover + "The Standards Landscape" | **Enriched** with ARP 4754A / Mil-Std-882E rows |
+| 16 | Ultralight photo (image only) | Module 4 "Safety Culture Predates Software" | Photo rotation fixed; **enriched** framing |
+| 17 | Economics of defect fixing | Module 4 | Chart kept, Dawson et al. citation preserved |
+| 18 | "Perfect" software can kill | Module 4 | MacKenzie pie chart kept |
+| 19 | "Out of Control" | Module 4, two slides (HSG 238 chart + IS/ISN'T) | |
+| 20 | SIL levels | Module 4 "Trust Levels & Categories" | |
+| 21 | Principles 1–4 with accidents | Module 4, Principles 1/2/3/4 slides | Lufthansa 2904, Mars Polar Lander, Patriot images kept |
+| 22 | Principle 4+1 + Boeing 777 FBW | Module 4, two slides | IEEE link preserved |
+| 23–24 | DO-178C principle screenshots (image only) | Module 4, merged into Principles 1–4+1 | **Transcribed** from screenshots |
+| 25 | Section 4 overview | Module 5 cover + "The Aviation Message Zoo" | All reference links preserved |
+| 26 | NOTAM example | Module 5, two slides (example + field table) | |
+| 27 | METAR example | Module 5 "METAR" | |
+| 28 | AIXM | Module 5, two slides | **Enriched** with AIXM XML sample |
+| 29 | ASTERIX | Module 5 "ASTERIX" | Protocol-analyzer screenshot kept |
+| 25 (OLDI links) | OLDI | Module 5 "OLDI" | **Enriched** with message types and UTM relevance |
+| 30–31 | Section 5: control & monitoring, UTM | Module 6 | UTM ecosystem diagram kept; fleet control & sensor fusion **enriched** |
+| 32–34 | OpenAPI | Module 7 | YAML sample **enriched** (drone-flavored); 3.0-vs-3.1 + Swagger screenshots kept |
+| 35–37 | Spring Reactive | Module 8 | MVC-vs-WebFlux + reactive-streams diagrams kept; Mono/Flux code **enriched** |
+| 38–40 | Message queues / JMS | Module 9 | Queue-vs-topic ASCII diagram **enriched** |
+| 41–44 | CQRS | Module 10 | Flow diagram kept; example repo link preserved |
+| 45–47 | Karate | Module 11 | Both example screenshots **transcribed** into code blocks |
+| 48–50 | Simulation, BlueSky | Module 12 | Simulator screenshot kept; competition setup **enriched** |
+| 51–52 | GIS integration | Module 13 | DiPUL note expanded with links |
+| 53–55 | Data transmission, edge/RL | Module 14 | Protocol list turned into table; RL video link preserved |
+| 56–57 | Agile processes | Module 15 | |
+| 58–59 | Conclusion & outlook | Module 15, three slides + wrap-up | |
 
 ## Added content (not in the PPTX)
 
-**Module 15 "Lab: Hands-On DJI Mobile SDK"** — authored from the instructor's two assignment mails (July 2026):
+**Module 3 "Lab: Hands-On DJI Mobile SDK"** (deck position directly after Module 2) — authored from the instructor's two assignment mails (July 2026):
 mail 1 = feasibility test (hardware shopping list: Mini 4 Pro / RC-N3 / Android; toolchain: Android Studio,
 DJI developer account + App Key, Mobile-SDK-Android-V5 sample; success = registration + battery via KeyManager),
 mail 2 = optional deep dive (levels A–D: telemetry subscriptions, KeyManager key groups, live video stream,
@@ -62,9 +62,9 @@ simulator-only virtual stick) plus the guiding question "where does the SDK end?
 
 | Asset | Source | Placed in |
 |---|---|---|
-| `edge-cases.png` | [monkeyuser.com — Edge Cases](https://www.monkeyuser.com/2019/edge-cases/) | Module 10 "Why We Test: Cover All Edge Cases" |
-| `testing-vs-prod.png` | [monkeyuser.com — Testing vs. Production Environment](https://www.monkeyuser.com/2017/testing-vs-prod-env/) | Module 11 "Test Environment vs. Reality" |
-| `sprint.png` | [monkeyuser.com — Sprint](https://www.monkeyuser.com/2019/sprint/) | Module 14 "The Sprint, As Experienced" |
+| `edge-cases.png` | [monkeyuser.com — Edge Cases](https://www.monkeyuser.com/2019/edge-cases/) | Module 11 "Why We Test: Cover All Edge Cases" |
+| `testing-vs-prod.png` | [monkeyuser.com — Testing vs. Production Environment](https://www.monkeyuser.com/2017/testing-vs-prod-env/) | Module 12 "Test Environment vs. Reality" |
+| `sprint.png` | [monkeyuser.com — Sprint](https://www.monkeyuser.com/2019/sprint/) | Module 15 "The Sprint, As Experienced" |
 
 Same comic source as the reference repo (lecture-se-tools-ai); watermarks/attribution preserved in the images and captions.
 

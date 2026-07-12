@@ -1,38 +1,52 @@
 [
   {
     "type": "cover",
-    "script": { "name": "drone", "opts": { "perched": true, "anchor": ".cover-card", "anchorOffsetX": 40, "anchorOffsetY": -10, "scale": 1.05, "color": "#ef4444" } },
-    "bg": 6,
+    "script": {
+      "name": "drone",
+      "opts": {
+        "perched": true,
+        "anchor": ".cover-card",
+        "anchorOffsetX": 90,
+        "anchorOffsetY": -30,
+        "scale": 1.05,
+        "color": "#ec4899"
+      }
+    },
+    "bg": 5,
     "h1": "Module 9",
-    "lead": "Design Pattern: CQRS",
-    "sub": "Technology block (d): Command Query Responsibility Segregation",
+    "lead": "Message Queues",
+    "sub": "Technology block (c): asynchronous communication between the systems that must never wait for each other",
     "badges": [
-      "Commands",
-      "Queries",
-      "Event Sourcing",
-      "*ATC Example"
+      "JMS",
+      "ActiveMQ",
+      "RabbitMQ",
+      "IBM MQ",
+      "Kafka"
     ]
   },
   {
     "type": "content",
     "mod": "9",
     "tag": "",
-    "title": "What Is CQRS?",
-    "desc": "Split the write side from the read side — and optimize each on its own",
+    "title": "Why Message Queues?",
+    "desc": "A system for asynchronous communication between applications",
     "body": [
       {
-        "card": "The pattern",
+        "card": "What it is",
         "items": [
-          "CQRS separates the responsibilities of <strong>commands (write operations)</strong> and <strong>queries (read operations)</strong> into two distinct models",
-          "The write model guards consistency and business rules",
-          "The read model is shaped purely for fast, convenient queries",
-          "Both are synchronized — often through events on a message bus (see Module 8)"
+          "Asynchronous communication: the sender does not wait for the receiver",
+          "In the Java world specified by <strong>JMS (Java Message Service)</strong>, part of Java/Jakarta EE",
+          "Supports <strong>loose coupling, scalability and reliability</strong>"
         ]
       },
       {
-        "img": "cqrs-flow.png",
-        "alt": "CQRS flow: write requests persist to the write DB, change data capture feeds a message bus, a transformation service builds the read store",
-        "height": 250
+        "card": "Why use them",
+        "items": [
+          "<strong>Decoupling</strong> — sender and receiver work independently; a UTM service can restart without losing telemetry",
+          "<strong>Load distribution</strong> — messages are processed in parallel by many consumers",
+          "<strong>Reliability</strong> — persistent storage of messages until they are consumed",
+          "<strong>Scalability</strong> — add consumers dynamically as traffic grows"
+        ]
       }
     ]
   },
@@ -40,72 +54,67 @@
     "type": "content",
     "mod": "9",
     "tag": "",
-    "title": "CQRS in Air Traffic Control",
-    "desc": "An ATC system processing airspace information — the textbook fit",
+    "title": "JMS Architecture: Queues & Topics",
+    "desc": "Two delivery models cover almost every messaging need",
     "body": [
       {
-        "card": "Two kinds of operations",
-        "items": [
-          "<strong>Commands</strong> — change or create airspace state: issue a takeoff clearance, adjust flight zones",
-          "<strong>Queries</strong> — retrieve the current information about the airspace"
-        ]
+        "code": "Point-to-Point (Queue)              Publish-Subscribe (Topic)\n\nProducer                             Publisher\n   |                                     |\n   v                                     v\n[ QUEUE ] --&gt; exactly one            [ TOPIC ] --&gt; every subscriber\n              consumer gets              |    \\\n              each message           Subscriber A  Subscriber B\n\nclearance requests,                  position broadcasts,\nwork distribution                    airspace status updates"
       },
       {
-        "card": "Applying the pattern",
+        "card": "The building blocks",
         "items": [
-          "<strong>The write model</strong> stores the current state of the airspace and guarantees all data stays consistent",
-          "<strong>The read model</strong> serves fast airspace queries without putting load on the write model",
-          "Controllers get instant situational awareness; clearance processing keeps its transactional integrity"
+          "<strong>Message producer</strong> — sends messages to a queue or topic; <strong>message consumer</strong> — receives them",
+          "<strong>Message queue</strong> — waiting line for messages (point-to-point model)",
+          "<strong>Topic</strong> — broadcast model for multiple receivers (publish-subscribe)",
+          "Message types: <code>Text</code>, <code>Bytes</code>, <code>Object</code>, <code>Map</code>, <code>Stream</code>"
         ]
-      },
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "9",
+    "tag": "",
+    "title": "Implementations & Tools",
+    "body": [
       {
-        "resource": {
-          "title": "Working example",
-          "links": [
-            { "url": "https://github.com/reinforcement-learning-experiments/event-sourcing-spring-boot", "label": "event-sourcing-spring-boot — CQRS + event sourcing demo" }
+        "table": {
+          "headers": [
+            "System",
+            "Character",
+            "Notes"
+          ],
+          "rows": [
+            [
+              "<strong>ActiveMQ</strong> (Apache)",
+              "Open-source JMS provider",
+              "The classic choice for JMS in Java projects"
+            ],
+            [
+              "<strong>RabbitMQ</strong>",
+              "AMQP broker",
+              "Supports JMS via plugins; very flexible routing"
+            ],
+            [
+              "<strong>IBM MQ</strong>",
+              "Enterprise messaging",
+              "Banking-grade reliability, commercial"
+            ],
+            [
+              "<strong>Kafka</strong>",
+              "Distributed log (not JMS, but similar use cases)",
+              "Massively scalable streaming — the natural fit for high-volume telemetry"
+            ]
           ]
         }
-      }
-    ]
-  },
-  {
-    "type": "content",
-    "mod": "9",
-    "tag": "",
-    "title": "CQRS Advantages",
-    "body": [
-      {
-        "card": "",
-        "items": [
-          "<strong>&#10004; Scalability</strong> — read and write models scale independently; the read model is tuned for fast queries while the write model stays focused on consistency and safety",
-          "<strong>&#10004; Performance</strong> — air traffic controllers need instant airspace queries; a separate read model serves real-time data without slowing down write processing",
-          "<strong>&#10004; Reliability &amp; security</strong> — only authorized users can change flight routes, while others get read-only access to flight information",
-          "<strong>&#10004; Flexibility</strong> — different technologies per side: e.g. a relational database for commands, a memory-optimized store for queries"
-        ]
-      }
-    ]
-  },
-  {
-    "type": "content",
-    "mod": "9",
-    "tag": "mistake",
-    "title": "CQRS Trade-offs",
-    "desc": "The pattern is powerful — and it charges for it",
-    "body": [
-      {
-        "card": "What you pay",
-        "items": [
-          "<strong>&#10008; Complexity</strong> — separating read and write models complicates the system: synchronization mechanisms become mandatory infrastructure",
-          "<strong>&#10008; Cost</strong> — multiple databases and a split codebase raise development and maintenance effort",
-          "<strong>&#10008; Eventual consistency</strong> — read data lags write data by design; brief inconsistencies are possible",
-          "In a critical environment like flight monitoring, that lag needs <strong>explicit countermeasures</strong>: staleness indicators, bounded lag monitoring, fallback to the write model for safety-relevant queries"
-        ],
-        "warn": true
       },
       {
-        "card": "Rule of thumb",
+        "card": "Takeaway",
         "items": [
-          "Use CQRS where read and write loads genuinely diverge — not as a default architecture"
+          "JMS makes asynchronous communication in Java EE applications straightforward",
+          "Different implementations offer different guarantees — pick by <strong>throughput, ordering and persistence needs</strong>",
+          "Key concepts to remember: <strong>producer, consumer, queue, topic</strong>",
+          "In our domain: telemetry fan-out is a topic, clearance processing is a queue"
         ]
       }
     ]

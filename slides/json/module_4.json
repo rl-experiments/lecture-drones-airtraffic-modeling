@@ -1,47 +1,84 @@
 [
   {
     "type": "cover",
-    "script": { "name": "drone", "opts": { "perched": true, "anchor": ".cover-card", "anchorOffsetX": 90, "anchorOffsetY": 10, "scale": 1.05, "color": "#3b82f6" } },
-    "bg": 7,
+    "script": {
+      "name": "drone",
+      "opts": {
+        "perched": true,
+        "anchor": ".cover-card",
+        "anchorOffsetX": 40,
+        "anchorOffsetY": -15,
+        "scale": 1.05,
+        "color": "#dc2626"
+      }
+    },
+    "bg": 6,
     "h1": "Module 4",
-    "lead": "Aeronautical Information Exchange",
-    "sub": "The message formats aviation actually speaks",
+    "lead": "Principles of Software Safety Standards",
+    "sub": "Why aviation software is built differently — and what drones inherit from it",
     "badges": [
-      "NOTAM",
-      "METAR",
-      "AIXM",
-      "ASTERIX",
-      "OLDI"
+      "DO-178C",
+      "ED-109 / ED-153",
+      "SIL",
+      "ARP 4754A",
+      "*Boeing 777 FBW"
     ]
   },
   {
     "type": "content",
     "mod": "4",
     "tag": "",
-    "title": "The Aviation Message Zoo",
-    "desc": "Five formats you will meet in every air traffic system",
+    "title": "The Standards Landscape",
+    "desc": "Who writes the rules for safety-critical aviation software",
     "body": [
       {
         "table": {
-          "headers": ["Format", "Full name", "What it carries"],
+          "headers": [
+            "Standard",
+            "Publisher",
+            "Scope"
+          ],
           "rows": [
-            ["<strong>NOTAM</strong>", "Notice to Airmen", "Time-critical notices: closed runways, GPS outages, airspace restrictions"],
-            ["<strong>METAR</strong>", "METeorological Aerodrome Report", "Coded weather observation at an aerodrome, typically every 30–60 min"],
-            ["<strong>AIXM</strong>", "Aeronautical Information Exchange Model", "Structured aeronautical data (airports, airspaces, routes, navaids) as an XML data model"],
-            ["<strong>ASTERIX</strong>", "All-purpose STructured Eurocontrol suRveillance Information eXchange", "Binary surveillance data: radar plots, system tracks (e.g. CAT062)"],
-            ["<strong>OLDI</strong>", "On-Line Data Interchange", "Coordination messages between air traffic control centres"]
+            [
+              "<strong>DO-178C</strong>",
+              "RTCA (Radio Technical Commission for Aeronautics, USA)",
+              "Software considerations in airborne systems &mdash; <em>the</em> certification standard for flight software"
+            ],
+            [
+              "<strong>ED-109</strong>",
+              "EUROCAE (European Organisation for Civil Aviation Equipment)",
+              "Software integrity assurance for ground and ATM systems (European counterpart of DO-278)"
+            ],
+            [
+              "<strong>ED-153</strong>",
+              "EUROCAE",
+              "Software safety assurance for air navigation service (ANS) systems &mdash; air traffic systems"
+            ],
+            [
+              "<strong>ARP 4754A</strong>",
+              "SAE",
+              "System-level development of civil aircraft &mdash; allocates Development Assurance Levels (DALs) to software"
+            ],
+            [
+              "<strong>Mil-Std-882E</strong>",
+              "US DoD",
+              "Military system safety &mdash; allocates a Level of Rigour, translatable into a DO-178 DAL"
+            ]
           ]
         }
       },
       {
         "resource": {
-          "title": "References",
+          "title": "Further reading",
           "links": [
-            { "url": "https://de.wikipedia.org/wiki/NOTAM", "label": "NOTAM" },
-            { "url": "https://de.wikipedia.org/wiki/METAR", "label": "METAR" },
-            { "url": "https://aixm.aero/page/aixm-52-specification", "label": "AIXM 5.2" },
-            { "url": "https://www.eurocontrol.int/publication/eurocontrol-specification-line-data-interchange-oldi", "label": "OLDI spec" },
-            { "url": "https://skybrary.aero/articles/online-data-interchange-oldi", "label": "OLDI (SKYbrary)" }
+            {
+              "url": "https://de.wikipedia.org/wiki/Radio_Technical_Commission_for_Aeronautics",
+              "label": "RTCA (Wikipedia)"
+            },
+            {
+              "url": "https://www.eurocae.net",
+              "label": "EUROCAE"
+            }
           ]
         }
       }
@@ -51,143 +88,21 @@
     "type": "content",
     "mod": "4",
     "tag": "",
-    "title": "NOTAM: Notice to Airmen",
-    "desc": "A real NOTAM — GPS unreliable over southern Switzerland",
+    "title": "Safety Culture Predates Software",
+    "desc": "Aviation learned about redundancy, checklists and failure analysis long before code existed",
     "body": [
       {
-        "code": "LSAZ/ZURICH AREA A0195 03MAY21 LSAZ\nB) 04JUL210730  C) 04DEZ311159  D) PERM\nE) GPS SIGNAL UNREL FOR NAV WI SWITZERLAND\n   S OF 4605N (S OF MONTE CENERI)\nF) GND  G) FL150",
-        "note": "Why should a drone system care? A GPS-unreliable zone is exactly the kind of constraint an unmanned traffic system must ingest automatically — no human pilot reads NOTAMs for a delivery drone."
-      },
-      {
-        "card": "Plain English",
-        "items": [
-          "GPS signal unreliable for navigation within Switzerland, south of 46&deg;05'N (south of Monte Ceneri)",
-          "From ground level (<code>GND</code>) up to flight level 150 (<code>FL150</code> &asymp; 15,000 ft)",
-          "Valid 21 July 2004 07:30 UTC until 31 December 2004 11:59 UTC &mdash; permanent within that window"
-        ]
-      }
-    ]
-  },
-  {
-    "type": "content",
-    "mod": "4",
-    "tag": "",
-    "title": "Decoding the NOTAM Fields",
-    "body": [
-      {
-        "table": {
-          "headers": ["Field", "Example", "Meaning"],
-          "rows": [
-            ["Header", "<code>LSAZ/ZURICH AREA</code>", "Validity within the FIR (flight information region); here: Zurich"],
-            ["Number", "<code>A0195</code>", "Publication number of the notice"],
-            ["Date", "<code>03MAY21</code>", "Date of publication (21 May 2003)"],
-            ["<code>A)</code>", "<code>LSAZ</code>", "Area of validity: a FIR or an aerodrome"],
-            ["<code>B)</code>", "<code>04JUL210730</code>", "Start of validity (21 July 2004, 07:30 UTC)"],
-            ["<code>C)</code>", "<code>04DEZ311159</code>", "End of validity (31 December 2004, 11:59 UTC)"],
-            ["<code>D)</code>", "<code>PERM</code>", "Schedule within the validity — permanent, or e.g. 'MON–FRI 0800–1200'"],
-            ["<code>E)</code>", "<code>GPS SIGNAL UNREL ...</code>", "The actual information, in heavily abbreviated aviation English"],
-            ["<code>F)</code>", "<code>GND</code>", "Lower limit (ground)"],
-            ["<code>G)</code>", "<code>FL150</code>", "Upper limit (flight level 150)"]
-          ]
-        }
-      }
-    ]
-  },
-  {
-    "type": "content",
-    "mod": "4",
-    "tag": "",
-    "title": "METAR: Aviation Weather Reports",
-    "desc": "One line tells a pilot — or a drone — everything about the weather at Stuttgart",
-    "body": [
-      {
-        "code": "METAR EDDS 081620Z 29010KT 9999 FEW040TCU 09/M03 Q1012 NOSIG"
-      },
-      {
-        "table": {
-          "headers": ["Group", "Meaning"],
-          "rows": [
-            ["<code>EDDS</code>", "Aerodrome identifier — Stuttgart Airport"],
-            ["<code>081620Z</code>", "Observation time: 8th of the month, 16:20 UTC ('Zulu')"],
-            ["<code>29010KT</code>", "Wind from 290&deg; true (WNW) at 10 knots"],
-            ["<code>9999</code>", "Visibility 10 km or more"],
-            ["<code>FEW040TCU</code>", "Few clouds (1–2 oktas) at 4,000 ft above ground, type: towering cumulus"],
-            ["<code>09/M03</code>", "Temperature 9&nbsp;&deg;C, dew point &minus;3&nbsp;&deg;C ('M' = minus)"],
-            ["<code>Q1012</code>", "QNH 1012 hPa — pressure reduced to sea level"],
-            ["<code>NOSIG</code>", "'No significant change' expected in the next two hours"]
-          ]
-        }
-      }
-    ]
-  },
-  {
-    "type": "content",
-    "mod": "4",
-    "tag": "",
-    "title": "AIXM: Aeronautical Information Exchange Model",
-    "desc": "The standardized data model behind aeronautical information",
-    "body": [
-      {
-        "card": "What it is",
-        "items": [
-          "A standardized data model to describe and exchange aeronautically relevant information",
-          "Enables standardized communication of airports, flight routes, airspaces and more",
-          "Widely used in aeronautical information processing and air traffic management",
-          "Technically: a UML model + <strong>XML/GML schema</strong> — temporality built in (features change validity over time)"
-        ]
-      },
-      {
-        "card": "What AIXM describes",
-        "items": [
-          "<strong>Airport information</strong> — ICAO code, position, runways",
-          "<strong>Airspace structures</strong> — control zones, airway routes",
-          "<strong>Flight plan data</strong> — planned routes and altitudes",
-          "<strong>Weather information</strong> — meteorological reports for air traffic",
-          "<strong>Navigation aids</strong> — VOR, NDB"
-        ]
-      },
-      {
-        "resource": {
-          "title": "Specification",
-          "links": [
-            { "url": "https://aixm.aero/page/aixm-52-specification", "label": "AIXM 5.2 specification" },
-            { "url": "https://aixm.aero/sites/default/files/imce/AIXM52HTML/index.html", "label": "AIXM 5.2 HTML model browser" }
-          ]
-        }
-      }
-    ]
-  },
-  {
-    "type": "content",
-    "mod": "4",
-    "tag": "",
-    "title": "AIXM in Practice: A Runway as Data",
-    "desc": "A (shortened) AIXM feature — note the identifiers and validity periods",
-    "body": [
-      {
-        "code": "&lt;aixm:RunwayDirection gml:id=\"rwy-25-eddf\"&gt;\n  &lt;aixm:timeSlice&gt;\n    &lt;aixm:RunwayDirectionTimeSlice gml:id=\"ts1\"&gt;\n      &lt;gml:validTime&gt;\n        &lt;gml:TimePeriod gml:id=\"vt1\"&gt;\n          &lt;gml:beginPosition&gt;2024-03-28T00:00:00Z&lt;/gml:beginPosition&gt;\n          &lt;gml:endPosition indeterminatePosition=\"unknown\"/&gt;\n        &lt;/gml:TimePeriod&gt;\n      &lt;/gml:validTime&gt;\n      &lt;aixm:designator&gt;25&lt;/aixm:designator&gt;\n      &lt;aixm:trueBearing&gt;249.0&lt;/aixm:trueBearing&gt;\n    &lt;/aixm:RunwayDirectionTimeSlice&gt;\n  &lt;/aixm:timeSlice&gt;\n&lt;/aixm:RunwayDirection&gt;",
-        "note": "Every feature is versioned in time (timeSlice) — the model answers not only 'what is runway 25?' but 'what was runway 25 valid on a given date?'. Exactly what a UTM system needs for reproducible decisions."
-      }
-    ]
-  },
-  {
-    "type": "content",
-    "mod": "4",
-    "tag": "",
-    "title": "ASTERIX: Surveillance Data Exchange",
-    "desc": "The binary format your radar tracks arrive in",
-    "body": [
-      {
-        "img": "asterix-protocol-analyzer.png",
-        "alt": "ASTERIX protocol analyzer decoding CAT062 system track records",
-        "height": 240
+        "img": "ultralight-ground-1986.jpg",
+        "alt": "Ground crew preparing a home-built ultralight aircraft, 1986",
+        "height": 280,
+        "caption": "1986: even the ultralight my father built by hand got a rigorous pre-flight inspection. The mindset — assume failure, check everything, control change — is exactly what software safety standards later formalized."
       },
       {
         "card": "",
         "items": [
-          "Eurocontrol's binary format family for surveillance data — organized in <strong>categories</strong> (e.g. CAT048 radar target reports, <strong>CAT062 system tracks</strong>)",
-          "Each record carries data items like position (WGS-84), track velocity, mode 3/A code, flight level",
-          "The <a href=\"https://www.sinoatc.com/products/asterixtk/\" target=\"_blank\"><strong>ASTERIX toolkit</strong></a> shown above decodes, analyzes, records and replays this data — compact and fast, but you need the category spec to read a single bit"
+          "Aviation safety engineering matured over a century of accidents and investigations",
+          "Software safety standards are that culture, <strong>translated into the language of code</strong>: requirements, traceability, verification evidence",
+          "Drones now inherit both worlds &mdash; and the standards that come with them"
         ]
       }
     ]
@@ -196,24 +111,252 @@
     "type": "content",
     "mod": "4",
     "tag": "",
-    "title": "OLDI: On-Line Data Interchange",
-    "desc": "How air traffic control centres coordinate a flight hand-over",
+    "title": "The Economics of Fixing Defects",
+    "desc": "Why standards front-load so much work into requirements and design",
     "body": [
       {
-        "card": "What it is",
+        "img": "cost-of-fixing-defects.png",
+        "alt": "Bar chart: relative cost of fixing defects rises from 1 at design to 100 in maintenance",
+        "height": 250,
+        "caption": "Source: Dawson, Burrell, Rahim & Brewster (2010), Integrating Software Assurance into the SDLC."
+      },
+      {
+        "card": "Relative cost of fixing a defect",
         "items": [
-          "Standardized messages exchanged <strong>between flight data processing systems of adjacent ATC units</strong>",
-          "Replaces telephone coordination for routine hand-overs — faster, less error-prone",
-          "Typical messages: <code>ABI</code> (advance boundary information), <code>ACT</code> (activation), <code>LAM</code> (logical acknowledgement)",
-          "Defined by the <strong>EUROCONTROL OLDI specification</strong>; mandatory for many European centre pairs"
+          "Found during <strong>design</strong>: 1&times; &mdash; during <strong>implementation</strong>: 6.5&times; &mdash; during <strong>testing</strong>: 15&times;",
+          "Found in <strong>maintenance</strong> (i.e. in the field): <strong>100&times;</strong>",
+          "In aviation, 'found in the field' can mean an accident investigation &mdash; the 100&times; becomes incalculable"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "4",
+    "tag": "",
+    "title": "'Perfect' Software Can Kill",
+    "desc": "Correct code is not the same as a safe system",
+    "body": [
+      {
+        "img": "accidental-death-causes.png",
+        "alt": "Pie chart of computer-related accidental deaths: 91.9% human-computer interaction problems",
+        "height": 230,
+        "caption": "Source: Donald MacKenzie, Computer-related accidental death, Science and Public Policy 21(4), 1994."
+      },
+      {
+        "card": "Computer-related accidental deaths (MacKenzie, 1994)",
+        "items": [
+          "<strong>91.9%</strong> — human-computer interaction problems",
+          "<strong>4.5%</strong> — physical causes, <strong>2.8%</strong> — software errors, <strong>0.8%</strong> — other",
+          "The software can meet every requirement and still contribute to a fatal accident &mdash; if the requirements or the interaction design are wrong"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "4",
+    "tag": "",
+    "title": "'Out of Control' — Where Failures Are Born",
+    "desc": "UK Health & Safety Executive study of control system failures (HSG 238, 2003)",
+    "body": [
+      {
+        "img": "control-system-failure-causes.png",
+        "alt": "Pie chart of control system failure causes by lifecycle phase, specification dominates with 44%",
+        "height": 240
+      },
+      {
+        "card": "Primary cause by lifecycle phase",
+        "items": [
+          "<strong>44%</strong> — specification, <strong>20%</strong> — changes after commissioning",
+          "<strong>15%</strong> — design and implementation, <strong>15%</strong> — operation and maintenance, <strong>6%</strong> — installation",
+          "Almost two thirds of failures are created <strong>before or after</strong> the code is written &mdash; in the spec, or in uncontrolled change"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "4",
+    "tag": "important",
+    "title": "Safe Software Design: What It Is (and Isn't)",
+    "desc": "The uncomfortable conclusion from the failure statistics",
+    "body": [
+      {
+        "card": "Safe software design ISN'T so much about:",
+        "items": [
+          "Design and coding",
+          "Fault counts in code",
+          "Unit testing"
+        ],
+        "warn": true
+      },
+      {
+        "card": "Safe software design IS about:",
+        "items": [
+          "<strong>Understanding context</strong> — what system, what hazards, what environment",
+          "<strong>Requirements / specification</strong> — where 44% of failures are born",
+          "<strong>Understanding the human-control interaction</strong> — where 91.9% of fatal problems live",
+          "<strong>Controlling change</strong> — the second-largest failure source"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "4",
+    "tag": "",
+    "title": "Trust Levels & Categories: SIL",
+    "desc": "Safety Integrity Levels grade how much you must trust the software",
+    "body": [
+      {
+        "img": "sil-levels.png",
+        "alt": "Table of SIL levels 0-4 with requirements for specification, languages, configuration control, testing and assessment",
+        "height": 260
+      },
+      {
+        "card": "Reading the table",
+        "items": [
+          "<strong>SIL 0</strong> = ISO 9001 process only — <em>no safety claim at all; an accident is quite likely to happen</em>",
+          "<strong>SIL 1–2</strong> — structured methods, controlled changes, functional testing and reviews",
+          "<strong>SIL 3–4</strong> — formal specification, restricted language subsets, validated compilers, static analysis up to 100% testing &amp; proof — <em>this software may hold human lives</em>",
+          "Coffee-break reality check: <a href=\"https://www.youtube.com/shorts/RJverdoLwTk\" target=\"_blank\">Developer vs. Tester (YouTube short)</a>"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "4",
+    "tag": "",
+    "title": "Principle 1: Define the Safety Requirements",
+    "desc": "Software safety requirements must address the software's contribution to system hazards",
+    "body": [
+      {
+        "card": "The principle",
+        "items": [
+          "Software safety requirements <strong>must be defined</strong> to consider the software's contribution to system hazards",
+          "DO-178B/C <strong>assumes</strong> a system-level safety analysis has already derived safety requirements and allocated them to software",
+          "A system-level standard judges the criticality of software's contribution to hazards and expresses it as a quoted level",
+          "<strong>ARP 4754A</strong> (civil aerospace) allocates a software <strong>Development Assurance Level (DAL)</strong>",
+          "<strong>Mil-Std-882E</strong> (military) allocates a Level of Rigour, translatable into a DO-178 DAL"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "4",
+    "tag": "",
+    "title": "Principle 2: Preserve Intent During Decomposition",
+    "desc": "The intent of safety requirements must survive requirement decomposition",
+    "body": [
+      {
+        "img": "lufthansa-2904-warsaw.png",
+        "alt": "Burned-out Lufthansa Airbus A320 after the Warsaw runway overrun, 1993",
+        "height": 250,
+        "caption": "Lufthansa Flight 2904, Warsaw, 14 September 1993: thrust reversers and spoilers were locked out because the 'aircraft on ground' logic — a decomposed requirement — didn't match the actual landing conditions."
+      },
+      {
+        "card": "What DO-178C says",
+        "items": [
+          "DO-178 strongly emphasizes <strong>traceability</strong> through all software development stages",
+          "Decomposed requirements must be <strong>validated</strong>, e.g. through requirements review",
+          "Recording traceability information is required &mdash; but <strong>necessary, not sufficient</strong>: a written justification of the traceability is what actually preserves intent"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "4",
+    "tag": "",
+    "title": "Principle 3: Satisfy the Requirements",
+    "desc": "Safety requirements that exist on paper only are worthless",
+    "body": [
+      {
+        "img": "mars-polar-lander.png",
+        "alt": "Artist rendering of the Mars Polar Lander on the Martian surface",
+        "height": 250,
+        "caption": "Mars Polar Lander, lost on arrival 3 December 1999: the touchdown-detection software satisfied its spec — but a known transient signal on leg deployment shut the engines down 40 meters above the surface."
+      },
+      {
+        "card": "What DO-178C says",
+        "items": [
+          "This principle is addressed well by DO-178: it requires <strong>verification evidence</strong> demonstrating requirements under <strong>normal and fault conditions</strong>",
+          "DO-178 was historically heavily test-focused &mdash; <strong>DO-178C permits a wider range of verification techniques</strong>: analysis, reviews, formal methods, not just testing"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "4",
+    "tag": "",
+    "title": "Principle 4: Identify & Mitigate Hazardous Behavior",
+    "desc": "The software itself can introduce new failure modes",
+    "body": [
+      {
+        "img": "patriot-missile.png",
+        "alt": "Patriot missile launch",
+        "height": 170,
+        "caption": "Dhahran, 25 February 1991: a Patriot battery failed to intercept a Scud missile — a floating-point time-accumulation error after 100 hours of continuous operation. 28 soldiers died, 98 were injured."
+      },
+      {
+        "card": "What DO-178C says",
+        "items": [
+          "Software design process activities 'could introduce modes of failure into the software or, conversely, preclude others'",
+          "In such cases additional data must be defined as <strong>derived requirements</strong> and fed back to the <strong>system safety assessment process</strong> &mdash; the loop where projects often break down in practice",
+          "An objective of DO-178 verification is to remove errors that would lead to unacceptable failure conditions"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "4",
+    "tag": "",
+    "title": "Principle 4+1: Confidence Proportionate to Risk",
+    "desc": "The more the software can hurt, the more evidence you owe",
+    "body": [
+      {
+        "card": "The principle",
+        "items": [
+          "Confidence in the implementation of the software safety principles must be <strong>commensurate with the software's contribution to system risk</strong>",
+          "In DO-178C this is captured through the <strong>DAL mechanism</strong>: the assigned level tailors how many objectives must be demonstrated (with independence, with formal rigor, ...)",
+          "Caveat: the system-level analysis determines the DAL but does <strong>not necessarily hand the developer derived safety requirements</strong> &mdash; the level alone is not a specification"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "4",
+    "tag": "industry",
+    "title": "Case Study: Boeing 777 Fly-By-Wire",
+    "desc": "What 'confidence commensurate with risk' looks like in hardware and software",
+    "body": [
+      {
+        "card": "The architecture",
+        "items": [
+          "The Boeing 777 flight control system is a full <strong>fly-by-wire (FBW)</strong> system with extreme integrity and availability requirements",
+          "<strong>Triple redundancy for every resource</strong>: computing system, electrical power, hydraulic power and communication path",
+          "The <strong>Primary Flight Computer (PFC)</strong> uses <strong>triple modular redundancy (TMR)</strong> — and additionally <strong>N-version diversity</strong>",
+          "Three similar channels (same part number), each containing <strong>three dissimilar computing lanes</strong> — different processors, different compilers",
+          "Communication runs over the <strong>ARINC 629</strong> data bus",
+          "One software bug in one lane cannot silently take down the flight controls — that is Principle 4+1 built in metal and code"
         ]
       },
       {
-        "card": "Why it matters for drones",
-        "items": [
-          "UTM systems will need the same pattern: <strong>machine-to-machine coordination</strong> when a drone crosses from one service provider's area to another",
-          "The lesson from OLDI: agree the message semantics first, or every border becomes a phone call"
-        ]
+        "resource": {
+          "title": "Deep dive",
+          "links": [
+            {
+              "url": "https://ieeexplore.ieee.org/document/495891",
+              "label": "Yeh: Triple-Triple Redundant 777 Primary Flight Computer (IEEE)"
+            }
+          ]
+        }
       }
     ]
   },
@@ -226,12 +369,12 @@
       {
         "card": "",
         "items": [
-          "Aviation exchanges information in <strong>standardized, machine-readable formats</strong> — some 100 years old in spirit (NOTAM, METAR), some modern XML models (AIXM), some binary (ASTERIX)",
-          "<strong>NOTAM/METAR</strong>: compact coded text — you can now decode both by hand",
-          "<strong>AIXM</strong>: temporal XML data model for everything static in the airspace",
-          "<strong>ASTERIX</strong>: binary surveillance categories — the live positions",
-          "<strong>OLDI</strong>: coordination between control centres — the pattern UTM must reinvent for drones",
-          "Any serious drone traffic system is, at its heart, an <strong>integrator of these formats</strong>"
+          "Aviation software lives under <strong>DO-178C</strong> (airborne), <strong>ED-109</strong> (ground/ATM) and <strong>ED-153</strong> (air navigation services)",
+          "Defects get ~<strong>100&times; more expensive</strong> in the field &mdash; standards force the work to the front of the lifecycle",
+          "<strong>91.9%</strong> of computer-related accidental deaths come from human-computer interaction, only 2.8% from software errors &mdash; safe design means context, requirements, interaction and change control",
+          "<strong>44%</strong> of control-system failures are born in the specification",
+          "The <strong>4+1 principles</strong>: define safety requirements, preserve intent, satisfy them, mitigate hazardous behavior &mdash; with confidence proportionate to risk (DALs)",
+          "The Boeing 777 FBW shows the principles physically: triple-triple redundancy, N-version diversity, ARINC 629"
         ]
       }
     ]

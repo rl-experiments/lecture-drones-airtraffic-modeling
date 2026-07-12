@@ -7,7 +7,17 @@
   },
   {
     "type": "cover",
-    "script": { "name": "drone", "opts": { "perched": true, "anchor": ".cover-card", "anchorOffsetX": 30, "anchorOffsetY": -10, "scale": 1.05, "color": "#737373" } },
+    "script": {
+      "name": "drone",
+      "opts": {
+        "perched": true,
+        "anchor": ".cover-card",
+        "anchorOffsetX": 30,
+        "anchorOffsetY": -10,
+        "scale": 1.05,
+        "color": "#737373"
+      }
+    },
     "bg": 6,
     "h1": "Intro",
     "lead": "Course Overview & Organization",
@@ -74,10 +84,22 @@
     "body": [
       {
         "table": {
-          "headers": ["Deliverable", "What it is", "Where it is defined"],
+          "headers": [
+            "Deliverable",
+            "What it is",
+            "Where it is defined"
+          ],
           "rows": [
-            ["<strong>Seminar presentation</strong>", "Pick one of the 16 topics and present it in depth", "Module 2"],
-            ["<strong>Competition entry</strong>", "In groups: build a collision-avoidance system for the BlueSky simulator", "Modules 2 &amp; 11"]
+            [
+              "<strong>Seminar presentation</strong>",
+              "Pick one of the 16 topics and present it in depth",
+              "Module 2"
+            ],
+            [
+              "<strong>Competition entry</strong>",
+              "In groups: build a collision-avoidance system for the BlueSky simulator",
+              "Modules 2 &amp; 12"
+            ]
           ]
         }
       },

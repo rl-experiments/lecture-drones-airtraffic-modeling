@@ -42,19 +42,19 @@ slides/
     module_0.json         ← Intro: Course Overview
     module_1.json         ← M1: Drones & Air Traffic: Introduction
     module_2.json         ← M2: Seminar Topics & Competition
-    module_3.json         ← M3: Software Safety Standards
-    module_4.json         ← M4: Aeronautical Information Exchange
-    module_5.json         ← M5: Control & Monitoring Systems (UTM)
-    module_6.json         ← M6: RESTful APIs: OpenAPI
-    module_7.json         ← M7: Reactive Java: Spring WebFlux
-    module_8.json         ← M8: Message Queues
-    module_9.json         ← M9: Design Pattern: CQRS
-    module_10.json        ← M10: Karate: Test Automation
-    module_11.json        ← M11: Simulation Environments (BlueSky)
-    module_12.json        ← M12: Real-Time Data in GIS
-    module_13.json        ← M13: Optimizing Data Transmission
-    module_14.json        ← M14: Agile Processes & Conclusion
-    module_15.json        ← Lab: Hands-On DJI Mobile SDK (feasibility test + deep dive)
+    module_3.json         ← Lab: Hands-On DJI Mobile SDK (feasibility test + deep dive)
+    module_4.json         ← M4: Software Safety Standards
+    module_5.json         ← M5: Aeronautical Information Exchange
+    module_6.json         ← M6: Control & Monitoring Systems (UTM)
+    module_7.json         ← M7: RESTful APIs: OpenAPI
+    module_8.json         ← M8: Reactive Java: Spring WebFlux
+    module_9.json         ← M9: Message Queues
+    module_10.json        ← M10: Design Pattern: CQRS
+    module_11.json        ← M11: Karate: Test Automation
+    module_12.json        ← M12: Simulation Environments (BlueSky)
+    module_13.json        ← M13: Real-Time Data in GIS
+    module_14.json        ← M14: Optimizing Data Transmission
+    module_15.json        ← M15: Agile Processes & Conclusion
   images/
     bg/                   ← background images
     content/              ← slide content images (UTM diagram, METAR examples, etc.)

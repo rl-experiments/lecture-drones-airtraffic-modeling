@@ -1,41 +1,47 @@
 [
   {
     "type": "cover",
-    "script": { "name": "drone", "opts": { "perched": true, "anchor": ".cover-card", "anchorOffsetX": 90, "anchorOffsetY": -30, "scale": 1.05, "color": "#ec4899" } },
-    "bg": 5,
+    "script": {
+      "name": "drone",
+      "opts": {
+        "perched": true,
+        "anchor": ".cover-card",
+        "anchorOffsetX": 35,
+        "anchorOffsetY": 5,
+        "scale": 1.05,
+        "color": "#8b5cf6"
+      }
+    },
+    "bg": 3,
     "h1": "Module 8",
-    "lead": "Message Queues",
-    "sub": "Technology block (c): asynchronous communication between the systems that must never wait for each other",
+    "lead": "Reactive Java: Spring WebFlux",
+    "sub": "Technology block (b): handling thousands of live drone tracks without a thousand threads",
     "badges": [
-      "JMS",
-      "ActiveMQ",
-      "RabbitMQ",
-      "IBM MQ",
-      "Kafka"
+      "Project Reactor",
+      "Mono / Flux",
+      "R2DBC",
+      "WebClient"
     ]
   },
   {
     "type": "content",
     "mod": "8",
     "tag": "",
-    "title": "Why Message Queues?",
-    "desc": "A system for asynchronous communication between applications",
+    "title": "Why Reactive?",
+    "desc": "A non-blocking, asynchronous programming model for reactive applications",
     "body": [
       {
-        "card": "What it is",
-        "items": [
-          "Asynchronous communication: the sender does not wait for the receiver",
-          "In the Java world specified by <strong>JMS (Java Message Service)</strong>, part of Java/Jakarta EE",
-          "Supports <strong>loose coupling, scalability and reliability</strong>"
-        ]
+        "img": "spring-mvc-vs-webflux.png",
+        "alt": "Comparison of Spring MVC servlet stack (blocking) and Spring WebFlux reactive stack (non-blocking)",
+        "height": 230
       },
       {
-        "card": "Why use them",
+        "card": "The case for Spring Reactive",
         "items": [
-          "<strong>Decoupling</strong> — sender and receiver work independently; a UTM service can restart without losing telemetry",
-          "<strong>Load distribution</strong> — messages are processed in parallel by many consumers",
-          "<strong>Reliability</strong> — persistent storage of messages until they are consumed",
-          "<strong>Scalability</strong> — add consumers dynamically as traffic grows"
+          "<strong>Efficiency</strong> — scales better than blocking frameworks: few event-loop threads instead of one thread per request",
+          "<strong>Reactive streams</strong> — large data volumes with minimal resources; <strong>event-driven</strong> — a natural fit for microservices and cloud",
+          "Part of <strong>Spring WebFlux</strong>, built on the <strong>Reactor core</strong> (Flux, Mono)",
+          "Air traffic reality check: 1,000 drones &times; 1 position/second = a permanent stream — exactly the reactive sweet spot"
         ]
       }
     ]
@@ -44,19 +50,21 @@
     "type": "content",
     "mod": "8",
     "tag": "",
-    "title": "JMS Architecture: Queues & Topics",
-    "desc": "Two delivery models cover almost every messaging need",
+    "title": "The Reactive Streams Specification",
+    "desc": "Four interfaces and one crucial idea: backpressure",
     "body": [
       {
-        "code": "Point-to-Point (Queue)              Publish-Subscribe (Topic)\n\nProducer                             Publisher\n   |                                     |\n   v                                     v\n[ QUEUE ] --&gt; exactly one            [ TOPIC ] --&gt; every subscriber\n              consumer gets              |    \\\n              each message           Subscriber A  Subscriber B\n\nclearance requests,                  position broadcasts,\nwork distribution                    airspace status updates"
+        "img": "reactive-streams-spec.png",
+        "alt": "Reactive streams: subscriber subscribes to publisher, subscription mediates request(n) and onNext/onComplete/onError",
+        "height": 280
       },
       {
-        "card": "The building blocks",
+        "card": "The contract",
         "items": [
-          "<strong>Message producer</strong> — sends messages to a queue or topic; <strong>message consumer</strong> — receives them",
-          "<strong>Message queue</strong> — waiting line for messages (point-to-point model)",
-          "<strong>Topic</strong> — broadcast model for multiple receivers (publish-subscribe)",
-          "Message types: <code>Text</code>, <code>Bytes</code>, <code>Object</code>, <code>Map</code>, <code>Stream</code>"
+          "<strong>Publisher</strong> produces data, <strong>Subscriber</strong> consumes it, the <strong>Subscription</strong> mediates",
+          "The subscriber controls the flow: <code>request(n)</code> — 'send me at most n elements'",
+          "This is <strong>backpressure</strong>: a slow consumer never gets flooded by a fast producer",
+          "Signals: <code>onSubscribe &rarr; onNext* &rarr; onComplete | onError</code>"
         ]
       }
     ]
@@ -65,26 +73,60 @@
     "type": "content",
     "mod": "8",
     "tag": "",
-    "title": "Implementations & Tools",
+    "title": "Core Concepts: Mono & Flux",
+    "desc": "Two publisher types cover every API you will ever write",
+    "body": [
+      {
+        "code": "<span class=\"kw\">// Mono: 0 or 1 element — a single drone's state</span>\nMono&lt;DroneState&gt; state = repository.findById(droneId);\n\n<span class=\"kw\">// Flux: 0..N elements — the live track stream</span>\nFlux&lt;TrackUpdate&gt; live = trackService.stream()\n    .filter(t -&gt; t.altitude() &lt; 120)          <span class=\"str\">// open category only</span>\n    .sample(Duration.ofSeconds(1))            <span class=\"str\">// throttle to 1 Hz</span>\n    .doOnNext(alertService::checkConflicts);"
+      },
+      {
+        "card": "Vocabulary",
+        "items": [
+          "<strong>Mono</strong> — represents 0 or 1 element; <strong>Flux</strong> — represents an unbounded number of elements",
+          "<strong>WebFlux router &amp; handlers</strong> — functional alternative to Spring MVC controllers (serve <code>live</code> above as a <code>text/event-stream</code> endpoint)",
+          "<strong>Reactive repositories</strong> — non-blocking database access"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "8",
+    "tag": "takeaway",
+    "title": "Tools, Libraries & When to Use It",
     "body": [
       {
         "table": {
-          "headers": ["System", "Character", "Notes"],
+          "headers": [
+            "Tool",
+            "Role"
+          ],
           "rows": [
-            ["<strong>ActiveMQ</strong> (Apache)", "Open-source JMS provider", "The classic choice for JMS in Java projects"],
-            ["<strong>RabbitMQ</strong>", "AMQP broker", "Supports JMS via plugins; very flexible routing"],
-            ["<strong>IBM MQ</strong>", "Enterprise messaging", "Banking-grade reliability, commercial"],
-            ["<strong>Kafka</strong>", "Distributed log (not JMS, but similar use cases)", "Massively scalable streaming — the natural fit for high-volume telemetry"]
+            [
+              "<strong>Project Reactor</strong>",
+              "The reactive foundation under Spring WebFlux"
+            ],
+            [
+              "<strong>Spring Boot</strong>",
+              "Effortless integration of WebFlux into applications"
+            ],
+            [
+              "<strong>R2DBC</strong>",
+              "Reactive database connectivity — replaces blocking JDBC"
+            ],
+            [
+              "<strong>WebClient</strong>",
+              "Reactive HTTP client — replaces RestTemplate"
+            ]
           ]
         }
       },
       {
-        "card": "Takeaway",
+        "card": "Conclusion",
         "items": [
-          "JMS makes asynchronous communication in Java EE applications straightforward",
-          "Different implementations offer different guarantees — pick by <strong>throughput, ordering and persistence needs</strong>",
-          "Key concepts to remember: <strong>producer, consumer, queue, topic</strong>",
-          "In our domain: telemetry fan-out is a topic, clearance processing is a queue"
+          "Spring Reactive suits modern, scalable applications",
+          "Ideal for <strong>microservices, streaming data and high load</strong> — i.e. telemetry ingestion, live track distribution, conflict alerting",
+          "Not a silver bullet: for simple CRUD services, classic blocking Spring MVC remains simpler to write and debug"
         ]
       }
     ]

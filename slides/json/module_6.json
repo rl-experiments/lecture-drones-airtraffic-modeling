@@ -1,42 +1,96 @@
 [
   {
     "type": "cover",
-    "script": { "name": "drone", "opts": { "perched": true, "anchor": ".cover-card", "anchorOffsetX": 100, "anchorOffsetY": -15, "scale": 1.05, "color": "#22c55e" } },
-    "bg": 2,
+    "script": {
+      "name": "drone",
+      "opts": {
+        "perched": true,
+        "anchor": ".cover-card",
+        "anchorOffsetX": 25,
+        "anchorOffsetY": -20,
+        "scale": 1.05,
+        "color": "#14b8a6"
+      }
+    },
+    "bg": 4,
     "h1": "Module 6",
-    "lead": "RESTful APIs: OpenAPI",
-    "sub": "Technology block (a): describing every interface in the UTM diagram",
+    "lead": "Efficient Control & Monitoring Systems",
+    "sub": "UTM — the air traffic control that has no controllers",
     "badges": [
-      "OpenAPI 3.1",
-      "Swagger UI",
-      "Redoc",
-      "Code Generation",
-      "*Live Demo"
+      "UTM",
+      "U-space",
+      "Fleet Control",
+      "Sensor Fusion",
+      "ADS-B / FLARM"
     ]
   },
   {
     "type": "content",
     "mod": "6",
     "tag": "",
-    "title": "What Is OpenAPI?",
-    "desc": "A specification for describing RESTful APIs — machine-readable, human-friendly",
+    "title": "UAS Traffic Management (UTM)",
+    "desc": "The ecosystem that keeps drones, aircraft and authorities in one picture",
     "body": [
       {
-        "card": "The basics",
-        "items": [
-          "OpenAPI is a <strong>specification for describing RESTful APIs</strong>",
-          "Enables a standardized definition of API endpoints and their functions",
-          "Originally developed as <strong>Swagger</strong>, now governed under the Linux Foundation (OpenAPI Initiative)"
-        ]
+        "img": "utm-ecosystem.png",
+        "alt": "UTM ecosystem diagram: drone, mobile network, drone detection, GBSAS, radar, UTM and ATM systems",
+        "height": 0,
+        "fill": true
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "6",
+    "tag": "",
+    "title": "Who Talks to Whom in UTM",
+    "desc": "Reading the ecosystem diagram as a data-flow problem",
+    "body": [
+      {
+        "table": {
+          "headers": [
+            "Participant",
+            "Sends",
+            "To whom"
+          ],
+          "rows": [
+            [
+              "<strong>Drone</strong>",
+              "Location + payload data",
+              "Mobile network &rarr; UTM; command &amp; control back to the operator"
+            ],
+            [
+              "<strong>Drone operator</strong> (UTM app)",
+              "Mission planning requests",
+              "UTM — receives clearance and conflict warnings in return"
+            ],
+            [
+              "<strong>Drone detection systems</strong>",
+              "Location data of non-cooperative drones",
+              "UTM"
+            ],
+            [
+              "<strong>GBSAS</strong> (ground-based situational awareness: FLARM, ADS-B)",
+              "Location data of cooperative traffic",
+              "UTM"
+            ],
+            [
+              "<strong>Radar</strong>",
+              "Location data of manned aviation",
+              "ATM &rarr; shared with UTM"
+            ],
+            [
+              "<strong>UTM system</strong>",
+              "Clearances, conflict warnings, airspace status",
+              "DFS, authorities, pilots — and the ATM system"
+            ]
+          ]
+        }
       },
       {
-        "card": "Why use OpenAPI?",
+        "card": "Key insight",
         "items": [
-          "<strong>Standardization</strong> — uniform API documentation across teams and vendors",
-          "<strong>Automatic generation</strong> — code, documentation and test cases generated from the spec",
-          "<strong>Interactive use</strong> — try APIs live, e.g. in Swagger UI",
-          "<strong>Easier API design</strong> — collaboration between developers and stakeholders on one artifact",
-          "Remember Module 4: a NOTAM service, a METAR service, a UTM clearance service — all of them need exactly this kind of contract"
+          "UTM is not a tower with people — it is a <strong>federation of data services</strong>; every arrow in the diagram is an interface, which is why Modules 7–11 are about APIs, streaming, messaging and testing"
         ]
       }
     ]
@@ -45,18 +99,24 @@
     "type": "content",
     "mod": "6",
     "tag": "",
-    "title": "Anatomy of an OpenAPI Document",
-    "desc": "APIs are described in YAML or JSON — five top-level building blocks",
+    "title": "Automated Fleet Control",
+    "desc": "Operating one drone is a hobby — operating five hundred is a systems problem",
     "body": [
       {
-        "code": "<span class=\"kw\">openapi:</span> 3.1.0\n<span class=\"kw\">info:</span>\n  title: UTM Flight Clearance API\n  version: 1.0.0\n<span class=\"kw\">servers:</span>\n  - url: https://utm.example.com/v1\n<span class=\"kw\">paths:</span>\n  /drones/{droneId}/clearance:\n    post:\n      summary: Request flight clearance for a mission\n      responses:\n        <span class=\"str\">'201'</span>: { description: Clearance granted }\n        <span class=\"str\">'409'</span>: { description: Conflict with another mission }"
+        "card": "What a fleet control system does",
+        "items": [
+          "<strong>Mission planning</strong> — routes computed against geo-zones, weather, battery range and payload",
+          "<strong>Geofencing</strong> — hard boundaries enforced on board and monitored on the ground",
+          "<strong>Telemetry ingestion</strong> — position, battery, health of every vehicle, continuously",
+          "<strong>Tasking &amp; scheduling</strong> — assigning vehicles to missions, handling battery swaps and hand-overs",
+          "<strong>Contingency management</strong> — lost link, low battery, weather change: pre-planned responses, not improvisation"
+        ]
       },
       {
-        "card": "The five building blocks",
+        "card": "Design consequence",
         "items": [
-          "<code>openapi</code> — version of the specification, <code>info</code> — metadata: title, version, description",
-          "<code>servers</code> — available servers, <code>paths</code> — definition of the API endpoints",
-          "<code>components</code> — reusable schema definitions (e.g. a <code>Mission</code> object shared by several endpoints)"
+          "One operator supervises many drones — the software must escalate <strong>only</strong> what needs a human",
+          "Everything else is automation: exactly the 'efficient control &amp; monitoring' this module is named after"
         ]
       }
     ]
@@ -65,44 +125,50 @@
     "type": "content",
     "mod": "6",
     "tag": "",
-    "title": "OpenAPI 3.0 vs. 3.1",
-    "desc": "Small version bump, important alignment",
+    "title": "Sensor Fusion for Precise Control",
+    "desc": "No single sensor is good enough — the mix is the magic",
     "body": [
       {
-        "img": "openapi-30-vs-31.png",
-        "alt": "Comparison of OpenAPI 3.0 and 3.1 components sections",
-        "height": 300
+        "table": {
+          "headers": [
+            "Sensor",
+            "Strength",
+            "Weakness"
+          ],
+          "rows": [
+            [
+              "GNSS (GPS/Galileo)",
+              "Absolute position",
+              "Jamming, urban canyons, GPS-unreliable zones (remember the NOTAM!)"
+            ],
+            [
+              "IMU (gyro + accelerometer)",
+              "High-rate attitude &amp; acceleration",
+              "Drifts within seconds without correction"
+            ],
+            [
+              "Barometer",
+              "Cheap, reliable altitude",
+              "Weather-dependent, relative only"
+            ],
+            [
+              "Vision / optical flow",
+              "Position relative to terrain, obstacle detection",
+              "Needs light and texture; compute-hungry"
+            ],
+            [
+              "LIDAR / ultrasound",
+              "Precise short-range distances",
+              "Range, weight, cost"
+            ]
+          ]
+        }
       },
       {
         "card": "",
         "items": [
-          "3.1 aligns the schema language with <strong>full JSON Schema</strong> — no more OpenAPI-specific dialect",
-          "<code>components</code> gains <strong>pathItems</strong> — reusable path definitions",
-          "Practical advice: start new projects on 3.1; most generators support it today"
-        ]
-      }
-    ]
-  },
-  {
-    "type": "content",
-    "mod": "6",
-    "tag": "demo",
-    "title": "Tooling Around OpenAPI",
-    "desc": "The spec is only as useful as its tools — live demo",
-    "body": [
-      {
-        "img": "swagger-editor-petstore.jpg",
-        "alt": "Swagger Editor with the Petstore example: YAML on the left, rendered documentation on the right",
-        "height": 230
-      },
-      {
-        "card": "The toolbox",
-        "items": [
-          "<a href=\"https://swagger.io/tools/swagger-ui/\" target=\"_blank\"><strong>Swagger UI</strong></a> — visual rendering and in-browser test calls (try the <a href=\"https://editor.swagger.io\" target=\"_blank\">live editor</a>)",
-          "<strong>Redoc</strong> — modern, read-oriented API documentation",
-          "<strong>Postman</strong> — API testing and development",
-          "<strong>OpenAPI Generator</strong> — client/server code generation for dozens of languages",
-          "Conclusion: OpenAPI makes API development dramatically easier — <strong>standards lead to better collaboration</strong>"
+          "A <strong>Kalman-filter</strong> (or similar estimator) fuses all inputs into one consistent state estimate",
+          "Fusion buys <strong>redundancy</strong>: when GNSS degrades, vision + IMU carry the drone — a direct application of Module 4's safety thinking"
         ]
       }
     ]

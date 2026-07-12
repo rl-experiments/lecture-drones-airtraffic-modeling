@@ -1,41 +1,81 @@
 [
   {
     "type": "cover",
-    "script": { "name": "drone", "opts": { "perched": true, "anchor": ".cover-card", "anchorOffsetX": 95, "anchorOffsetY": 0, "scale": 1.05, "color": "#f59e0b" } },
-    "bg": 7,
+    "script": {
+      "name": "drone",
+      "opts": {
+        "perched": true,
+        "anchor": ".cover-card",
+        "anchorOffsetX": 40,
+        "anchorOffsetY": -10,
+        "scale": 1.05,
+        "color": "#ef4444"
+      }
+    },
+    "bg": 6,
     "h1": "Module 10",
-    "lead": "Karate: Test Automation",
-    "sub": "Technology block (e): API tests everyone on the team can read",
+    "lead": "Design Pattern: CQRS",
+    "sub": "Technology block (d): Command Query Responsibility Segregation",
     "badges": [
-      "Gherkin",
-      "API Testing",
-      "Performance Tests",
-      "CI/CD"
+      "Commands",
+      "Queries",
+      "Event Sourcing",
+      "*ATC Example"
     ]
   },
   {
     "type": "content",
     "mod": "10",
     "tag": "",
-    "title": "What Is Karate?",
-    "desc": "An open-source test automation framework built for APIs and web services",
+    "title": "What Is CQRS?",
+    "desc": "Split the write side from the read side — and optimize each on its own",
     "body": [
       {
-        "card": "In a nutshell",
+        "card": "The pattern",
         "items": [
-          "Open-source tool for test automation, designed specifically for <strong>API tests and web services</strong>",
-          "Tests are written in a simple, readable syntax based on <strong>Gherkin</strong> — accessible even to non-programmers",
-          "Supports <strong>functional and performance tests</strong>, plus API, UI and end-to-end testing in one tool",
-          "Integrates quickly into <strong>CI/CD pipelines</strong> — known for efficiency and ease of use",
-          "For our domain: every UTM interface from Module 5/6 (clearance, telemetry, geo-zones) is a natural Karate target"
+          "CQRS separates the responsibilities of <strong>commands (write operations)</strong> and <strong>queries (read operations)</strong> into two distinct models",
+          "The write model guards consistency and business rules",
+          "The read model is shaped purely for fast, convenient queries",
+          "Both are synchronized — often through events on a message bus (see Module 9)"
+        ]
+      },
+      {
+        "img": "cqrs-flow.png",
+        "alt": "CQRS flow: write requests persist to the write DB, change data capture feeds a message bus, a transformation service builds the read store",
+        "height": 250
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "10",
+    "tag": "",
+    "title": "CQRS in Air Traffic Control",
+    "desc": "An ATC system processing airspace information — the textbook fit",
+    "body": [
+      {
+        "card": "Two kinds of operations",
+        "items": [
+          "<strong>Commands</strong> — change or create airspace state: issue a takeoff clearance, adjust flight zones",
+          "<strong>Queries</strong> — retrieve the current information about the airspace"
+        ]
+      },
+      {
+        "card": "Applying the pattern",
+        "items": [
+          "<strong>The write model</strong> stores the current state of the airspace and guarantees all data stays consistent",
+          "<strong>The read model</strong> serves fast airspace queries without putting load on the write model",
+          "Controllers get instant situational awareness; clearance processing keeps its transactional integrity"
         ]
       },
       {
         "resource": {
-          "title": "Resources",
+          "title": "Working example",
           "links": [
-            { "url": "https://github.com/karatelabs/karate", "label": "Karate (GitHub)" },
-            { "url": "https://github.com/karatelabs/karate/tree/master/karate-demo", "label": "karate-demo — runnable examples" }
+            {
+              "url": "https://github.com/reinforcement-learning-experiments/event-sourcing-spring-boot",
+              "label": "event-sourcing-spring-boot — CQRS + event sourcing demo"
+            }
           ]
         }
       }
@@ -45,40 +85,41 @@
     "type": "content",
     "mod": "10",
     "tag": "",
-    "title": "Why We Test: Cover All Edge Cases",
-    "desc": "Your collision-avoidance plugin will meet its stick-wielding tester in Module 11",
+    "title": "CQRS Advantages",
     "body": [
       {
-        "img": "edge-cases.png",
-        "alt": "MonkeyUser comic: a robot builder is asked 'did you cover all edge cases?' — weeks later the robot wears a helmet, pillows and a roll cage",
-        "height": 440,
-        "caption": "monkeyuser.com — Edge Cases"
+        "card": "",
+        "items": [
+          "<strong>&#10004; Scalability</strong> — read and write models scale independently; the read model is tuned for fast queries while the write model stays focused on consistency and safety",
+          "<strong>&#10004; Performance</strong> — air traffic controllers need instant airspace queries; a separate read model serves real-time data without slowing down write processing",
+          "<strong>&#10004; Reliability &amp; security</strong> — only authorized users can change flight routes, while others get read-only access to flight information",
+          "<strong>&#10004; Flexibility</strong> — different technologies per side: e.g. a relational database for commands, a memory-optimized store for queries"
+        ]
       }
     ]
   },
   {
     "type": "content",
     "mod": "10",
-    "tag": "",
-    "title": "Example 1: Testing a Greeting Endpoint",
-    "desc": "A complete Karate feature file — no Java code required",
+    "tag": "mistake",
+    "title": "CQRS Trade-offs",
+    "desc": "The pattern is powerful — and it charges for it",
     "body": [
       {
-        "code": "<span class=\"kw\">Feature:</span> greeting end-point\n\n<span class=\"kw\">Background:</span>\n  * url demoBaseUrl\n\n<span class=\"kw\">Scenario:</span> get default greeting\n    <span class=\"kw\">Given</span> path <span class=\"str\">'greeting'</span>\n    <span class=\"kw\">When</span> method get\n    <span class=\"kw\">Then</span> status 200\n    <span class=\"kw\">And</span> match response == { id: <span class=\"str\">'#number'</span>, content: <span class=\"str\">'Hello World!'</span> }\n\n<span class=\"kw\">Scenario:</span> get custom greeting\n    <span class=\"kw\">Given</span> path <span class=\"str\">'greeting'</span>\n    <span class=\"kw\">And</span> param name = <span class=\"str\">'Billie'</span>\n    <span class=\"kw\">When</span> method get\n    <span class=\"kw\">Then</span> status 200\n    <span class=\"kw\">And</span> match response == { id: <span class=\"str\">'#number'</span>, content: <span class=\"str\">'Hello Billie!'</span> }",
-        "note": "match validates the whole JSON payload structurally — '#number' is a fuzzy matcher: any numeric id passes."
-      }
-    ]
-  },
-  {
-    "type": "content",
-    "mod": "10",
-    "tag": "",
-    "title": "Example 2: CSRF Token & Sign-In Flow",
-    "desc": "Chaining requests: capture a token, then use it in the next request",
-    "body": [
+        "card": "What you pay",
+        "items": [
+          "<strong>&#10008; Complexity</strong> — separating read and write models complicates the system: synchronization mechanisms become mandatory infrastructure",
+          "<strong>&#10008; Cost</strong> — multiple databases and a split codebase raise development and maintenance effort",
+          "<strong>&#10008; Eventual consistency</strong> — read data lags write data by design; brief inconsistencies are possible",
+          "In a critical environment like flight monitoring, that lag needs <strong>explicit countermeasures</strong>: staleness indicators, bounded lag monitoring, fallback to the write model for safety-relevant queries"
+        ],
+        "warn": true
+      },
       {
-        "code": "<span class=\"kw\">Feature:</span> csrf and sign-in end point\n\n<span class=\"kw\">Background:</span>\n  * url demoBaseUrl\n  <span class=\"kw\">Given</span> path <span class=\"str\">'signin'</span>, <span class=\"str\">'token'</span>\n  <span class=\"kw\">When</span> method get\n  <span class=\"kw\">Then</span> status 200\n  <span class=\"kw\">And</span> header X-CSRF-TOKEN = response\n\n<span class=\"kw\">Scenario:</span> html url encoded form submit - post\n    <span class=\"kw\">Given</span> path <span class=\"str\">'signin'</span>\n    <span class=\"kw\">And</span> form field username = <span class=\"str\">'john'</span>\n    <span class=\"kw\">And</span> form field password = <span class=\"str\">'secret'</span>\n    <span class=\"kw\">When</span> method post\n    <span class=\"kw\">Then</span> status 200\n    <span class=\"kw\">And</span> match response == <span class=\"str\">'success'</span>",
-        "note": "The Background runs before each scenario: it fetches the CSRF token once and injects it as a header — state flows naturally between steps. The full demo also shows GET-based and manually-formed request variants."
+        "card": "Rule of thumb",
+        "items": [
+          "Use CQRS where read and write loads genuinely diverge — not as a default architecture"
+        ]
       }
     ]
   }

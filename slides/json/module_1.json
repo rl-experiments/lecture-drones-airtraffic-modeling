@@ -1,7 +1,17 @@
 [
   {
     "type": "cover",
-    "script": { "name": "drone", "opts": { "perched": true, "anchor": ".cover-card", "anchorOffsetX": 95, "anchorOffsetY": 0, "scale": 1.05, "color": "#f97316" } },
+    "script": {
+      "name": "drone",
+      "opts": {
+        "perched": true,
+        "anchor": ".cover-card",
+        "anchorOffsetX": 95,
+        "anchorOffsetY": 0,
+        "scale": 1.05,
+        "color": "#f97316"
+      }
+    },
     "bg": 3,
     "h1": "Module 1",
     "lead": "Drones & Air Traffic: Introduction",
@@ -115,11 +125,31 @@
     "body": [
       {
         "table": {
-          "headers": ["Category", "Risk", "Typical operation", "Requirements"],
+          "headers": [
+            "Category",
+            "Risk",
+            "Typical operation",
+            "Requirements"
+          ],
           "rows": [
-            ["<strong>Open</strong>", "Low", "Hobby &amp; light commercial flights in subcategories A1 / A2 / A3", "No authorization; class marking C0–C4, max. 120 m altitude, visual line of sight"],
-            ["<strong>Specific</strong>", "Medium", "BVLOS flights, heavier drones, urban operations (STS-01 / STS-02)", "Operational authorization based on risk assessment (SORA)"],
-            ["<strong>Certified</strong>", "High", "Passenger transport, dangerous goods, large cargo drones", "Certified aircraft, licensed remote pilots — like manned aviation"]
+            [
+              "<strong>Open</strong>",
+              "Low",
+              "Hobby &amp; light commercial flights in subcategories A1 / A2 / A3",
+              "No authorization; class marking C0–C4, max. 120 m altitude, visual line of sight"
+            ],
+            [
+              "<strong>Specific</strong>",
+              "Medium",
+              "BVLOS flights, heavier drones, urban operations (STS-01 / STS-02)",
+              "Operational authorization based on risk assessment (SORA)"
+            ],
+            [
+              "<strong>Certified</strong>",
+              "High",
+              "Passenger transport, dangerous goods, large cargo drones",
+              "Certified aircraft, licensed remote pilots — like manned aviation"
+            ]
           ]
         }
       },
@@ -156,11 +186,27 @@
     "body": [
       {
         "table": {
-          "headers": ["Subcategory", "Rule of thumb", "Details"],
+          "headers": [
+            "Subcategory",
+            "Rule of thumb",
+            "Details"
+          ],
           "rows": [
-            ["<strong>A1</strong> — fly close to people", "Overflight of individuals possible, never over crowds", "No flight over open-air assemblies and no deliberate flight over uninvolved persons; if an overflight happens unexpectedly, it must be ended as quickly as possible"],
-            ["<strong>A2</strong> — fly at a safe distance", "Min. <strong>30 m</strong> horizontal distance to uninvolved persons", "May be reduced to <strong>5 m</strong> in exceptional cases when the drone's low-speed mode is active"],
-            ["<strong>A3</strong> — fly far from people", "No uninvolved persons in the entire flight area", "Additionally min. <strong>150 m</strong> distance to residential, commercial, industrial or recreational areas"]
+            [
+              "<strong>A1</strong> — fly close to people",
+              "Overflight of individuals possible, never over crowds",
+              "No flight over open-air assemblies and no deliberate flight over uninvolved persons; if an overflight happens unexpectedly, it must be ended as quickly as possible"
+            ],
+            [
+              "<strong>A2</strong> — fly at a safe distance",
+              "Min. <strong>30 m</strong> horizontal distance to uninvolved persons",
+              "May be reduced to <strong>5 m</strong> in exceptional cases when the drone's low-speed mode is active"
+            ],
+            [
+              "<strong>A3</strong> — fly far from people",
+              "No uninvolved persons in the entire flight area",
+              "Additionally min. <strong>150 m</strong> distance to residential, commercial, industrial or recreational areas"
+            ]
           ]
         }
       }

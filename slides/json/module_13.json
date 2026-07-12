@@ -1,39 +1,51 @@
 [
   {
     "type": "cover",
-    "script": { "name": "drone", "opts": { "perched": true, "anchor": ".cover-card", "anchorOffsetX": 35, "anchorOffsetY": 0, "scale": 1.05, "color": "#a855f7" } },
-    "bg": 3,
+    "script": {
+      "name": "drone",
+      "opts": {
+        "perched": true,
+        "anchor": ".cover-card",
+        "anchorOffsetX": 100,
+        "anchorOffsetY": -10,
+        "scale": 1.05,
+        "color": "#84cc16"
+      }
+    },
+    "bg": 2,
     "h1": "Module 13",
-    "lead": "Optimizing Data Transmission",
-    "sub": "When a conflict warning arrives 800 ms late, it isn't a warning anymore",
+    "lead": "Real-Time Data in GIS Applications",
+    "sub": "Putting drone traffic on the map — literally",
     "badges": [
-      "QUIC",
-      "HTTP/3",
-      "5G URLLC",
-      "Edge Computing",
-      "Reinforcement Learning"
+      "Geodata",
+      "Route Planning",
+      "Visualization",
+      "DiPUL"
     ]
   },
   {
     "type": "content",
     "mod": "13",
     "tag": "",
-    "title": "Minimizing Latency with Modern Protocols",
-    "desc": "Faster transmission, smarter error correction, less overhead",
+    "title": "Geodata for Flight Route Planning",
+    "desc": "A drone route is a query against many geographic layers at once",
     "body": [
       {
-        "table": {
-          "headers": ["Protocol", "What it does for latency"],
-          "rows": [
-            ["<strong>QUIC</strong> (Quick UDP Internet Connections)", "Developed by Google, built on UDP — cuts connection setup time and handles packet loss per-stream"],
-            ["<strong>HTTP/3</strong>", "Runs on QUIC — faster page and API response times through true multiplexing (no head-of-line blocking)"],
-            ["<strong>TLS 1.3</strong>", "Accelerated handshake for secure connections (1-RTT, resumption with 0-RTT)"],
-            ["<strong>BBR</strong> (Bottleneck Bandwidth and RTT)", "Google's TCP congestion-control algorithm — uses available bandwidth optimally and minimizes queuing delay"],
-            ["<strong>RDMA</strong> (Remote Direct Memory Access)", "Direct memory access over the network — drastic latency reduction, mainly inside data centers"],
-            ["<strong>WebRTC</strong>", "Real-time communication protocol for low-latency video and audio"],
-            ["<strong>5G URLLC</strong> (Ultra-Reliable Low Latency Communication)", "Designed for real-time applications: industry, autonomous driving, telemedicine — and drone command &amp; control"]
-          ]
-        }
+        "card": "The layers a route planner needs",
+        "items": [
+          "<strong>Geo-zones</strong> — no-fly and restricted zones (airports, hospitals, prisons, nature reserves)",
+          "<strong>Terrain &amp; obstacles</strong> — elevation models, buildings, power lines, cranes",
+          "<strong>Population density</strong> — ground risk for the Specific category (SORA) depends on who is below",
+          "<strong>Weather layers</strong> — wind fields and precipitation as time-dependent rasters",
+          "<strong>Live traffic</strong> — other drones and manned aviation, streamed in real time (Modules 5, 6, 8)"
+        ]
+      },
+      {
+        "card": "Visualization of drone movements",
+        "items": [
+          "Live positions rendered on the map — the FlightAware picture from Module 1, now for unmanned traffic",
+          "Track history, planned route and actual route in one view: instant anomaly detection for operators"
+        ]
       }
     ]
   },
@@ -41,31 +53,37 @@
     "type": "content",
     "mod": "13",
     "tag": "",
-    "title": "Edge Computing for Real-Time Processing",
-    "desc": "Process the data where it is produced — not in a distant data center",
+    "title": "Applications & the German Data Source",
+    "desc": "Logistics, rescue services — and where the official geo-zones come from",
     "body": [
       {
-        "card": "The idea",
+        "card": "Application examples",
         "items": [
-          "Data is processed <strong>at the edge of the network</strong>, at or near its source — not centrally in remote data centers",
-          "Removes the round trip to the cloud: <strong>real-time processing</strong> becomes possible",
-          "For drones: obstacle avoidance, sensor fusion and flight control must run <strong>on board or at the nearest base station</strong> — a 100 ms cloud round trip is a crashed drone",
-          "The cloud still matters — for fleet analytics, model training and everything that is not time-critical"
+          "<strong>Logistics</strong> — corridor planning for delivery routes, automatically re-routed around temporary geo-zones",
+          "<strong>Rescue services</strong> — fastest legal route for a medical-supply drone, computed against live airspace data",
+          "<strong>Inspection &amp; monitoring</strong> — pipelines, railways and power lines flown along precise geo-referenced paths"
         ]
       },
       {
-        "card": "Edge + machine learning: reinforcement learning on drones",
+        "card": "DiPUL — Digitale Plattform Unbemannte Luftfahrt",
         "items": [
-          "RL agents learn control policies through trial and error — trained in simulation, executed at the edge",
-          "State of the art: RL-controlled racing drones beating human champion pilots (University of Zurich research)",
-          "The inference loop runs entirely on board — the ultimate edge deployment"
+          "Germany's official digital platform for unmanned aviation (BMDV / DFS)",
+          "Interactive map of all <strong>geographic zones</strong> relevant for drone flights — the authoritative source for German operations",
+          "Machine-readable access makes it a natural data layer for every route planner discussed on the previous slide"
         ]
       },
       {
         "resource": {
-          "title": "Watch",
+          "title": "Explore",
           "links": [
-            { "url": "https://www.youtube.com/watch?v=M7mIX_0VK4g", "label": "Reinforcement learning for drones (video)" }
+            {
+              "url": "https://maptool-dipul.dfs.de",
+              "label": "DiPUL map tool"
+            },
+            {
+              "url": "https://www.dipul.de",
+              "label": "dipul.de"
+            }
           ]
         }
       }

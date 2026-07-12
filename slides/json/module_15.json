@@ -1,66 +1,42 @@
 [
   {
     "type": "cover",
-    "script": { "name": "drone", "opts": { "perched": true, "anchor": ".cover-card", "anchorOffsetX": 95, "anchorOffsetY": -15, "scale": 1.05, "color": "#0ea5e9" } },
-    "bg": 5,
-    "h1": "Lab",
-    "lead": "Hands-On: Programming a DJI Drone",
-    "sub": "Feasibility first — connect real hardware to your own Java code. Then the optional deep dive.",
+    "script": {
+      "name": "drone",
+      "opts": {
+        "perched": true,
+        "anchor": ".cover-card",
+        "anchorOffsetX": 90,
+        "anchorOffsetY": -20,
+        "scale": 1.05,
+        "color": "#64748b"
+      }
+    },
+    "bg": 6,
+    "h1": "Module 15",
+    "lead": "Agile Processes & Conclusion",
+    "sub": "How to build all of this — and where it is heading",
     "badges": [
-      "DJI Mini 4 Pro",
-      "Mobile SDK v5",
-      "Android",
-      "KeyManager",
-      "*Java"
+      "Iterative Development",
+      "DevOps",
+      "CI/CD",
+      "Standards & Outlook"
     ]
   },
   {
     "type": "content",
     "mod": "15",
     "tag": "",
-    "title": "The Mission: A Feasibility Test",
-    "desc": "Can we control a DJI drone with our own Java code? Prove the connection works — nothing more.",
+    "title": "Agile Development in Software & Systems Engineering",
+    "desc": "Aviation-grade rigor and agile iteration are not enemies",
     "body": [
       {
-        "card": "Your task",
+        "card": "The agile toolbox applied to drone systems",
         "items": [
-          "Build your own app that <strong>connects to the drone</strong> and delivers at least one first sign of life &mdash; e.g. reading the <strong>battery level</strong>",
-          "Explicitly out of scope: <strong>no flying, no automation</strong> &mdash; this is purely about whether the connection works at all",
-          "Document briefly <strong>where things get stuck</strong> &mdash; the error message and your hypothesis",
-          "These observations are not a byproduct: they form the <strong>backbone of the later lecture</strong>"
-        ]
-      },
-      {
-        "card": "Why this matters for the course",
-        "items": [
-          "Everything in Modules 5–13 (UTM, APIs, streaming, testing) assumed the drone is reachable by software &mdash; this lab checks that assumption against real hardware",
-          "The SDK's capabilities and limits define what a university drone project can realistically build on"
-        ]
-      }
-    ]
-  },
-  {
-    "type": "content",
-    "mod": "15",
-    "tag": "important",
-    "title": "Shopping List: Hardware That Is Actually Programmable",
-    "desc": "The single most expensive mistake is buying a drone without SDK support",
-    "body": [
-      {
-        "table": {
-          "headers": ["Item", "Buy exactly this", "NOT this — and why"],
-          "rows": [
-            ["<strong>Drone</strong>", "<strong>DJI Mini 4 Pro</strong>", "<strong>Neo, Neo 2 or Mini 5 Pro</strong> — these have <em>no SDK</em> and are not programmable"],
-            ["<strong>Remote controller</strong>", "<strong>RC-N3</strong> — the screenless variant you clamp a phone into", "<strong>RC 2</strong> with built-in display — it <em>locks out third-party apps</em>"],
-            ["<strong>Phone</strong>", "An <strong>Android</strong> phone for development; must fit the holder: max. <strong>180 &times; 86 &times; 10 mm</strong>", "iPhone — the SDK is <em>Android-only</em>"]
-          ]
-        }
-      },
-      {
-        "card": "",
-        "items": [
-          "The Android phone may already be available &mdash; check before buying",
-          "General rule for any DJI project: <strong>verify SDK support first</strong>, model names alone tell you nothing"
+          "<strong>Iterative development &amp; continuous improvement</strong> — short cycles, early feedback from simulation (Module 12) instead of big-bang integration",
+          "<strong>DevOps &amp; CI/CD pipelines</strong> — every commit builds, tests (Karate, Module 11) and deploys to a simulated airspace automatically",
+          "<strong>Fast adaptation to regulatory requirements</strong> — EU drone rules evolve yearly; architecture and pipelines must absorb rule changes as routine work, not as crises",
+          "<strong>Best practice</strong> — keep the safety artifacts (requirements, traceability, verification evidence from Module 4) inside the pipeline, not in a drawer: 'continuous compliance'"
         ]
       }
     ]
@@ -69,45 +45,14 @@
     "type": "content",
     "mod": "15",
     "tag": "",
-    "title": "Set Up the Toolchain",
-    "desc": "Four downloads, one account — everything is free",
+    "title": "The Sprint, As Experienced",
+    "desc": "Agile is a discipline, not a magic word — plan for the obstacles",
     "body": [
       {
-        "table": {
-          "headers": ["Step", "What", "Where"],
-          "rows": [
-            ["1", "Install <strong>Android Studio</strong> (current version)", "developer.android.com"],
-            ["2", "Create a <strong>DJI developer account</strong> and generate an <strong>App Key</strong>", "<a href=\"https://developer.dji.com\" target=\"_blank\">developer.dji.com</a>"],
-            ["3", "Clone the official <strong>sample project</strong> (Java/Kotlin)", "<a href=\"https://github.com/dji-sdk/Mobile-SDK-Android-V5\" target=\"_blank\">dji-sdk/Mobile-SDK-Android-V5</a>"],
-            ["4", "Bookmark the docs for reference", "<a href=\"https://developer.dji.com/doc/mobile-sdk-tutorial/en/\" target=\"_blank\">Mobile SDK tutorial</a> &middot; <a href=\"https://developer.dji.com/api-reference-v5/android-api/\" target=\"_blank\">Java API reference (v5)</a>"]
-          ]
-        }
-      }
-    ]
-  },
-  {
-    "type": "content",
-    "mod": "15",
-    "tag": "exercise",
-    "title": "First Contact: Registration & Battery",
-    "desc": "Success = 'registration success' + one real value on screen",
-    "body": [
-      {
-        "card": "The procedure",
-        "items": [
-          "Open the sample project in Android Studio and enter your <strong>App Key</strong>",
-          "<strong>Most common failure:</strong> the App Key must <em>exactly</em> match the app's <strong>package name</strong> &mdash; otherwise registration fails",
-          "Build the app on a <strong>real Android device</strong> &mdash; the emulator does <em>not</em> work",
-          "Pair drone and remote controller, connect the phone to the controller via <strong>USB</strong>, start the app"
-        ]
-      },
-      {
-        "card": "Definition of done",
-        "items": [
-          "The app reports <strong>&quot;registration success&quot;</strong> and recognizes the connected drone",
-          "First real test: read a value &mdash; e.g. <strong>battery percentage via the KeyManager</strong> &mdash; and display it in the app",
-          "Write down where it gets stuck: which step, which error message &mdash; and ask when questions come up"
-        ]
+        "img": "sprint.png",
+        "alt": "MonkeyUser comic: a sprint as an obstacle race through meetings, bugs, merge conflicts — ending at a wall labeled scope creep",
+        "height": 440,
+        "caption": "monkeyuser.com — Sprint"
       }
     ]
   },
@@ -115,47 +60,24 @@
     "type": "content",
     "mod": "15",
     "tag": "",
-    "title": "Deep Dive A + B: Telemetry & the KeyManager",
-    "desc": "Optional advanced track — the goal is understanding the SDK's architecture, not just 'it runs'",
+    "title": "Opportunities & Challenges of Future Drone Technologies",
     "body": [
       {
-        "card": "Level A — Understand telemetry properly",
+        "card": "Opportunities",
         "items": [
-          "Don't stop at the battery level: use the <strong>KeyManager</strong> to subscribe to <strong>several values at once</strong> &mdash; position, altitude, attitude, satellite count, link status &mdash; and show them live in the app",
-          "Think along: what is the difference between a one-time <code>get</code> and a <code>listen</code> subscription &mdash; and when would you use which?"
+          "<strong>Logistics</strong> — more efficient transport, especially for the last mile and hard-to-reach areas",
+          "<strong>Agriculture</strong> — precise crop monitoring and targeted treatment",
+          "<strong>Environmental monitoring</strong> — large-area observation at low cost",
+          "<strong>Emergency response</strong> — reaching inaccessible areas in crisis situations quickly"
         ]
       },
       {
-        "card": "Level B — The KeyManager as a system",
+        "card": "Challenges",
         "items": [
-          "Map the <strong>key groups</strong>: <code>FlightControllerKey</code>, <code>CameraKey</code>, <code>GimbalKey</code>, <code>BatteryKey</code>, &hellip;",
-          "Build a small table: which values are <strong>read-only</strong>, which are also <strong>settable</strong>?",
-          "That table is the foundation for systematically capturing what the drone can do"
-        ]
-      }
-    ]
-  },
-  {
-    "type": "content",
-    "mod": "15",
-    "tag": "",
-    "title": "Deep Dive C + D: Video Stream & First Control",
-    "desc": "The didactic highlight — and the first, strictly simulated, control commands",
-    "body": [
-      {
-        "card": "Level C — Live video stream",
-        "items": [
-          "Bring the <strong>camera video stream</strong> into your app and display it",
-          "This is the most exciting part didactically: <strong>computer vision builds on it later</strong>",
-          "Questions: in which <strong>format</strong> does the stream arrive, and what would it take to grab <strong>individual frames</strong> for image processing?"
-        ]
-      },
-      {
-        "card": "Level D — First control (SIMULATOR ONLY!)",
-        "items": [
-          "Before anything flies for real: use the <strong>DJI simulator</strong>",
-          "Send a simple <strong>virtual-stick command</strong> or a <strong>takeoff/landing sequence</strong>",
-          "Document which <strong>preconditions and safety mechanisms</strong> the SDK demands before it accepts control commands at all"
+          "Privacy concerns and security risks from unauthorized use",
+          "The need for clear regulatory frameworks",
+          "<strong>Integration into existing air traffic systems</strong> — the central theme of this entire lecture",
+          "Guaranteeing safe and ethical operation as fleets scale up"
         ],
         "warn": true
       }
@@ -164,23 +86,61 @@
   {
     "type": "content",
     "mod": "15",
-    "tag": "takeaway",
-    "title": "The Guiding Question: Where Does the SDK End?",
+    "tag": "",
+    "title": "The Potential of AI & Autonomous Systems",
     "body": [
       {
-        "card": "Find the limits — deliberately",
+        "card": "",
         "items": [
-          "Concretely find out what does <strong>NOT</strong> work &mdash; e.g. direct access to the <strong>motors</strong> or the <strong>control loop</strong>",
-          "Naming this boundary cleanly is <strong>at least as valuable for the lecture</strong> as everything that works",
-          "Compare with Module 3: a consumer SDK enforcing safety boundaries <em>is</em> a trust-level decision — DJI does not let your code near the SIL-critical parts"
+          "AI and autonomous systems can <strong>automate processes, raise efficiency and improve decision-making</strong>",
+          "Industry: more precise production and predictive maintenance",
+          "Healthcare: personalized treatment plans and faster diagnoses",
+          "Transport: autonomous vehicles and drones could revolutionize mobility while increasing safety",
+          "The open problems mirror aviation's: <strong>ethical use, avoiding failures in critical situations, robust safeguards</strong> against misuse and malfunction — Module 4's principles apply to AI components too"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "15",
+    "tag": "",
+    "title": "International Standards & Regulations",
+    "body": [
+      {
+        "card": "Why they matter",
+        "items": [
+          "Standards ensure innovations are <strong>globally harmonized</strong>: products and services stay compatible and safe worldwide",
+          "They promote trade, protect user privacy and safety, and prevent technological abuse",
+          "They create fair competition — without unnecessarily slowing progress",
+          "The hard part: developing <strong>flexible, future-proof norms</strong> that keep pace with rapid technological change",
+          "You have now seen the aviation instances: EU 2019/947, DO-178C, ED-153, AIXM, ASTERIX, OLDI — one coherent regulatory-technical stack"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "15",
+    "tag": "takeaway",
+    "title": "Course Wrap-up & Open Questions",
+    "body": [
+      {
+        "card": "What you take home",
+        "items": [
+          "Why drone traffic needs modeling: regulation, density and safety (Modules 1, 4)",
+          "The data formats aviation speaks: NOTAM, METAR, AIXM, ASTERIX, OLDI (Module 5)",
+          "The system picture: UTM as a federation of services (Module 6)",
+          "The engineering toolbox: OpenAPI, WebFlux, message queues, CQRS, Karate (Modules 7–11)",
+          "The laboratory: BlueSky simulation, GIS integration, low-latency transmission (Modules 12–14)"
         ]
       },
       {
-        "card": "When you get stuck",
+        "card": "Now it's on you",
         "items": [
-          "Getting stuck is <strong>expected and welcome</strong>",
-          "Note the error message and your hypothesis about the cause",
-          "We will turn exactly these notes into a good exercise example later"
+          "Deliver your seminar presentation — depth beats breadth",
+          "Win the BlueSky competition — and be able to explain <em>why</em> your airspace survived",
+          "Open questions? Ask now, or bring them to the next session"
         ]
       }
     ]
