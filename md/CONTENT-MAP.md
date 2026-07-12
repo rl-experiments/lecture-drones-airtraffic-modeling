@@ -64,7 +64,6 @@ simulator-only virtual stick) plus the guiding question "where does the SDK end?
 |---|---|---|
 | `edge-cases.png` | [monkeyuser.com — Edge Cases](https://www.monkeyuser.com/2019/edge-cases/) | Module 11 "Why We Test: Cover All Edge Cases" |
 | `testing-vs-prod.png` | [monkeyuser.com — Testing vs. Production Environment](https://www.monkeyuser.com/2017/testing-vs-prod-env/) | Module 12 "Test Environment vs. Reality" |
-| `sprint.png` | [monkeyuser.com — Sprint](https://www.monkeyuser.com/2019/sprint/) | Module 15 "The Sprint, As Experienced" |
 
 Same comic source as the reference repo (lecture-se-tools-ai); watermarks/attribution preserved in the images and captions.
 

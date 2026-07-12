@@ -34,13 +34,12 @@
       {
         "img": "flightaware-live-map.png",
         "alt": "FlightAware live map with hundreds of aircraft",
-        "height": 250
+        "height": 285
       },
       {
         "card": "What you are looking at",
         "items": [
-          "Live map of all aircraft in the sky &mdash; near you and anywhere else in the world",
-          "Positions from <strong>ADS-B</strong> transponders, radar and receiver networks; every symbol carries flight ID, altitude, speed and route",
+          "Live map of all aircraft in the sky — positions from <strong>ADS-B</strong>, radar and receiver networks; every symbol carries flight ID, altitude, speed and route",
           "Keep this picture in mind: <strong>drones must merge into exactly this traffic</strong>",
           "Try it yourself: <a href=\"https://de.flightaware.com\" target=\"_blank\">flightaware.com</a>"
         ]
@@ -99,20 +98,13 @@
     "mod": "1",
     "tag": "",
     "title": "How Are Drones Regulated Worldwide?",
-    "desc": "From 'unrestricted' to outright bans — a fragmented global picture",
+    "desc": "Green = unrestricted, yellow = line-of-sight required, orange/red = effective or outright ban, grey = no legislation (Statista/Surfshark, 2020)",
     "body": [
       {
         "img": "drone-regulation-worldmap.jpg",
         "alt": "World map of drone regulation by country (Statista/Surfshark)",
-        "height": 340
-      },
-      {
-        "card": "",
-        "items": [
-          "Regulation ranges from <strong>unrestricted</strong> (green) over line-of-sight requirements to <strong>effective or outright bans</strong>",
-          "Many countries still have <strong>no legislation at all</strong> &mdash; a problem for international operators",
-          "The EU harmonized its rules in 2021: one framework for all member states &mdash; next slides"
-        ]
+        "height": 435,
+        "caption": "A fragmented global picture — the EU harmonized its rules in 2021: one framework for all member states (next slides)."
       }
     ]
   },
@@ -173,7 +165,7 @@
       {
         "img": "eu-drone-regulation-2024.jpg",
         "alt": "EU drone regulation 2024 overview chart with classes C0-C6 and categories A1-A3, STS and BOS",
-        "height": 470
+        "height": 480
       }
     ]
   },
@@ -222,7 +214,7 @@
       {
         "img": "easa-remote-pilot-certificate.jpg",
         "alt": "EASA remote pilot certificate of competency card",
-        "height": 270
+        "height": 300
       },
       {
         "card": "How to get certified",

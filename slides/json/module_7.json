@@ -96,24 +96,33 @@
   {
     "type": "content",
     "mod": "7",
-    "tag": "demo",
+    "tag": "",
     "title": "Tooling Around OpenAPI",
-    "desc": "The spec is only as useful as its tools — live demo",
+    "desc": "Live demo — and the takeaway: standards lead to better collaboration",
     "body": [
-      {
-        "img": "swagger-editor-petstore.jpg",
-        "alt": "Swagger Editor with the Petstore example: YAML on the left, rendered documentation on the right",
-        "height": 230
-      },
       {
         "card": "The toolbox",
         "items": [
           "<a href=\"https://swagger.io/tools/swagger-ui/\" target=\"_blank\"><strong>Swagger UI</strong></a> — visual rendering and in-browser test calls (try the <a href=\"https://editor.swagger.io\" target=\"_blank\">live editor</a>)",
           "<strong>Redoc</strong> — modern, read-oriented API documentation",
           "<strong>Postman</strong> — API testing and development",
-          "<strong>OpenAPI Generator</strong> — client/server code generation for dozens of languages",
-          "Conclusion: OpenAPI makes API development dramatically easier — <strong>standards lead to better collaboration</strong>"
+          "<strong>OpenAPI Generator</strong> — client/server code generation for dozens of languages"
         ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "7",
+    "tag": "demo",
+    "title": "Swagger Editor: Spec Left, Docs Right",
+    "desc": "The YAML you write and the documentation it generates — live in the browser",
+    "body": [
+      {
+        "img": "swagger-editor-petstore.jpg",
+        "alt": "Swagger Editor with the Petstore example: YAML on the left, rendered documentation with GET/POST endpoints on the right",
+        "height": 460,
+        "caption": "Try it yourself at editor.swagger.io — paste the Petstore example or your own UTM clearance API."
       }
     ]
   }

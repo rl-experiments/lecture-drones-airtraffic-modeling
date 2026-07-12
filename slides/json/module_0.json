@@ -39,15 +39,14 @@
       {
         "img": "ultralight-1986.jpg",
         "alt": "Motorized ultralight aircraft, 1986",
-        "height": 180,
+        "height": 295,
         "caption": "First contact with aviation technology: the motorized ultralight my father built with his own hands, 1986."
       },
       {
-        "card": "Background",
+        "card": "",
         "items": [
-          "In information technology since the age of five &mdash; decades of hands-on experience as <strong>backend developer, lead and architect</strong>",
-          "Universities, major banks, insurance, government agencies, car manufacturers, transport networks, startups, medical institutions &mdash; and <strong>aviation safety</strong>",
-          "This breadth is exactly what air traffic systems demand: safety, data, real-time processing and regulation combined",
+          "In information technology since the age of five &mdash; decades as <strong>backend developer, lead and architect</strong>",
+          "Universities, banks, insurance, government, automotive, transport networks, startups, medical &mdash; and <strong>aviation safety</strong>: exactly the mix air traffic systems demand",
           "Connect: <a href=\"https://www.linkedin.com/in/tigraff/\" target=\"_blank\">LinkedIn profile</a>"
         ]
       }

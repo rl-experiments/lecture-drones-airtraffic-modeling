@@ -31,11 +31,6 @@
     "desc": "A non-blocking, asynchronous programming model for reactive applications",
     "body": [
       {
-        "img": "spring-mvc-vs-webflux.png",
-        "alt": "Comparison of Spring MVC servlet stack (blocking) and Spring WebFlux reactive stack (non-blocking)",
-        "height": 230
-      },
-      {
         "card": "The case for Spring Reactive",
         "items": [
           "<strong>Efficiency</strong> — scales better than blocking frameworks: few event-loop threads instead of one thread per request",
@@ -50,13 +45,28 @@
     "type": "content",
     "mod": "8",
     "tag": "",
+    "title": "Spring MVC vs. Spring WebFlux",
+    "desc": "Same annotations on top — a completely different engine underneath",
+    "body": [
+      {
+        "img": "spring-mvc-vs-webflux.png",
+        "alt": "Comparison of Spring MVC servlet stack (blocking) and Spring WebFlux reactive stack (non-blocking)",
+        "height": 440,
+        "caption": "MVC: blocking servlet stack (Tomcat, Jetty, Undertow). WebFlux: non-blocking reactive stack (adds Netty), plus functional handler & router as an alternative to @Controller."
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "8",
+    "tag": "",
     "title": "The Reactive Streams Specification",
     "desc": "Four interfaces and one crucial idea: backpressure",
     "body": [
       {
         "img": "reactive-streams-spec.png",
         "alt": "Reactive streams: subscriber subscribes to publisher, subscription mediates request(n) and onNext/onComplete/onError",
-        "height": 280
+        "height": 290
       },
       {
         "card": "The contract",

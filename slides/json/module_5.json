@@ -304,17 +304,27 @@
     "desc": "The binary format your radar tracks arrive in",
     "body": [
       {
-        "img": "asterix-protocol-analyzer.png",
-        "alt": "ASTERIX protocol analyzer decoding CAT062 system track records",
-        "height": 240
-      },
-      {
         "card": "",
         "items": [
           "Eurocontrol's binary format family for surveillance data — organized in <strong>categories</strong> (e.g. CAT048 radar target reports, <strong>CAT062 system tracks</strong>)",
           "Each record carries data items like position (WGS-84), track velocity, mode 3/A code, flight level",
           "The <a href=\"https://www.sinoatc.com/products/asterixtk/\" target=\"_blank\"><strong>ASTERIX toolkit</strong></a> shown above decodes, analyzes, records and replays this data — compact and fast, but you need the category spec to read a single bit"
         ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "5",
+    "tag": "demo",
+    "title": "Inside the ASTERIX Toolkit",
+    "desc": "Decoding CAT062 system tracks: raw hex on top, decoded data items below",
+    "body": [
+      {
+        "img": "asterix-protocol-analyzer.png",
+        "alt": "ASTERIX protocol analyzer decoding CAT062 system track records",
+        "height": 460,
+        "caption": "Each record decodes into data items: source identifier, time of track, WGS-84 position, track velocity, mode 3/A code."
       }
     ]
   },

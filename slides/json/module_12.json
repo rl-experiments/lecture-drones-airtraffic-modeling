@@ -52,7 +52,7 @@
       {
         "img": "testing-vs-prod.png",
         "alt": "MonkeyUser comic: a smooth flat test-environment track ends in a cliff into a production canyon full of spikes, lag hills and performance drops",
-        "height": 440,
+        "height": 455,
         "caption": "monkeyuser.com — Testing vs. Production Environment. Simulation is your smooth track; the real airspace is the canyon. Validate in BlueSky first."
       }
     ]
@@ -65,12 +65,6 @@
     "desc": "TU Delft's open-source air traffic simulator — and our competition arena",
     "body": [
       {
-        "img": "bluesky-traffic-simulation.png",
-        "alt": "BlueSky simulator radar view with dense air traffic over the Balkans",
-        "height": 225,
-        "caption": "Traffic simulation using the BlueSky simulator."
-      },
-      {
         "card": "What you get",
         "items": [
           "Open source (GPL), written in <strong>Python</strong> — easy to read, easy to extend; used in actual ATM research at TU Delft and beyond",
@@ -78,6 +72,21 @@
           "A <strong>plugin architecture</strong> — including the <code>asas</code> plugins for conflict detection &amp; resolution",
           "Source: <a href=\"https://github.com/TUDelft-CNS-ATM/bluesky\" target=\"_blank\">TUDelft-CNS-ATM/bluesky (GitHub)</a>"
         ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "12",
+    "tag": "",
+    "title": "BlueSky Radar View",
+    "desc": "Dense traffic over the Balkans — every green tag is an aircraft your plugin must keep apart",
+    "body": [
+      {
+        "img": "bluesky-traffic-simulation.png",
+        "alt": "BlueSky simulator radar view with dense air traffic over the Balkans",
+        "height": 460,
+        "caption": "Traffic simulation using the BlueSky simulator."
       }
     ]
   },
