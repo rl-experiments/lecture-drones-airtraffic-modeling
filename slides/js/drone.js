@@ -30,9 +30,9 @@ function initDrone(opts = {}) {
   });
 
   host.innerHTML = `
-<svg id="dr-svg" width="170" height="110" viewBox="0 0 170 110"
+<svg id="dr-svg" width="230" height="149" viewBox="0 0 170 110"
      xmlns="http://www.w3.org/2000/svg" overflow="visible"
-     style="position:absolute;width:170px;height:110px;top:-55px;left:-85px;
+     style="position:absolute;width:230px;height:149px;top:-75px;left:-115px;
             overflow:visible;will-change:transform;transform-origin:50% 50%;">
   <defs>
     <linearGradient id="drBody" x1="0" y1="0" x2="0" y2="1">
