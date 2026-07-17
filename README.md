@@ -1,6 +1,6 @@
 # Innovative Technologies for Drones<br><sub>Air Traffic Modeling</sub>
 
-University lecture slides — elective master module (WPM), Albstadt-Sigmaringen University of Applied Sciences. Introduction, 14 modules, seminar presentations and a [BlueSky](https://github.com/TUDelft-CNS-ATM/bluesky) collision-avoidance competition.
+University lecture slides — elective master module (WPM), Albstadt-Sigmaringen University of Applied Sciences. Introduction, 14 modules, a hands-on DJI drone lab and a [BlueSky](https://github.com/TUDelft-CNS-ATM/bluesky) collision-avoidance competition.
 
 ![Cover slide](.github/cover.webp)
 
@@ -43,8 +43,8 @@ slides/
     slides-config.json    ← metadata (title, modules, TOC, cover)
     module_0.json         ← Intro: Course Overview
     module_1.json         ← M1: Drones & Air Traffic: Introduction
-    module_2.json         ← M2: Seminar Topics & Competition
-    module_3.json         ← Lab: Hands-On DJI Mobile SDK (feasibility test + deep dive)
+    module_2.json         ← M2: Project Ideas & Competition
+    module_3.json         ← Lab: DJI Client & Your Project (fly it, then build your own)
     module_4.json         ← M4: Software Safety Standards
     module_5.json         ← M5: Aeronautical Information Exchange
     module_6.json         ← M6: Control & Monitoring Systems (UTM)
@@ -72,13 +72,12 @@ export/                   ← generated output (gitignored)
 
 Hands-on code that accompanies the lecture modules lives under `labs/`.
 
-- **[`labs/dji-hello-world`](labs/dji-hello-world/)** — companion to **Module 3
-  (Hands-On DJI Mobile SDK)**. A minimal Android app that connects to a **DJI Mini 4
-  Pro** via the **RC-N3** and flies a fixed mission (take off → 1 m forward → 180°
-  turn → 1 m back → land) using MSDK v5. Where the module task stops at the
-  feasibility test (reading the battery), this is the working deep-dive reference.
-  Setup, build, and a full troubleshooting log are in its own
-  [README](labs/dji-hello-world/README.md).
+- **[`labs/dji-hello-world`](labs/dji-hello-world/)** — the working client behind the
+  **Module 3 lab (DJI Client & Your Project)**. A minimal Android app that connects to
+  a **DJI Mini 4 Pro** via the **RC-N3** and flies a fixed mission (take off → 1 m
+  forward → 180° turn → 1 m back → land) using MSDK v5. It's the proof of concept
+  students build their own project on top of. Setup, build, and a full troubleshooting
+  log are in its own [README](labs/dji-hello-world/README.md).
 
 ## Editing Content
 
