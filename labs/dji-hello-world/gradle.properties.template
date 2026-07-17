@@ -1,0 +1,16 @@
+# Copy this file to `gradle.properties` and fill in your DJI App Key.
+#   cp gradle.properties.template gradle.properties   (Git Bash / macOS / Linux)
+#   copy gradle.properties.template gradle.properties  (Windows CMD)
+# `gradle.properties` is git-ignored so your key is never committed.
+
+org.gradle.jvmargs=-Xmx4608m
+org.gradle.parallel=true
+android.useAndroidX=true
+android.enableJetifier=true
+
+# Get your key at https://developer.dji.com/user/apps
+# Create a "Mobile SDK" app with:
+#   - Platform:     Android
+#   - Package name: com.example.djihellodrone   (must match exactly)
+#   - SDK version:  V5
+DJI_API_KEY=PUT_YOUR_DJI_APP_KEY_HERE

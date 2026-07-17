@@ -1,0 +1,17 @@
+# Line-ending normalization for this lab (scoped — does not affect the slides repo)
+* text=auto
+
+# Unix shell scripts must stay LF, or they break on macOS/Linux ("bad interpreter")
+gradlew        text eol=lf
+*.sh           text eol=lf
+
+# Windows batch scripts stay CRLF
+*.bat          text eol=crlf
+
+# Binaries — never touch
+*.jar          binary
+*.apk          binary
+*.aar          binary
+*.png          binary
+*.webp         binary
+*.keystore     binary

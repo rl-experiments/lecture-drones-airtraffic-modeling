@@ -1,0 +1,24 @@
+# === Secrets / machine-specific (never commit) ===
+# Real DJI App Key lives here — copy gradle.properties.template instead.
+gradle.properties
+local.properties
+
+# === Build output ===
+.gradle/
+.kotlin/
+build/
+app/build/
+*.apk
+*.aab
+
+# === Logs / temp ===
+*.log
+*.hprof
+
+# === IDE ===
+.idea/
+*.iml
+.DS_Store
+
+# === Claude Code local settings ===
+.claude/
