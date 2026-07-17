@@ -3,7 +3,7 @@
 Minimal Android app (DJI Mobile SDK v5.18) for the **DJI Mini 4 Pro** flown with a
 **DJI RC-N3** controller. One button runs a fixed mission:
 
-> **take off → fly ~1 m forward → rotate 180° → fly ~1 m back → land**
+> **take off → fly ~1.5 m forward → rotate 180° → fly ~1.5 m back → land**
 
 It exists to prove the full chain works end to end — SDK registration, aircraft
 connection, takeoff, virtual-stick movement, a closed-loop yaw turn, and an
@@ -116,9 +116,10 @@ Taking off → Flying forward → Rotating → Flying back → Landing.*
 - **STOP + LAND** aborts and auto-lands at any time.
 - **Moving the physical RC sticks instantly takes control back** from the app — that
   is always your manual override. The RC pause button also cancels app control.
-- The forward legs are **timed** (~10 % stick for 2 s ≈ 1 m), so distance is
-  approximate and wind/drift affect it. Tune `FORWARD_STICK` / `FORWARD_MS` in
-  `MainActivity.kt` after your first test.
+- The forward legs are **timed and open-loop** (~10 % stick for 1 s ≈ 1.5 m once
+  braking is included), so distance is approximate and overshoots — test with margin
+  indoors. Tune `FORWARD_STICK` / `FORWARD_MS` in `MainActivity.kt`, or add closed-loop
+  distance control for an exact stop.
 
 ---
 

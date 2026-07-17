@@ -74,8 +74,8 @@ Hands-on code that accompanies the lecture modules lives under `labs/`.
 
 - **[`labs/dji-hello-world`](labs/dji-hello-world/)** — the working client behind the
   **Module 3 lab (DJI Client & Your Project)**. A minimal Android app that connects to
-  a **DJI Mini 4 Pro** via the **RC-N3** and flies a fixed mission (take off → 1 m
-  forward → 180° turn → 1 m back → land) using MSDK v5. It's the proof of concept
+  a **DJI Mini 4 Pro** via the **RC-N3** and flies a fixed mission (take off → ~1.5 m
+  forward → 180° turn → ~1.5 m back → land) using MSDK v5. It's the proof of concept
   students build their own project on top of. Setup, build, and a full troubleshooting
   log are in its own [README](labs/dji-hello-world/README.md).
 

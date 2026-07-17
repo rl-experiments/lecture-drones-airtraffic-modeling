@@ -35,7 +35,7 @@
         "card": "What it does",
         "items": [
           "A single screen with one green button: <strong>FLY MISSION</strong>",
-          "Press it &rarr; the Mini 4 Pro <strong>takes off, flies 1&nbsp;m forward, spins 180&deg;, flies 1&nbsp;m back, and lands</strong> &mdash; entirely on its own",
+          "Press it &rarr; the Mini 4 Pro <strong>takes off, flies ~1.5&nbsp;m forward, spins 180&deg;, flies ~1.5&nbsp;m back, and lands</strong> &mdash; entirely on its own",
           "~400 lines of Kotlin on the DJI Mobile SDK v5, built in a couple of hours",
           "Code &amp; full write-up: <a href=\"https://github.com/rl-experiments/lecture-drones-airtraffic-modeling/tree/main/labs/dji-hello-world\" target=\"_blank\"><strong>labs/dji-hello-world</strong></a>"
         ]
