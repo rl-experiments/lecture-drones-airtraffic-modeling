@@ -317,7 +317,9 @@ function renderSlide(slide, idx) {
     if (slide.badges) {
       html += `<div class="badges">`;
       for (const b of slide.badges) {
-        if (b.startsWith('*')) {
+        if (b.startsWith('#')) {
+          html += `<span class="badge-black">${b.slice(1)}</span>`;
+        } else if (b.startsWith('*')) {
           html += `<span class="badge">${b.slice(1)}</span>`;
         } else {
           html += `<span class="badge-outline">${b}</span>`;
@@ -392,7 +394,7 @@ for (let i = 0; i < data.slides.length; i++) {
 
 html += `
 <div id="nav">
-  <span class="nav-hint">Arrow keys &middot; Space &middot; Click counter to jump</span>
+  <span class="nav-hint">&copy; 2026 Dennis Piskovatskov<span class="sep">|</span><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a><span class="sep">|</span><a href="https://github.com/rl-experiments/lecture-drones-airtraffic-modeling" target="_blank" rel="noopener">GitHub</a><span class="sep">|</span>More by me: <a href="https://secrets.realestate" target="_blank" rel="noopener">secrets.realestate</a></span>
   <button class="btn-ghost" onclick="go(0)" title="Home"><svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor" style="margin-right:6px;flex-shrink:0" aria-hidden="true"><rect x="3" y="3" width="2" height="10"/><path d="M13 3L6 8l7 5V3z"/></svg>Home</button>
   <button class="btn-ghost" onclick="go(1)" title="Table of Contents">Table of Contents</button>
   <button class="btn" id="bp" onclick="prev()">&larr; Prev</button>

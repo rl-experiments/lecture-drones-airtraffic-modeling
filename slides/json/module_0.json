@@ -25,7 +25,7 @@
     "badges": [
       "WPM Master Module",
       "Hochschule Sigmaringen",
-      "Presentations",
+      "Hands-On Lab",
       "*BlueSky Competition"
     ]
   },
@@ -63,12 +63,12 @@
         "card": "The journey",
         "items": [
           "<strong>Introduction</strong> &mdash; live flight tracking, drone regulation, the EU drone regulation 2024",
-          "<strong>Your assignments</strong> &mdash; seminar presentation topics and the BlueSky collision-avoidance competition",
+          "<strong>Your assignments</strong> &mdash; a hands-on drone-software project and the BlueSky collision-avoidance competition",
           "<strong>Software safety standards</strong> &mdash; DO-178C, ED-109, ED-153, and why 'perfect' software can still kill",
           "<strong>Aeronautical information exchange</strong> &mdash; NOTAM, METAR, AIXM, ASTERIX, OLDI",
           "<strong>Efficient control &amp; monitoring</strong> &mdash; UTM, automated fleet control, sensor fusion",
           "<strong>Technologies</strong> &mdash; OpenAPI, Java Reactive (Spring WebFlux), message queues, CQRS, Karate test automation",
-          "<strong>Simulation &amp; data</strong> &mdash; BlueSky simulation environments, GIS integration, low-latency data transmission",
+          "<strong>Simulation &amp; data</strong> &mdash; BlueSky simulation environments and GIS integration",
           "<strong>Process</strong> &mdash; agile development in software &amp; systems engineering, conclusion &amp; outlook"
         ]
       }
@@ -79,7 +79,7 @@
     "mod": "0",
     "tag": "important",
     "title": "Course Organization & Grading",
-    "desc": "Two deliverables: a seminar presentation and the competition entry",
+    "desc": "Two deliverables: a hands-on drone project and the competition entry",
     "body": [
       {
         "table": {
@@ -90,9 +90,9 @@
           ],
           "rows": [
             [
-              "<strong>Seminar presentation</strong>",
-              "Pick one of the 16 topics and present it in depth",
-              "Module 2"
+              "<strong>Practical project</strong>",
+              "Build your own drone-software idea on top of the working client",
+              "Module 3"
             ],
             [
               "<strong>Competition entry</strong>",
@@ -105,7 +105,7 @@
       {
         "card": "Ground rules",
         "items": [
-          "Topics are assigned first come, first served &mdash; choose early",
+          "Scope your project early &mdash; narrow and working beats broad and unfinished",
           "The competition is scored objectively: the longest-surviving airspace wins",
           "Both deliverables count towards the final grade &mdash; expectations are spelled out in Module 2"
         ]

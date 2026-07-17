@@ -55,8 +55,7 @@ slides/
     module_11.json        ← M11: Karate: Test Automation
     module_12.json        ← M12: Simulation Environments (BlueSky)
     module_13.json        ← M13: Real-Time Data in GIS
-    module_14.json        ← M14: Optimizing Data Transmission
-    module_15.json        ← M15: Conclusion & Outlook
+    module_14.json        ← M14: Conclusion & Outlook
   images/
     bg/                   ← background images
     content/              ← slide content images (UTM diagram, METAR examples, etc.)
@@ -64,8 +63,22 @@ tools/
   export_pdf.py           ← export all slides to landscape PDF
   _animate_cover.py       ← record cover slide as animated WebP (README)
   _screenshot_toc.py      ← screenshot TOC slide to .github/toc.webp (README)
+labs/
+  dji-hello-world/        ← Module 3 lab: Android app that flies a DJI Mini 4 Pro
 export/                   ← generated output (gitignored)
 ```
+
+## Labs
+
+Hands-on code that accompanies the lecture modules lives under `labs/`.
+
+- **[`labs/dji-hello-world`](labs/dji-hello-world/)** — companion to **Module 3
+  (Hands-On DJI Mobile SDK)**. A minimal Android app that connects to a **DJI Mini 4
+  Pro** via the **RC-N3** and flies a fixed mission (take off → 1 m forward → 180°
+  turn → 1 m back → land) using MSDK v5. Where the module task stops at the
+  feasibility test (reading the battery), this is the working deep-dive reference.
+  Setup, build, and a full troubleshooting log are in its own
+  [README](labs/dji-hello-world/README.md).
 
 ## Editing Content
 

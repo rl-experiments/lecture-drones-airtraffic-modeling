@@ -59,10 +59,6 @@
     },
     "14": {
       "label": "Module 14",
-      "color": "#a855f7"
-    },
-    "15": {
-      "label": "Module 15",
       "color": "#64748b"
     }
   },
@@ -97,7 +93,7 @@
       ]
     },
     {
-      "label": "Architecture & Technologies",
+      "label": "Architecture & Technologies (Backend)",
       "mods": [
         "6",
         "7",
@@ -111,14 +107,13 @@
       "label": "Simulation & Data",
       "mods": [
         "12",
-        "13",
-        "14"
+        "13"
       ]
     },
     {
       "label": "Process & Wrap-up",
       "mods": [
-        "15"
+        "14"
       ]
     }
   ],
@@ -135,13 +130,13 @@
     },
     {
       "mod": "2",
-      "title": "Seminar Topics & Competition",
-      "topics": "16 Presentation Topics, BlueSky Collision-Avoidance Contest"
+      "title": "Project Ideas & Competition",
+      "topics": "16 Project Ideas, BlueSky Collision-Avoidance Contest"
     },
     {
       "mod": "3",
-      "title": "Hands-On: DJI Mobile SDK",
-      "topics": "Mini 4 Pro, Feasibility Test, KeyManager, Video, Simulator"
+      "title": "Hands-On: DJI Client & Your Project",
+      "topics": "Mini 4 Pro, Working Client, KeyManager, Virtual Stick, Your Own Build"
     },
     {
       "mod": "4",
@@ -195,11 +190,6 @@
     },
     {
       "mod": "14",
-      "title": "Optimizing Data Transmission",
-      "topics": "QUIC, HTTP/3, URLLC, Edge Computing, RL"
-    },
-    {
-      "mod": "15",
       "title": "Conclusion & Outlook",
       "topics": "Opportunities, AI & Autonomy, Standards, Wrap-up"
     }
@@ -226,7 +216,7 @@
       "OpenAPI",
       "Spring WebFlux",
       "*CQRS",
-      "BlueSky Simulator"
+      "#DJI Mobile SDK"
     ]
   }
 }

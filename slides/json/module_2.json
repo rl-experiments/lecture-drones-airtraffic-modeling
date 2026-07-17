@@ -14,12 +14,10 @@
     },
     "bg": 5,
     "h1": "Module 2",
-    "lead": "Seminar Topics & Competition",
-    "sub": "Your two deliverables: present a topic in depth, and survive the airspace",
+    "lead": "Project Ideas & Competition",
+    "sub": "Your two deliverables: build your own drone project, and survive the airspace",
     "badges": [
-      "16 Topics",
-      "Seminar Presentation",
-      "Group Work",
+      "Your Own Project",
       "*BlueSky Competition"
     ]
   },
@@ -27,14 +25,14 @@
     "type": "content",
     "mod": "2",
     "tag": "",
-    "title": "Presentation Topics 1–6: Systems & Autonomy",
-    "desc": "Pick one topic — first come, first served",
+    "title": "Project Ideas 1–6: Systems & Autonomy",
+    "desc": "Directions for your own build — pick one, or spin your own",
     "body": [
       {
         "table": {
           "headers": [
             "#",
-            "Topic",
+            "Idea",
             "Focus"
           ],
           "rows": [
@@ -77,13 +75,13 @@
     "type": "content",
     "mod": "2",
     "tag": "",
-    "title": "Presentation Topics 7–11: Modeling & Data",
+    "title": "Project Ideas 7–11: Modeling & Data",
     "body": [
       {
         "table": {
           "headers": [
             "#",
-            "Topic",
+            "Idea",
             "Focus"
           ],
           "rows": [
@@ -121,13 +119,13 @@
     "type": "content",
     "mod": "2",
     "tag": "",
-    "title": "Presentation Topics 12–16: Operations & Integration",
+    "title": "Project Ideas 12–16: Operations & Integration",
     "body": [
       {
         "table": {
           "headers": [
             "#",
-            "Topic",
+            "Idea",
             "Focus"
           ],
           "rows": [
@@ -200,7 +198,7 @@
     "mod": "2",
     "tag": "important",
     "title": "Expectations: The Path to Grade 1.0",
-    "desc": "The bar is deliberately high — this is a master's module, and understanding is its currency",
+    "desc": "The bar is deliberately high — this is a master's module, and working software you understand is its currency",
     "body": [
       {
         "table": {
@@ -215,11 +213,11 @@
             ],
             [
               "<strong>Explain &mdash; and modify &mdash; live</strong>",
-              "During the presentation expect <em>&quot;now change X&quot;</em> and follow-up questions that continue <strong>until it is clear the work is yours</strong>. Every design decision needs a reason you can defend"
+              "At the live demo expect <em>&quot;now change X&quot;</em> and follow-up questions that continue <strong>until it is clear the work is yours</strong>. Every design decision needs a reason you can defend"
             ],
             [
-              "<strong>Depth</strong> on the seminar topic",
-              "Primary sources — standards, papers, SDK documentation — plus a <strong>working demo</strong> and your own critical judgement of the technology's limits"
+              "A <strong>working, practical build</strong>",
+              "Your own idea on top of the DJI client (Module 3), running on real hardware or the simulator — plus your own critical judgement of where the SDK's limits are"
             ],
             [
               "<strong>Engineering</strong> in the competition",
@@ -233,7 +231,7 @@
         "items": [
           "A last-week sprint &mdash; your repo history will show it",
           "Code that runs but that you cannot explain &mdash; it is graded <strong>as if it were missing</strong>",
-          "Summarizing the first search hits, or pasting AI output without understanding it",
+          "A demo that only works in one rehearsed run &mdash; or AI output you cannot explain line by line",
           "Competition parameters tweaked until one demo run happened to pass"
         ],
         "warn": true

@@ -14,37 +14,138 @@
     },
     "bg": 5,
     "h1": "Lab",
-    "lead": "Hands-On: Programming a DJI Drone",
-    "sub": "Feasibility first — connect real hardware to your own Java code. Then the optional deep dive.",
+    "lead": "We Made a Drone Fly — Now It's Your Turn",
+    "sub": "A one-button app already flies the Mini 4 Pro from our own code. That's your launch pad — build your own idea on top of it.",
     "badges": [
       "DJI Mini 4 Pro",
       "Mobile SDK v5",
-      "Android",
-      "KeyManager",
-      "*Java"
+      "Android / Kotlin",
+      "labs/dji-hello-world",
+      "*Your Project"
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "3",
+    "tag": "important",
+    "title": "One Button. A Full Mission.",
+    "desc": "labs/dji-hello-world — a real app that flies a real drone",
+    "body": [
+      {
+        "card": "What it does",
+        "items": [
+          "A single screen with one green button: <strong>FLY MISSION</strong>",
+          "Press it &rarr; the Mini 4 Pro <strong>takes off, flies 1&nbsp;m forward, spins 180&deg;, flies 1&nbsp;m back, and lands</strong> &mdash; entirely on its own",
+          "~400 lines of Kotlin on the DJI Mobile SDK v5, built in a couple of hours",
+          "Code &amp; full write-up: <a href=\"https://github.com/rl-experiments/lecture-drones-airtraffic-modeling/tree/main/labs/dji-hello-world\" target=\"_blank\"><strong>labs/dji-hello-world</strong></a>"
+        ]
+      },
+      {
+        "card": "Why it matters",
+        "items": [
+          "This is the <strong>proof of concept</strong> your whole project builds on &mdash; the old question <em>&quot;can we even control a DJI drone from code?&quot;</em> is already answered: <strong>yes</strong>",
+          "You inherit registration, connection, KeyManager reads, virtual-stick control and landing &mdash; the hard part is done"
+        ]
+      }
     ]
   },
   {
     "type": "content",
     "mod": "3",
     "tag": "",
-    "title": "The Mission: A Feasibility Test",
-    "desc": "Can we control a DJI drone with our own Java code? Prove the connection works — nothing more.",
+    "title": "Everything That Fought Back",
+    "desc": "First flight took a dozen rebuilds — every single layer resisted",
     "body": [
       {
-        "card": "Your task",
+        "table": {
+          "headers": [
+            "What we saw",
+            "What it really was"
+          ],
+          "rows": [
+            [
+              "App vanished the instant it launched",
+              "<code>NoClassDefFoundError</code> — the SDK secretly needs AndroidX on the classpath"
+            ],
+            [
+              "Plugged in the phone &mdash; nothing happened",
+              "We used the RC's <em>charging</em> port; the <strong>data port is next to the clamp</strong>"
+            ],
+            [
+              "\"Waiting for drone\" forever",
+              "The RC wasn't linked to the drone &mdash; you pair it <strong>once via DJI Fly</strong>"
+            ],
+            [
+              "<code>request_handler_not_found</code> on takeoff",
+              "The drone had gone to <strong>sleep</strong> &mdash; power-cycle, wait for <code>FC connected: true</code>"
+            ],
+            [
+              "<code>compass_large_mode</code> outside",
+              "Magnetic interference &mdash; step away from metal, then it flew"
+            ]
+          ]
+        }
+      },
+      {
+        "card": "",
         "items": [
-          "Build your own app that <strong>connects to the drone</strong> and delivers at least one first sign of life &mdash; e.g. reading the <strong>battery level</strong>",
-          "Explicitly out of scope: <strong>no flying, no automation</strong> &mdash; this is purely about whether the connection works at all",
-          "Document briefly <strong>where things get stuck</strong> &mdash; the error message and your hypothesis",
-          "These observations are not a byproduct: they form the <strong>backbone of the later lecture</strong>"
+          "Every one of these is written down so you skip the pain &mdash; the complete troubleshooting log lives in <a href=\"https://github.com/rl-experiments/lecture-drones-airtraffic-modeling/tree/main/labs/dji-hello-world\" target=\"_blank\"><strong>labs/dji-hello-world</strong></a>"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "3",
+    "tag": "exercise",
+    "title": "Your Assignment: Propose & Build",
+    "desc": "The connection is proven — your job is to build something of your own on top",
+    "body": [
+      {
+        "card": "Deliverable",
+        "items": [
+          "<strong>Propose your own drone-software idea</strong> &mdash; small but real, a capability the base client does not have yet",
+          "Build a <strong>working increment</strong> on top of <a href=\"https://github.com/rl-experiments/lecture-drones-airtraffic-modeling/tree/main/labs/dji-hello-world\" target=\"_blank\"><strong>labs/dji-hello-world</strong></a> (or the official DJI sample)",
+          "Write it up: <strong>what you built, what worked, and where the SDK stopped you</strong>"
         ]
       },
       {
-        "card": "Why this matters for the course",
+        "card": "Scope &amp; rules",
         "items": [
-          "Everything in Modules 6–14 (UTM, APIs, streaming, testing) assumed the drone is reachable by software &mdash; this lab checks that assumption against real hardware",
-          "The SDK's capabilities and limits define what a university drone project can realistically build on"
+          "Keep it achievable &mdash; a <strong>narrow feature done well</strong> beats a broad plan",
+          "<strong>Simulator first</strong> for anything that flies; real flight only outdoors, with space and supervision",
+          "Getting stuck is welcome &mdash; the error and your hypothesis become teaching material"
+        ],
+        "warn": true
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "3",
+    "tag": "",
+    "title": "Idea Menu: Directions You Could Take",
+    "desc": "Pick one, combine a few, or bring your own",
+    "body": [
+      {
+        "card": "Data &amp; telemetry",
+        "items": [
+          "Live dashboard: subscribe via <strong>KeyManager</strong> to position, altitude, attitude, satellites, link status",
+          "Log a flight to a file and <strong>visualize the track</strong> afterwards"
+        ]
+      },
+      {
+        "card": "Vision &amp; autonomy",
+        "items": [
+          "Pull the <strong>camera video stream</strong> into the app; grab frames for image processing",
+          "A simple <strong>autonomous pattern</strong> &mdash; waypoint square, orbit &mdash; in the DJI simulator"
+        ]
+      },
+      {
+        "card": "Integration — ties into the backend modules",
+        "items": [
+          "Push live telemetry to a <strong>REST / streaming backend</strong> (Modules 7&ndash;9)",
+          "Feed a <strong>UTM-style monitor</strong> (Module 6) with a real aircraft's position"
         ]
       }
     ]
@@ -53,7 +154,7 @@
     "type": "content",
     "mod": "3",
     "tag": "important",
-    "title": "Shopping List: Hardware That Is Actually Programmable",
+    "title": "DJI Hardware That Is Actually Programmable",
     "desc": "The single most expensive mistake is buying a drone without SDK support",
     "body": [
       {
@@ -118,92 +219,16 @@
             ],
             [
               "3",
-              "Clone the official <strong>sample project</strong> (Java/Kotlin)",
-              "<a href=\"https://github.com/dji-sdk/Mobile-SDK-Android-V5\" target=\"_blank\">dji-sdk/Mobile-SDK-Android-V5</a>"
+              "Start from the <strong>course client</strong> (already flies) or the official sample",
+              "<a href=\"https://github.com/rl-experiments/lecture-drones-airtraffic-modeling/tree/main/labs/dji-hello-world\" target=\"_blank\"><strong>labs/dji-hello-world</strong></a> &middot; <a href=\"https://github.com/dji-sdk/Mobile-SDK-Android-V5\" target=\"_blank\">dji-sdk/Mobile-SDK-Android-V5</a>"
             ],
             [
               "4",
               "Bookmark the docs for reference",
-              "<a href=\"https://developer.dji.com/doc/mobile-sdk-tutorial/en/\" target=\"_blank\">Mobile SDK tutorial</a> &middot; <a href=\"https://developer.dji.com/api-reference-v5/android-api/\" target=\"_blank\">Java API reference (v5)</a>"
+              "<a href=\"https://developer.dji.com/doc/mobile-sdk-tutorial/en/\" target=\"_blank\">Mobile SDK tutorial</a> &middot; <a href=\"https://developer.dji.com/api-reference-v5/android-api/\" target=\"_blank\">API reference (v5)</a>"
             ]
           ]
         }
-      }
-    ]
-  },
-  {
-    "type": "content",
-    "mod": "3",
-    "tag": "exercise",
-    "title": "First Contact: Registration & Battery",
-    "desc": "Success = 'registration success' + one real value on screen",
-    "body": [
-      {
-        "card": "The procedure",
-        "items": [
-          "Open the sample project in Android Studio and enter your <strong>App Key</strong>",
-          "<strong>Most common failure:</strong> the App Key must <em>exactly</em> match the app's <strong>package name</strong> &mdash; otherwise registration fails",
-          "Build the app on a <strong>real Android device</strong> &mdash; the emulator does <em>not</em> work",
-          "Pair drone and remote controller, connect the phone to the controller via <strong>USB</strong>, start the app"
-        ]
-      },
-      {
-        "card": "Definition of done",
-        "items": [
-          "The app reports <strong>&quot;registration success&quot;</strong> and recognizes the connected drone",
-          "First real test: read a value &mdash; e.g. <strong>battery percentage via the KeyManager</strong> &mdash; and display it in the app",
-          "Write down where it gets stuck: which step, which error message &mdash; and ask when questions come up"
-        ]
-      }
-    ]
-  },
-  {
-    "type": "content",
-    "mod": "3",
-    "tag": "",
-    "title": "Deep Dive A + B: Telemetry & the KeyManager",
-    "desc": "Optional advanced track — the goal is understanding the SDK's architecture, not just 'it runs'",
-    "body": [
-      {
-        "card": "Level A — Understand telemetry properly",
-        "items": [
-          "Don't stop at the battery level: use the <strong>KeyManager</strong> to subscribe to <strong>several values at once</strong> &mdash; position, altitude, attitude, satellite count, link status &mdash; and show them live in the app",
-          "Think along: what is the difference between a one-time <code>get</code> and a <code>listen</code> subscription &mdash; and when would you use which?"
-        ]
-      },
-      {
-        "card": "Level B — The KeyManager as a system",
-        "items": [
-          "Map the <strong>key groups</strong>: <code>FlightControllerKey</code>, <code>CameraKey</code>, <code>GimbalKey</code>, <code>BatteryKey</code>, &hellip;",
-          "Build a small table: which values are <strong>read-only</strong>, which are also <strong>settable</strong>?",
-          "That table is the foundation for systematically capturing what the drone can do"
-        ]
-      }
-    ]
-  },
-  {
-    "type": "content",
-    "mod": "3",
-    "tag": "",
-    "title": "Deep Dive C + D: Video Stream & First Control",
-    "desc": "The didactic highlight — and the first, strictly simulated, control commands",
-    "body": [
-      {
-        "card": "Level C — Live video stream",
-        "items": [
-          "Bring the <strong>camera video stream</strong> into your app and display it",
-          "This is the most exciting part didactically: <strong>computer vision builds on it later</strong>",
-          "Questions: in which <strong>format</strong> does the stream arrive, and what would it take to grab <strong>individual frames</strong> for image processing?"
-        ]
-      },
-      {
-        "card": "Level D — First control (SIMULATOR ONLY!)",
-        "items": [
-          "Before anything flies for real: use the <strong>DJI simulator</strong>",
-          "Send a simple <strong>virtual-stick command</strong> or a <strong>takeoff/landing sequence</strong>",
-          "Document which <strong>preconditions and safety mechanisms</strong> the SDK demands before it accepts control commands at all"
-        ],
-        "warn": true
       }
     ]
   },
@@ -216,9 +241,9 @@
       {
         "card": "Find the limits — deliberately",
         "items": [
-          "Concretely find out what does <strong>NOT</strong> work &mdash; e.g. direct access to the <strong>motors</strong> or the <strong>control loop</strong>",
-          "Naming this boundary cleanly is <strong>at least as valuable for the lecture</strong> as everything that works",
-          "Compare with Module 4: a consumer SDK enforcing safety boundaries <em>is</em> a trust-level decision — DJI does not let your code near the SIL-critical parts"
+          "Whatever you build, find out what does <strong>NOT</strong> work &mdash; e.g. direct access to the <strong>motors</strong> or the <strong>control loop</strong>",
+          "Naming that boundary cleanly is <strong>at least as valuable for the lecture</strong> as everything that works",
+          "Compare with Module 4: a consumer SDK enforcing safety boundaries <em>is</em> a trust-level decision &mdash; DJI keeps your code away from the SIL-critical parts"
         ]
       },
       {
@@ -226,7 +251,7 @@
         "items": [
           "Getting stuck is <strong>expected and welcome</strong>",
           "Note the error message and your hypothesis about the cause",
-          "We will turn exactly these notes into a good exercise example later"
+          "We turn exactly those notes into good exercise examples"
         ]
       }
     ]

@@ -109,6 +109,12 @@ html, body {
   padding: 8px 14px; font-size: 18px; font-weight: 600;
   background: var(--card); color: var(--foreground);
 }
+.badge-black {
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 9999px; border: 1px solid #000;
+  padding: 8px 14px; font-size: 18px; font-weight: 600;
+  background: #000; color: #fff;
+}
 .badges { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
 .badge-draft {
   position: fixed; top: 18px; right: 24px;
@@ -340,6 +346,9 @@ html, body {
 #nav .btn-ghost:hover { background: #262626; color: #fafafa; }
 #counter { color: #a3a3a3; font-size: 13px; font-weight: 500; min-width: 56px; text-align: center; font-variant-numeric: tabular-nums; }
 .nav-hint { position: absolute; left: 16px; color: #525252; font-size: 11px; }
+.nav-hint .sep { margin: 0 9px; color: #404040; }
+.nav-hint a { color: #8a8a8a; text-decoration: none; }
+.nav-hint a:hover { color: #fafafa; text-decoration: underline; }
 .nav-fs { position: absolute; right: 12px; }
 
 /* ══════════════════════════════════════

@@ -6,68 +6,47 @@
       "opts": {
         "perched": true,
         "anchor": ".cover-card",
-        "anchorOffsetX": 35,
-        "anchorOffsetY": 0,
+        "anchorOffsetX": 90,
+        "anchorOffsetY": -20,
         "scale": 1.05,
-        "color": "#a855f7"
+        "color": "#64748b"
       }
     },
-    "bg": 3,
+    "bg": 6,
     "h1": "Module 14",
-    "lead": "Optimizing Data Transmission",
-    "sub": "When a conflict warning arrives 800 ms late, it isn't a warning anymore",
+    "lead": "Conclusion & Outlook",
+    "sub": "Where drone technology is heading — and what stands in the way",
     "badges": [
-      "QUIC",
-      "HTTP/3",
-      "5G URLLC",
-      "Edge Computing",
-      "Reinforcement Learning"
+      "Opportunities",
+      "AI & Autonomy",
+      "International Standards",
+      "*Wrap-up"
     ]
   },
   {
     "type": "content",
     "mod": "14",
     "tag": "",
-    "title": "Minimizing Latency with Modern Protocols",
-    "desc": "Faster transmission, smarter error correction, less overhead",
+    "title": "Opportunities & Challenges of Future Drone Technologies",
     "body": [
       {
-        "table": {
-          "headers": [
-            "Protocol",
-            "What it does for latency"
-          ],
-          "rows": [
-            [
-              "<strong>QUIC</strong> (Quick UDP Internet Connections)",
-              "Developed by Google, built on UDP — cuts connection setup time and handles packet loss per-stream"
-            ],
-            [
-              "<strong>HTTP/3</strong>",
-              "Runs on QUIC — faster page and API response times through true multiplexing (no head-of-line blocking)"
-            ],
-            [
-              "<strong>TLS 1.3</strong>",
-              "Accelerated handshake for secure connections (1-RTT, resumption with 0-RTT)"
-            ],
-            [
-              "<strong>BBR</strong> (Bottleneck Bandwidth and RTT)",
-              "Google's TCP congestion-control algorithm — uses available bandwidth optimally and minimizes queuing delay"
-            ],
-            [
-              "<strong>RDMA</strong> (Remote Direct Memory Access)",
-              "Direct memory access over the network — drastic latency reduction, mainly inside data centers"
-            ],
-            [
-              "<strong>WebRTC</strong>",
-              "Real-time communication protocol for low-latency video and audio"
-            ],
-            [
-              "<strong>5G URLLC</strong> (Ultra-Reliable Low Latency Communication)",
-              "Designed for real-time applications: industry, autonomous driving, telemedicine — and drone command &amp; control"
-            ]
-          ]
-        }
+        "card": "Opportunities",
+        "items": [
+          "<strong>Logistics</strong> — more efficient transport, especially for the last mile and hard-to-reach areas",
+          "<strong>Agriculture</strong> — precise crop monitoring and targeted treatment",
+          "<strong>Environmental monitoring</strong> — large-area observation at low cost",
+          "<strong>Emergency response</strong> — reaching inaccessible areas in crisis situations quickly"
+        ]
+      },
+      {
+        "card": "Challenges",
+        "items": [
+          "Privacy concerns and security risks from unauthorized use",
+          "The need for clear regulatory frameworks",
+          "<strong>Integration into existing air traffic systems</strong> — the central theme of this entire lecture",
+          "Guaranteeing safe and ethical operation as fleets scale up"
+        ],
+        "warn": true
       }
     ]
   },
@@ -75,36 +54,61 @@
     "type": "content",
     "mod": "14",
     "tag": "",
-    "title": "Edge Computing for Real-Time Processing",
-    "desc": "Process the data where it is produced — not in a distant data center",
+    "title": "The Potential of AI & Autonomous Systems",
     "body": [
       {
-        "card": "The idea",
+        "card": "",
         "items": [
-          "Data is processed <strong>at the edge of the network</strong>, at or near its source — not centrally in remote data centers",
-          "Removes the round trip to the cloud: <strong>real-time processing</strong> becomes possible",
-          "For drones: obstacle avoidance, sensor fusion and flight control must run <strong>on board or at the nearest base station</strong> — a 100 ms cloud round trip is a crashed drone",
-          "The cloud still matters — for fleet analytics, model training and everything that is not time-critical"
+          "AI and autonomous systems can <strong>automate processes, raise efficiency and improve decision-making</strong>",
+          "Industry: more precise production and predictive maintenance",
+          "Healthcare: personalized treatment plans and faster diagnoses",
+          "Transport: autonomous vehicles and drones could revolutionize mobility while increasing safety",
+          "The open problems mirror aviation's: <strong>ethical use, avoiding failures in critical situations, robust safeguards</strong> against misuse and malfunction — Module 4's principles apply to AI components too"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "14",
+    "tag": "",
+    "title": "International Standards & Regulations",
+    "body": [
+      {
+        "card": "Why they matter",
+        "items": [
+          "Standards ensure innovations are <strong>globally harmonized</strong>: products and services stay compatible and safe worldwide",
+          "They promote trade, protect user privacy and safety, and prevent technological abuse",
+          "They create fair competition — without unnecessarily slowing progress",
+          "The hard part: developing <strong>flexible, future-proof norms</strong> that keep pace with rapid technological change",
+          "You have now seen the aviation instances: EU 2019/947, DO-178C, ED-153, AIXM, ASTERIX, OLDI — one coherent regulatory-technical stack"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "14",
+    "tag": "takeaway",
+    "title": "Course Wrap-up & Open Questions",
+    "body": [
+      {
+        "card": "What you take home",
+        "items": [
+          "Why drone traffic needs modeling: regulation, density and safety (Modules 1, 4)",
+          "The data formats aviation speaks: NOTAM, METAR, AIXM, ASTERIX, OLDI (Module 5)",
+          "The system picture: UTM as a federation of services (Module 6)",
+          "The engineering toolbox: OpenAPI, WebFlux, message queues, CQRS, Karate (Modules 7–11)",
+          "The laboratory: BlueSky simulation and GIS integration (Modules 12–13)"
         ]
       },
       {
-        "card": "Edge + machine learning: reinforcement learning on drones",
+        "card": "Now it's on you",
         "items": [
-          "RL agents learn control policies through trial and error — trained in simulation, executed at the edge",
-          "State of the art: RL-controlled racing drones beating human champion pilots (University of Zurich research)",
-          "The inference loop runs entirely on board — the ultimate edge deployment"
+          "Ship your practical project — working code beats slides",
+          "Win the BlueSky competition — and be able to explain <em>why</em> your airspace survived",
+          "Open questions? Ask now, or bring them to the next session"
         ]
-      },
-      {
-        "resource": {
-          "title": "Watch",
-          "links": [
-            {
-              "url": "https://www.youtube.com/watch?v=M7mIX_0VK4g",
-              "label": "Reinforcement learning for drones (video)"
-            }
-          ]
-        }
       }
     ]
   }

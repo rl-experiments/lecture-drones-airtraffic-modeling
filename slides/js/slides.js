@@ -343,6 +343,8 @@
         for (const b of slide.badges) {
           if (b.startsWith('DRAFT')) {
             html += `<span class="badge-draft">${b}</span>`;
+          } else if (b.startsWith('#')) {
+            html += `<span class="badge-black">${b.slice(1)}</span>`;
           } else if (b.startsWith('*')) {
             html += `<span class="badge">${b.slice(1)}</span>`;
           } else {
