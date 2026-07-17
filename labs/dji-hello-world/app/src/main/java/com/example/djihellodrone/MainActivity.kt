@@ -40,7 +40,7 @@ class MainActivity : Activity() {
 
         // Stick deflection is -660..660 (= full stick). Keep values small!
         private const val FORWARD_STICK = 70        // ~10 % forward stick, gentle
-        private const val FORWARD_MS = 2000L        // ~1 m at that deflection
+        private const val FORWARD_MS = 1000L        // ~1 s powered; coasts to ~1.5 m incl. braking. Keep short for indoor safety.
         private const val YAW_STICK = 200           // ~30 % rotation stick
         private const val YAW_TOLERANCE_DEG = 12.0
         private const val YAW_TIMEOUT_MS = 15000L
