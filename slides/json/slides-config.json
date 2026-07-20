@@ -111,7 +111,7 @@
       ]
     },
     {
-      "label": "Process & Wrap-up",
+      "label": "Conclusion & Outlook",
       "mods": [
         "14"
       ]
@@ -131,7 +131,7 @@
     {
       "mod": "2",
       "title": "Project Ideas & Competition",
-      "topics": "16 Project Ideas, BlueSky Collision-Avoidance Contest"
+      "topics": "16 Project Ideas, Reference Architecture, BlueSky Contest"
     },
     {
       "mod": "3",
@@ -151,7 +151,7 @@
     {
       "mod": "6",
       "title": "Control & Monitoring Systems",
-      "topics": "UTM, Fleet Control, Sensor Fusion"
+      "topics": "UTM, U-space & Remote ID, Fleet Control, Sensor Fusion"
     },
     {
       "mod": "7",
@@ -186,7 +186,7 @@
     {
       "mod": "13",
       "title": "Real-Time Data in GIS",
-      "topics": "Geodata, Route Planning, Visualization, DiPUL"
+      "topics": "Geodata, Route Planning, Real-Time Map, DiPUL"
     },
     {
       "mod": "14",
