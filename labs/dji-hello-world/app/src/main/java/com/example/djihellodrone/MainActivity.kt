@@ -26,7 +26,7 @@ import kotlin.concurrent.thread
 import kotlin.math.abs
 
 /**
- * Hello-world mission: take off, fly ~1 m forward, rotate 180°, fly ~1 m back, land.
+ * Hello-world mission: take off, fly ~1.5 m forward, rotate 180°, fly ~1.5 m back, land.
  *
  * Movement uses the *basic* virtual-stick API: emulated stick positions with the
  * exact semantics of the physical RC in mode 2 (right stick up = forward,
@@ -160,7 +160,7 @@ class MainActivity : Activity() {
         if (missionRunning) return
         AlertDialog.Builder(this)
             .setTitle("Start mission?")
-            .setMessage("The drone will TAKE OFF, fly 1 m forward, turn 180°, fly 1 m back and land.\n\nMake sure you have 5 m of clear space and GPS signal. Keep hands off the RC sticks (moving them takes control back).")
+            .setMessage("The drone will TAKE OFF, fly ~1.5 m forward, turn 180°, fly ~1.5 m back and land.\n\nMake sure you have ~4 m of clear space and GPS signal. Keep hands off the RC sticks (moving them takes control back).")
             .setPositiveButton("FLY") { _, _ -> startMission() }
             .setNegativeButton("Cancel", null)
             .show()
@@ -219,7 +219,7 @@ class MainActivity : Activity() {
         zeroSticks()
         sleepChecked(500)
 
-        step("Flying 1 m forward…")
+        step("Flying ~1.5 m forward…")
         VirtualStickManager.getInstance().rightStick.verticalPosition = FORWARD_STICK
         sleepChecked(FORWARD_MS)
         zeroSticks()
@@ -229,7 +229,7 @@ class MainActivity : Activity() {
         rotate180()
         sleepChecked(1_500)
 
-        step("Flying 1 m back…")
+        step("Flying ~1.5 m back…")
         VirtualStickManager.getInstance().rightStick.verticalPosition = FORWARD_STICK
         sleepChecked(FORWARD_MS)
         zeroSticks()
