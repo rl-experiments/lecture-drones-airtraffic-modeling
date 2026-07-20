@@ -97,6 +97,40 @@
   {
     "type": "content",
     "mod": "3",
+    "tag": "important",
+    "title": "Flying Safely — Before You Arm the Motors",
+    "desc": "The Mini 4 Pro is under 250 g, not harmless — spinning propellers cut",
+    "body": [
+      {
+        "card": "Indoors &mdash; the default for development",
+        "items": [
+          "Indoor flight sits <strong>outside EU 2019/947</strong> &mdash; no category, no distance rules; the building owner's permission is what governs",
+          "<strong>Propeller guards mandatory</strong>, no exceptions &mdash; bare props at ~14,000 rpm cut skin and eyes",
+          "<strong>No GPS indoors</strong>: the drone drifts on optical flow alone &mdash; keep <strong>&ge; 2 m clearance</strong> to walls, windows, lamps"
+        ]
+      },
+      {
+        "card": "People around you",
+        "items": [
+          "<strong>Nobody under or behind the drone</strong> during takeoff, landing or a virtual-stick test &mdash; that's exactly where a code bug puts it",
+          "Say <em>&quot;props spinning&quot;</em> out loud before arming; <strong>hand stays on the RC</strong> even during an autonomous mission",
+          "Anyone who wasn't briefed and didn't agree is an <strong>uninvolved person</strong> &mdash; never overflown (A1, Module 1)"
+        ]
+      },
+      {
+        "card": "Your code is the risk",
+        "items": [
+          "<strong>Virtual stick is the dangerous mode</strong> &mdash; the aircraft obeys your loop, not the pilot; build in a timeout / deadman check",
+          "<strong>Know the abort path before takeoff</strong>: RC pause &gt; left stick down &gt; power cut",
+          "<strong>Simulator first, then indoors with guards, then outdoors</strong> &mdash; misbehaves? Land immediately, don't debug in the air"
+        ],
+        "warn": true
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "3",
     "tag": "exercise",
     "title": "Your Assignment: Propose & Build",
     "desc": "The connection is proven — your job is to build something of your own on top",
@@ -113,7 +147,7 @@
         "card": "Scope &amp; rules",
         "items": [
           "Keep it achievable &mdash; a <strong>narrow feature done well</strong> beats a broad plan",
-          "<strong>Simulator first</strong> for anything that flies; real flight only outdoors, with space and supervision",
+          "<strong>Simulator first</strong> for anything that flies &mdash; then the safety rules from the previous slide apply",
           "Getting stuck is welcome &mdash; the error and your hypothesis become teaching material"
         ],
         "warn": true
