@@ -144,6 +144,8 @@ html, body {
 .type-mistake { background: #fee2e2; color: #991b1b; }
 .type-takeaway { background: #f3e8ff; color: #6b21a8; }
 .type-important { background: #dc2626; color: #fff; }
+/* Hazard placard — deliberately the only black/amber badge in the deck */
+.type-safety { background: #0a0a0a; color: #facc15; font-weight: 700; letter-spacing: 0.04em; }
 
 /* Credit/hours badge (e.g. SWS) — inherits sizing from shared base above */
 .sws-badge { padding: 0 12px; background: #e23c58; color: #fff; font-weight: 400; }

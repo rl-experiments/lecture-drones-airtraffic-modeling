@@ -67,7 +67,7 @@
         }
       }
       const mc = modColors[mod] || '#737373';
-      const tagLabels = { exercise: 'EXERCISE', takeaway: 'TAKEAWAY', demo: 'DEMO', industry: 'INDUSTRY', mistake: 'MISTAKE', important: 'IMPORTANT' };
+      const tagLabels = { exercise: 'EXERCISE', takeaway: 'TAKEAWAY', demo: 'DEMO', industry: 'INDUSTRY', mistake: 'MISTAKE', important: 'IMPORTANT', safety: 'SAFETY' };
       data.slides[coverIdx].contents = modSlides.map(s => {
         const label = tagLabels[s.tag];
         const badge = label ? ` <span class="type-badge type-${s.tag}" style="font-size:10px;padding:2px 8px;margin-left:6px">${label}</span>` : '';
@@ -114,7 +114,8 @@
       industry: ['INDUSTRY', 'type-industry'],
       mistake: ['COMMON MISTAKE', 'type-mistake'],
       takeaway: ['KEY TAKEAWAYS', 'type-takeaway'],
-      important: ['IMPORTANT', 'type-important']
+      important: ['IMPORTANT', 'type-important'],
+      safety: ['SAFETY', 'type-safety']
     };
     const m = map[tag];
     if (!m) return '';
@@ -228,7 +229,7 @@
 
     // All slides view: one card per module (cover + its content), standalone slides (main cover, TOC) get their own card
     const gridStyle = `display:grid;grid-template-columns:80px 1fr 64px 70px;align-items:center;gap:0 12px;padding:8px 24px;cursor:pointer;font-size:15px`;
-    const allSlidesTagLabels = { exercise: 'EXERCISE', takeaway: 'TAKEAWAY', demo: 'DEMO', industry: 'INDUSTRY', mistake: 'MISTAKE', important: 'IMPORTANT' };
+    const allSlidesTagLabels = { exercise: 'EXERCISE', takeaway: 'TAKEAWAY', demo: 'DEMO', industry: 'INDUSTRY', mistake: 'MISTAKE', important: 'IMPORTANT', safety: 'SAFETY' };
     const swsCell = (s) => {
       const badge = s.type === 'content' ? renderSwsBadge(s) : '';
       return badge ? `<span style="text-align:center">${badge}</span>` : `<span></span>`;

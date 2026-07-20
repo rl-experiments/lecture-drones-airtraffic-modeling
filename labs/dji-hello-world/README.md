@@ -103,16 +103,41 @@ links must be up.
 The status text walks through each stage: *Waiting for aircraft → Checking GPS →
 Taking off → Flying forward → Rotating → Flying back → Landing.*
 
+### Simulator first
+
+Before any flight, test your code with the aircraft on the desk and the
+**propellers removed**:
+
+```kotlin
+SimulatorManager.getInstance().enableSimulator(
+    InitializationSettings.createInstance(LocationCoordinate2D(lat, lng), satelliteCount),
+    callback
+)
+```
+
+The flight controller then executes takeoff, virtual-stick input and landing
+entirely virtually, reporting simulated GPS, altitude and attitude back through
+`KeyManager` exactly as in real flight — so a runaway control loop costs you
+nothing. The Mini 4 Pro supports this: `SimulatorManager` is declared in the
+SDK's own `assets/ProductCapability/DJIMini4Pro/DJIMini4ProCapability.json`.
+
+The course client does **not** call it yet — wiring it up is a good first change.
+
 ### Outdoors vs. indoors
 
-- **Outdoors** with good GPS is the safest first test — the drone holds position
-  precisely and lands cleanly.
+- **Outdoors** with good GPS is the safest first *real* flight (after the
+  simulator) — the drone holds position precisely and lands cleanly.
 - **Indoors / no GPS** works too: the Mini holds position on its downward vision
   sensors (exactly like DJI Fly). The app warns but proceeds. Needs **good lighting**
   and a **textured floor**; expect a little drift.
 
 ### Safety
 
+- **Propeller guards on for every indoor flight**, no exceptions. The Mini 4 Pro is
+  under 250 g but the props still spin at ~14,000 rpm and will cut skin and eyes.
+- **Nobody stands under, behind, or within ~2 m of the drone** during takeoff, landing
+  or a virtual-stick test — that is exactly where a bug in your code puts it. Brief
+  everyone in the room before you arm, out loud.
 - **STOP + LAND** aborts and auto-lands at any time.
 - **Moving the physical RC sticks instantly takes control back** from the app — that
   is always your manual override. The RC pause button also cancels app control.
