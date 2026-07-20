@@ -92,6 +92,37 @@
   {
     "type": "content",
     "mod": "13",
+    "tag": "",
+    "title": "From Telemetry to a Moving Map",
+    "desc": "The 'real-time' in real-time GIS — how a live position becomes a moving dot",
+    "body": [
+      {
+        "card": "The data path",
+        "items": [
+          "The drone emits a position several times per second; <strong>Spring WebFlux (M8)</strong> pushes each fix to the browser over <strong>SSE or WebSocket</strong> — no polling",
+          "Each fix travels as a <strong>GeoJSON</strong> point in <strong>WGS84</strong> (lat / lon) — the format every map library speaks",
+          "The map redraws only the features that moved, so hundreds of live tracks stay smooth"
+        ]
+      },
+      {
+        "card": "The map stack",
+        "items": [
+          "<strong>Base map</strong>: raster or vector tiles (OpenStreetMap with MapLibre, Leaflet or OpenLayers) — all open-source",
+          "<strong>Overlays</strong>: DiPUL geo-zones underneath, planned route and the live track on top",
+          "<strong>Coordinate care</strong>: tiles are Web Mercator (EPSG:3857), data is WGS84 (EPSG:4326) — mixing them up is the classic first bug"
+        ]
+      },
+      {
+        "card": "",
+        "items": [
+          "Project idea <strong>#13</strong> is exactly this slice: subscribe to the telemetry stream and render your DJI drone live on a map"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "13",
     "tag": "takeaway",
     "title": "Module 13: Key Takeaways",
     "body": [
