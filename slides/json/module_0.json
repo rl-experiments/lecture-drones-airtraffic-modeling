@@ -63,13 +63,14 @@
         "card": "The journey",
         "items": [
           "<strong>Introduction</strong> &mdash; live flight tracking, drone regulation, the EU drone regulation 2024",
-          "<strong>Your assignments</strong> &mdash; a hands-on drone-software project and the BlueSky collision-avoidance competition",
+          "<strong>Your project</strong> &mdash; a hands-on drone-software build you propose, implement and defend; the BlueSky competition is one route you can take",
+          "<strong>The DJI lab</strong> &mdash; a one-button app already flies the Mini 4 Pro from our own code; you build on it",
           "<strong>Software safety standards</strong> &mdash; DO-178C, ED-109, ED-153, and why 'perfect' software can still kill",
           "<strong>Aeronautical information exchange</strong> &mdash; NOTAM, METAR, AIXM, ASTERIX, OLDI",
           "<strong>Efficient control &amp; monitoring</strong> &mdash; UTM, automated fleet control, sensor fusion",
-          "<strong>Technologies</strong> &mdash; OpenAPI, Java Reactive (Spring WebFlux), message queues, CQRS, Karate test automation",
-          "<strong>Simulation &amp; data</strong> &mdash; BlueSky simulation environments and GIS integration",
-          "<strong>Process</strong> &mdash; agile development in software &amp; systems engineering, conclusion &amp; outlook"
+          "<strong>Technologies</strong> &mdash; OpenAPI, Reactive Java (Spring WebFlux), message queues, CQRS, Karate test automation",
+          "<strong>Simulation &amp; data</strong> &mdash; BlueSky simulation environments and real-time GIS mapping",
+          "<strong>Conclusion &amp; outlook</strong> &mdash; future drone technology, AI &amp; autonomous systems, international standards"
         ]
       }
     ]
@@ -79,7 +80,7 @@
     "mod": "0",
     "tag": "important",
     "title": "Course Organization & Grading",
-    "desc": "Two deliverables: a hands-on drone project and the competition entry",
+    "desc": "Your graded deliverable: a hands-on drone-software project",
     "body": [
       {
         "table": {
@@ -93,11 +94,6 @@
               "<strong>Practical project</strong>",
               "Build your own drone-software idea on top of the working client",
               "Module 3"
-            ],
-            [
-              "<strong>Competition entry</strong>",
-              "In groups: build a collision-avoidance system for the BlueSky simulator",
-              "Modules 2 &amp; 12"
             ]
           ]
         }
@@ -106,8 +102,8 @@
         "card": "Ground rules",
         "items": [
           "Scope your project early &mdash; narrow and working beats broad and unfinished",
-          "The competition is scored objectively: the longest-surviving airspace wins",
-          "Both deliverables count towards the final grade &mdash; expectations are spelled out in Module 2"
+          "Build on the working client &mdash; a small, real capability the base app does not have yet",
+          "The project counts towards the final grade &mdash; expectations are spelled out in Module 2"
         ]
       }
     ]
