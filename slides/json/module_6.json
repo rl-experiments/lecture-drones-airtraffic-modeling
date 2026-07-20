@@ -42,6 +42,57 @@
   {
     "type": "content",
     "mod": "6",
+    "tag": "important",
+    "title": "U-space & Remote ID: Europe's Rulebook",
+    "desc": "EU 2021/664 turns 'UTM' from a concept into enforceable, automated services",
+    "body": [
+      {
+        "card": "The framework",
+        "items": [
+          "EU Implementing Regulation <strong>2021/664</strong> (applicable since 2023) makes UTM concrete for European airspace",
+          "Member states designate <strong>U-space airspace</strong>; inside it, every drone must use digital services from a certified <strong>U-space Service Provider (USSP)</strong>",
+          "There is <strong>no human controller</strong> — authorisation and separation are automated: the 'control tower without people' written into law"
+        ]
+      },
+      {
+        "table": {
+          "headers": [
+            "Mandatory U-space service",
+            "What it does"
+          ],
+          "rows": [
+            [
+              "<strong>Network identification</strong>",
+              "Broadcast operator ID, live position and flight vector — the <strong>ADS-B of drones</strong>"
+            ],
+            [
+              "<strong>Geo-awareness</strong>",
+              "Push the latest airspace constraints &amp; geo-zones to the operator (see DiPUL, Module 13)"
+            ],
+            [
+              "<strong>Flight authorisation</strong>",
+              "Deconflict flights in space &amp; time <em>before</em> take-off — no two approved in the same volume"
+            ],
+            [
+              "<strong>Traffic information</strong>",
+              "Alert operators to other aircraft in their vicinity"
+            ]
+          ]
+        }
+      },
+      {
+        "card": "Remote ID — how a drone announces itself",
+        "items": [
+          "<strong>Direct Remote ID</strong>: class-marked drones (C1–C3) broadcast identity + position locally over Wi-Fi / Bluetooth — anyone with a phone can see them",
+          "<strong>Network Remote ID</strong>: the same data delivered to the USSP as the network-identification service above",
+          "Effective in the EU from <strong>2024</strong> — the piece that makes drones as trackable as the airliners in Module 1. Note: sub-250 g drones like our <strong>Mini 4 Pro (C0)</strong> are exempt, the regulator's carve-out for the lowest-risk class"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "6",
     "tag": "",
     "title": "Who Talks to Whom in UTM",
     "desc": "Reading the ecosystem diagram as a data-flow problem",
