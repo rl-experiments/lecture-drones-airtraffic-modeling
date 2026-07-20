@@ -172,5 +172,22 @@
         ]
       }
     ]
+  },
+  {
+    "type": "content",
+    "mod": "6",
+    "tag": "takeaway",
+    "title": "Module 6: Key Takeaways",
+    "body": [
+      {
+        "card": "",
+        "items": [
+          "UTM is not a control tower with people — it is a <strong>federation of data services</strong>; every actor on the diagram is just another interface",
+          "<strong>Automated fleet control</strong> lets one operator supervise many drones — the software escalates only what genuinely needs a human",
+          "<strong>Sensor fusion</strong> (a Kalman filter over GNSS, IMU, barometer, vision and LIDAR) buys the redundancy no single sensor can — when GNSS fails, vision + IMU carry the drone",
+          "This module is the hub the rest of the course plugs into: its interfaces are described with OpenAPI (7), served reactively (8), decoupled by queues (9) and mapped in GIS (13)"
+        ]
+      }
+    ]
   }
 ]

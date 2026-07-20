@@ -125,5 +125,22 @@
         "caption": "Try it yourself at editor.swagger.io — paste the Petstore example or your own UTM clearance API."
       }
     ]
+  },
+  {
+    "type": "content",
+    "mod": "7",
+    "tag": "takeaway",
+    "title": "Module 7: Key Takeaways",
+    "body": [
+      {
+        "card": "",
+        "items": [
+          "OpenAPI describes a REST API as a <strong>single machine-readable contract</strong> — humans and tooling read the same artifact",
+          "From that one spec you generate <strong>documentation, client/server code and tests</strong> — design once, reuse everywhere",
+          "Start new work on <strong>3.1</strong> for full JSON Schema alignment; the generators have caught up",
+          "In our system every UTM interface — clearance, telemetry, geo-zones — begins life as an OpenAPI document"
+        ]
+      }
+    ]
   }
 ]

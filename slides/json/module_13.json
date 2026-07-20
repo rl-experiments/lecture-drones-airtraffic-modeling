@@ -88,5 +88,22 @@
         }
       }
     ]
+  },
+  {
+    "type": "content",
+    "mod": "13",
+    "tag": "takeaway",
+    "title": "Module 13: Key Takeaways",
+    "body": [
+      {
+        "card": "",
+        "items": [
+          "A drone route is a <strong>query across many geographic layers</strong> at once — geo-zones, terrain, population density, weather and live traffic",
+          "The <strong>real-time</strong> layer is the hard part: live positions streamed onto a moving map turn Module 1's manned-traffic picture into an unmanned one",
+          "Authoritative data matters — in Germany, <strong>DiPUL</strong> is the official, machine-readable source of drone geo-zones",
+          "This closes the loop: telemetry from your DJI drone (3) flows through the backend (7–10) and is rendered on the map here"
+        ]
+      }
+    ]
   }
 ]

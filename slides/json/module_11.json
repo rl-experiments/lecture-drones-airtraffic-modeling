@@ -97,5 +97,22 @@
         "note": "The Background runs before each scenario: it fetches the CSRF token once and injects it as a header — state flows naturally between steps. The full demo also shows GET-based and manually-formed request variants."
       }
     ]
+  },
+  {
+    "type": "content",
+    "mod": "11",
+    "tag": "takeaway",
+    "title": "Module 11: Key Takeaways",
+    "body": [
+      {
+        "card": "",
+        "items": [
+          "Karate writes API tests in readable <strong>Gherkin</strong> — no Java required, so the whole team can read and run them",
+          "One tool covers <strong>functional, integration and performance</strong> tests and drops straight into CI/CD",
+          "Chaining requests — capture a token, then reuse it — makes <strong>multi-step flows</strong> like sign-in-then-call easy to express",
+          "Every UTM and telemetry interface from Modules 6–8 is a natural Karate target: contract-test it before you trust it"
+        ]
+      }
+    ]
   }
 ]
