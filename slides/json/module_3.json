@@ -29,7 +29,7 @@
     "mod": "3",
     "tag": "safety",
     "title": "Flying Safely — Before You Arm the Motors",
-    "desc": "The Mini 4 Pro is under 250 g, not harmless — spinning propellers cut",
+    "desc": "Under 250 g is not harmless — and your own code bypasses the guardrails DJI Fly enforces",
     "body": [
       {
         "card": "Where you fly",
