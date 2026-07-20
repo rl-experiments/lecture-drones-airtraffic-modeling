@@ -20,7 +20,6 @@
       "JMS",
       "ActiveMQ",
       "RabbitMQ",
-      "IBM MQ",
       "Kafka"
     ]
   },
@@ -94,11 +93,6 @@
               "<strong>RabbitMQ</strong>",
               "AMQP broker",
               "Supports JMS via plugins; very flexible routing"
-            ],
-            [
-              "<strong>IBM MQ</strong>",
-              "Enterprise messaging",
-              "Banking-grade reliability, commercial"
             ],
             [
               "<strong>Kafka</strong>",

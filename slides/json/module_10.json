@@ -73,7 +73,7 @@
           "title": "Working example",
           "links": [
             {
-              "url": "https://github.com/reinforcement-learning-experiments/event-sourcing-spring-boot",
+              "url": "https://github.com/rl-experiments/event-sourcing-spring-boot",
               "label": "event-sourcing-spring-boot — CQRS + event sourcing demo"
             }
           ]
