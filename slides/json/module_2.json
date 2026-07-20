@@ -15,7 +15,7 @@
     "bg": 5,
     "h1": "Module 2",
     "lead": "Project Ideas & Competition",
-    "sub": "Your two deliverables: build your own drone project, and survive the airspace",
+    "sub": "Build your own drone-software project — the BlueSky airspace competition is one way to take it on",
     "badges": [
       "Your Own Project",
       "*BlueSky Competition"
@@ -25,46 +25,46 @@
     "type": "content",
     "mod": "2",
     "tag": "",
-    "title": "Project Ideas 1–6: Systems & Autonomy",
-    "desc": "Directions for your own build — pick one, or spin your own",
+    "title": "Project Ideas 1–6: Build On the Drone",
+    "desc": "Concrete builds on top of the DJI client (labs/dji-hello-world) — pick one, combine a few, or bring your own",
     "body": [
       {
         "table": {
           "headers": [
             "#",
-            "Idea",
-            "Focus"
+            "Build",
+            "What you make"
           ],
           "rows": [
             [
               "1",
-              "<strong>Real-Time and Embedded Specification for Java (RTSJ 2.0)</strong>",
-              "How the Java platform supports real-time and embedded systems through improved memory management and deterministic execution"
+              "<strong>Live telemetry dashboard</strong>",
+              "Subscribe via <strong>KeyManager</strong> to position, altitude, attitude, battery, satellites and link status; render a real-time HUD on the phone"
             ],
             [
               "2",
-              "<strong>AI and Machine Learning in Drone Control Systems</strong>",
-              "How AI/ML increase drone autonomy and efficiency in complex environments"
+              "<strong>Flight-track logger &amp; replay</strong>",
+              "Record a flight to a file (CSV / GeoJSON) and visualise the 3D track afterwards &mdash; feeds into the GIS module (13)"
             ],
             [
               "3",
-              "<strong>Drones and 5G: The Future of Aviation Communication</strong>",
-              "The role of 5G in communication and real-time data transfer between drones and control centers"
+              "<strong>Camera stream &amp; onboard vision</strong>",
+              "Pull the <strong>live video feed</strong> into the app, grab frames and run simple detection (marker, QR or colour blob) with an on-screen overlay"
             ],
             [
               "4",
-              "<strong>Air Traffic Management for UAVs</strong>",
-              "Concepts for integrating drones into existing air traffic and managing drone flights in urban airspace"
+              "<strong>Autonomous pattern flyer</strong>",
+              "Fly a waypoint square, orbit or lawn-mower scan &mdash; first in the <strong>DJI simulator</strong>, then on real hardware with margin"
             ],
             [
               "5",
-              "<strong>Energy Efficiency and Battery Technologies</strong>",
-              "Advances in battery technology and alternative energy sources for longer flight times"
+              "<strong>Closed-loop precision movement</strong>",
+              "Replace the lab's open-loop timed hops with <strong>distance / position control</strong> driven by live telemetry feedback"
             ],
             [
               "6",
-              "<strong>Collision Avoidance in Dense Airspace</strong>",
-              "LIDAR, ultrasound and camera systems for safe navigation &mdash; see the BlueSky <code>plugins/asas</code> module (also the competition topic!)"
+              "<strong>Geofence &amp; safety guard</strong>",
+              "Enforce a soft boundary from the live position; auto return-to-home or land when the drone nears the limit"
             ]
           ]
         }
@@ -75,40 +75,41 @@
     "type": "content",
     "mod": "2",
     "tag": "",
-    "title": "Project Ideas 7–11: Modeling & Data",
+    "title": "Project Ideas 7–11: Backend & Data Pipeline",
+    "desc": "Take the drone's data off the phone and into the course's technology stack",
     "body": [
       {
         "table": {
           "headers": [
             "#",
-            "Idea",
-            "Focus"
+            "Build",
+            "What you make"
           ],
           "rows": [
             [
               "7",
-              "<strong>Flight Control Systems for Autonomous Drones</strong>",
-              "Software and algorithms required to control autonomous drones, and their impact on safety and efficiency"
+              "<strong>Telemetry REST / streaming service</strong>",
+              "Push live telemetry to a Spring service described with <strong>OpenAPI</strong>; fan it out over SSE or WebSocket (Modules 7&ndash;8)"
             ],
             [
               "8",
-              "<strong>Air Traffic Modeling and Simulation for Drones</strong>",
-              "Models to predict and simulate drone traffic in different scenarios and its influence on traditional air traffic"
+              "<strong>Message-queue telemetry pipeline</strong>",
+              "Publish tracks to a <strong>topic</strong>; independent consumers log, monitor and raise alerts in parallel (Module 9)"
             ],
             [
               "9",
-              "<strong>Drones in the Smart Cities of the Future</strong>",
-              "Delivery of goods, infrastructure inspection and environmental protection in smart cities"
+              "<strong>CQRS flight-state service</strong>",
+              "Separate the <strong>command</strong> side (mission commands) from the <strong>query</strong> side (current &amp; historical state) for the drone (Module 10)"
             ],
             [
               "10",
-              "<strong>Blockchain-Based Drone Data Management</strong>",
-              "Using blockchain to guarantee data integrity and security in drone networks"
+              "<strong>Readable API test suite in Karate</strong>",
+              "Contract tests for the telemetry / command backend that the whole team can read and run (Module 11)"
             ],
             [
               "11",
-              "<strong>Security and Privacy in Drone Air Traffic</strong>",
-              "Security challenges of operating drones in public and private airspace"
+              "<strong>Flight data store &amp; query API</strong>",
+              "Persist flights and expose an API to search, compare and replay them"
             ]
           ]
         }
@@ -119,40 +120,41 @@
     "type": "content",
     "mod": "2",
     "tag": "",
-    "title": "Project Ideas 12–16: Operations & Integration",
+    "title": "Project Ideas 12–16: Integration, Simulation & Ops",
+    "desc": "Put the real drone and the simulator into the same air-traffic picture",
     "body": [
       {
         "table": {
           "headers": [
             "#",
-            "Idea",
-            "Focus"
+            "Build",
+            "What you make"
           ],
           "rows": [
             [
               "12",
-              "<strong>Regulation and Legal Frameworks for Drones</strong>",
-              "Existing legal rules and their evolution towards safe drone operation"
+              "<strong>UTM monitor fed by a real drone</strong>",
+              "Feed the Module 6 <strong>UTM-style monitor</strong> with the Mini 4 Pro's live position &mdash; show it as a tracked aircraft"
             ],
             [
               "13",
-              "<strong>Multi-Drone Operations and Coordination</strong>",
-              "Technology and algorithms for coordinating multiple drones in shared airspace"
+              "<strong>Real-time GIS map of live tracks</strong>",
+              "Plot one or many live drone positions on a <strong>moving map</strong> (Module 13)"
             ],
             [
               "14",
-              "<strong>Drones in Commercial Air Transport: The Future of Logistics</strong>",
-              "The potential of drones for commercial cargo and the impact on the logistics industry"
+              "<strong>BlueSky &harr; real-drone bridge</strong>",
+              "Inject the real drone as an aircraft into the <strong>BlueSky simulator</strong>, or run a sim scenario alongside a real flight"
             ],
             [
               "15",
-              "<strong>Optimizing Drone Deployment in Disaster Areas</strong>",
-              "Traffic models for efficient drone use in emergencies &mdash; fast relief and crisis logistics"
+              "<strong>Multi-drone coordination &amp; spacing</strong>",
+              "Simulate several tracks (sim plus one real) and <strong>detect &amp; space conflicts</strong> between them"
             ],
             [
               "16",
-              "<strong>Airport Infrastructure and Drones</strong>",
-              "Infrastructure changes and technologies to integrate UAVs into existing airport operations, e.g. inspection and maintenance"
+              "<strong>Collision avoidance in BlueSky</strong>",
+              "Study <code>bluesky/plugins/asas</code>, then build and <strong>measure</strong> your own resolver &mdash; the competition topic"
             ]
           ]
         }
@@ -220,8 +222,8 @@
               "Your own idea on top of the DJI client (Module 3), running on real hardware or the simulator — plus your own critical judgement of where the SDK's limits are"
             ],
             [
-              "<strong>Engineering</strong> in the competition",
-              "An approach you designed, <strong>measured and can defend with data</strong>: why does your airspace survive, and at what traffic density does it stop surviving?"
+              "<strong>Engineering &amp; measurement</strong>",
+              "An approach you designed, <strong>measured and can defend with data</strong> &mdash; e.g. if you enter the competition: why does your airspace survive, and at what traffic density does it stop?"
             ]
           ]
         }
