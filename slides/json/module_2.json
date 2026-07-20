@@ -164,6 +164,26 @@
   {
     "type": "content",
     "mod": "2",
+    "tag": "important",
+    "title": "How It All Fits: One Reference System",
+    "desc": "Every project idea is one box or one arrow in the same pipeline — from the drone to the map",
+    "body": [
+      {
+        "code": "[ DJI Mini 4 Pro ]   telemetry + video\n       |  MSDK v5\n       v\n[ Android app ]   labs/dji-hello-world  (Module 3)\n       |  REST, described by OpenAPI  (M7)\n       v\n[ Ingest API ] --&gt; Reactive stream, Spring WebFlux  (M8)\n       |\n       v\n[ Message queue / topic  (M9) ]\n       |\n  +----+-----------------------+\n  v                            v\n[ CQRS store  (M10) ]     [ UTM monitor  (M6) ]\n  |                            |\n  v                            v\n[ GIS moving map  (M13) ] [ BlueSky sim  (M12) ]\n\n  Karate  (M11)  contract-tests every API boundary above"
+      },
+      {
+        "card": "Reading the diagram",
+        "items": [
+          "The <strong>DJI lab (Module 3)</strong> is the source; the <strong>technology blocks (7&ndash;11)</strong> move and shape the data; <strong>UTM, GIS and BlueSky</strong> turn it into an air-traffic picture",
+          "You do <strong>not</strong> build all of it &mdash; you build <strong>one increment</strong> and connect it to the piece next door",
+          "That is why the ideas are grouped as On-the-Drone &rarr; Backend &rarr; Integration: pick your altitude in this stack"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "2",
     "tag": "exercise",
     "title": "The Competition: Collision Avoidance in BlueSky",
     "desc": "We put theory aside and let your code fight for survival",
