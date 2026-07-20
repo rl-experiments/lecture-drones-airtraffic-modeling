@@ -126,7 +126,10 @@ The course client does **not** call it yet — wiring it up is a good first chan
 ### Outdoors vs. indoors
 
 - **Outdoors** with good GPS is the safest first *real* flight (after the
-  simulator) — the drone holds position precisely and lands cleanly.
+  simulator) — the drone holds position precisely and lands cleanly. Check
+  [DiPUL](https://maptool-dipul.dfs.de) for geo-zones first, and stay under the
+  **120 m** open-category ceiling — note that your own SDK code is not bound by
+  the limits DJI Fly enforces.
 - **Indoors / no GPS** works too: the Mini holds position on its downward vision
   sensors (exactly like DJI Fly). The app warns but proceeds. Needs **good lighting**
   and a **textured floor**; expect a little drift.
