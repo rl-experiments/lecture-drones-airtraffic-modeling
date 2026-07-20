@@ -25,8 +25,8 @@
     "type": "content",
     "mod": "2",
     "tag": "",
-    "title": "Project Ideas 1–6: Build On the Drone",
-    "desc": "Concrete builds on top of the DJI client (labs/dji-hello-world) — pick one, combine a few, or bring your own",
+    "title": "Easy Projects (1–5): Get the Data Flowing",
+    "desc": "Start here — read, display, log and test on top of the DJI client (labs/dji-hello-world); no autonomous flight, low risk",
     "body": [
       {
         "table": {
@@ -44,27 +44,22 @@
             [
               "2",
               "<strong>Flight-track logger &amp; replay</strong>",
-              "Record a flight to a file (CSV / GeoJSON) and visualise the 3D track afterwards &mdash; feeds into the GIS module (13)"
+              "Record a flight to a file (CSV / GeoJSON) and visualise the 3D track afterwards &mdash; feeds into the GIS module (Module 13)"
             ],
             [
               "3",
-              "<strong>Camera stream &amp; onboard vision</strong>",
-              "Pull the <strong>live video feed</strong> into the app, grab frames and run simple detection (marker, QR or colour blob) with an on-screen overlay"
+              "<strong>Readable API test suite in Karate</strong>",
+              "Contract tests for the telemetry / command backend that the whole team can read and run (Module 11)"
             ],
             [
               "4",
-              "<strong>Autonomous pattern flyer</strong>",
-              "Fly a waypoint square, orbit or lawn-mower scan &mdash; first in the <strong>DJI simulator</strong>, then on real hardware with margin"
+              "<strong>Flight data store &amp; query API</strong>",
+              "Persist flights and expose an API to search, compare and replay them"
             ],
             [
               "5",
-              "<strong>Closed-loop precision movement</strong>",
-              "Replace the lab's open-loop timed hops with <strong>distance / position control</strong> driven by live telemetry feedback"
-            ],
-            [
-              "6",
-              "<strong>Geofence &amp; safety guard</strong>",
-              "Enforce a soft boundary from the live position; auto return-to-home or land when the drone nears the limit"
+              "<strong>Real-time map of live tracks</strong>",
+              "Plot one or many live drone positions on a <strong>moving map</strong> (Module 13)"
             ]
           ]
         }
@@ -75,8 +70,8 @@
     "type": "content",
     "mod": "2",
     "tag": "",
-    "title": "Project Ideas 7–11: Backend & Data Pipeline",
-    "desc": "Take the drone's data off the phone and into the course's technology stack",
+    "title": "Medium Projects (6–11): Build the Pipeline",
+    "desc": "More moving parts — backend plumbing, and flight in the simulator or under close supervision",
     "body": [
       {
         "table": {
@@ -86,6 +81,11 @@
             "What you make"
           ],
           "rows": [
+            [
+              "6",
+              "<strong>Geofence &amp; safety guard</strong>",
+              "Enforce a soft boundary from the live position; auto return-to-home or land when the drone nears the limit"
+            ],
             [
               "7",
               "<strong>Telemetry REST / streaming service</strong>",
@@ -98,18 +98,18 @@
             ],
             [
               "9",
-              "<strong>CQRS flight-state service</strong>",
-              "Separate the <strong>command</strong> side (mission commands) from the <strong>query</strong> side (current &amp; historical state) for the drone (Module 10)"
+              "<strong>Autonomous pattern flyer</strong>",
+              "Fly a waypoint square, orbit or lawn-mower scan &mdash; first in the <strong>DJI simulator</strong>, then on real hardware with margin"
             ],
             [
               "10",
-              "<strong>Readable API test suite in Karate</strong>",
-              "Contract tests for the telemetry / command backend that the whole team can read and run (Module 11)"
+              "<strong>UTM monitor fed by a real drone</strong>",
+              "Feed the Module 6 <strong>UTM-style monitor</strong> with the Mini 4 Pro's live position &mdash; show it as a tracked aircraft"
             ],
             [
               "11",
-              "<strong>Flight data store &amp; query API</strong>",
-              "Persist flights and expose an API to search, compare and replay them"
+              "<strong>CQRS flight-state service</strong>",
+              "Separate the <strong>command</strong> side (mission commands) from the <strong>query</strong> side (current &amp; historical state) for the drone (Module 10)"
             ]
           ]
         }
@@ -120,8 +120,8 @@
     "type": "content",
     "mod": "2",
     "tag": "",
-    "title": "Project Ideas 12–16: Integration, Simulation & Ops",
-    "desc": "Put the real drone and the simulator into the same air-traffic picture",
+    "title": "Hard Projects (12–16): Autonomy & Systems",
+    "desc": "Control loops, computer vision and multi-aircraft systems — the deep end",
     "body": [
       {
         "table": {
@@ -133,13 +133,13 @@
           "rows": [
             [
               "12",
-              "<strong>UTM monitor fed by a real drone</strong>",
-              "Feed the Module 6 <strong>UTM-style monitor</strong> with the Mini 4 Pro's live position &mdash; show it as a tracked aircraft"
+              "<strong>Closed-loop precision movement</strong>",
+              "Replace the lab's open-loop timed hops with <strong>distance / position control</strong> driven by live telemetry feedback"
             ],
             [
               "13",
-              "<strong>Real-time GIS map of live tracks</strong>",
-              "Plot one or many live drone positions on a <strong>moving map</strong> (Module 13)"
+              "<strong>Camera stream &amp; onboard vision</strong>",
+              "Pull the <strong>live video feed</strong> into the app, grab frames and run simple detection (marker, QR or colour blob) with an on-screen overlay"
             ],
             [
               "14",
@@ -176,7 +176,7 @@
         "items": [
           "The <strong>DJI lab (Module 3)</strong> is the source; the <strong>technology blocks (7&ndash;11)</strong> move and shape the data; <strong>UTM, GIS and BlueSky</strong> turn it into an air-traffic picture",
           "You do <strong>not</strong> build all of it &mdash; you build <strong>one increment</strong> and connect it to the piece next door",
-          "That is why the ideas are grouped as On-the-Drone &rarr; Backend &rarr; Integration: pick your altitude in this stack"
+          "That is why the project ideas run <strong>easy &rarr; medium &rarr; hard</strong> &mdash; start where you are comfortable and climb"
         ]
       }
     ]
