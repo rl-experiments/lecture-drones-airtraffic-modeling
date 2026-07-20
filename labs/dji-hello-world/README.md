@@ -197,3 +197,12 @@ Dependencies (see `app/build.gradle`):
 `com.dji:dji-sdk-v5-aircraft`, `-aircraft-provided` (compileOnly),
 `-networkImp` (runtimeOnly), plus `androidx.appcompat` / `androidx.core-ktx`
 (the SDK references AndroidX classes at runtime).
+
+---
+
+## References
+
+- **Official DJI Mobile SDK v5 sample** — <https://github.com/dji-sdk/Mobile-SDK-Android-V5>
+  The full-featured reference app (UX SDK, all components, tutorials). This lab is a
+  stripped-down alternative; when you outgrow it, the official sample is the next step.
+- **MSDK v5 documentation** — <https://developer.dji.com/doc/mobile-sdk-tutorial/en/>

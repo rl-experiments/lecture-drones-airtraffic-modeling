@@ -105,7 +105,7 @@
         "card": "Deliverable",
         "items": [
           "<strong>Propose your own drone-software idea</strong> &mdash; small but real, a capability the base client does not have yet",
-          "Build a <strong>working increment</strong> on top of <a href=\"https://github.com/rl-experiments/lecture-drones-airtraffic-modeling/tree/main/labs/dji-hello-world\" target=\"_blank\"><strong>labs/dji-hello-world</strong></a> (or the official DJI sample)",
+          "Build a <strong>working increment</strong> on top of <a href=\"https://github.com/rl-experiments/lecture-drones-airtraffic-modeling/tree/main/labs/dji-hello-world\" target=\"_blank\"><strong>labs/dji-hello-world</strong></a> (or the <a href=\"https://github.com/dji-sdk/Mobile-SDK-Android-V5\" target=\"_blank\">official DJI sample</a>)",
           "Write it up: <strong>what you built, what worked, and where the SDK stopped you</strong>"
         ]
       },
