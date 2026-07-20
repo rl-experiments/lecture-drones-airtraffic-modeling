@@ -19,6 +19,7 @@
     "badges": [
       "BlueSky",
       "TU Delft",
+      "DJI Simulator",
       "Real-Time Simulation",
       "*Competition Arena"
     ]
@@ -38,6 +39,59 @@
           "<strong>Real-time simulation</strong> lets humans and systems interact with the scenario as it unfolds; fast-time simulation runs thousands of scenarios overnight",
           "Remember Module 4: verification evidence under <strong>normal and fault conditions</strong> — simulation is how you produce it cheaply",
           "Scenario coverage: rare events (link loss, sensor failure, rogue drones) can be triggered on demand"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "12",
+    "tag": "",
+    "title": "Two Simulators, Two Questions",
+    "desc": "This course uses the word \"simulator\" for two very different things — know which one you need",
+    "body": [
+      {
+        "table": {
+          "headers": [
+            "",
+            "<strong>DJI simulator</strong> (Module 3)",
+            "<strong>BlueSky</strong> (this module)"
+          ],
+          "rows": [
+            [
+              "<strong>Answers</strong>",
+              "Does <em>my code</em> fly <em>one</em> aircraft correctly?",
+              "Does <em>my algorithm</em> keep <em>many</em> aircraft apart?"
+            ],
+            [
+              "<strong>What is real</strong>",
+              "The actual flight controller, SDK and telemetry path &mdash; only physics and GPS are synthetic",
+              "Nothing &mdash; a pure Python traffic model"
+            ],
+            [
+              "<strong>Hardware</strong>",
+              "<strong>Required</strong> &mdash; the drone sits on your desk, props off",
+              "None"
+            ],
+            [
+              "<strong>Catches</strong>",
+              "Runaway virtual-stick loops, bad state handling, wrong units",
+              "Conflict-resolution failures, emergent traffic effects"
+            ],
+            [
+              "<strong>Blind to</strong>",
+              "Other traffic &mdash; there is only ever one aircraft",
+              "Whether your app works on real hardware at all"
+            ]
+          ]
+        }
+      },
+      {
+        "card": "Where the two meet",
+        "items": [
+          "Neither replaces the other: the DJI simulator validates the <strong>client</strong>, BlueSky validates the <strong>traffic logic</strong> &mdash; Module 4's <em>evidence under normal and fault conditions</em> applied at two different levels",
+          "<strong>Project idea #14</strong> is exactly this bridge &mdash; inject the real drone into BlueSky as an aircraft, or run a sim scenario alongside a real flight (Module 2)",
+          "Rule of thumb: anything that <strong>moves a real motor</strong> gets the DJI simulator first; anything that <strong>decides where aircraft go</strong> gets BlueSky first"
         ]
       }
     ]
