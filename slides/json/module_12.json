@@ -90,7 +90,7 @@
         "card": "Where the two meet",
         "items": [
           "Neither replaces the other: the DJI simulator validates the <strong>client</strong>, BlueSky validates the <strong>traffic logic</strong> &mdash; Module 4's <em>evidence under normal and fault conditions</em> applied at two different levels",
-          "<strong>Project idea #14</strong> is exactly this bridge &mdash; inject the real drone into BlueSky as an aircraft, or run a sim scenario alongside a real flight (Module 2)",
+          "<strong>Project idea #14</strong> attempts that bridge &mdash; expect the <strong>scale mismatch</strong> to be the real work: BlueSky reasons in ATM separation standards and airliner performance models, not 1.5 m hops by a 249 g quadcopter (TU Delft did extend it to urban drone traffic, and called that hard)",
           "Rule of thumb: anything that <strong>moves a real motor</strong> gets the DJI simulator first; anything that <strong>decides where aircraft go</strong> gets BlueSky first"
         ]
       }
@@ -107,7 +107,7 @@
         "img": "testing-vs-prod.png",
         "alt": "MonkeyUser comic: a smooth flat test-environment track ends in a cliff into a production canyon full of spikes, lag hills and performance drops",
         "height": 455,
-        "caption": "monkeyuser.com — Testing vs. Production Environment. Simulation is your smooth track; the real airspace is the canyon. Validate in BlueSky first."
+        "caption": "monkeyuser.com &mdash; Testing vs. Production Environment. Simulation is your smooth track; the real airspace is the canyon. Validate in the <em>right</em> simulator first &mdash; and never mistake either one for the canyon."
       }
     ]
   },
