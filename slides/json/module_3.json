@@ -154,41 +154,46 @@
     "type": "content",
     "mod": "3",
     "tag": "important",
-    "title": "DJI Hardware That Is Actually Programmable",
-    "desc": "The single most expensive mistake is buying a drone without SDK support",
+    "title": "What the DJI SDK Actually Gives You",
+    "desc": "The Mobile SDK v5 exposes the aircraft as a set of programmable interfaces — here is the surface you build on",
     "body": [
       {
-        "table": {
-          "headers": [
-            "Item",
-            "Buy exactly this",
-            "NOT this — and why"
-          ],
-          "rows": [
-            [
-              "<strong>Drone</strong>",
-              "<strong>DJI Mini 4 Pro</strong>",
-              "<strong>Neo, Neo 2 or Mini 5 Pro</strong> — these have <em>no SDK</em> and are not programmable"
-            ],
-            [
-              "<strong>Remote controller</strong>",
-              "<strong>RC-N3</strong> — the screenless variant you clamp a phone into",
-              "<strong>RC 2</strong> with built-in display — it <em>locks out third-party apps</em>"
-            ],
-            [
-              "<strong>Phone</strong>",
-              "An <strong>Android</strong> phone for development; must fit the holder: max. <strong>180 &times; 86 &times; 10 mm</strong>",
-              "iPhone — the SDK is <em>Android-only</em>"
-            ]
-          ]
-        }
+        "card": "Flight control",
+        "items": [
+          "<strong>Takeoff, landing, return-to-home</strong> as direct commands",
+          "<strong>Virtual Stick</strong> &mdash; synthesise stick input to fly the aircraft from code",
+          "<strong>Waypoint &amp; hotpoint missions</strong> uploaded to and flown by the aircraft"
+        ]
       },
       {
-        "card": "",
+        "card": "Camera &amp; gimbal",
         "items": [
-          "The Android phone may already be available &mdash; check before buying",
-          "General rule for any DJI project: <strong>verify SDK support first</strong>, model names alone tell you nothing"
+          "Adjust settings &mdash; <strong>shutter, ISO, aperture, exposure</strong>",
+          "Capture photos and video; <strong>point the gimbal</strong> from code",
+          "Pull the <strong>live video feed</strong> into your app for image processing"
         ]
+      },
+      {
+        "card": "Telemetry",
+        "items": [
+          "Subscribe via <strong>KeyManager</strong> to GPS, altitude, attitude, velocity",
+          "<strong>Battery, satellites, link status</strong> in real time (up to ~10 Hz)"
+        ]
+      },
+      {
+        "card": "Perception &amp; media",
+        "items": [
+          "Read <strong>obstacle-avoidance state</strong> &mdash; distances and warnings from the vision system",
+          "Browse and <strong>download photos / video</strong> from the aircraft's storage"
+        ]
+      },
+      {
+        "card": "Reality check — where v5 stops",
+        "items": [
+          "The old <strong>ActiveTrack / TapFly / Point-of-Interest</strong> modes are <em>not</em> exposed as SDK-controllable missions on consumer drones like the Mini 4 Pro",
+          "You get the <strong>building blocks</strong> (virtual stick, telemetry, video) &mdash; <strong>you build the intelligence yourself</strong>"
+        ],
+        "warn": true
       }
     ]
   },
