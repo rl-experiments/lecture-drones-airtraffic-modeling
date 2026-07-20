@@ -1,0 +1,22 @@
+# Keep text sources as LF in the repo regardless of the contributor's OS.
+# This stops the "LF will be replaced by CRLF" churn on the slide JSON.
+*.json  text eol=lf
+*.md    text eol=lf
+*.js    text eol=lf
+*.html  text eol=lf
+*.css   text eol=lf
+*.kt    text eol=lf
+
+# Windows launcher scripts must stay CRLF to run correctly.
+*.bat   text eol=crlf
+*.cmd   text eol=crlf
+
+# Binary assets — never normalise or diff.
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.webp  binary
+*.ico   binary
+*.pdf   binary
+*.jar   binary
