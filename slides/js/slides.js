@@ -327,6 +327,11 @@
     return '';
   }
 
+  // Inline Lucide icons (ISC license) — perched on top of a cover card via slide.icon
+  const coverIcons = {
+    'triangle-alert': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 20h16a2 2 0 0 0 1.73-2Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>`
+  };
+
   function renderSlide(slide, idx) {
     const bgNum = bgForSlide(idx);
     const bgStyle = getBgStyle(bgNum);
@@ -336,6 +341,9 @@
       const coverBgStyle = slide.bg ? getBgStyle(slide.bg) : bgStyle;
       let html = `<div class="slide${activeClass} slide-cover"${coverBgStyle}>`;
       html += `<div class="cover-card">`;
+      if (slide.icon && coverIcons[slide.icon]) {
+        html += `<div class="cover-icon" style="color:${slide.iconColor || 'var(--muted-foreground)'}">${coverIcons[slide.icon]}</div>`;
+      }
       html += `<h1>${slide.h1}</h1>`;
       if (slide.lead) html += `<p class="lead">${slide.lead}</p>`;
       if (slide.sub) html += `<p class="sub">${slide.sub}</p>`;

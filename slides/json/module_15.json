@@ -13,6 +13,8 @@
       }
     },
     "bg": 7,
+    "icon": "triangle-alert",
+    "iconColor": "#e11d48",
     "h1": "Safety & Testing",
     "lead": "Test First. Fly Later.",
     "sub": "An untested command doesn't cost you a failed unit test &mdash; it costs the university a drone. This module is the gate everything else in this course passes through.",

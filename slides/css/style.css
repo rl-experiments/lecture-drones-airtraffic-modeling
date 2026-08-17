@@ -238,6 +238,7 @@ html, body {
 .slide-cover { align-items: center; justify-content: center; flex-direction: row; gap: 32px; }
 
 .cover-card {
+  position: relative;
   display: flex; flex-direction: column; align-items: center; gap: 24px;
   border-radius: calc(var(--radius) * 1.4);
   border: 1px solid var(--border); background: var(--card);
@@ -254,6 +255,11 @@ html, body {
   color: var(--muted-foreground); margin-top: -12px;
 }
 .cover-card p.sub { font-size: 20px; color: var(--muted-foreground); }
+.cover-icon {
+  position: absolute; top: -54px; left: 50%; transform: translateX(-50%);
+  line-height: 0;
+}
+.cover-icon svg { width: 56px; height: 56px; }
 
 /* Cover slide with contents: side-by-side layout */
 .slide-cover:has(.cover-contents) {
