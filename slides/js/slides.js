@@ -451,6 +451,7 @@
     S[c].classList.add('active');
     ui();
     activateScript(c);
+    history.replaceState(null, '', '#' + (c + 1));
   };
   window.next = function () { go(c + 1); };
   window.prev = function () { go(c - 1); };
@@ -514,6 +515,21 @@
   document.addEventListener('mousemove', rh);
   document.addEventListener('click', rh);
 
-  ui();
-  activateScript(0);
+  // Deep link: #7 opens the 7th slide (1-based, matches the counter)
+  function slideFromHash() {
+    var n = parseInt((location.hash || '').slice(1), 10);
+    return (n >= 1 && n <= N) ? n - 1 : null;
+  }
+  window.addEventListener('hashchange', () => {
+    var n = slideFromHash();
+    if (n !== null && n !== c) go(n);
+  });
+
+  var start = slideFromHash();
+  if (start !== null && start !== 0) {
+    go(start);
+  } else {
+    ui();
+    activateScript(0);
+  }
 })();
