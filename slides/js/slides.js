@@ -29,7 +29,7 @@
     slides: [config.cover]
   };
 
-  const moduleKeys = Object.keys(data.modules).map(Number);
+  const moduleKeys = (config.moduleOrder || Object.keys(data.modules)).map(Number);
   for (const m of moduleKeys) {
     const modSlides = await fetchJSON(`json/module_${m}.json`);
     if (modSlides) data.slides.push(...modSlides);

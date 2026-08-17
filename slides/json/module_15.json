@@ -1,0 +1,147 @@
+[
+  {
+    "type": "cover",
+    "script": {
+      "name": "drone",
+      "opts": {
+        "perched": true,
+        "anchor": ".cover-card",
+        "anchorOffsetX": 95,
+        "anchorOffsetY": -15,
+        "scale": 1.05,
+        "color": "#e11d48"
+      }
+    },
+    "bg": 7,
+    "h1": "Safety & Testing",
+    "lead": "Test First. Fly Later.",
+    "sub": "An untested command doesn't cost you a failed unit test &mdash; it costs the university a drone. This module is the gate everything else in this course passes through.",
+    "badges": [
+      "Test-First",
+      "Manual Test Review",
+      "Simulator Gate",
+      "*No Green, No Props"
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "15",
+    "tag": "safety",
+    "title": "One Bad Command Is All It Takes",
+    "desc": "A drone has no undo, no rollback, no restore-from-backup",
+    "body": [
+      {
+        "card": "The stakes",
+        "items": [
+          "A crashed Mini 4 Pro is <strong>dead hardware and real money</strong> &mdash; the university paid for it once, and won't be happy paying twice",
+          "A flyaway is worse than a crash: the drone simply <strong>leaves and never comes back</strong>, and so does the course equipment",
+          "On a backend, a bad deploy is rolled back in minutes &mdash; <strong>a drone in a wall stays in the wall</strong>"
+        ]
+      },
+      {
+        "table": {
+          "headers": [
+            "You prompt",
+            "What can come back"
+          ],
+          "rows": [
+            [
+              "<em>&quot;fly up&quot;</em>",
+              "Climb velocity set with <strong>no ceiling and no stop condition</strong> &mdash; indoors it grinds into the ceiling; outdoors it climbs until the link drops and <strong>the drone is gone</strong>"
+            ],
+            [
+              "<em>&quot;fly forward 2 m&quot;</em>",
+              "Meters confused with <strong>m/s or with seconds of loop time</strong> &mdash; a wrong tick-rate assumption turns 2 m into <strong>7 m</strong>, straight into a wall, the projector, or a person"
+            ]
+          ]
+        }
+      },
+      {
+        "card": "The rule",
+        "items": [
+          "<strong>Untested code never gets props.</strong> Not yours, not Claude's &mdash; no exceptions, not even for &quot;trivial&quot; one-liners. <em>Especially</em> not for those."
+        ],
+        "warn": true
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "15",
+    "tag": "important",
+    "title": "AI-Generated Flight Code: Compiles, Looks Right, Flies Wrong",
+    "desc": "Claude writes Kotlin that reads clean and builds green — the drone doesn't know that",
+    "body": [
+      {
+        "card": "Why AI code is uniquely risky here",
+        "items": [
+          "LLM-generated code fails <em>plausibly</em>: it compiles, reads clean, and a quick review nods it through",
+          "On a backend, a wrong unit is a failed test &mdash; on a drone <strong>the bug has propellers</strong>; the error budget is the distance to the nearest wall",
+          "Virtual stick has <strong>no &quot;fly 2 m&quot; command</strong> &mdash; only velocity &times; time at &ge; 5 Hz. Every distance is an implicit calculation the AI can silently get wrong"
+        ]
+      },
+      {
+        "card": "The trap: letting the same AI check itself",
+        "items": [
+          "If the same AI writes the code <strong>and</strong> the tests, <strong>both inherit the same wrong assumption</strong> &mdash; the tests go green and the drone still hits the wall",
+          "A generated test that asserts <code>distance == velocity * ticks</code> proves nothing if the tick rate in the test is the same wrong guess as in the code",
+          "That is why this course demands a <strong>manual recheck of every test</strong> &mdash; you are the independent verifier the AI cannot be"
+        ],
+        "warn": true
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "15",
+    "tag": "exercise",
+    "title": "Test Harness First, Flight Later",
+    "desc": "Before any generated command flies: write the tests — then recheck the tests by hand",
+    "body": [
+      {
+        "card": "The workflow — non-negotiable",
+        "items": [
+          "<strong>1. Test framework first</strong> &mdash; unit tests for every distance / velocity / duration calculation <em>before</em> the flight code exists",
+          "<strong>2. Recheck the tests manually</strong> &mdash; read every assertion yourself and confirm the expected values against the SDK docs, <em>not</em> against the generated code",
+          "<strong>3. <code>enableSimulator</code></strong> &mdash; fly the mission virtually and watch the telemetry: did it move 2.0 m, or 7?",
+          "<strong>4. Only then a real flight</strong> &mdash; indoors, propeller guards on, the SAFETY rules from the Lab module apply every single time"
+        ]
+      },
+      {
+        "card": "What your harness must assert",
+        "items": [
+          "Every motion command has an <strong>explicit bound</strong>: max altitude, max distance, hard timeout",
+          "Units are visible in the code &mdash; <code>distanceMeters</code>, <code>speedMetersPerSecond</code>, <code>durationMs</code> &mdash; so a mix-up <strong>fails to read, not just to fly</strong>",
+          "The <strong>abort path is testable without the aircraft</strong>: the deadman timeout fires, virtual stick disables, the mission stops"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "15",
+    "tag": "takeaway",
+    "title": "The Gate: No Green, No Props",
+    "desc": "This checklist applies to every flight, every time — there is no 'just a quick test'",
+    "body": [
+      {
+        "card": "Before every flight",
+        "items": [
+          "&#9744; Tests exist for <strong>every motion calculation</strong> &mdash; written before the flight code",
+          "&#9744; Every test <strong>manually reviewed</strong> against the SDK docs by a human",
+          "&#9744; Mission flown in <strong><code>enableSimulator</code></strong> &mdash; telemetry matches the intended distances",
+          "&#9744; Bounds, timeout and <strong>abort path verified</strong>",
+          "&#9744; Only then: props on, guards on, fly"
+        ]
+      },
+      {
+        "card": "Where this comes from",
+        "items": [
+          "This is <strong>verification independence</strong> (DO-178C, Module 4) at lab scale: <strong>the verifier must not be the author</strong> &mdash; and right now, the author is Claude",
+          "Module 11's <strong>Karate</strong> applies the same discipline to your backend: the telemetry pipeline gets tests before it gets traffic",
+          "Aviation learned this the expensive way &mdash; <strong>you get to learn it the cheap way</strong>"
+        ]
+      }
+    ]
+  }
+]

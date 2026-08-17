@@ -16,8 +16,9 @@ const data = {
   slides: [config.cover] // title cover is first
 };
 
-// Load all module files in order
-for (let m = 0; m <= 20; m++) {
+// Load all module files in presentation order
+const moduleOrder = config.moduleOrder || Array.from({ length: 21 }, (_, i) => String(i));
+for (const m of moduleOrder) {
   const modFile = path.join(jsonDir, `module_${m}.json`);
   if (fs.existsSync(modFile)) {
     const modSlides = JSON.parse(fs.readFileSync(modFile, 'utf8'));
