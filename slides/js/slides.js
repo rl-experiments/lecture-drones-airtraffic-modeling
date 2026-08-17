@@ -327,8 +327,10 @@
     return '';
   }
 
-  // Inline Lucide icons (ISC license) — perched on top of a cover card via slide.icon
+  // Inline icons — perched on top of a cover card via slide.icon
   const coverIcons = {
+    // Classic hazard sign (DIN W001): yellow triangle, black border, black !
+    'hazard': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 108"><path d="M60 9 L113 99 L7 99 Z" fill="#ffce00" stroke="#1a1a1a" stroke-width="11" stroke-linejoin="round"/><path d="M60 42 v27" fill="none" stroke="#1a1a1a" stroke-width="12" stroke-linecap="round"/><circle cx="60" cy="84" r="6.5" fill="#1a1a1a"/></svg>`,
     'triangle-alert': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 20h16a2 2 0 0 0 1.73-2Z"/><path d="M12 9.5v4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/><path d="M12 17h.01" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round"/></svg>`
   };
 
