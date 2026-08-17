@@ -437,6 +437,22 @@
   const N = S.length;
   let c = 0;
 
+  // ── Slide anchors: #0 = module 0 cover, #0.2 = its 2nd content slide ──
+  const slideAnchors = [], anchorToIndex = {};
+  {
+    const counts = {};
+    data.slides.forEach((s, i) => {
+      let a;
+      if (i === 0) a = 'title';
+      else if (s.body === 'toc') a = 'toc';
+      else if (s.type === 'cover') a = labelToMod[s.h1] || 's' + (i + 1);
+      else if (s.mod != null) { counts[s.mod] = (counts[s.mod] || 0) + 1; a = s.mod + '.' + counts[s.mod]; }
+      else a = 's' + (i + 1);
+      slideAnchors[i] = a;
+      if (!(a in anchorToIndex)) anchorToIndex[a] = i;
+    });
+  }
+
   function ui() {
     document.getElementById('counter').textContent = (c + 1) + ' / ' + N;
     document.getElementById('bp').disabled = (c === 0);
@@ -451,7 +467,8 @@
     S[c].classList.add('active');
     ui();
     activateScript(c);
-    history.replaceState(null, '', '#' + (c + 1));
+    if (c === 0) history.replaceState(null, '', location.pathname + location.search);
+    else history.replaceState(null, '', '#' + slideAnchors[c]);
   };
   window.next = function () { go(c + 1); };
   window.prev = function () { go(c - 1); };
@@ -515,10 +532,12 @@
   document.addEventListener('mousemove', rh);
   document.addEventListener('click', rh);
 
-  // Deep link: #7 opens the 7th slide (1-based, matches the counter)
+  // Deep link by module: #0 = Intro cover, #15 = Safety & Testing cover,
+  // #15.2 = 2nd content slide of module 15, #toc = table of contents
   function slideFromHash() {
-    var n = parseInt((location.hash || '').slice(1), 10);
-    return (n >= 1 && n <= N) ? n - 1 : null;
+    var raw = decodeURIComponent((location.hash || '').slice(1));
+    if (!raw) return null;
+    return (raw in anchorToIndex) ? anchorToIndex[raw] : null;
   }
   window.addEventListener('hashchange', () => {
     var n = slideFromHash();
