@@ -163,8 +163,8 @@
     },
     {
       "mod": "2",
-      "title": "Project Ideas & Competition",
-      "topics": "16 Project Ideas, Reference Architecture, BlueSky Contest"
+      "title": "Project Ideas & Your Build",
+      "topics": "16 Project Ideas, Reference Architecture, Praxis Track"
     },
     {
       "mod": "3",
@@ -214,7 +214,7 @@
     {
       "mod": "12",
       "title": "Simulation Environments",
-      "topics": "BlueSky ATM Simulator, DJI Simulator, Validation, Competition Setup"
+      "topics": "BlueSky ATM Simulator, DJI Simulator, Validation"
     },
     {
       "mod": "13",

@@ -89,6 +89,26 @@
   {
     "type": "content",
     "mod": "14",
+    "tag": "important",
+    "title": "One System, End to End",
+    "desc": "The diagram from Module 2, revisited — every box is now something you have built or can build",
+    "body": [
+      {
+        "code": "[ DJI Mini 4 Pro ] --&gt; [ Android client ]        the Lab (M3)\n                              |  OpenAPI-described REST  (M7)\n                              v\n                      [ Ingest API ]  WebFlux stream  (M8)\n                              |\n                              v\n                  [ telemetry topic  (M9) ]\n                    |         |          |\n                    v         v          v\n            [ live map ] [ avoidance ] [ CQRS store ]\n             (M13, GIS)   logic --&gt;      (M10)\n                          validated in\n                          BlueSky (M12)\n\n  fed by NOTAM / METAR / AIXM context (M5)  ·  inside a UTM picture (M6)\n  Karate tests every boundary (M11)  ·  the Safety &amp; Testing gate and\n  DO-178C mindset (M4) guard everything that flies"
+      },
+      {
+        "card": "The point",
+        "items": [
+          "Every module of this course was <strong>one station of the same system</strong> &mdash; nothing you learned stands alone",
+          "You can now build this <strong>end to end</strong>: parse aviation data, expose it, stream it, fan it out, guard the writes, test every seam, and prove it in simulation before a single prop spins",
+          "That is the sentence for your CV &mdash; and the one you should be able to <strong>defend in the exam</strong>"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "14",
     "tag": "takeaway",
     "title": "Course Wrap-up & Open Questions",
     "body": [
@@ -106,7 +126,7 @@
         "card": "Now it's on you",
         "items": [
           "Ship your practical project — working code beats slides",
-          "Win the BlueSky competition — and be able to explain <em>why</em> your airspace survived",
+          "Fly your project — and be able to explain <em>why</em> your code was safe to arm",
           "Open questions? Ask now, or bring them to the next session"
         ]
       }

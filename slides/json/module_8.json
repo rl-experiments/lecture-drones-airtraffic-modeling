@@ -60,6 +60,26 @@
     "type": "content",
     "mod": "8",
     "tag": "",
+    "title": "Blocking vs. Reactive: The Same Endpoint Twice",
+    "desc": "Identical annotation on top — a different machine underneath",
+    "body": [
+      {
+        "code": "<span class=\"kw\">// Spring MVC — one thread held for the whole request</span>\n@GetMapping(<span class=\"str\">\"/tracks\"</span>)\nList&lt;TrackUpdate&gt; tracks() {\n    <span class=\"kw\">return</span> jdbcRepo.findAll();      <span class=\"kw\">// blocks the thread at the DB</span>\n}\n\n<span class=\"kw\">// WebFlux — the thread is released between elements</span>\n@GetMapping(value = <span class=\"str\">\"/tracks\"</span>, produces = TEXT_EVENT_STREAM_VALUE)\nFlux&lt;TrackUpdate&gt; tracks() {\n    <span class=\"kw\">return</span> r2dbcRepo.findAll();     <span class=\"kw\">// non-blocking, streams as SSE</span>\n}"
+      },
+      {
+        "card": "What actually changed",
+        "items": [
+          "The MVC version <strong>holds a servlet thread until the last row arrives</strong> &mdash; 1,000 live clients means roughly 1,000 threads",
+          "The Flux version subscribes; rows flow through the <strong>event loop</strong> as they arrive &mdash; 1,000 clients share a handful of threads",
+          "<code>TEXT_EVENT_STREAM</code> turns the endpoint into a <strong>live telemetry feed</strong> &mdash; the moving map in Module 13 consumes exactly this"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "8",
+    "tag": "",
     "title": "The Reactive Streams Specification",
     "desc": "Four interfaces and one crucial idea: backpressure",
     "body": [

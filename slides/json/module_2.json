@@ -14,11 +14,11 @@
     },
     "bg": 5,
     "h1": "Module 2",
-    "lead": "Project Ideas & Competition",
-    "sub": "Build your own drone-software project — the BlueSky airspace competition is one way to take it on",
+    "lead": "Project Ideas & Your Build",
+    "sub": "Build your own drone-software project — from data pipelines to real flight",
     "badges": [
       "Your Own Project",
-      "*BlueSky Competition"
+      "*Real-Drone Praxis"
     ]
   },
   {
@@ -154,7 +154,7 @@
             [
               "16",
               "<strong>Collision avoidance in BlueSky</strong>",
-              "Study <code>bluesky/plugins/asas</code>, then build and <strong>measure</strong> your own resolver &mdash; the competition topic"
+              "Study <code>bluesky/plugins/asas</code>, then build and <strong>measure</strong> your own resolver against the built-in ones &mdash; a classic ATM research problem"
             ]
           ]
         }
@@ -185,33 +185,24 @@
     "type": "content",
     "mod": "2",
     "tag": "exercise",
-    "title": "The Competition: Collision Avoidance in BlueSky",
-    "desc": "We put theory aside and let your code fight for survival",
+    "title": "The Praxis Track: From Idea to Flying Code",
+    "desc": "The real Mini 4 Pro is the goal — the simulators are how you earn your way to it",
     "body": [
       {
-        "card": "The challenge",
+        "card": "Real hardware first",
         "items": [
-          "We split into <strong>groups</strong> &mdash; each group develops a collision-avoidance system for the airspace",
-          "All systems run in the <strong>BlueSky air traffic simulator</strong> (TU Delft, open source)",
-          "Scoring is brutally simple: <strong>the group that survives longest without a collision wins</strong>",
-          "Starting point: the <code>bluesky/plugins/asas</code> conflict-resolution plugins &mdash; study them, then beat them",
-          "Setup, scenarios and rules of the game: Module 12"
+          "Wherever your idea allows it, <strong>touch the real drone</strong> &mdash; Module 3 hands you a working client, so the distance from idea to first flight is short",
+          "Flight time is scarce: <strong>book lab slots early</strong> and arrive with the mission <strong>already proven in the simulator</strong>",
+          "Every flight passes the <strong>Safety &amp; Testing gate</strong>: tests written and reviewed, simulator run clean &mdash; then props"
         ]
       },
       {
-        "resource": {
-          "title": "Resources",
-          "links": [
-            {
-              "url": "https://github.com/TUDelft-CNS-ATM/bluesky",
-              "label": "BlueSky simulator (GitHub)"
-            },
-            {
-              "url": "https://github.com/TUDelft-CNS-ATM/bluesky/tree/master/bluesky/plugins/asas",
-              "label": "ASAS conflict-resolution plugins"
-            }
-          ]
-        }
+        "card": "No drone in reach?",
+        "items": [
+          "The <strong>DJI simulator</strong> (<code>enableSimulator</code>) runs your control logic against the real SDK &mdash; identical code paths, zero risk (Module 12)",
+          "<strong>BlueSky</strong> covers airspace-level logic: multi-aircraft scenarios, conflict detection, resolvers (Modules 12, ideas 14&ndash;16)",
+          "A strong <strong>backend or pipeline project</strong> (ideas 3&ndash;8) needs no flight at all &mdash; recorded telemetry from the lab is available"
+        ]
       }
     ]
   },
@@ -243,7 +234,7 @@
             ],
             [
               "<strong>Engineering &amp; measurement</strong>",
-              "An approach you designed, <strong>measured and can defend with data</strong> &mdash; e.g. if you enter the competition: why does your airspace survive, and at what traffic density does it stop?"
+              "An approach you designed, <strong>measured and can defend with data</strong> &mdash; where does it work, where does it break, and how did you measure that?"
             ]
           ]
         }
@@ -254,7 +245,7 @@
           "A last-week sprint &mdash; your repo history will show it",
           "Code that runs but that you cannot explain &mdash; it is graded <strong>as if it were missing</strong>",
           "A demo that only works in one rehearsed run &mdash; or AI output you cannot explain line by line",
-          "Competition parameters tweaked until one demo run happened to pass"
+          "Parameters tweaked until one demo run happened to pass"
         ],
         "warn": true
       }

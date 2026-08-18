@@ -73,6 +73,47 @@
   {
     "type": "content",
     "mod": "9",
+    "tag": "demo",
+    "title": "Telemetry Through a Topic",
+    "desc": "The backbone of the Module 2 reference system, in three annotations",
+    "body": [
+      {
+        "code": "<span class=\"kw\">// producer — the drone gateway publishes each position fix</span>\njmsTemplate.convertAndSend(<span class=\"str\">\"telemetry.topic\"</span>, <span class=\"kw\">new</span> Fix(droneId, lat, lon, alt));\n\n<span class=\"kw\">// consumer A — the live map (Module 13)</span>\n@JmsListener(destination = <span class=\"str\">\"telemetry.topic\"</span>, containerFactory = <span class=\"str\">\"topicFactory\"</span>)\n<span class=\"kw\">void</span> onFix(Fix fix) { mapService.update(fix); }\n\n<span class=\"kw\">// consumer B — conflict detection, same messages, independently</span>\n@JmsListener(destination = <span class=\"str\">\"telemetry.topic\"</span>, containerFactory = <span class=\"str\">\"topicFactory\"</span>)\n<span class=\"kw\">void</span> detect(Fix fix) { conflictEngine.feed(fix); }"
+      },
+      {
+        "card": "Why this shape",
+        "items": [
+          "The gateway <strong>doesn't know or care who listens</strong> &mdash; add a flight logger next week without touching it",
+          "The map can crash and restart &mdash; <strong>conflict detection keeps running</strong>; that isolation is the whole point",
+          "Queue vs. topic is one word in the destination config &mdash; <strong>same annotation, different delivery semantics</strong>"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "9",
+    "tag": "",
+    "title": "Kafka: A Log, Not a Queue",
+    "desc": "Same word \"message\" — a fundamentally different storage model",
+    "body": [
+      {
+        "code": "Classic broker (ActiveMQ / RabbitMQ)     Kafka (distributed log)\n\nProducer --&gt; [ queue ] --&gt; Consumer      Producer --&gt; [ p0 | p1 | p2 ]  append-only\n              consumed message                            ^\n              is GONE &mdash; broker            Consumer reads at its own OFFSET\n              tracks delivery              &mdash; and can REWIND and replay\n\nsmart broker, simple clients             simple broker, smart clients"
+      },
+      {
+        "card": "What the log model buys you",
+        "items": [
+          "Queues <strong>delete on acknowledge</strong>; Kafka <strong>retains</strong> messages (by time or size) &mdash; consumers just move an offset",
+          "<strong>Replay is the killer feature for telemetry</strong>: re-run yesterday's traffic through a new conflict detector &mdash; exactly what validation in Module 12 needs",
+          "<strong>Consumer groups</strong> give queue semantics on a log; a partition key of <code>droneId</code> gives <strong>per-drone ordering</strong>",
+          "The price: <strong>cluster operations</strong> &mdash; for a single lab service, a classic broker is the right size"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "9",
     "tag": "",
     "title": "Implementations & Tools",
     "body": [
@@ -101,14 +142,29 @@
             ]
           ]
         }
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "9",
+    "tag": "takeaway",
+    "title": "Module 9: Key Takeaways",
+    "body": [
+      {
+        "card": "The concepts",
+        "items": [
+          "Asynchronous messaging buys <strong>decoupling, buffering and fan-out</strong> &mdash; the sender never waits, the system never loses a message to a restart",
+          "<strong>Queue</strong> = work distribution (each message to exactly one consumer); <strong>topic</strong> = broadcast (every subscriber sees everything)",
+          "Pick the broker by <strong>guarantees, not fashion</strong>: throughput, ordering, persistence, replay"
+        ]
       },
       {
-        "card": "Takeaway",
+        "card": "In our domain",
         "items": [
-          "JMS makes asynchronous communication in Java EE applications straightforward",
-          "Different implementations offer different guarantees — pick by <strong>throughput, ordering and persistence needs</strong>",
-          "Key concepts to remember: <strong>producer, consumer, queue, topic</strong>",
-          "In our domain: telemetry fan-out is a topic, clearance processing is a queue"
+          "<strong>Telemetry fan-out is a topic</strong> &mdash; map, logger and conflict detection subscribe independently",
+          "<strong>Clearance processing is a queue</strong> &mdash; exactly one handler must act on each request",
+          "<strong>Incident replay wants Kafka</strong> &mdash; rewind the offset and re-fly yesterday's airspace against new logic"
         ]
       }
     ]

@@ -21,7 +21,7 @@
       "TU Delft",
       "DJI Simulator",
       "Real-Time Simulation",
-      "*Competition Arena"
+      "*Validation Arena"
     ]
   },
   {
@@ -116,7 +116,7 @@
     "mod": "12",
     "tag": "",
     "title": "BlueSky: The Open ATM Simulator",
-    "desc": "TU Delft's open-source air traffic simulator — and our competition arena",
+    "desc": "TU Delft's open-source air traffic simulator — our validation arena for avoidance logic",
     "body": [
       {
         "card": "What you get",
@@ -148,19 +148,19 @@
     "type": "content",
     "mod": "12",
     "tag": "exercise",
-    "title": "Competition Setup: Your Turn",
-    "desc": "Build a collision-avoidance system, survive longer than everyone else",
+    "title": "BlueSky Setup: Stress-Test Your Logic",
+    "desc": "Run your avoidance logic against scripted traffic — measure, don't guess",
     "body": [
       {
         "code": "<span class=\"kw\"># get the simulator</span>\npip install bluesky-simulator[full]\n<span class=\"kw\"># or from source:</span>\ngit clone https://github.com/TUDelft-CNS-ATM/bluesky.git\n\n<span class=\"kw\"># start the GUI</span>\nbluesky\n\n<span class=\"kw\"># where your work goes</span>\nbluesky/plugins/        &lt;-- your plugin lives here\nbluesky/plugins/asas/   &lt;-- study these first"
       },
       {
-        "card": "Rules of the game",
+        "card": "How to use it",
         "items": [
-          "Work in your groups from Module 2 — one plugin per group",
-          "Same traffic scenario for everyone; your system steers the drones",
-          "<strong>Scoring: time until first collision</strong> — the longest-surviving airspace wins",
-          "Honest engineering beats parameter tuning: be ready to <strong>explain</strong> your approach (detection horizon, resolution maneuver, priorities)"
+          "Script a traffic scenario, let your logic steer the drones, and record when separation fails",
+          "<strong>Time until first conflict is your measurement, not a score</strong> &mdash; vary traffic density and find where your approach breaks",
+          "Study <code>bluesky/plugins/asas</code> first, then measure your resolver against the built-in ones",
+          "Optional deep-dive for airspace-leaning projects (ideas 14&ndash;16) &mdash; and exactly the kind of <strong>measured data</strong> the Grade-1.0 bar asks for (Module 2)"
         ]
       }
     ]

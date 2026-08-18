@@ -63,7 +63,7 @@
         "card": "The journey",
         "items": [
           "<strong>Introduction</strong> &mdash; live flight tracking, drone regulation, the EU drone regulation 2024",
-          "<strong>Your project</strong> &mdash; a hands-on drone-software build you propose, implement and defend; the BlueSky competition is one route you can take",
+          "<strong>Your project</strong> &mdash; a hands-on drone-software build you propose, implement and defend &mdash; on the real Mini 4 Pro or in simulation",
           "<strong>The DJI lab</strong> &mdash; a one-button app already flies the Mini 4 Pro from our own code; you build on it",
           "<strong>Software safety standards</strong> &mdash; DO-178C, ED-109, ED-153, and why 'perfect' software can still kill",
           "<strong>Aeronautical information exchange</strong> &mdash; NOTAM, METAR, AIXM, ASTERIX, OLDI",
