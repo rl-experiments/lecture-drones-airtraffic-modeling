@@ -85,8 +85,28 @@
         "card": "The trap: letting the same AI check itself",
         "items": [
           "If the same AI writes the code <strong>and</strong> the tests, <strong>both inherit the same wrong assumption</strong> &mdash; the tests go green and the drone still hits the wall",
-          "A generated test that asserts <code>distance == velocity * ticks</code> proves nothing if the tick rate in the test is the same wrong guess as in the code",
           "That is why this course demands a <strong>manual recheck of every test</strong> &mdash; you are the independent verifier the AI cannot be"
+        ],
+        "warn": true
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "15",
+    "tag": "demo",
+    "title": "Spot the Bug: \"Fly Forward 2 m\"",
+    "desc": "Generated Kotlin, DJI virtual stick — it compiles, it flies, and it overshoots 3.5×",
+    "body": [
+      {
+        "code": "<span class=\"str\">// task: \"fly forward 2 m\"</span>\n<span class=\"kw\">val</span> distance = 2.0\nrepeat(distance.toInt() * 5) {      <span class=\"str\">// \"2 m at 5 Hz\" — actually just 2 s of flight</span>\n    param.pitch = 3.5f              <span class=\"str\">// 3.5 m/s — copied from an SDK sample</span>\n    VirtualStickManager.sendVirtualStickAdvancedParam(param)\n    delay(200L)                     <span class=\"str\">// 5 Hz tick</span>\n}\n<span class=\"str\">// flown: 3.5 m/s × 2 s = 7 m.   requested: 2 m.   wall: hit.</span>"
+      },
+      {
+        "card": "Three bugs, zero compiler errors",
+        "items": [
+          "<strong>Unit confusion</strong> &mdash; <code>distance</code> holds meters, the loop treats it as seconds; <code>pitch</code> is a velocity that never matched the request",
+          "<strong>No bound, no abort</strong> &mdash; nothing limits the leg length, and an exception mid-loop leaves virtual stick <strong>live with the last velocity still applied</strong>",
+          "A test written <em>first</em> &mdash; <code>assertEquals(2.0, plan.distanceMeters, 0.1)</code> &mdash; fails in milliseconds; the wall-impact version of that feedback costs a drone"
         ],
         "warn": true
       }
