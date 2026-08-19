@@ -262,6 +262,12 @@ html, body {
 }
 .cover-icon svg { width: 160px; height: 160px; }
 
+.content-icon {
+  display: flex; justify-content: center; margin: 2px 0 14px;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.2));
+}
+.content-icon svg { width: 130px; height: 130px; }
+
 /* ══════════════════════════════════════
    IMAGE LIGHTBOX
    ══════════════════════════════════════ */

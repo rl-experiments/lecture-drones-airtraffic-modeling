@@ -391,6 +391,9 @@
     html += `</div></div></div>`;
 
     html += `<div class="cols">`;
+    if (slide.icon && coverIcons[slide.icon]) {
+      html += `<div class="content-icon">${coverIcons[slide.icon]}</div>`;
+    }
     if (slide.body === 'toc') {
       html += renderToc();
     } else if (Array.isArray(slide.body)) {

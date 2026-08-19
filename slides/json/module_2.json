@@ -122,6 +122,33 @@
   {
     "type": "content",
     "mod": "2",
+    "tag": "safety",
+    "icon": "hazard",
+    "title": "An Incident Makes You the Liable Operator",
+    "desc": "Not the university. Not DJI. Not Claude. You.",
+    "body": [
+      {
+        "card": "What German law actually says",
+        "items": [
+          "<strong>Strict liability</strong> (LuftVG): the operator is liable for damage caused by the aircraft <strong>even without any fault</strong> &mdash; a gust, a glitch, a bug: your liability either way. That is exactly why insurance is mandatory",
+          "Rule violations &mdash; geo-zone, altitude, no VLOS &mdash; are offences with <strong>fines up to &euro;50,000</strong>",
+          "If people are <strong>endangered</strong>, criminal law is on the table &mdash; dangerous interference with air traffic is a crime, not a fine",
+          "Insurance pays the victim &mdash; it does <strong>not</strong> protect you from fines, criminal charges, or recourse after gross negligence"
+        ],
+        "warn": true
+      },
+      {
+        "card": "What this means for you in this course",
+        "items": [
+          "The person flying is <strong>personally responsible</strong> &mdash; handing you the university's drone does not move the responsibility",
+          "<em>&quot;The AI wrote that code&quot;</em> is <strong>not a defense</strong> &mdash; you armed the motors; every rule on the previous two slides exists so this slide never applies to you"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "2",
     "tag": "important",
     "title": "AI-Generated Flight Code: Compiles, Looks Right, Flies Wrong",
     "desc": "Claude writes Kotlin that reads clean and builds green — the drone doesn't know that",
