@@ -69,6 +69,59 @@
   {
     "type": "content",
     "mod": "2",
+    "tag": "safety",
+    "title": "Code Flies Indoors. Outdoors, Hands Fly.",
+    "desc": "The course rule on programmatic flight — and why it exists",
+    "body": [
+      {
+        "card": "Why outdoor + code is a different animal",
+        "items": [
+          "Indoors a runaway loop meets <strong>a wall within meters</strong> &mdash; outdoors nothing stops it: the link drops, your code keeps commanding, and the drone is <strong>gone across the city</strong>",
+          "Our SDK code <strong>bypasses DJI Fly's guardrails</strong> &mdash; altitude limits and geo-zone warnings simply don't exist in your virtual-stick loop",
+          "Outdoors the drone meets <strong>uninvolved people</strong> &mdash; a code bug is no longer a lab incident, it is an <strong>aviation incident with you as the liable operator</strong>"
+        ]
+      },
+      {
+        "card": "The course rule",
+        "items": [
+          "<strong>Programmatic / virtual-stick flight happens indoors (guards on) or in the simulator. Never outdoors.</strong>",
+          "Outdoor flights are <strong>manual only</strong>: RC in hand, sticks under your fingers, following the open-category rules on the next slide",
+          "No exceptions &mdash; not for &quot;just a quick test&quot;, not for a calm day, not for an empty field"
+        ],
+        "warn": true
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "2",
+    "tag": "safety",
+    "title": "Outdoors, the Law Flies With You",
+    "desc": "EU open category — the rules that apply to every single outdoor flight, even under 250 g",
+    "body": [
+      {
+        "card": "Always — no matter how small the drone",
+        "items": [
+          "<strong>VLOS</strong>: keep the aircraft in <strong>unaided sight</strong> the whole flight &mdash; not on the screen, in the sky",
+          "<strong>Max 120 m</strong> above ground &mdash; the hard ceiling of the whole open category",
+          "<strong>Geo-zones are off-limits</strong>: airports (1.5 km in Germany), hospitals, prisons, nature reserves &mdash; check <strong>DiPUL</strong> before every flight (Module 14)",
+          "<strong>Registration + insurance</strong>: operator e-ID sticker on the aircraft, liability insurance is mandatory in Germany",
+          "<strong>Never over assemblies of people</strong>, no dropping of anything, minimum age 16"
+        ]
+      },
+      {
+        "card": "Our Mini 4 Pro (C0, &lt; 250 g) flies in A1 — the mildest class, not a free pass",
+        "items": [
+          "Overflying <strong>individual uninvolved people</strong> is tolerated only if unplanned &mdash; and must be ended immediately; <strong>never plan a route over anyone</strong>",
+          "A2 (30 m distance) and A3 (150 m from built-up areas) apply to heavier drones &mdash; the full table is in Module 1",
+          "The <strong>A1/A3 certificate</strong> (EU online training + exam) is the minimum license &mdash; and it binds <em>you</em> personally, not the university"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "2",
     "tag": "important",
     "title": "AI-Generated Flight Code: Compiles, Looks Right, Flies Wrong",
     "desc": "Claude writes Kotlin that reads clean and builds green — the drone doesn't know that",
