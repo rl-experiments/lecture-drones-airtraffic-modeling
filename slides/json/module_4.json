@@ -229,40 +229,28 @@
     "type": "content",
     "mod": "4",
     "tag": "",
-    "title": "Principle 1: Define the Safety Requirements",
-    "desc": "Software safety requirements must address the software's contribution to system hazards",
+    "title": "Principles 1 & 2: Define the Requirements, Preserve the Intent",
+    "desc": "Safety requirements must exist — and must survive decomposition",
     "body": [
       {
-        "card": "The principle",
+        "card": "Principle 1 — define them",
         "items": [
-          "Software safety requirements <strong>must be defined</strong> to consider the software's contribution to system hazards",
-          "DO-178B/C <strong>assumes</strong> a system-level safety analysis has already derived safety requirements and allocated them to software",
-          "A system-level standard judges the criticality of software's contribution to hazards and expresses it as a quoted level",
-          "<strong>ARP 4754A</strong> (civil aerospace) allocates a software <strong>Development Assurance Level (DAL)</strong>",
-          "<strong>Mil-Std-882E</strong> (military) allocates a Level of Rigour, translatable into a DO-178 DAL"
+          "Software safety requirements <strong>must be defined</strong>, considering the software's contribution to system hazards",
+          "DO-178B/C <strong>assumes</strong> a system-level safety analysis has already derived and allocated them",
+          "The criticality is expressed as a level: <strong>ARP 4754A</strong> assigns a <strong>DAL</strong> (civil), <strong>Mil-Std-882E</strong> a Level of Rigour (military)"
         ]
-      }
-    ]
-  },
-  {
-    "type": "content",
-    "mod": "4",
-    "tag": "",
-    "title": "Principle 2: Preserve Intent During Decomposition",
-    "desc": "The intent of safety requirements must survive requirement decomposition",
-    "body": [
+      },
       {
         "img": "lufthansa-2904-warsaw.png",
         "alt": "Burned-out Lufthansa Airbus A320 after the Warsaw runway overrun, 1993",
-        "height": 250,
+        "height": 200,
         "caption": "Lufthansa Flight 2904, Warsaw, 14 September 1993: thrust reversers and spoilers were locked out because the 'aircraft on ground' logic — a decomposed requirement — didn't match the actual landing conditions."
       },
       {
-        "card": "What DO-178C says",
+        "card": "Principle 2 — preserve them through decomposition",
         "items": [
-          "DO-178 strongly emphasizes <strong>traceability</strong> through all software development stages",
-          "Decomposed requirements must be <strong>validated</strong>, e.g. through requirements review",
-          "Recording traceability information is required &mdash; but <strong>necessary, not sufficient</strong>: a written justification of the traceability is what actually preserves intent"
+          "DO-178 strongly emphasizes <strong>traceability</strong> through all development stages; decomposed requirements must be <strong>validated</strong>",
+          "Recording traceability is <strong>necessary, not sufficient</strong>: a written <strong>justification</strong> of the trace is what actually preserves intent"
         ]
       }
     ]
@@ -293,38 +281,28 @@
     "type": "content",
     "mod": "4",
     "tag": "",
-    "title": "Principle 4: Identify & Mitigate Hazardous Behavior",
-    "desc": "The software itself can introduce new failure modes",
+    "title": "Principles 4 & 4+1: Mitigate Hazards, Scale the Rigor",
+    "desc": "Design can introduce failure modes — and the effort must match the risk",
     "body": [
       {
         "img": "patriot-missile.png",
         "alt": "Patriot missile launch",
-        "height": 170,
+        "height": 150,
         "caption": "Dhahran, 25 February 1991: a Patriot battery failed to intercept a Scud missile — a floating-point time-accumulation error after 100 hours of continuous operation. 28 soldiers died, 98 were injured."
       },
       {
-        "card": "What DO-178C says",
+        "card": "Principle 4 — identify & mitigate hazardous behavior",
         "items": [
-          "Software design process activities 'could introduce modes of failure into the software or, conversely, preclude others'",
-          "In such cases additional data must be defined as <strong>derived requirements</strong> and fed back to the <strong>system safety assessment process</strong> &mdash; the loop where projects often break down in practice",
-          "An objective of DO-178 verification is to remove errors that would lead to unacceptable failure conditions"
+          "Design activities 'could introduce modes of failure into the software or, conversely, preclude others'",
+          "Such findings become <strong>derived requirements</strong> fed back to the <strong>system safety assessment</strong> &mdash; the loop where projects break down in practice",
+          "A core objective of DO-178 verification: remove errors that would cause unacceptable failure conditions"
         ]
-      }
-    ]
-  },
-  {
-    "type": "content",
-    "mod": "4",
-    "tag": "",
-    "title": "Principle 4+1: Confidence Proportionate to Risk",
-    "desc": "The more the software can hurt, the more evidence you owe",
-    "body": [
+      },
       {
-        "card": "The principle",
+        "card": "Principle 4+1 — confidence proportionate to risk",
         "items": [
-          "Confidence in the implementation of the software safety principles must be <strong>commensurate with the software's contribution to system risk</strong>",
-          "In DO-178C this is captured through the <strong>DAL mechanism</strong>: the assigned level tailors how many objectives must be demonstrated (with independence, with formal rigor, ...)",
-          "Caveat: the system-level analysis determines the DAL but does <strong>not necessarily hand the developer derived safety requirements</strong> &mdash; the level alone is not a specification"
+          "Confidence must be <strong>commensurate with the software's contribution to system risk</strong> &mdash; in DO-178C, the <strong>DAL</strong> tailors how many objectives to demonstrate, with what independence and rigor",
+          "Caveat: the DAL alone is <strong>not a specification</strong> &mdash; system analysis assigns the level but doesn't hand you derived safety requirements"
         ]
       }
     ]

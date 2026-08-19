@@ -164,5 +164,22 @@
         ]
       }
     ]
+  },
+  {
+    "type": "content",
+    "mod": "12",
+    "tag": "takeaway",
+    "title": "Module 12: Key Takeaways",
+    "body": [
+      {
+        "card": "",
+        "items": [
+          "Two simulators, two questions: the <strong>DJI simulator</strong> answers 'does my control code behave?', <strong>BlueSky</strong> answers 'does my airspace logic scale?'",
+          "Simulation is the <strong>cheap half of the Safety &amp; Testing gate</strong> — every mission flies virtually before it flies physically",
+          "A simulator validates <strong>logic, not reality</strong>: wind, latency and sensor noise stay simplified — margins belong in the design (Module 4)",
+          "<strong>Time-until-first-conflict</strong> under rising traffic density is your measurement — data like this is what the Grade-1.0 bar means by 'measured' (Module 2)"
+        ]
+      }
+    ]
   }
 ]

@@ -110,7 +110,8 @@
           "Karate writes API tests in readable <strong>Gherkin</strong> — no Java required, so the whole team can read and run them",
           "One tool covers <strong>functional, integration and performance</strong> tests and drops straight into CI/CD",
           "Chaining requests — capture a token, then reuse it — makes <strong>multi-step flows</strong> like sign-in-then-call easy to express",
-          "Every UTM and telemetry interface from Modules 6–8 is a natural Karate target: contract-test it before you trust it"
+          "Every UTM and telemetry interface from Modules 6–8 is a natural Karate target: contract-test it before you trust it",
+          "This is the <strong>Safety &amp; Testing gate, API edition</strong>: the same test-first discipline that keeps the drone out of the wall keeps your backend honest"
         ]
       }
     ]

@@ -73,6 +73,48 @@
     "type": "content",
     "mod": "1",
     "tag": "",
+    "title": "Not an Isolated Incident: The Numbers",
+    "desc": "What German air traffic control actually counts — and what it costs",
+    "body": [
+      {
+        "table": {
+          "headers": [
+            "DFS count (Deutsche Flugsicherung)",
+            "Figure"
+          ],
+          "rows": [
+            [
+              "Drone incidents at German airports, <strong>2025</strong>",
+              "<strong>226</strong> — 116 of them caused full or partial closures at 25 airports"
+            ],
+            [
+              "Direct cost to air traffic, 2025",
+              "~<strong>&euro;60 million</strong> — up to <strong>&euro;160 million</strong> including delays, broken rotations and cancellations"
+            ],
+            [
+              "<strong>First half of 2026</strong> alone",
+              "<strong>145</strong> disruptions — Berlin, Frankfurt and Bremen most affected"
+            ],
+            [
+              "Where they happen",
+              "<strong>90%</strong> near airports — despite a 1.5 km no-fly radius; one sighting on approach closes a runway for <strong>&ge; 30 minutes</strong>"
+            ]
+          ]
+        }
+      },
+      {
+        "card": "Why this matters for this course",
+        "items": [
+          "The trend is <strong>up, not down</strong> — 2025 also saw coordinated drone sightings shut down airports across Europe",
+          "Every number in this table is a <strong>detection, identification and traffic-management failure</strong> — precisely the system gap UTM (Module 6) and the technology stack of this course exist to close"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "1",
+    "tag": "",
     "title": "Why Drone Air Traffic Matters",
     "desc": "Small aircraft, serious kinetic energy",
     "body": [
