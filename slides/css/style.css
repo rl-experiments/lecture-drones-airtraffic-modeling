@@ -263,11 +263,12 @@ html, body {
 .cover-icon svg { width: 160px; height: 160px; }
 
 .content-icon {
-  position: absolute; top: 16px; right: -65px; z-index: 5;
-  line-height: 0;
+  position: absolute; top: 50%; right: -52px; transform: translateY(-50%);
+  z-index: 5; line-height: 0;
   filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.2));
 }
-.content-icon svg { width: 130px; height: 130px; }
+.content-icon svg { width: 104px; height: 104px; }
+.card { position: relative; }
 
 /* ══════════════════════════════════════
    IMAGE LIGHTBOX

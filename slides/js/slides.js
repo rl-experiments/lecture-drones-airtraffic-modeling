@@ -411,6 +411,13 @@
   }
   container.innerHTML = allHtml;
 
+  // Re-parent content icons into their slide's first card so they can
+  // center vertically on it (card heights vary per slide)
+  container.querySelectorAll('.slide-content .content-icon').forEach(ic => {
+    const card = ic.parentElement.querySelector('.card');
+    if (card) card.appendChild(ic);
+  });
+
   // ── Per-slide scripts (bug, butterfly, etc.) ────────
   const scriptMap = {};
   data.slides.forEach((s, i) => { if (s.script) scriptMap[i] = s.script; });
