@@ -308,7 +308,7 @@
       const widthStyle = item.fill ? 'width:100%' : 'width:auto;max-width:100%';
       sizeStyle = `height:auto;${widthStyle};max-height:400px`;
     }
-    html += `<img src="images/content/${item.img}" alt="${item.alt || ''}" style="display:block;${sizeStyle}">`;
+    html += `<img src="images/content/${item.img}" alt="${item.alt || ''}" style="display:block;${sizeStyle}" class="img-zoom" onclick="lightbox(this)" title="Click to enlarge">`;
     if (item.caption) {
       html += `<p style="font-size:14px;color:var(--muted-foreground);margin-top:8px">${item.caption}</p>`;
     }
@@ -522,7 +522,23 @@
     if (count) count.textContent = active ? count.dataset.filtered : count.dataset.total;
   };
 
+  // ── Lightbox: click any content image to enlarge ───
+  const lb = document.createElement('div');
+  lb.id = 'lightbox';
+  lb.innerHTML = '<img alt="">';
+  lb.addEventListener('click', () => lb.classList.remove('open'));
+  document.body.appendChild(lb);
+  window.lightbox = function (imgEl) {
+    lb.querySelector('img').src = imgEl.src;
+    lb.querySelector('img').alt = imgEl.alt;
+    lb.classList.add('open');
+  };
+
   document.addEventListener('keydown', e => {
+    if (lb.classList.contains('open')) {
+      if (e.key === 'Escape' || e.key === ' ' || e.key === 'Enter') { e.preventDefault(); lb.classList.remove('open'); }
+      return; // don't navigate slides behind an open lightbox
+    }
     const k = e.key;
     if (k === 'ArrowRight' || k === ' ' || k === 'PageDown') { e.preventDefault(); next(); }
     if (k === 'ArrowLeft' || k === 'Backspace' || k === 'PageUp') { e.preventDefault(); prev(); }

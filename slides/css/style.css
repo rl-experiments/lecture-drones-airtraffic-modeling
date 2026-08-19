@@ -262,6 +262,21 @@ html, body {
 }
 .cover-icon svg { width: 160px; height: 160px; }
 
+/* ══════════════════════════════════════
+   IMAGE LIGHTBOX
+   ══════════════════════════════════════ */
+.img-zoom { cursor: zoom-in; }
+#lightbox {
+  position: fixed; inset: 0; z-index: 1000;
+  display: none; align-items: center; justify-content: center;
+  background: rgba(0, 0, 0, 0.88); cursor: zoom-out;
+}
+#lightbox.open { display: flex; }
+#lightbox img {
+  max-width: 96vw; max-height: 96vh;
+  border-radius: 8px; box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+}
+
 /* Cover slide with contents: side-by-side layout */
 .slide-cover:has(.cover-contents) {
   gap: 24px;
