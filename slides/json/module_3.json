@@ -6,177 +6,103 @@
       "opts": {
         "perched": true,
         "anchor": ".cover-card",
-        "anchorOffsetX": 100,
-        "anchorOffsetY": -25,
+        "anchorOffsetX": 40,
+        "anchorOffsetY": -15,
         "scale": 1.05,
-        "color": "#eab308"
+        "color": "#dc2626"
       }
     },
-    "bg": 5,
+    "bg": 6,
     "h1": "Module 3",
-    "lead": "Project Ideas & Your Build",
-    "sub": "Build your own drone-software project — from data pipelines to real flight",
+    "lead": "Principles of Software Safety Standards",
+    "sub": "Why aviation software is built differently — and what drones inherit from it",
     "badges": [
-      "Your Own Project",
-      "*Real-Drone Praxis"
+      "DO-178C",
+      "ED-109 / ED-153",
+      "SIL",
+      "ARP 4754A",
+      "*Boeing 777 FBW"
     ]
   },
   {
     "type": "content",
     "mod": "3",
     "tag": "",
-    "title": "Easy Projects (1–5): Get the Data Flowing",
-    "desc": "Start here — read, display, log and test on top of the DJI client (labs/dji-hello-world); no autonomous flight, low risk",
+    "title": "The Standards Landscape",
+    "desc": "Who writes the rules for safety-critical aviation software",
     "body": [
       {
         "table": {
           "headers": [
-            "#",
-            "Build",
-            "What you make"
+            "Standard",
+            "Publisher",
+            "Scope"
           ],
           "rows": [
             [
-              "1",
-              "<strong>Live telemetry dashboard</strong>",
-              "Subscribe via <strong>KeyManager</strong> to position, altitude, attitude, battery, satellites and link status; show it all as a <strong>live on-screen dashboard</strong> on the phone"
+              "<strong>DO-178C</strong>",
+              "RTCA (Radio Technical Commission for Aeronautics, USA)",
+              "Software considerations in airborne systems &mdash; <em>the</em> certification standard for flight software"
             ],
             [
-              "2",
-              "<strong>Flight-track logger &amp; replay</strong>",
-              "Record a flight to a file (CSV / GeoJSON) and visualise the 3D track afterwards &mdash; feeds into the GIS module (Module 14)"
+              "<strong>ED-109</strong>",
+              "EUROCAE (European Organisation for Civil Aviation Equipment)",
+              "Software integrity assurance for ground and ATM systems (European counterpart of DO-278)"
             ],
             [
-              "3",
-              "<strong>Readable API test suite in Karate</strong>",
-              "Contract tests for the telemetry / command backend that the whole team can read and run (Module 12)"
+              "<strong>ED-153</strong>",
+              "EUROCAE",
+              "Software safety assurance for air navigation service (ANS) systems &mdash; air traffic systems"
             ],
             [
-              "4",
-              "<strong>Flight data store &amp; query API</strong>",
-              "Persist flights and expose an API to search, compare and replay them"
+              "<strong>ARP 4754A</strong>",
+              "SAE",
+              "System-level development of civil aircraft &mdash; allocates Development Assurance Levels (DALs) to software"
             ],
             [
-              "5",
-              "<strong>Real-time map of live tracks</strong>",
-              "Plot one or many live drone positions on a <strong>moving map</strong> (Module 14)"
+              "<strong>Mil-Std-882E</strong>",
+              "US DoD",
+              "Military system safety &mdash; allocates a Level of Rigour, translatable into a DO-178 DAL"
             ]
           ]
         }
-      }
-    ]
-  },
-  {
-    "type": "content",
-    "mod": "3",
-    "tag": "",
-    "title": "Medium Projects (6–11): Build the Pipeline",
-    "desc": "More moving parts — backend plumbing, and flight in the simulator or under close supervision",
-    "body": [
-      {
-        "table": {
-          "headers": [
-            "#",
-            "Build",
-            "What you make"
-          ],
-          "rows": [
-            [
-              "6",
-              "<strong>Geofence &amp; safety guard</strong>",
-              "Enforce a soft boundary from the live position; auto return-to-home or land when the drone nears the limit"
-            ],
-            [
-              "7",
-              "<strong>Telemetry REST / streaming service</strong>",
-              "Push live telemetry to a Spring service described with <strong>OpenAPI</strong>; fan it out over SSE or WebSocket (Modules 9&ndash;9)"
-            ],
-            [
-              "8",
-              "<strong>Message-queue telemetry pipeline</strong>",
-              "Publish tracks to a <strong>topic</strong>; independent consumers log, monitor and raise alerts in parallel (Module 10)"
-            ],
-            [
-              "9",
-              "<strong>Autonomous pattern flyer</strong>",
-              "Fly a waypoint square, orbit or lawn-mower scan &mdash; first in the <strong>DJI simulator</strong>, then on real hardware with margin"
-            ],
-            [
-              "10",
-              "<strong>UTM monitor fed by a real drone</strong>",
-              "Feed the Module 7 <strong>UTM-style monitor</strong> with the Mini 4 Pro's live position &mdash; show it as a tracked aircraft"
-            ],
-            [
-              "11",
-              "<strong>CQRS flight-state service</strong>",
-              "Separate the <strong>command</strong> side (mission commands) from the <strong>query</strong> side (current &amp; historical state) for the drone (Module 11)"
-            ]
-          ]
-        }
-      }
-    ]
-  },
-  {
-    "type": "content",
-    "mod": "3",
-    "tag": "",
-    "title": "Hard Projects (12–16): Autonomy & Systems",
-    "desc": "Control loops, computer vision and multi-aircraft systems — the deep end",
-    "body": [
-      {
-        "table": {
-          "headers": [
-            "#",
-            "Build",
-            "What you make"
-          ],
-          "rows": [
-            [
-              "12",
-              "<strong>Closed-loop precision movement</strong>",
-              "Replace the lab's open-loop timed hops with <strong>distance / position control</strong> driven by live telemetry feedback"
-            ],
-            [
-              "13",
-              "<strong>Camera stream &amp; onboard vision</strong>",
-              "Pull the <strong>live video feed</strong> into the app, grab frames and run simple detection (marker, QR or colour blob) with an on-screen overlay"
-            ],
-            [
-              "14",
-              "<strong>BlueSky &harr; real-drone bridge</strong>",
-              "Inject the real drone as an aircraft into the <strong>BlueSky simulator</strong>, or run a sim scenario alongside a real flight"
-            ],
-            [
-              "15",
-              "<strong>Multi-drone coordination &amp; spacing</strong>",
-              "Simulate several tracks (sim plus one real) and <strong>detect &amp; space conflicts</strong> between them"
-            ],
-            [
-              "16",
-              "<strong>Collision avoidance in BlueSky</strong>",
-              "Study <code>bluesky/plugins/asas</code>, then build and <strong>measure</strong> your own resolver against the built-in ones &mdash; a classic ATM research problem"
-            ]
-          ]
-        }
-      }
-    ]
-  },
-  {
-    "type": "content",
-    "mod": "3",
-    "tag": "important",
-    "title": "How It All Fits: One Reference System",
-    "desc": "Every project idea is one box or one arrow in the same pipeline — from the drone to the map",
-    "body": [
-      {
-        "code": "[ DJI Mini 4 Pro ]   telemetry + video\n       |  MSDK v5\n       v\n[ Android app ]   labs/dji-hello-world  (Module 4)\n       |  REST, described by OpenAPI  (M8)\n       v\n[ Ingest API ] --&gt; Reactive stream, Spring WebFlux  (M9)\n       |\n       v\n[ Message queue / topic  (M10) ]\n       |\n  +----+-----------------------+\n  v                            v\n[ CQRS store  (M11) ]     [ UTM monitor  (M7) ]\n  |                            |\n  v                            v\n[ GIS moving map  (M14) ] [ BlueSky sim  (M13) ]\n\n  Karate  (M12)  contract-tests every API boundary above"
       },
       {
-        "card": "Reading the diagram",
+        "resource": {
+          "title": "Further reading",
+          "links": [
+            {
+              "url": "https://de.wikipedia.org/wiki/Radio_Technical_Commission_for_Aeronautics",
+              "label": "RTCA (Wikipedia)"
+            },
+            {
+              "url": "https://www.eurocae.net",
+              "label": "EUROCAE"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "3",
+    "tag": "",
+    "title": "Safety Culture Predates Software",
+    "desc": "Aviation learned about redundancy, checklists and failure analysis long before code existed",
+    "body": [
+      {
+        "img": "ultralight-ground-1986.jpg",
+        "alt": "Ground crew preparing a home-built ultralight aircraft, 1986",
+        "height": 280,
+        "caption": "1986: even the ultralight my father built by hand got a rigorous pre-flight inspection. The mindset — assume failure, check everything, control change — is exactly what software safety standards later formalized."
+      },
+      {
+        "card": "",
         "items": [
-          "The <strong>DJI lab (Module 4)</strong> is the source; the <strong>technology blocks (7&ndash;11)</strong> move and shape the data; <strong>UTM, GIS and BlueSky</strong> turn it into an air-traffic picture",
-          "You do <strong>not</strong> build all of it &mdash; you build <strong>one increment</strong> and connect it to the piece next door",
-          "That is why the project ideas run <strong>easy &rarr; medium &rarr; hard</strong> &mdash; start where you are comfortable and climb"
+          "Aviation safety engineering matured over a century of accidents and investigations",
+          "Software safety standards are that culture, <strong>translated into the language of code</strong>: requirements, traceability, verification evidence",
+          "Drones now inherit both worlds &mdash; and the standards that come with them"
         ]
       }
     ]
@@ -184,24 +110,67 @@
   {
     "type": "content",
     "mod": "3",
-    "tag": "exercise",
-    "title": "The Praxis Track: From Idea to Flying Code",
-    "desc": "The real Mini 4 Pro is the goal — the simulators are how you earn your way to it",
+    "tag": "",
+    "title": "The Economics of Fixing Defects",
+    "desc": "Why standards front-load so much work into requirements and design",
     "body": [
       {
-        "card": "Real hardware first",
-        "items": [
-          "Wherever your idea allows it, <strong>touch the real drone</strong> &mdash; Module 4 hands you a working client, so the distance from idea to first flight is short",
-          "Flight time is scarce: <strong>book lab slots early</strong> and arrive with the mission <strong>already proven in the simulator</strong>",
-          "Every flight passes the <strong>Safety &amp; Testing gate</strong>: tests written and reviewed, simulator run clean &mdash; then props"
-        ]
+        "img": "cost-of-fixing-defects.png",
+        "alt": "Bar chart: relative cost of fixing defects rises from 1 at design to 100 in maintenance",
+        "height": 250,
+        "caption": "Source: Dawson, Burrell, Rahim & Brewster (2010), Integrating Software Assurance into the SDLC."
       },
       {
-        "card": "No drone in reach?",
+        "card": "Relative cost of fixing a defect",
         "items": [
-          "The <strong>DJI simulator</strong> (<code>enableSimulator</code>) runs your control logic against the real SDK &mdash; identical code paths, zero risk (Module 13)",
-          "<strong>BlueSky</strong> covers airspace-level logic: multi-aircraft scenarios, conflict detection, resolvers (Modules 13, ideas 14&ndash;16)",
-          "A strong <strong>backend or pipeline project</strong> (ideas 3&ndash;8) needs no flight at all &mdash; recorded telemetry from the lab is available"
+          "Found during <strong>design</strong>: 1&times; &mdash; during <strong>implementation</strong>: 6.5&times; &mdash; during <strong>testing</strong>: 15&times;",
+          "Found in <strong>maintenance</strong> (i.e. in the field): <strong>100&times;</strong>",
+          "In aviation, 'found in the field' can mean an accident investigation &mdash; the 100&times; becomes incalculable"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "3",
+    "tag": "",
+    "title": "'Perfect' Software Can Kill",
+    "desc": "Correct code is not the same as a safe system",
+    "body": [
+      {
+        "img": "accidental-death-causes.png",
+        "alt": "Pie chart of computer-related accidental deaths: 91.9% human-computer interaction problems",
+        "height": 230,
+        "caption": "Source: Donald MacKenzie, Computer-related accidental death, Science and Public Policy 21(4), 1994."
+      },
+      {
+        "card": "Computer-related accidental deaths (MacKenzie, 1994)",
+        "items": [
+          "<strong>91.9%</strong> — human-computer interaction problems",
+          "<strong>4.5%</strong> — physical causes, <strong>2.8%</strong> — software errors, <strong>0.8%</strong> — other",
+          "The software can meet every requirement and still contribute to a fatal accident &mdash; if the requirements or the interaction design are wrong"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "3",
+    "tag": "",
+    "title": "'Out of Control' — Where Failures Are Born",
+    "desc": "UK Health & Safety Executive study of control system failures (HSG 238, 2003)",
+    "body": [
+      {
+        "img": "control-system-failure-causes.png",
+        "alt": "Pie chart of control system failure causes by lifecycle phase, specification dominates with 44%",
+        "height": 240
+      },
+      {
+        "card": "Primary cause by lifecycle phase",
+        "items": [
+          "<strong>44%</strong> — specification, <strong>20%</strong> — changes after commissioning",
+          "<strong>15%</strong> — design and implementation, <strong>15%</strong> — operation and maintenance, <strong>6%</strong> — installation",
+          "Almost two thirds of failures are created <strong>before or after</strong> the code is written &mdash; in the spec, or in uncontrolled change"
         ]
       }
     ]
@@ -210,44 +179,181 @@
     "type": "content",
     "mod": "3",
     "tag": "important",
-    "title": "Expectations: The Path to Grade 1.0",
-    "desc": "The bar is deliberately high — this is a master's module, and working software you understand is its currency",
+    "title": "Safe Software Design: What It Is (and Isn't)",
+    "desc": "The uncomfortable conclusion from the failure statistics",
     "body": [
       {
-        "table": {
-          "headers": [
-            "Requirement",
-            "The bar"
-          ],
-          "rows": [
-            [
-              "<strong>&ge; 60 hours</strong> of independent work",
-              "That is the <strong>entry ticket, not the goal</strong> — a 1.0 usually takes more. The effort must be <strong>traceable</strong> across the whole semester: repo history, notes, iterations"
-            ],
-            [
-              "<strong>Explain &mdash; and modify &mdash; live</strong>",
-              "At the live demo expect <em>&quot;now change X&quot;</em> and follow-up questions that continue <strong>until it is clear the work is yours</strong>. Every design decision needs a reason you can defend"
-            ],
-            [
-              "A <strong>working, practical build</strong>",
-              "Your own idea on top of the DJI client (Module 4), running on real hardware or the simulator — plus your own critical judgement of where the SDK's limits are"
-            ],
-            [
-              "<strong>Engineering &amp; measurement</strong>",
-              "An approach you designed, <strong>measured and can defend with data</strong> &mdash; where does it work, where does it break, and how did you measure that?"
-            ]
-          ]
-        }
-      },
-      {
-        "card": "What does NOT count",
+        "card": "Safe software design ISN'T so much about:",
         "items": [
-          "A last-week sprint &mdash; your repo history will show it",
-          "Code that runs but that you cannot explain &mdash; it is graded <strong>as if it were missing</strong>",
-          "A demo that only works in one rehearsed run &mdash; or AI output you cannot explain line by line",
-          "Parameters tweaked until one demo run happened to pass"
+          "Design and coding",
+          "Fault counts in code",
+          "Unit testing"
         ],
         "warn": true
+      },
+      {
+        "card": "Safe software design IS about:",
+        "items": [
+          "<strong>Understanding context</strong> — what system, what hazards, what environment",
+          "<strong>Requirements / specification</strong> — where 44% of failures are born",
+          "<strong>Understanding the human-control interaction</strong> — where 91.9% of fatal problems live",
+          "<strong>Controlling change</strong> — the second-largest failure source"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "3",
+    "tag": "",
+    "title": "Trust Levels & Categories: SIL",
+    "desc": "Safety Integrity Levels grade how much you must trust the software",
+    "body": [
+      {
+        "img": "sil-levels.png",
+        "alt": "Table of SIL levels 0-4 with requirements for specification, languages, configuration control, testing and assessment",
+        "height": 260
+      },
+      {
+        "card": "Reading the table",
+        "items": [
+          "<strong>SIL 0</strong> = ISO 9001 process only — <em>no safety claim at all; an accident is quite likely to happen</em>",
+          "<strong>SIL 1–2</strong> — structured methods, controlled changes, functional testing and reviews",
+          "<strong>SIL 3–4</strong> — formal specification, restricted language subsets, validated compilers, static analysis up to 100% testing &amp; proof — <em>this software may hold human lives</em>",
+          "Coffee-break reality check: <a href=\"https://www.youtube.com/shorts/RJverdoLwTk\" target=\"_blank\">Developer vs. Tester (YouTube short)</a>"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "3",
+    "tag": "",
+    "title": "Principles 1 & 2: Define the Requirements, Preserve the Intent",
+    "desc": "Safety requirements must exist — and must survive decomposition",
+    "body": [
+      {
+        "card": "Principle 1 — define them",
+        "items": [
+          "Software safety requirements <strong>must be defined</strong>, considering the software's contribution to system hazards",
+          "DO-178B/C <strong>assumes</strong> a system-level safety analysis has already derived and allocated them",
+          "The criticality is expressed as a level: <strong>ARP 4754A</strong> assigns a <strong>DAL</strong> (civil), <strong>Mil-Std-882E</strong> a Level of Rigour (military)"
+        ]
+      },
+      {
+        "img": "lufthansa-2904-warsaw.png",
+        "alt": "Burned-out Lufthansa Airbus A320 after the Warsaw runway overrun, 1993",
+        "height": 200,
+        "caption": "Lufthansa Flight 2904, Warsaw, 14 September 1993: thrust reversers and spoilers were locked out because the 'aircraft on ground' logic — a decomposed requirement — didn't match the actual landing conditions."
+      },
+      {
+        "card": "Principle 2 — preserve them through decomposition",
+        "items": [
+          "DO-178 strongly emphasizes <strong>traceability</strong> through all development stages; decomposed requirements must be <strong>validated</strong>",
+          "Recording traceability is <strong>necessary, not sufficient</strong>: a written <strong>justification</strong> of the trace is what actually preserves intent"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "3",
+    "tag": "",
+    "title": "Principle 3: Satisfy the Requirements",
+    "desc": "Safety requirements that exist on paper only are worthless",
+    "body": [
+      {
+        "img": "mars-polar-lander.png",
+        "alt": "Artist rendering of the Mars Polar Lander on the Martian surface",
+        "height": 250,
+        "caption": "Mars Polar Lander, lost on arrival 3 December 1999: the touchdown-detection software satisfied its spec — but a known transient signal on leg deployment shut the engines down 40 meters above the surface."
+      },
+      {
+        "card": "What DO-178C says",
+        "items": [
+          "This principle is addressed well by DO-178: it requires <strong>verification evidence</strong> demonstrating requirements under <strong>normal and fault conditions</strong>",
+          "DO-178 was historically heavily test-focused &mdash; <strong>DO-178C permits a wider range of verification techniques</strong>: analysis, reviews, formal methods, not just testing"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "3",
+    "tag": "",
+    "title": "Principles 4 & 4+1: Mitigate Hazards, Scale the Rigor",
+    "desc": "Design can introduce failure modes — and the effort must match the risk",
+    "body": [
+      {
+        "img": "patriot-missile.png",
+        "alt": "Patriot missile launch",
+        "height": 150,
+        "caption": "Dhahran, 25 February 1991: a Patriot battery failed to intercept a Scud missile — a floating-point time-accumulation error after 100 hours of continuous operation. 28 soldiers died, 98 were injured."
+      },
+      {
+        "card": "Principle 4 — identify & mitigate hazardous behavior",
+        "items": [
+          "Design activities 'could introduce modes of failure into the software or, conversely, preclude others'",
+          "Such findings become <strong>derived requirements</strong> fed back to the <strong>system safety assessment</strong> &mdash; the loop where projects break down in practice",
+          "A core objective of DO-178 verification: remove errors that would cause unacceptable failure conditions"
+        ]
+      },
+      {
+        "card": "Principle 4+1 — confidence proportionate to risk",
+        "items": [
+          "Confidence must be <strong>commensurate with the software's contribution to system risk</strong> &mdash; in DO-178C, the <strong>DAL</strong> tailors how many objectives to demonstrate, with what independence and rigor",
+          "Caveat: the DAL alone is <strong>not a specification</strong> &mdash; system analysis assigns the level but doesn't hand you derived safety requirements"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "3",
+    "tag": "industry",
+    "title": "Case Study: Boeing 777 Fly-By-Wire",
+    "desc": "What 'confidence commensurate with risk' looks like in hardware and software",
+    "body": [
+      {
+        "card": "The architecture",
+        "items": [
+          "The Boeing 777 flight control system is a full <strong>fly-by-wire (FBW)</strong> system with extreme integrity and availability requirements",
+          "<strong>Triple redundancy for every resource</strong>: computing system, electrical power, hydraulic power and communication path",
+          "The <strong>Primary Flight Computer (PFC)</strong> uses <strong>triple modular redundancy (TMR)</strong> — and additionally <strong>N-version diversity</strong>",
+          "Three similar channels (same part number), each containing <strong>three dissimilar computing lanes</strong> — different processors, different compilers",
+          "Communication runs over the <strong>ARINC 629</strong> data bus",
+          "One software bug in one lane cannot silently take down the flight controls — that is Principle 4+1 built in metal and code"
+        ]
+      },
+      {
+        "resource": {
+          "title": "Deep dive",
+          "links": [
+            {
+              "url": "https://ieeexplore.ieee.org/document/495891",
+              "label": "Yeh: Triple-Triple Redundant 777 Primary Flight Computer (IEEE)"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "3",
+    "tag": "takeaway",
+    "title": "Module 3: Key Takeaways",
+    "body": [
+      {
+        "card": "",
+        "items": [
+          "Aviation software lives under <strong>DO-178C</strong> (airborne), <strong>ED-109</strong> (ground/ATM) and <strong>ED-153</strong> (air navigation services)",
+          "Defects get ~<strong>100&times; more expensive</strong> in the field &mdash; standards force the work to the front of the lifecycle",
+          "<strong>91.9%</strong> of computer-related accidental deaths come from human-computer interaction, only 2.8% from software errors &mdash; safe design means context, requirements, interaction and change control",
+          "<strong>44%</strong> of control-system failures are born in the specification",
+          "The <strong>4+1 principles</strong>: define safety requirements, preserve intent, satisfy them, mitigate hazardous behavior &mdash; with confidence proportionate to risk (DALs)",
+          "The Boeing 777 FBW shows the principles physically: triple-triple redundancy, N-version diversity, ARINC 629"
+        ]
       }
     ]
   }

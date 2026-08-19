@@ -158,7 +158,7 @@
       {
         "card": "Where this comes from",
         "items": [
-          "This is <strong>verification independence</strong> (DO-178C, Module 5) at lab scale: <strong>the verifier must not be the author</strong> &mdash; and right now, the author is Claude",
+          "This is <strong>verification independence</strong> (DO-178C, Module 3) at lab scale: <strong>the verifier must not be the author</strong> &mdash; and right now, the author is Claude",
           "Module 12's <strong>Karate</strong> applies the same discipline to your backend: the telemetry pipeline gets tests before it gets traffic",
           "Aviation learned this the expensive way &mdash; <strong>you get to learn it the cheap way</strong>"
         ]

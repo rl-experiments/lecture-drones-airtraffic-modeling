@@ -37,7 +37,7 @@
           "You cannot flight-test a deconfliction algorithm against 200 real aircraft — <strong>simulation is the only safe laboratory</strong>",
           "<strong>Virtual test environments</strong> reproduce airspace structure, traffic and aircraft performance models",
           "<strong>Real-time simulation</strong> lets humans and systems interact with the scenario as it unfolds; fast-time simulation runs thousands of scenarios overnight",
-          "Remember Module 5: verification evidence under <strong>normal and fault conditions</strong> — simulation is how you produce it cheaply",
+          "Remember Module 3: verification evidence under <strong>normal and fault conditions</strong> — simulation is how you produce it cheaply",
           "Scenario coverage: rare events (link loss, sensor failure, rogue drones) can be triggered on demand"
         ]
       }
@@ -54,7 +54,7 @@
         "table": {
           "headers": [
             "",
-            "<strong>DJI simulator</strong> (Module 4)",
+            "<strong>DJI simulator</strong> (Module 5)",
             "<strong>BlueSky</strong> (this module)"
           ],
           "rows": [
@@ -89,7 +89,7 @@
       {
         "card": "Where the two meet",
         "items": [
-          "Neither replaces the other: the DJI simulator validates the <strong>client</strong>, BlueSky validates the <strong>traffic logic</strong> &mdash; Module 5's <em>evidence under normal and fault conditions</em> applied at two different levels",
+          "Neither replaces the other: the DJI simulator validates the <strong>client</strong>, BlueSky validates the <strong>traffic logic</strong> &mdash; Module 3's <em>evidence under normal and fault conditions</em> applied at two different levels",
           "<strong>Project idea #14</strong> attempts that bridge &mdash; expect the <strong>scale mismatch</strong> to be the real work: BlueSky reasons in ATM separation standards and airliner performance models, not 1.5 m hops by a 249 g quadcopter (TU Delft did extend it to urban drone traffic, and called that hard)",
           "Rule of thumb: anything that <strong>moves a real motor</strong> gets the DJI simulator first; anything that <strong>decides where aircraft go</strong> gets BlueSky first"
         ]
@@ -160,7 +160,7 @@
           "Script a traffic scenario, let your logic steer the drones, and record when separation fails",
           "<strong>Time until first conflict is your measurement, not a score</strong> &mdash; vary traffic density and find where your approach breaks",
           "Study <code>bluesky/plugins/asas</code> first, then measure your resolver against the built-in ones",
-          "Optional deep-dive for airspace-leaning projects (ideas 14&ndash;16) &mdash; and exactly the kind of <strong>measured data</strong> the Grade-1.0 bar asks for (Module 3)"
+          "Optional deep-dive for airspace-leaning projects (ideas 14&ndash;16) &mdash; and exactly the kind of <strong>measured data</strong> the Grade-1.0 bar asks for (Module 4)"
         ]
       }
     ]
@@ -176,8 +176,8 @@
         "items": [
           "Two simulators, two questions: the <strong>DJI simulator</strong> answers 'does my control code behave?', <strong>BlueSky</strong> answers 'does my airspace logic scale?'",
           "Simulation is the <strong>cheap half of the Safety &amp; Testing gate</strong> — every mission flies virtually before it flies physically",
-          "A simulator validates <strong>logic, not reality</strong>: wind, latency and sensor noise stay simplified — margins belong in the design (Module 5)",
-          "<strong>Time-until-first-conflict</strong> under rising traffic density is your measurement — data like this is what the Grade-1.0 bar means by 'measured' (Module 3)"
+          "A simulator validates <strong>logic, not reality</strong>: wind, latency and sensor noise stay simplified — margins belong in the design (Module 3)",
+          "<strong>Time-until-first-conflict</strong> under rising traffic density is your measurement — data like this is what the Grade-1.0 bar means by 'measured' (Module 4)"
         ]
       }
     ]

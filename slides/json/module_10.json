@@ -75,7 +75,7 @@
     "mod": "10",
     "tag": "demo",
     "title": "Telemetry Through a Topic",
-    "desc": "The backbone of the Module 3 reference system, in three annotations",
+    "desc": "The backbone of the Module 4 reference system, in three annotations",
     "body": [
       {
         "code": "<span class=\"kw\">// producer — the drone gateway publishes each position fix</span>\njmsTemplate.convertAndSend(<span class=\"str\">\"telemetry.topic\"</span>, <span class=\"kw\">new</span> Fix(droneId, lat, lon, alt));\n\n<span class=\"kw\">// consumer A — the live map (Module 14)</span>\n@JmsListener(destination = <span class=\"str\">\"telemetry.topic\"</span>, containerFactory = <span class=\"str\">\"topicFactory\"</span>)\n<span class=\"kw\">void</span> onFix(Fix fix) { mapService.update(fix); }\n\n<span class=\"kw\">// consumer B — conflict detection, same messages, independently</span>\n@JmsListener(destination = <span class=\"str\">\"telemetry.topic\"</span>, containerFactory = <span class=\"str\">\"topicFactory\"</span>)\n<span class=\"kw\">void</span> detect(Fix fix) { conflictEngine.feed(fix); }"

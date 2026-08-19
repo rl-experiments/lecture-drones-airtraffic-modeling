@@ -45,8 +45,8 @@ slides/
     module_1.json         ← M1: Drones & Air Traffic: Introduction
     module_2.json         ← M2: Project Ideas & Competition
     module_3.json         ← Lab: DJI Client & Your Project (fly it, then build your own)
-    module_4.json         ← M4: Software Safety Standards
-    module_5.json         ← M5: Aeronautical Information Exchange
+    module_4.json         ← M5: Software Safety Standards
+    module_5.json         ← M3: Aeronautical Information Exchange
     module_6.json         ← M6: Control & Monitoring Systems (UTM)
     module_7.json         ← M7: RESTful APIs: OpenAPI
     module_8.json         ← M8: Reactive Java: Spring WebFlux
@@ -64,7 +64,7 @@ tools/
   _animate_cover.py       ← record cover slide as animated WebP (README)
   _screenshot_toc.py      ← screenshot TOC slide to .github/toc.webp (README)
 labs/
-  dji-hello-world/        ← Module 4 lab: Android app that flies a DJI Mini 4 Pro
+  dji-hello-world/        ← Module 5 lab: Android app that flies a DJI Mini 4 Pro
 export/                   ← generated output (gitignored)
 ```
 
@@ -73,7 +73,7 @@ export/                   ← generated output (gitignored)
 Hands-on code that accompanies the lecture modules lives under `labs/`.
 
 - **[`labs/dji-hello-world`](labs/dji-hello-world/)** — the working client behind the
-  **Module 4 lab (DJI Client & Your Project)**. A minimal Android app that connects to
+  **Module 5 lab (DJI Client & Your Project)**. A minimal Android app that connects to
   a **DJI Mini 4 Pro** via the **RC-N3** and flies a fixed mission (take off → ~1.5 m
   forward → 180° turn → ~1.5 m back → land) using MSDK v5. It's the proof of concept
   students build their own project on top of. Setup, build, and a full troubleshooting

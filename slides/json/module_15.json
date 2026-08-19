@@ -63,7 +63,7 @@
           "Industry: more precise production and predictive maintenance",
           "Healthcare: personalized treatment plans and faster diagnoses",
           "Transport: autonomous vehicles and drones could revolutionize mobility while increasing safety",
-          "The open problems mirror aviation's: <strong>ethical use, avoiding failures in critical situations, robust safeguards</strong> against misuse and malfunction — Module 5's principles apply to AI components too"
+          "The open problems mirror aviation's: <strong>ethical use, avoiding failures in critical situations, robust safeguards</strong> against misuse and malfunction — Module 3's principles apply to AI components too"
         ]
       }
     ]
@@ -91,10 +91,10 @@
     "mod": "15",
     "tag": "important",
     "title": "One System, End to End",
-    "desc": "The diagram from Module 3, revisited — every box is now something you have built or can build",
+    "desc": "The diagram from Module 4, revisited — every box is now something you have built or can build",
     "body": [
       {
-        "code": "[ DJI Mini 4 Pro ] --&gt; [ Android client ]        the Lab (M4)\n                              |  OpenAPI-described REST  (M8)\n                              v\n                      [ Ingest API ]  WebFlux stream  (M9)\n                              |\n                              v\n                  [ telemetry topic  (M10) ]\n                    |         |          |\n                    v         v          v\n            [ live map ] [ avoidance ] [ CQRS store ]\n             (M14, GIS)   logic --&gt;      (M11)\n                          validated in\n                          BlueSky (M13)\n\n  fed by NOTAM / METAR / AIXM context (M6)  ·  inside a UTM picture (M7)\n  Karate tests every boundary (M12)  ·  the Safety &amp; Testing gate and\n  DO-178C mindset (M5) guard everything that flies"
+        "code": "[ DJI Mini 4 Pro ] --&gt; [ Android client ]        the Lab (M5)\n                              |  OpenAPI-described REST  (M8)\n                              v\n                      [ Ingest API ]  WebFlux stream  (M9)\n                              |\n                              v\n                  [ telemetry topic  (M10) ]\n                    |         |          |\n                    v         v          v\n            [ live map ] [ avoidance ] [ CQRS store ]\n             (M14, GIS)   logic --&gt;      (M11)\n                          validated in\n                          BlueSky (M13)\n\n  fed by NOTAM / METAR / AIXM context (M6)  ·  inside a UTM picture (M7)\n  Karate tests every boundary (M12)  ·  the Safety &amp; Testing gate and\n  DO-178C mindset (M3) guard everything that flies"
       },
       {
         "card": "The point",
@@ -115,7 +115,7 @@
       {
         "card": "What you take home",
         "items": [
-          "Why drone traffic needs modeling: regulation, density and safety (Modules 1, 5)",
+          "Why drone traffic needs modeling: regulation, density and safety (Modules 1, 3)",
           "The data formats aviation speaks: NOTAM, METAR, AIXM, ASTERIX, OLDI (Module 6)",
           "The system picture: UTM as a federation of services (Module 7)",
           "The engineering toolbox: OpenAPI, WebFlux, message queues, CQRS, Karate (Modules 9–12)",

@@ -183,7 +183,7 @@
         "card": "",
         "items": [
           "A <strong>Kalman-filter</strong> (or similar estimator) fuses all inputs into one consistent state estimate",
-          "Fusion buys <strong>redundancy</strong>: when GNSS degrades, vision + IMU carry the drone — a direct application of Module 5's safety thinking"
+          "Fusion buys <strong>redundancy</strong>: when GNSS degrades, vision + IMU carry the drone — a direct application of Module 3's safety thinking"
         ]
       }
     ]
