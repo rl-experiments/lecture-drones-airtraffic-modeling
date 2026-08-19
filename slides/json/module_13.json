@@ -73,6 +73,12 @@
         ]
       },
       {
+        "img": "dipul-maptool.png",
+        "alt": "DiPUL map tool showing geo-zones over the Berlin region: airport control zones, hospitals, federal roads, nature reserves",
+        "height": 300,
+        "caption": "DiPUL map tool: every colored layer is a rule your route planner must respect (Berlin region shown)"
+      },
+      {
         "resource": {
           "title": "Explore",
           "links": [
@@ -113,10 +119,10 @@
         ]
       },
       {
-        "card": "",
-        "items": [
-          "Project idea <strong>#5</strong> is exactly this slice: subscribe to the telemetry stream and render your DJI drone live on a map"
-        ]
+        "img": "live-track-map.png",
+        "alt": "Leaflet map of Sigmaringen with a dashed planned route, solid live track, current drone position marker and a red hospital geo-zone",
+        "height": 280,
+        "caption": "The stack in action (Leaflet + OSM): planned route, live track via SSE, DiPUL-style geo-zone — around our campus in Sigmaringen. Project idea <strong>#5</strong> is exactly this slice."
       }
     ]
   },

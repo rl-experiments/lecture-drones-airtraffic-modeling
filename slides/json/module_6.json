@@ -98,45 +98,9 @@
     "desc": "Reading the ecosystem diagram as a data-flow problem",
     "body": [
       {
-        "table": {
-          "headers": [
-            "Participant",
-            "Sends",
-            "To whom"
-          ],
-          "rows": [
-            [
-              "<strong>Drone</strong>",
-              "Location + payload data",
-              "Mobile network &rarr; UTM; command &amp; control back to the operator"
-            ],
-            [
-              "<strong>Drone operator</strong> (UTM app)",
-              "Mission planning requests",
-              "UTM — receives clearance and conflict warnings in return"
-            ],
-            [
-              "<strong>Drone detection systems</strong>",
-              "Location data of non-cooperative drones",
-              "UTM"
-            ],
-            [
-              "<strong>GBSAS</strong> (ground-based situational awareness: FLARM, ADS-B)",
-              "Location data of cooperative traffic",
-              "UTM"
-            ],
-            [
-              "<strong>Radar</strong>",
-              "Location data of manned aviation",
-              "ATM &rarr; shared with UTM"
-            ],
-            [
-              "<strong>UTM system</strong>",
-              "Clearances, conflict warnings, airspace status",
-              "DFS, authorities, pilots — and the ATM system"
-            ]
-          ]
-        }
+        "img": "utm-dataflow.png",
+        "alt": "UTM data-flow: drone, operator, drone detection, GBSAS and radar feed the UTM hub; UTM serves DFS and authorities, pilots, and the ATM system",
+        "height": 330
       },
       {
         "card": "Key insight",
