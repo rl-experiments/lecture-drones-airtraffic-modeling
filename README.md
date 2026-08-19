@@ -1,6 +1,6 @@
 # Innovative Technologies for Drones<br><sub>Air Traffic Modeling</sub>
 
-University lecture slides — elective master module (WPM), Albstadt-Sigmaringen University of Applied Sciences. Introduction, 14 modules, a hands-on DJI drone lab and a [BlueSky](https://github.com/TUDelft-CNS-ATM/bluesky) collision-avoidance competition.
+University lecture slides — elective master module (WPM), Albstadt-Sigmaringen University of Applied Sciences. Intro plus 15 modules: a safety-and-testing gate, a hands-on DJI drone lab, the backend technology stack, and validation in the [BlueSky](https://github.com/TUDelft-CNS-ATM/bluesky) ATM simulator.
 
 ![Cover slide](.github/cover.webp)
 
@@ -27,6 +27,11 @@ Open `http://localhost:3000`
 | `End` | Last slide |
 | `F` | Toggle fullscreen |
 | Click slide counter | Jump to slide number |
+| Click any content image | Enlarge in a lightbox (`Esc` closes) |
+
+**Deep links** — the URL hash addresses slides by module: `#2` opens the Safety & Testing
+cover, `#5` the Lab, `#2.3` the 3rd content slide of module 2, `#toc` the table of contents.
+The hash updates as you navigate, so sharing the current slide is copy-the-URL.
 
 ## Project Structure
 
@@ -43,19 +48,20 @@ slides/
     slides-config.json    ← metadata (title, modules, TOC, cover)
     module_0.json         ← Intro: Course Overview
     module_1.json         ← M1: Drones & Air Traffic: Introduction
-    module_2.json         ← M2: Project Ideas & Competition
-    module_3.json         ← Lab: DJI Client & Your Project (fly it, then build your own)
-    module_4.json         ← M5: Software Safety Standards
-    module_5.json         ← M3: Aeronautical Information Exchange
-    module_6.json         ← M12: Control & Monitoring Systems (UTM)
-    module_7.json         ← M6: RESTful APIs: OpenAPI
-    module_8.json         ← M7: Reactive Java: Spring WebFlux
-    module_9.json         ← M8: Message Queues
-    module_10.json        ← M9: Design Pattern: CQRS
-    module_11.json        ← M10: Karate: Test Automation
-    module_12.json        ← M11: Simulation Environments (BlueSky)
-    module_13.json        ← M13: Real-Time Data in GIS
-    module_14.json        ← M14: Conclusion & Outlook
+    module_2.json         ← M2: Safety & Testing (the gate before anything flies)
+    module_3.json         ← M3: Software Safety Standards
+    module_4.json         ← M4: Project Ideas & Your Build
+    module_5.json         ← M5: Lab — DJI Client & Your Project (fly it, then build your own)
+    module_6.json         ← M6: Control & Monitoring Systems (UTM)
+    module_7.json         ← M7: RESTful APIs: OpenAPI
+    module_8.json         ← M8: Reactive Java: Spring WebFlux
+    module_9.json         ← M9: Message Queues
+    module_10.json        ← M10: Design Pattern: CQRS
+    module_11.json        ← M11: Karate: Test Automation
+    module_12.json        ← M12: Aeronautical Information Exchange
+    module_13.json        ← M13: Simulation Environments (BlueSky)
+    module_14.json        ← M14: Real-Time Data in GIS
+    module_15.json        ← M15: Conclusion & Outlook
   images/
     bg/                   ← background images
     content/              ← slide content images (UTM diagram, METAR examples, etc.)
