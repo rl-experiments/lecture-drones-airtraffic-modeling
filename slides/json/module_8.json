@@ -6,47 +6,72 @@
       "opts": {
         "perched": true,
         "anchor": ".cover-card",
-        "anchorOffsetX": 100,
-        "anchorOffsetY": -15,
+        "anchorOffsetX": 35,
+        "anchorOffsetY": 5,
         "scale": 1.05,
-        "color": "#22c55e"
+        "color": "#8b5cf6"
       }
     },
-    "bg": 2,
+    "bg": 3,
     "h1": "Module 8",
-    "lead": "RESTful APIs: OpenAPI",
-    "sub": "Technology block (a): describing every interface in the UTM diagram",
+    "lead": "Reactive Java: Spring WebFlux",
+    "sub": "Technology block (b): handling thousands of live drone tracks without a thousand threads",
     "badges": [
-      "OpenAPI 3.1",
-      "Swagger UI",
-      "Redoc",
-      "Code Generation",
-      "*Live Demo"
+      "Project Reactor",
+      "Mono / Flux",
+      "R2DBC",
+      "WebClient"
     ]
   },
   {
     "type": "content",
     "mod": "8",
     "tag": "",
-    "title": "What Is OpenAPI?",
-    "desc": "A specification for describing RESTful APIs — machine-readable, human-friendly",
+    "title": "Why Reactive?",
+    "desc": "A non-blocking, asynchronous programming model for reactive applications",
     "body": [
       {
-        "card": "The basics",
+        "card": "The case for Spring Reactive",
         "items": [
-          "OpenAPI is a <strong>specification for describing RESTful APIs</strong>",
-          "Enables a standardized definition of API endpoints and their functions",
-          "Originally developed as <strong>Swagger</strong>, now governed under the Linux Foundation (OpenAPI Initiative)"
+          "<strong>Efficiency</strong> — scales better than blocking frameworks: few event-loop threads instead of one thread per request",
+          "<strong>Reactive streams</strong> — large data volumes with minimal resources; <strong>event-driven</strong> — a natural fit for microservices and cloud",
+          "Part of <strong>Spring WebFlux</strong>, built on the <strong>Reactor core</strong> (Flux, Mono)",
+          "Air traffic reality check: 1,000 drones &times; 1 position/second = a permanent stream — exactly the reactive sweet spot"
         ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "8",
+    "tag": "",
+    "title": "Spring MVC vs. Spring WebFlux",
+    "desc": "Same annotations on top — a completely different engine underneath",
+    "body": [
+      {
+        "img": "spring-mvc-vs-webflux.png",
+        "alt": "Comparison of Spring MVC servlet stack (blocking) and Spring WebFlux reactive stack (non-blocking)",
+        "height": 440,
+        "caption": "MVC: blocking servlet stack (Tomcat, Jetty, Undertow). WebFlux: non-blocking reactive stack (adds Netty), plus functional handler & router as an alternative to @Controller."
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "8",
+    "tag": "",
+    "title": "Blocking vs. Reactive: The Same Endpoint Twice",
+    "desc": "Identical annotation on top — a different machine underneath",
+    "body": [
+      {
+        "code": "<span class=\"kw\">// Spring MVC — one thread held for the whole request</span>\n@GetMapping(<span class=\"str\">\"/tracks\"</span>)\nList&lt;TrackUpdate&gt; tracks() {\n    <span class=\"kw\">return</span> jdbcRepo.findAll();      <span class=\"kw\">// blocks the thread at the DB</span>\n}\n\n<span class=\"kw\">// WebFlux — the thread is released between elements</span>\n@GetMapping(value = <span class=\"str\">\"/tracks\"</span>, produces = TEXT_EVENT_STREAM_VALUE)\nFlux&lt;TrackUpdate&gt; tracks() {\n    <span class=\"kw\">return</span> r2dbcRepo.findAll();     <span class=\"kw\">// non-blocking, streams as SSE</span>\n}"
       },
       {
-        "card": "Why use OpenAPI?",
+        "card": "What actually changed",
         "items": [
-          "<strong>Standardization</strong> — uniform API documentation across teams and vendors",
-          "<strong>Automatic generation</strong> — code, documentation and test cases generated from the spec",
-          "<strong>Interactive use</strong> — try APIs live, e.g. in Swagger UI",
-          "<strong>Easier API design</strong> — collaboration between developers and stakeholders on one artifact",
-          "Remember Module 6: a NOTAM service, a METAR service, a UTM clearance service — all of them need exactly this kind of contract"
+          "The MVC version <strong>holds a servlet thread until the last row arrives</strong> &mdash; 1,000 live clients means roughly 1,000 threads",
+          "The Flux version subscribes; rows flow through the <strong>event loop</strong> as they arrive &mdash; 1,000 clients share a handful of threads",
+          "<code>TEXT_EVENT_STREAM</code> turns the endpoint into a <strong>live telemetry feed</strong> &mdash; the moving map in Module 14 consumes exactly this"
         ]
       }
     ]
@@ -55,18 +80,21 @@
     "type": "content",
     "mod": "8",
     "tag": "",
-    "title": "Anatomy of an OpenAPI Document",
-    "desc": "APIs are described in YAML or JSON — five top-level building blocks",
+    "title": "The Reactive Streams Specification",
+    "desc": "Four interfaces and one crucial idea: backpressure",
     "body": [
       {
-        "code": "<span class=\"kw\">openapi:</span> 3.1.0\n<span class=\"kw\">info:</span>\n  title: UTM Flight Clearance API\n  version: 1.0.0\n<span class=\"kw\">servers:</span>\n  - url: https://utm.example.com/v1\n<span class=\"kw\">paths:</span>\n  /drones/{droneId}/clearance:\n    post:\n      summary: Request flight clearance for a mission\n      responses:\n        <span class=\"str\">'201'</span>: { description: Clearance granted }\n        <span class=\"str\">'409'</span>: { description: Conflict with another mission }"
+        "img": "reactive-streams-spec.png",
+        "alt": "Reactive streams: subscriber subscribes to publisher, subscription mediates request(n) and onNext/onComplete/onError",
+        "height": 290
       },
       {
-        "card": "The five building blocks",
+        "card": "The contract",
         "items": [
-          "<code>openapi</code> — version of the specification, <code>info</code> — metadata: title, version, description",
-          "<code>servers</code> — available servers, <code>paths</code> — definition of the API endpoints",
-          "<code>components</code> — reusable schema definitions (e.g. a <code>Mission</code> object shared by several endpoints)"
+          "<strong>Publisher</strong> produces data, <strong>Subscriber</strong> consumes it, the <strong>Subscription</strong> mediates",
+          "The subscriber controls the flow: <code>request(n)</code> — 'send me at most n elements'",
+          "This is <strong>backpressure</strong>: a slow consumer never gets flooded by a fast producer",
+          "Signals: <code>onSubscribe &rarr; onNext* &rarr; onComplete | onError</code>"
         ]
       }
     ]
@@ -75,54 +103,19 @@
     "type": "content",
     "mod": "8",
     "tag": "",
-    "title": "OpenAPI 3.0 vs. 3.1",
-    "desc": "Small version bump, important alignment",
+    "title": "Core Concepts: Mono & Flux",
+    "desc": "Two publisher types cover every API you will ever write",
     "body": [
       {
-        "img": "openapi-30-vs-31.png",
-        "alt": "Comparison of OpenAPI 3.0 and 3.1 components sections",
-        "height": 300
+        "code": "<span class=\"kw\">// Mono: 0 or 1 element — a single drone's state</span>\nMono&lt;DroneState&gt; state = repository.findById(droneId);\n\n<span class=\"kw\">// Flux: 0..N elements — the live track stream</span>\nFlux&lt;TrackUpdate&gt; live = trackService.stream()\n    .filter(t -&gt; t.altitude() &lt; 120)          <span class=\"str\">// open category only</span>\n    .sample(Duration.ofSeconds(1))            <span class=\"str\">// throttle to 1 Hz</span>\n    .doOnNext(alertService::checkConflicts);"
       },
       {
-        "card": "",
+        "card": "Vocabulary",
         "items": [
-          "3.1 aligns the schema language with <strong>full JSON Schema</strong> — no more OpenAPI-specific dialect",
-          "<code>components</code> gains <strong>pathItems</strong> — reusable path definitions",
-          "Practical advice: start new projects on 3.1; most generators support it today"
+          "<strong>Mono</strong> — represents 0 or 1 element; <strong>Flux</strong> — represents an unbounded number of elements",
+          "<strong>WebFlux router &amp; handlers</strong> — functional alternative to Spring MVC controllers (serve <code>live</code> above as a <code>text/event-stream</code> endpoint)",
+          "<strong>Reactive repositories</strong> — non-blocking database access"
         ]
-      }
-    ]
-  },
-  {
-    "type": "content",
-    "mod": "8",
-    "tag": "",
-    "title": "Tooling Around OpenAPI",
-    "desc": "Live demo — and the takeaway: standards lead to better collaboration",
-    "body": [
-      {
-        "card": "The toolbox",
-        "items": [
-          "<a href=\"https://swagger.io/tools/swagger-ui/\" target=\"_blank\"><strong>Swagger UI</strong></a> — visual rendering and in-browser test calls (try the <a href=\"https://editor.swagger.io\" target=\"_blank\">live editor</a>)",
-          "<strong>Redoc</strong> — modern, read-oriented API documentation",
-          "<strong>Postman</strong> — API testing and development",
-          "<strong>OpenAPI Generator</strong> — client/server code generation for dozens of languages"
-        ]
-      }
-    ]
-  },
-  {
-    "type": "content",
-    "mod": "8",
-    "tag": "demo",
-    "title": "Swagger Editor: Spec Left, Docs Right",
-    "desc": "The YAML you write and the documentation it generates — live in the browser",
-    "body": [
-      {
-        "img": "swagger-editor-petstore.jpg",
-        "alt": "Swagger Editor with the Petstore example: YAML on the left, rendered documentation with GET/POST endpoints on the right",
-        "height": 460,
-        "caption": "Try it yourself at editor.swagger.io — paste the Petstore example or your own UTM clearance API."
       }
     ]
   },
@@ -130,15 +123,40 @@
     "type": "content",
     "mod": "8",
     "tag": "takeaway",
-    "title": "Module 8: Key Takeaways",
+    "title": "Tools, Libraries & When to Use It",
     "body": [
       {
-        "card": "",
+        "table": {
+          "headers": [
+            "Tool",
+            "Role"
+          ],
+          "rows": [
+            [
+              "<strong>Project Reactor</strong>",
+              "The reactive foundation under Spring WebFlux"
+            ],
+            [
+              "<strong>Spring Boot</strong>",
+              "Effortless integration of WebFlux into applications"
+            ],
+            [
+              "<strong>R2DBC</strong>",
+              "Reactive database connectivity — replaces blocking JDBC"
+            ],
+            [
+              "<strong>WebClient</strong>",
+              "Reactive HTTP client — replaces RestTemplate"
+            ]
+          ]
+        }
+      },
+      {
+        "card": "Conclusion",
         "items": [
-          "OpenAPI describes a REST API as a <strong>single machine-readable contract</strong> — humans and tooling read the same artifact",
-          "From that one spec you generate <strong>documentation, client/server code and tests</strong> — design once, reuse everywhere",
-          "Start new work on <strong>3.1</strong> for full JSON Schema alignment; the generators have caught up",
-          "In our system every UTM interface — clearance, telemetry, geo-zones — begins life as an OpenAPI document"
+          "Spring Reactive suits modern, scalable applications",
+          "Ideal for <strong>microservices, streaming data and high load</strong> — i.e. telemetry ingestion, live track distribution, conflict alerting",
+          "Not a silver bullet: for simple CRUD services, classic blocking Spring MVC remains simpler to write and debug"
         ]
       }
     ]

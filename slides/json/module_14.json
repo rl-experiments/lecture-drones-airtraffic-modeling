@@ -37,7 +37,7 @@
           "<strong>Terrain &amp; obstacles</strong> — elevation models, buildings, power lines, cranes",
           "<strong>Population density</strong> — ground risk for the Specific category (SORA) depends on who is below",
           "<strong>Weather layers</strong> — wind fields and precipitation as time-dependent rasters",
-          "<strong>Live traffic</strong> — other drones and manned aviation, streamed in real time (Modules 7, 7, 8)"
+          "<strong>Live traffic</strong> — other drones and manned aviation, streamed in real time (Modules 12, 6, 8)"
         ]
       },
       {
@@ -105,7 +105,7 @@
       {
         "card": "The data path",
         "items": [
-          "The drone emits a position several times per second; <strong>Spring WebFlux (M9)</strong> pushes each fix to the browser over <strong>SSE or WebSocket</strong> — no polling",
+          "The drone emits a position several times per second; <strong>Spring WebFlux (M8)</strong> pushes each fix to the browser over <strong>SSE or WebSocket</strong> — no polling",
           "Each fix travels as a <strong>GeoJSON</strong> point in <strong>WGS84</strong> (lat / lon) — the format every map library speaks",
           "The map redraws only the features that moved, so hundreds of live tracks stay smooth"
         ]

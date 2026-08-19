@@ -47,13 +47,13 @@ slides/
     module_3.json         ← Lab: DJI Client & Your Project (fly it, then build your own)
     module_4.json         ← M5: Software Safety Standards
     module_5.json         ← M3: Aeronautical Information Exchange
-    module_6.json         ← M6: Control & Monitoring Systems (UTM)
-    module_7.json         ← M7: RESTful APIs: OpenAPI
-    module_8.json         ← M8: Reactive Java: Spring WebFlux
-    module_9.json         ← M9: Message Queues
-    module_10.json        ← M10: Design Pattern: CQRS
-    module_11.json        ← M11: Karate: Test Automation
-    module_12.json        ← M12: Simulation Environments (BlueSky)
+    module_6.json         ← M12: Control & Monitoring Systems (UTM)
+    module_7.json         ← M6: RESTful APIs: OpenAPI
+    module_8.json         ← M7: Reactive Java: Spring WebFlux
+    module_9.json         ← M8: Message Queues
+    module_10.json        ← M9: Design Pattern: CQRS
+    module_11.json        ← M10: Karate: Test Automation
+    module_12.json        ← M11: Simulation Environments (BlueSky)
     module_13.json        ← M13: Real-Time Data in GIS
     module_14.json        ← M14: Conclusion & Outlook
   images/

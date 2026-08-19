@@ -6,46 +6,43 @@
       "opts": {
         "perched": true,
         "anchor": ".cover-card",
-        "anchorOffsetX": 90,
-        "anchorOffsetY": -30,
+        "anchorOffsetX": 40,
+        "anchorOffsetY": -10,
         "scale": 1.05,
-        "color": "#ec4899"
+        "color": "#ef4444"
       }
     },
-    "bg": 5,
+    "bg": 6,
     "h1": "Module 10",
-    "lead": "Message Queues",
-    "sub": "Technology block (c): asynchronous communication between the systems that must never wait for each other",
+    "lead": "Design Pattern: CQRS",
+    "sub": "Technology block (d): Command Query Responsibility Segregation",
     "badges": [
-      "JMS",
-      "ActiveMQ",
-      "RabbitMQ",
-      "Kafka"
+      "Commands",
+      "Queries",
+      "Event Sourcing",
+      "*ATC Example"
     ]
   },
   {
     "type": "content",
     "mod": "10",
     "tag": "",
-    "title": "Why Message Queues?",
-    "desc": "A system for asynchronous communication between applications",
+    "title": "What Is CQRS?",
+    "desc": "Split the write side from the read side — and optimize each on its own",
     "body": [
       {
-        "card": "What it is",
+        "card": "The pattern",
         "items": [
-          "Asynchronous communication: the sender does not wait for the receiver",
-          "In the Java world specified by <strong>JMS (Java Message Service)</strong>, part of Java/Jakarta EE",
-          "Supports <strong>loose coupling, scalability and reliability</strong>"
+          "CQRS separates the responsibilities of <strong>commands (write operations)</strong> and <strong>queries (read operations)</strong> into two distinct models",
+          "The write model guards consistency and business rules",
+          "The read model is shaped purely for fast, convenient queries",
+          "Both are synchronized — often through events on a message bus (see Module 9)"
         ]
       },
       {
-        "card": "Why use them",
-        "items": [
-          "<strong>Decoupling</strong> — sender and receiver work independently; a UTM service can restart without losing telemetry",
-          "<strong>Load distribution</strong> — messages are processed in parallel by many consumers",
-          "<strong>Reliability</strong> — persistent storage of messages until they are consumed",
-          "<strong>Scalability</strong> — add consumers dynamically as traffic grows"
-        ]
+        "img": "cqrs-flow.png",
+        "alt": "CQRS flow: write requests persist to the write DB, change data capture feeds a message bus, a transformation service builds the read store",
+        "height": 260
       }
     ]
   },
@@ -53,93 +50,32 @@
     "type": "content",
     "mod": "10",
     "tag": "",
-    "title": "JMS Architecture: Queues & Topics",
-    "desc": "Two delivery models cover almost every messaging need",
+    "title": "CQRS in Air Traffic Control",
+    "desc": "An ATC system processing airspace information — the textbook fit",
     "body": [
       {
-        "code": "Point-to-Point (Queue)              Publish-Subscribe (Topic)\n\nProducer                             Publisher\n   |                                     |\n   v                                     v\n[ QUEUE ] --&gt; exactly one            [ TOPIC ] --&gt; every subscriber\n              consumer gets              |    \\\n              each message           Subscriber A  Subscriber B\n\nclearance requests,                  position broadcasts,\nwork distribution                    airspace status updates"
+        "card": "Two kinds of operations",
+        "items": [
+          "<strong>Commands</strong> — change or create airspace state: issue a takeoff clearance, adjust flight zones",
+          "<strong>Queries</strong> — retrieve the current information about the airspace"
+        ]
       },
       {
-        "card": "The building blocks",
+        "card": "Applying the pattern",
         "items": [
-          "<strong>Message producer</strong> — sends messages to a queue or topic; <strong>message consumer</strong> — receives them",
-          "<strong>Message queue</strong> — waiting line for messages (point-to-point model)",
-          "<strong>Topic</strong> — broadcast model for multiple receivers (publish-subscribe)",
-          "Message types: <code>Text</code>, <code>Bytes</code>, <code>Object</code>, <code>Map</code>, <code>Stream</code>"
+          "<strong>The write model</strong> stores the current state of the airspace and guarantees all data stays consistent",
+          "<strong>The read model</strong> serves fast airspace queries without putting load on the write model",
+          "Controllers get instant situational awareness; clearance processing keeps its transactional integrity"
         ]
-      }
-    ]
-  },
-  {
-    "type": "content",
-    "mod": "10",
-    "tag": "demo",
-    "title": "Telemetry Through a Topic",
-    "desc": "The backbone of the Module 4 reference system, in three annotations",
-    "body": [
-      {
-        "code": "<span class=\"kw\">// producer — the drone gateway publishes each position fix</span>\njmsTemplate.convertAndSend(<span class=\"str\">\"telemetry.topic\"</span>, <span class=\"kw\">new</span> Fix(droneId, lat, lon, alt));\n\n<span class=\"kw\">// consumer A — the live map (Module 14)</span>\n@JmsListener(destination = <span class=\"str\">\"telemetry.topic\"</span>, containerFactory = <span class=\"str\">\"topicFactory\"</span>)\n<span class=\"kw\">void</span> onFix(Fix fix) { mapService.update(fix); }\n\n<span class=\"kw\">// consumer B — conflict detection, same messages, independently</span>\n@JmsListener(destination = <span class=\"str\">\"telemetry.topic\"</span>, containerFactory = <span class=\"str\">\"topicFactory\"</span>)\n<span class=\"kw\">void</span> detect(Fix fix) { conflictEngine.feed(fix); }"
       },
       {
-        "card": "Why this shape",
-        "items": [
-          "The gateway <strong>doesn't know or care who listens</strong> &mdash; add a flight logger next week without touching it",
-          "The map can crash and restart &mdash; <strong>conflict detection keeps running</strong>; that isolation is the whole point",
-          "Queue vs. topic is one word in the destination config &mdash; <strong>same annotation, different delivery semantics</strong>"
-        ]
-      }
-    ]
-  },
-  {
-    "type": "content",
-    "mod": "10",
-    "tag": "",
-    "title": "Kafka: A Log, Not a Queue",
-    "desc": "Same word \"message\" — a fundamentally different storage model",
-    "body": [
-      {
-        "code": "Classic broker (ActiveMQ / RabbitMQ)     Kafka (distributed log)\n\nProducer --&gt; [ queue ] --&gt; Consumer      Producer --&gt; [ p0 | p1 | p2 ]  append-only\n              consumed message                            ^\n              is GONE &mdash; broker            Consumer reads at its own OFFSET\n              tracks delivery              &mdash; and can REWIND and replay\n\nsmart broker, simple clients             simple broker, smart clients"
-      },
-      {
-        "card": "What the log model buys you",
-        "items": [
-          "Queues <strong>delete on acknowledge</strong>; Kafka <strong>retains</strong> messages (by time or size) &mdash; consumers just move an offset",
-          "<strong>Replay is the killer feature for telemetry</strong>: re-run yesterday's traffic through a new conflict detector &mdash; exactly what validation in Module 13 needs",
-          "<strong>Consumer groups</strong> give queue semantics on a log; a partition key of <code>droneId</code> gives <strong>per-drone ordering</strong>",
-          "The price: <strong>cluster operations</strong> &mdash; for a single lab service, a classic broker is the right size"
-        ]
-      }
-    ]
-  },
-  {
-    "type": "content",
-    "mod": "10",
-    "tag": "",
-    "title": "Implementations & Tools",
-    "body": [
-      {
-        "table": {
-          "headers": [
-            "System",
-            "Character",
-            "Notes"
-          ],
-          "rows": [
-            [
-              "<strong>ActiveMQ</strong> (Apache)",
-              "Open-source JMS provider",
-              "The classic choice for JMS in Java projects"
-            ],
-            [
-              "<strong>RabbitMQ</strong>",
-              "AMQP broker",
-              "Supports JMS via plugins; very flexible routing"
-            ],
-            [
-              "<strong>Kafka</strong>",
-              "Distributed log (not JMS, but similar use cases)",
-              "Massively scalable streaming — the natural fit for high-volume telemetry"
-            ]
+        "resource": {
+          "title": "Working example",
+          "links": [
+            {
+              "url": "https://github.com/rl-experiments/event-sourcing-spring-boot",
+              "label": "event-sourcing-spring-boot — CQRS + event sourcing demo"
+            }
           ]
         }
       }
@@ -148,23 +84,61 @@
   {
     "type": "content",
     "mod": "10",
-    "tag": "takeaway",
-    "title": "Module 10: Key Takeaways",
+    "tag": "demo",
+    "title": "The Two Sides in Code",
+    "desc": "The ATC example from the previous slide, reduced to two handlers",
     "body": [
       {
-        "card": "The concepts",
-        "items": [
-          "Asynchronous messaging buys <strong>decoupling, buffering and fan-out</strong> &mdash; the sender never waits, the system never loses a message to a restart",
-          "<strong>Queue</strong> = work distribution (each message to exactly one consumer); <strong>topic</strong> = broadcast (every subscriber sees everything)",
-          "Pick the broker by <strong>guarantees, not fashion</strong>: throughput, ordering, persistence, replay"
-        ]
+        "code": "<span class=\"kw\">// COMMAND side — guards invariants, answers only \"accepted or not\"</span>\n@PostMapping(<span class=\"str\">\"/clearances\"</span>)\n<span class=\"kw\">void</span> issue(@RequestBody IssueClearance cmd) {\n    <span class=\"kw\">var</span> zone = repo.load(cmd.zoneId());   <span class=\"kw\">// current write-side state</span>\n    zone.issueClearance(cmd);              <span class=\"kw\">// business rules live HERE</span>\n    repo.save(zone);                       <span class=\"kw\">// events -&gt; bus (Module 9)</span>\n}\n\n<span class=\"kw\">// QUERY side — zero rules, the view was built when events were projected</span>\n@GetMapping(<span class=\"str\">\"/airspace/{zoneId}\"</span>)\nAirspaceView view(@PathVariable String zoneId) {\n    <span class=\"kw\">return</span> readStore.findView(zoneId);   <span class=\"kw\">// pre-built, index-shaped</span>\n}"
       },
       {
-        "card": "In our domain",
+        "card": "Read the asymmetry",
         "items": [
-          "<strong>Telemetry fan-out is a topic</strong> &mdash; map, logger and conflict detection subscribe independently",
-          "<strong>Clearance processing is a queue</strong> &mdash; exactly one handler must act on each request",
-          "<strong>Incident replay wants Kafka</strong> &mdash; rewind the offset and re-fly yesterday's airspace against new logic"
+          "All the business logic sits on the <strong>write side</strong>; the read side is a lookup &mdash; that is what makes it fast",
+          "The bus between them is <strong>Module 9's topic</strong>; the lag between them is the <strong>trade-offs slide</strong> coming next",
+          "Runnable version: the <strong>event-sourcing-spring-boot</strong> repo linked on the previous slide"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "10",
+    "tag": "",
+    "title": "CQRS Advantages",
+    "body": [
+      {
+        "card": "",
+        "items": [
+          "<strong>&#10004; Scalability</strong> — read and write models scale independently; the read model is tuned for fast queries while the write model stays focused on consistency and safety",
+          "<strong>&#10004; Performance</strong> — air traffic controllers need instant airspace queries; a separate read model serves real-time data without slowing down write processing",
+          "<strong>&#10004; Reliability &amp; security</strong> — only authorized users can change flight routes, while others get read-only access to flight information",
+          "<strong>&#10004; Flexibility</strong> — different technologies per side: e.g. a relational database for commands, a memory-optimized store for queries"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "10",
+    "tag": "mistake",
+    "title": "CQRS Trade-offs",
+    "desc": "The pattern is powerful — and it charges for it",
+    "body": [
+      {
+        "card": "What you pay",
+        "items": [
+          "<strong>&#10008; Complexity</strong> — separating read and write models complicates the system: synchronization mechanisms become mandatory infrastructure",
+          "<strong>&#10008; Cost</strong> — multiple databases and a split codebase raise development and maintenance effort",
+          "<strong>&#10008; Eventual consistency</strong> — read data lags write data by design; brief inconsistencies are possible",
+          "In a critical environment like flight monitoring, that lag needs <strong>explicit countermeasures</strong>: staleness indicators, bounded lag monitoring, fallback to the write model for safety-relevant queries"
+        ],
+        "warn": true
+      },
+      {
+        "card": "Rule of thumb",
+        "items": [
+          "Use CQRS where read and write loads genuinely diverge — not as a default architecture"
         ]
       }
     ]

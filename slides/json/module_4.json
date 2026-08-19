@@ -49,7 +49,7 @@
             [
               "3",
               "<strong>Readable API test suite in Karate</strong>",
-              "Contract tests for the telemetry / command backend that the whole team can read and run (Module 12)"
+              "Contract tests for the telemetry / command backend that the whole team can read and run (Module 11)"
             ],
             [
               "4",
@@ -89,12 +89,12 @@
             [
               "7",
               "<strong>Telemetry REST / streaming service</strong>",
-              "Push live telemetry to a Spring service described with <strong>OpenAPI</strong>; fan it out over SSE or WebSocket (Modules 9&ndash;9)"
+              "Push live telemetry to a Spring service described with <strong>OpenAPI</strong>; fan it out over SSE or WebSocket (Modules 7&ndash;8)"
             ],
             [
               "8",
               "<strong>Message-queue telemetry pipeline</strong>",
-              "Publish tracks to a <strong>topic</strong>; independent consumers log, monitor and raise alerts in parallel (Module 10)"
+              "Publish tracks to a <strong>topic</strong>; independent consumers log, monitor and raise alerts in parallel (Module 9)"
             ],
             [
               "9",
@@ -104,12 +104,12 @@
             [
               "10",
               "<strong>UTM monitor fed by a real drone</strong>",
-              "Feed the Module 7 <strong>UTM-style monitor</strong> with the Mini 4 Pro's live position &mdash; show it as a tracked aircraft"
+              "Feed the Module 6 <strong>UTM-style monitor</strong> with the Mini 4 Pro's live position &mdash; show it as a tracked aircraft"
             ],
             [
               "11",
               "<strong>CQRS flight-state service</strong>",
-              "Separate the <strong>command</strong> side (mission commands) from the <strong>query</strong> side (current &amp; historical state) for the drone (Module 11)"
+              "Separate the <strong>command</strong> side (mission commands) from the <strong>query</strong> side (current &amp; historical state) for the drone (Module 10)"
             ]
           ]
         }
@@ -169,7 +169,7 @@
     "desc": "Every project idea is one box or one arrow in the same pipeline — from the drone to the map",
     "body": [
       {
-        "code": "[ DJI Mini 4 Pro ]   telemetry + video\n       |  MSDK v5\n       v\n[ Android app ]   labs/dji-hello-world  (Module 5)\n       |  REST, described by OpenAPI  (M8)\n       v\n[ Ingest API ] --&gt; Reactive stream, Spring WebFlux  (M9)\n       |\n       v\n[ Message queue / topic  (M10) ]\n       |\n  +----+-----------------------+\n  v                            v\n[ CQRS store  (M11) ]     [ UTM monitor  (M7) ]\n  |                            |\n  v                            v\n[ GIS moving map  (M14) ] [ BlueSky sim  (M13) ]\n\n  Karate  (M12)  contract-tests every API boundary above"
+        "code": "[ DJI Mini 4 Pro ]   telemetry + video\n       |  MSDK v5\n       v\n[ Android app ]   labs/dji-hello-world  (Module 5)\n       |  REST, described by OpenAPI  (M7)\n       v\n[ Ingest API ] --&gt; Reactive stream, Spring WebFlux  (M8)\n       |\n       v\n[ Message queue / topic  (M9) ]\n       |\n  +----+-----------------------+\n  v                            v\n[ CQRS store  (M10) ]     [ UTM monitor  (M6) ]\n  |                            |\n  v                            v\n[ GIS moving map  (M14) ] [ BlueSky sim  (M13) ]\n\n  Karate  (M11)  contract-tests every API boundary above"
       },
       {
         "card": "Reading the diagram",

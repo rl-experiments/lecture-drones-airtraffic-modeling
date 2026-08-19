@@ -180,8 +180,8 @@
       {
         "card": "Integration — ties into the backend modules",
         "items": [
-          "Push live telemetry to a <strong>REST / streaming backend</strong> (Modules 9&ndash;10)",
-          "Feed a <strong>UTM-style monitor</strong> (Module 7) with a real aircraft's position"
+          "Push live telemetry to a <strong>REST / streaming backend</strong> (Modules 7&ndash;9)",
+          "Feed a <strong>UTM-style monitor</strong> (Module 6) with a real aircraft's position"
         ]
       }
     ]

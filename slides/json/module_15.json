@@ -94,7 +94,7 @@
     "desc": "The diagram from Module 4, revisited — every box is now something you have built or can build",
     "body": [
       {
-        "code": "[ DJI Mini 4 Pro ] --&gt; [ Android client ]        the Lab (M5)\n                              |  OpenAPI-described REST  (M8)\n                              v\n                      [ Ingest API ]  WebFlux stream  (M9)\n                              |\n                              v\n                  [ telemetry topic  (M10) ]\n                    |         |          |\n                    v         v          v\n            [ live map ] [ avoidance ] [ CQRS store ]\n             (M14, GIS)   logic --&gt;      (M11)\n                          validated in\n                          BlueSky (M13)\n\n  fed by NOTAM / METAR / AIXM context (M6)  ·  inside a UTM picture (M7)\n  Karate tests every boundary (M12)  ·  the Safety &amp; Testing gate and\n  DO-178C mindset (M3) guard everything that flies"
+        "code": "[ DJI Mini 4 Pro ] --&gt; [ Android client ]        the Lab (M5)\n                              |  OpenAPI-described REST  (M7)\n                              v\n                      [ Ingest API ]  WebFlux stream  (M8)\n                              |\n                              v\n                  [ telemetry topic  (M9) ]\n                    |         |          |\n                    v         v          v\n            [ live map ] [ avoidance ] [ CQRS store ]\n             (M14, GIS)   logic --&gt;      (M10)\n                          validated in\n                          BlueSky (M13)\n\n  fed by NOTAM / METAR / AIXM context (M12)  ·  inside a UTM picture (M6)\n  Karate tests every boundary (M11)  ·  the Safety &amp; Testing gate and\n  DO-178C mindset (M3) guard everything that flies"
       },
       {
         "card": "The point",
@@ -116,9 +116,9 @@
         "card": "What you take home",
         "items": [
           "Why drone traffic needs modeling: regulation, density and safety (Modules 1, 3)",
-          "The data formats aviation speaks: NOTAM, METAR, AIXM, ASTERIX, OLDI (Module 6)",
-          "The system picture: UTM as a federation of services (Module 7)",
-          "The engineering toolbox: OpenAPI, WebFlux, message queues, CQRS, Karate (Modules 9–12)",
+          "The data formats aviation speaks: NOTAM, METAR, AIXM, ASTERIX, OLDI (Module 12)",
+          "The system picture: UTM as a federation of services (Module 6)",
+          "The engineering toolbox: OpenAPI, WebFlux, message queues, CQRS, Karate (Modules 7–11)",
           "The laboratory: BlueSky simulation and GIS integration (Modules 14–14)"
         ]
       },
