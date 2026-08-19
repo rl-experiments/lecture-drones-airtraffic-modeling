@@ -54,7 +54,8 @@
           "<strong>Virtual stick is the dangerous mode</strong> &mdash; the aircraft obeys your loop, not the pilot; build in a timeout / deadman check",
           "<strong>DJI Fly's limits are not the law</strong> &mdash; the app ceiling is configurable and <strong>your own SDK code bypasses it entirely</strong>",
           "<strong>Props off + <code>enableSimulator</code> first</strong>, then indoors with guards, then outdoors",
-          "<strong>Know the abort path before takeoff</strong>: RC pause &gt; left stick down &gt; power cut &mdash; misbehaves? Land immediately"
+          "<strong>Know the abort path before takeoff</strong>: RC pause &gt; left stick down &gt; power cut &mdash; misbehaves? Land immediately",
+          "Everything on this slide has one price tag: <strong>as pilot you are the personally liable operator</strong> (Module 2)"
         ],
         "warn": true
       }

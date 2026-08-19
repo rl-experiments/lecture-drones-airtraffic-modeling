@@ -127,7 +127,8 @@
         "items": [
           "Using Claude &amp; Co. is <strong>allowed and expected</strong> &mdash; and AI output is treated as <strong>untrusted input</strong>",
           "Flight code passes the <strong>Safety &amp; Testing gate (Module 2)</strong>: tests first, manual review, simulator &mdash; then props",
-          "At the demo you <strong>defend every line</strong> &mdash; code you cannot explain is graded as missing"
+          "At the demo you <strong>defend every line</strong> &mdash; code you cannot explain is graded as missing",
+          "And if it crashes anyway: <strong>you are the liable operator</strong> &mdash; personally. Module 2 shows what that costs"
         ],
         "warn": true
       }
