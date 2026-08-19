@@ -263,7 +263,7 @@ html, body {
 .cover-icon svg { width: 160px; height: 160px; }
 
 .content-icon {
-  position: absolute; top: -65px; right: 48px; z-index: 5;
+  position: absolute; top: 16px; right: -65px; z-index: 5;
   line-height: 0;
   filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.2));
 }
