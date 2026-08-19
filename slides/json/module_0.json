@@ -32,6 +32,27 @@
   {
     "type": "content",
     "mod": "0",
+    "tag": "important",
+    "title": "This Drone Flies Our Code",
+    "desc": "The course aircraft — a DJI Mini 4 Pro, flown by ~400 lines of our own Kotlin",
+    "body": [
+      {
+        "img": "drone-hero.jpg",
+        "alt": "DJI Mini 4 Pro in flight",
+        "height": 400
+      },
+      {
+        "card": "",
+        "items": [
+          "One button &rarr; it takes off, flies a mission, lands &mdash; <strong>entirely from code we wrote</strong> (Module 4)",
+          "By the end of this course <strong>you build on this</strong> &mdash; and can defend every line at the live demo"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "0",
     "tag": "",
     "title": "About the Lecturer",
     "desc": "Aviation and software &mdash; a lifelong combination",
@@ -56,21 +77,16 @@
     "type": "content",
     "mod": "0",
     "tag": "",
-    "title": "What This Lecture Covers",
-    "desc": "From regulation to running code: the full stack of drone air traffic",
+    "title": "One System, Module by Module",
+    "desc": "This course is not a topic list — every module is one station of the same pipeline",
     "body": [
       {
-        "card": "The journey",
+        "code": "[ DJI Mini 4 Pro ] --&gt; [ Android client ]        the Lab (M4)\n                              |  OpenAPI-described REST  (M8)\n                              v\n                      [ Ingest API ]  WebFlux stream  (M9)\n                              |\n                              v\n                  [ telemetry topic  (M10) ]\n                    |         |          |\n                    v         v          v\n            [ live map ] [ avoidance ] [ CQRS store ]\n             (M14, GIS)   logic --&gt;      (M11)\n                          validated in\n                          BlueSky (M13)\n\n  fed by NOTAM / METAR / AIXM context (M6)  ·  inside a UTM picture (M7)\n  Karate tests every boundary (M12)  ·  the Safety &amp; Testing gate (M2) and\n  DO-178C mindset (M5) guard everything that flies"
+      },
+      {
+        "card": "",
         "items": [
-          "<strong>Introduction</strong> &mdash; live flight tracking, drone regulation, the EU drone regulation 2024",
-          "<strong>Your project</strong> &mdash; a hands-on drone-software build you propose, implement and defend &mdash; on the real Mini 4 Pro or in simulation",
-          "<strong>The DJI lab</strong> &mdash; a one-button app already flies the Mini 4 Pro from our own code; you build on it",
-          "<strong>Software safety standards</strong> &mdash; DO-178C, ED-109, ED-153, and why 'perfect' software can still kill",
-          "<strong>Aeronautical information exchange</strong> &mdash; NOTAM, METAR, AIXM, ASTERIX, OLDI",
-          "<strong>Efficient control &amp; monitoring</strong> &mdash; UTM, automated fleet control, sensor fusion",
-          "<strong>Technologies</strong> &mdash; OpenAPI, Reactive Java (Spring WebFlux), message queues, CQRS, Karate test automation",
-          "<strong>Simulation &amp; data</strong> &mdash; BlueSky simulation environments and real-time GIS mapping",
-          "<strong>Conclusion &amp; outlook</strong> &mdash; future drone technology, AI &amp; autonomous systems, international standards"
+          "We revisit this exact diagram in the last session (Module 15) &mdash; by then, every box is something you have built or can build"
         ]
       }
     ]
@@ -105,6 +121,15 @@
           "Build on the working client &mdash; a small, real capability the base app does not have yet",
           "The project counts towards the final grade &mdash; expectations are spelled out in Module 3"
         ]
+      },
+      {
+        "card": "AI policy",
+        "items": [
+          "Using Claude &amp; Co. is <strong>allowed and expected</strong> &mdash; and AI output is treated as <strong>untrusted input</strong>",
+          "Flight code passes the <strong>Safety &amp; Testing gate (Module 2)</strong>: tests first, manual review, simulator &mdash; then props",
+          "At the demo you <strong>defend every line</strong> &mdash; code you cannot explain is graded as missing"
+        ],
+        "warn": true
       }
     ]
   }
