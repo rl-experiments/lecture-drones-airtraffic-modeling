@@ -6,64 +6,45 @@
       "opts": {
         "perched": true,
         "anchor": ".cover-card",
-        "anchorOffsetX": 90,
-        "anchorOffsetY": -20,
+        "anchorOffsetX": 100,
+        "anchorOffsetY": -10,
         "scale": 1.05,
-        "color": "#64748b"
+        "color": "#84cc16"
       }
     },
-    "bg": 6,
+    "bg": 2,
     "h1": "Module 14",
-    "lead": "Conclusion & Outlook",
-    "sub": "Where drone technology is heading — and what stands in the way",
+    "lead": "Real-Time Data in GIS Applications",
+    "sub": "Putting drone traffic on the map — literally",
     "badges": [
-      "Opportunities",
-      "AI & Autonomy",
-      "International Standards",
-      "*Wrap-up"
+      "Geodata",
+      "Route Planning",
+      "Visualization",
+      "DiPUL"
     ]
   },
   {
     "type": "content",
     "mod": "14",
     "tag": "",
-    "title": "Opportunities & Challenges of Future Drone Technologies",
+    "title": "Geodata for Flight Route Planning",
+    "desc": "A drone route is a query against many geographic layers at once",
     "body": [
       {
-        "card": "Opportunities",
+        "card": "The layers a route planner needs",
         "items": [
-          "<strong>Logistics</strong> — more efficient transport, especially for the last mile and hard-to-reach areas",
-          "<strong>Agriculture</strong> — precise crop monitoring and targeted treatment",
-          "<strong>Environmental monitoring</strong> — large-area observation at low cost",
-          "<strong>Emergency response</strong> — reaching inaccessible areas in crisis situations quickly"
+          "<strong>Geo-zones</strong> — no-fly and restricted zones (airports, hospitals, prisons, nature reserves)",
+          "<strong>Terrain &amp; obstacles</strong> — elevation models, buildings, power lines, cranes",
+          "<strong>Population density</strong> — ground risk for the Specific category (SORA) depends on who is below",
+          "<strong>Weather layers</strong> — wind fields and precipitation as time-dependent rasters",
+          "<strong>Live traffic</strong> — other drones and manned aviation, streamed in real time (Modules 7, 7, 8)"
         ]
       },
       {
-        "card": "Challenges",
+        "card": "Visualization of drone movements",
         "items": [
-          "Privacy concerns and security risks from unauthorized use",
-          "The need for clear regulatory frameworks",
-          "<strong>Integration into existing air traffic systems</strong> — the central theme of this entire lecture",
-          "Guaranteeing safe and ethical operation as fleets scale up"
-        ],
-        "warn": true
-      }
-    ]
-  },
-  {
-    "type": "content",
-    "mod": "14",
-    "tag": "",
-    "title": "The Potential of AI & Autonomous Systems",
-    "body": [
-      {
-        "card": "",
-        "items": [
-          "AI and autonomous systems can <strong>automate processes, raise efficiency and improve decision-making</strong>",
-          "Industry: more precise production and predictive maintenance",
-          "Healthcare: personalized treatment plans and faster diagnoses",
-          "Transport: autonomous vehicles and drones could revolutionize mobility while increasing safety",
-          "The open problems mirror aviation's: <strong>ethical use, avoiding failures in critical situations, robust safeguards</strong> against misuse and malfunction — Module 4's principles apply to AI components too"
+          "Live positions rendered on the map — the FlightAware picture from Module 1, now for unmanned traffic",
+          "Track history, planned route and actual route in one view: instant anomaly detection for operators"
         ]
       }
     ]
@@ -72,37 +53,76 @@
     "type": "content",
     "mod": "14",
     "tag": "",
-    "title": "International Standards & Regulations",
+    "title": "Applications & the German Data Source",
+    "desc": "Logistics, rescue services — and where the official geo-zones come from",
     "body": [
       {
-        "card": "Why they matter",
+        "card": "Application examples",
         "items": [
-          "Standards ensure innovations are <strong>globally harmonized</strong>: products and services stay compatible and safe worldwide",
-          "They promote trade, protect user privacy and safety, and prevent technological abuse",
-          "They create fair competition — without unnecessarily slowing progress",
-          "The hard part: developing <strong>flexible, future-proof norms</strong> that keep pace with rapid technological change",
-          "You have now seen the aviation instances: EU 2019/947, DO-178C, ED-153, AIXM, ASTERIX, OLDI — one coherent regulatory-technical stack"
+          "<strong>Logistics</strong> — corridor planning for delivery routes, automatically re-routed around temporary geo-zones",
+          "<strong>Rescue services</strong> — fastest legal route for a medical-supply drone, computed against live airspace data",
+          "<strong>Inspection &amp; monitoring</strong> — pipelines, railways and power lines flown along precise geo-referenced paths"
         ]
-      }
-    ]
-  },
-  {
-    "type": "content",
-    "mod": "14",
-    "tag": "important",
-    "title": "One System, End to End",
-    "desc": "The diagram from Module 2, revisited — every box is now something you have built or can build",
-    "body": [
-      {
-        "code": "[ DJI Mini 4 Pro ] --&gt; [ Android client ]        the Lab (M3)\n                              |  OpenAPI-described REST  (M7)\n                              v\n                      [ Ingest API ]  WebFlux stream  (M8)\n                              |\n                              v\n                  [ telemetry topic  (M9) ]\n                    |         |          |\n                    v         v          v\n            [ live map ] [ avoidance ] [ CQRS store ]\n             (M13, GIS)   logic --&gt;      (M10)\n                          validated in\n                          BlueSky (M12)\n\n  fed by NOTAM / METAR / AIXM context (M5)  ·  inside a UTM picture (M6)\n  Karate tests every boundary (M11)  ·  the Safety &amp; Testing gate and\n  DO-178C mindset (M4) guard everything that flies"
       },
       {
-        "card": "The point",
+        "card": "DiPUL — Digitale Plattform Unbemannte Luftfahrt",
         "items": [
-          "Every module of this course was <strong>one station of the same system</strong> &mdash; nothing you learned stands alone",
-          "You can now build this <strong>end to end</strong>: parse aviation data, expose it, stream it, fan it out, guard the writes, test every seam, and prove it in simulation before a single prop spins",
-          "That is the sentence for your CV &mdash; and the one you should be able to <strong>defend in the exam</strong>"
+          "Germany's official digital platform for unmanned aviation (BMDV / DFS)",
+          "Interactive map of all <strong>geographic zones</strong> relevant for drone flights — the authoritative source for German operations",
+          "Machine-readable access makes it a natural data layer for every route planner discussed on the previous slide"
         ]
+      },
+      {
+        "img": "dipul-maptool.png",
+        "alt": "DiPUL map tool showing geo-zones over the Berlin region: airport control zones, hospitals, federal roads, nature reserves",
+        "height": 300,
+        "caption": "DiPUL map tool: every colored layer is a rule your route planner must respect (Berlin region shown)"
+      },
+      {
+        "resource": {
+          "title": "Explore",
+          "links": [
+            {
+              "url": "https://maptool-dipul.dfs.de",
+              "label": "DiPUL map tool"
+            },
+            {
+              "url": "https://www.dipul.de",
+              "label": "dipul.de"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "14",
+    "tag": "",
+    "title": "From Telemetry to a Moving Map",
+    "desc": "The 'real-time' in real-time GIS — how a live position becomes a moving dot",
+    "body": [
+      {
+        "card": "The data path",
+        "items": [
+          "The drone emits a position several times per second; <strong>Spring WebFlux (M9)</strong> pushes each fix to the browser over <strong>SSE or WebSocket</strong> — no polling",
+          "Each fix travels as a <strong>GeoJSON</strong> point in <strong>WGS84</strong> (lat / lon) — the format every map library speaks",
+          "The map redraws only the features that moved, so hundreds of live tracks stay smooth"
+        ]
+      },
+      {
+        "card": "The map stack",
+        "items": [
+          "<strong>Base map</strong>: raster or vector tiles (OpenStreetMap with MapLibre, Leaflet or OpenLayers) — all open-source",
+          "<strong>Overlays</strong>: DiPUL geo-zones underneath, planned route and the live track on top",
+          "<strong>Coordinate care</strong>: tiles are Web Mercator (EPSG:3857), data is WGS84 (EPSG:4326) — mixing them up is the classic first bug"
+        ]
+      },
+      {
+        "img": "live-track-map.png",
+        "alt": "Leaflet map of Sigmaringen with a dashed planned route, solid live track, current drone position marker and a red hospital geo-zone",
+        "height": 280,
+        "caption": "The stack in action (Leaflet + OSM): planned route, live track via SSE, DiPUL-style geo-zone — around our campus in Sigmaringen. Project idea <strong>#5</strong> is exactly this slice."
       }
     ]
   },
@@ -110,24 +130,15 @@
     "type": "content",
     "mod": "14",
     "tag": "takeaway",
-    "title": "Course Wrap-up & Open Questions",
+    "title": "Module 14: Key Takeaways",
     "body": [
       {
-        "card": "What you take home",
+        "card": "",
         "items": [
-          "Why drone traffic needs modeling: regulation, density and safety (Modules 1, 4)",
-          "The data formats aviation speaks: NOTAM, METAR, AIXM, ASTERIX, OLDI (Module 5)",
-          "The system picture: UTM as a federation of services (Module 6)",
-          "The engineering toolbox: OpenAPI, WebFlux, message queues, CQRS, Karate (Modules 7–11)",
-          "The laboratory: BlueSky simulation and GIS integration (Modules 12–13)"
-        ]
-      },
-      {
-        "card": "Now it's on you",
-        "items": [
-          "Ship your practical project — working code beats slides",
-          "Fly your project — and be able to explain <em>why</em> your code was safe to arm",
-          "Open questions? Ask now, or bring them to the next session"
+          "A drone route is a <strong>query across many geographic layers</strong> at once — geo-zones, terrain, population density, weather and live traffic",
+          "The <strong>real-time</strong> layer is the hard part: live positions streamed onto a moving map turn Module 1's manned-traffic picture into an unmanned one",
+          "Authoritative data matters — in Germany, <strong>DiPUL</strong> is the official, machine-readable source of drone geo-zones",
+          "This closes the loop: telemetry from your DJI drone (3) flows through the backend (7–10) and is rendered on the map here"
         ]
       }
     ]

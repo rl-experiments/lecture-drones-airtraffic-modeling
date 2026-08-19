@@ -6,93 +6,54 @@
       "opts": {
         "perched": true,
         "anchor": ".cover-card",
-        "anchorOffsetX": 30,
-        "anchorOffsetY": -25,
+        "anchorOffsetX": 95,
+        "anchorOffsetY": 0,
         "scale": 1.05,
-        "color": "#06b6d4"
+        "color": "#f59e0b"
       }
     },
-    "bg": 4,
+    "bg": 7,
     "h1": "Module 12",
-    "lead": "Simulation Environments for Validation",
-    "sub": "Where your collision-avoidance code gets to fail safely",
+    "lead": "Karate: Test Automation",
+    "sub": "Technology block (e): API tests everyone on the team can read",
     "badges": [
-      "BlueSky",
-      "TU Delft",
-      "DJI Simulator",
-      "Real-Time Simulation",
-      "*Validation Arena"
+      "Gherkin",
+      "API Testing",
+      "Performance Tests",
+      "CI/CD"
     ]
   },
   {
     "type": "content",
     "mod": "12",
     "tag": "",
-    "title": "Why Simulate?",
-    "desc": "Virtual test environments for drone flights and real-time simulation",
+    "title": "What Is Karate?",
+    "desc": "An open-source test automation framework built for APIs and web services",
     "body": [
       {
-        "card": "The case for simulation",
+        "card": "In a nutshell",
         "items": [
-          "You cannot flight-test a deconfliction algorithm against 200 real aircraft — <strong>simulation is the only safe laboratory</strong>",
-          "<strong>Virtual test environments</strong> reproduce airspace structure, traffic and aircraft performance models",
-          "<strong>Real-time simulation</strong> lets humans and systems interact with the scenario as it unfolds; fast-time simulation runs thousands of scenarios overnight",
-          "Remember Module 4: verification evidence under <strong>normal and fault conditions</strong> — simulation is how you produce it cheaply",
-          "Scenario coverage: rare events (link loss, sensor failure, rogue drones) can be triggered on demand"
+          "Open-source tool for test automation, designed specifically for <strong>API tests and web services</strong>",
+          "Tests are written in a simple, readable syntax based on <strong>Gherkin</strong> — accessible even to non-programmers",
+          "Supports <strong>functional and performance tests</strong>, plus API, UI and end-to-end testing in one tool",
+          "Integrates quickly into <strong>CI/CD pipelines</strong> — known for efficiency and ease of use",
+          "For our domain: every UTM interface from Module 7/7 (clearance, telemetry, geo-zones) is a natural Karate target"
         ]
-      }
-    ]
-  },
-  {
-    "type": "content",
-    "mod": "12",
-    "tag": "",
-    "title": "Two Simulators, Two Questions",
-    "desc": "This course uses the word \"simulator\" for two very different things — know which one you need",
-    "body": [
+      },
       {
-        "table": {
-          "headers": [
-            "",
-            "<strong>DJI simulator</strong> (Module 3)",
-            "<strong>BlueSky</strong> (this module)"
-          ],
-          "rows": [
-            [
-              "<strong>Answers</strong>",
-              "Does <em>my code</em> fly <em>one</em> aircraft correctly?",
-              "Does <em>my algorithm</em> keep <em>many</em> aircraft apart?"
-            ],
-            [
-              "<strong>What is real</strong>",
-              "The actual flight controller, SDK and telemetry path &mdash; only physics and GPS are synthetic",
-              "Nothing &mdash; a pure Python traffic model"
-            ],
-            [
-              "<strong>Hardware</strong>",
-              "<strong>Required</strong> &mdash; the drone sits on your desk, props off",
-              "None"
-            ],
-            [
-              "<strong>Catches</strong>",
-              "Runaway virtual-stick loops, bad state handling, wrong units",
-              "Conflict-resolution failures, emergent traffic effects"
-            ],
-            [
-              "<strong>Blind to</strong>",
-              "Other traffic &mdash; there is only ever one aircraft",
-              "Whether your app works on real hardware at all"
-            ]
+        "resource": {
+          "title": "Resources",
+          "links": [
+            {
+              "url": "https://github.com/karatelabs/karate",
+              "label": "Karate (GitHub)"
+            },
+            {
+              "url": "https://github.com/karatelabs/karate/tree/master/karate-demo",
+              "label": "karate-demo — runnable examples"
+            }
           ]
         }
-      },
-      {
-        "card": "Where the two meet",
-        "items": [
-          "Neither replaces the other: the DJI simulator validates the <strong>client</strong>, BlueSky validates the <strong>traffic logic</strong> &mdash; Module 4's <em>evidence under normal and fault conditions</em> applied at two different levels",
-          "<strong>Project idea #14</strong> attempts that bridge &mdash; expect the <strong>scale mismatch</strong> to be the real work: BlueSky reasons in ATM separation standards and airliner performance models, not 1.5 m hops by a 249 g quadcopter (TU Delft did extend it to urban drone traffic, and called that hard)",
-          "Rule of thumb: anything that <strong>moves a real motor</strong> gets the DJI simulator first; anything that <strong>decides where aircraft go</strong> gets BlueSky first"
-        ]
       }
     ]
   },
@@ -100,14 +61,14 @@
     "type": "content",
     "mod": "12",
     "tag": "",
-    "title": "Test Environment vs. Reality",
-    "desc": "What simulation can and cannot promise you",
+    "title": "Why We Test: Cover All Edge Cases",
+    "desc": "Your collision-avoidance plugin will meet its stick-wielding tester in Module 13",
     "body": [
       {
-        "img": "testing-vs-prod.png",
-        "alt": "MonkeyUser comic: a smooth flat test-environment track ends in a cliff into a production canyon full of spikes, lag hills and performance drops",
+        "img": "edge-cases.png",
+        "alt": "MonkeyUser comic: a robot builder is asked 'did you cover all edge cases?' — weeks later the robot wears a helmet, pillows and a roll cage",
         "height": 455,
-        "caption": "monkeyuser.com &mdash; Testing vs. Production Environment. Simulation is your smooth track; the real airspace is the canyon. Validate in the <em>right</em> simulator first &mdash; and never mistake either one for the canyon."
+        "caption": "monkeyuser.com — Edge Cases"
       }
     ]
   },
@@ -115,17 +76,12 @@
     "type": "content",
     "mod": "12",
     "tag": "",
-    "title": "BlueSky: The Open ATM Simulator",
-    "desc": "TU Delft's open-source air traffic simulator — our validation arena for avoidance logic",
+    "title": "Example 1: Testing a Greeting Endpoint",
+    "desc": "A complete Karate feature file — no Java code required",
     "body": [
       {
-        "card": "What you get",
-        "items": [
-          "Open source (GPL), written in <strong>Python</strong> — easy to read, easy to extend; used in actual ATM research at TU Delft and beyond",
-          "Scenario scripting, aircraft performance models, radar-style visualization",
-          "A <strong>plugin architecture</strong> — including the <code>asas</code> plugins for conflict detection &amp; resolution",
-          "Source: <a href=\"https://github.com/TUDelft-CNS-ATM/bluesky\" target=\"_blank\">TUDelft-CNS-ATM/bluesky (GitHub)</a>"
-        ]
+        "code": "<span class=\"kw\">Feature:</span> greeting end-point\n\n<span class=\"kw\">Background:</span>\n  * url demoBaseUrl\n\n<span class=\"kw\">Scenario:</span> get default greeting\n    <span class=\"kw\">Given</span> path <span class=\"str\">'greeting'</span>\n    <span class=\"kw\">When</span> method get\n    <span class=\"kw\">Then</span> status 200\n    <span class=\"kw\">And</span> match response == { id: <span class=\"str\">'#number'</span>, content: <span class=\"str\">'Hello World!'</span> }\n\n<span class=\"kw\">Scenario:</span> get custom greeting\n    <span class=\"kw\">Given</span> path <span class=\"str\">'greeting'</span>\n    <span class=\"kw\">And</span> param name = <span class=\"str\">'Billie'</span>\n    <span class=\"kw\">When</span> method get\n    <span class=\"kw\">Then</span> status 200\n    <span class=\"kw\">And</span> match response == { id: <span class=\"str\">'#number'</span>, content: <span class=\"str\">'Hello Billie!'</span> }",
+        "note": "match validates the whole JSON payload structurally — '#number' is a fuzzy matcher: any numeric id passes."
       }
     ]
   },
@@ -133,35 +89,12 @@
     "type": "content",
     "mod": "12",
     "tag": "",
-    "title": "BlueSky Radar View",
-    "desc": "Dense traffic over the Balkans — every green tag is an aircraft your plugin must keep apart",
+    "title": "Example 2: CSRF Token & Sign-In Flow",
+    "desc": "Chaining requests: capture a token, then use it in the next request",
     "body": [
       {
-        "img": "bluesky-traffic-simulation.png",
-        "alt": "BlueSky simulator radar view with dense air traffic over the Balkans",
-        "height": 460,
-        "caption": "Traffic simulation using the BlueSky simulator."
-      }
-    ]
-  },
-  {
-    "type": "content",
-    "mod": "12",
-    "tag": "exercise",
-    "title": "BlueSky Setup: Stress-Test Your Logic",
-    "desc": "Run your avoidance logic against scripted traffic — measure, don't guess",
-    "body": [
-      {
-        "code": "<span class=\"kw\"># get the simulator</span>\npip install bluesky-simulator[full]\n<span class=\"kw\"># or from source:</span>\ngit clone https://github.com/TUDelft-CNS-ATM/bluesky.git\n\n<span class=\"kw\"># start the GUI</span>\nbluesky\n\n<span class=\"kw\"># where your work goes</span>\nbluesky/plugins/        &lt;-- your plugin lives here\nbluesky/plugins/asas/   &lt;-- study these first"
-      },
-      {
-        "card": "How to use it",
-        "items": [
-          "Script a traffic scenario, let your logic steer the drones, and record when separation fails",
-          "<strong>Time until first conflict is your measurement, not a score</strong> &mdash; vary traffic density and find where your approach breaks",
-          "Study <code>bluesky/plugins/asas</code> first, then measure your resolver against the built-in ones",
-          "Optional deep-dive for airspace-leaning projects (ideas 14&ndash;16) &mdash; and exactly the kind of <strong>measured data</strong> the Grade-1.0 bar asks for (Module 2)"
-        ]
+        "code": "<span class=\"kw\">Feature:</span> csrf and sign-in end point\n\n<span class=\"kw\">Background:</span>\n  * url demoBaseUrl\n  <span class=\"kw\">Given</span> path <span class=\"str\">'signin'</span>, <span class=\"str\">'token'</span>\n  <span class=\"kw\">When</span> method get\n  <span class=\"kw\">Then</span> status 200\n  <span class=\"kw\">And</span> header X-CSRF-TOKEN = response\n\n<span class=\"kw\">Scenario:</span> html url encoded form submit - post\n    <span class=\"kw\">Given</span> path <span class=\"str\">'signin'</span>\n    <span class=\"kw\">And</span> form field username = <span class=\"str\">'john'</span>\n    <span class=\"kw\">And</span> form field password = <span class=\"str\">'secret'</span>\n    <span class=\"kw\">When</span> method post\n    <span class=\"kw\">Then</span> status 200\n    <span class=\"kw\">And</span> match response == <span class=\"str\">'success'</span>",
+        "note": "The Background runs before each scenario: it fetches the CSRF token once and injects it as a header — state flows naturally between steps. The full demo also shows GET-based and manually-formed request variants."
       }
     ]
   },
@@ -174,10 +107,11 @@
       {
         "card": "",
         "items": [
-          "Two simulators, two questions: the <strong>DJI simulator</strong> answers 'does my control code behave?', <strong>BlueSky</strong> answers 'does my airspace logic scale?'",
-          "Simulation is the <strong>cheap half of the Safety &amp; Testing gate</strong> — every mission flies virtually before it flies physically",
-          "A simulator validates <strong>logic, not reality</strong>: wind, latency and sensor noise stay simplified — margins belong in the design (Module 4)",
-          "<strong>Time-until-first-conflict</strong> under rising traffic density is your measurement — data like this is what the Grade-1.0 bar means by 'measured' (Module 2)"
+          "Karate writes API tests in readable <strong>Gherkin</strong> — no Java required, so the whole team can read and run them",
+          "One tool covers <strong>functional, integration and performance</strong> tests and drops straight into CI/CD",
+          "Chaining requests — capture a token, then reuse it — makes <strong>multi-step flows</strong> like sign-in-then-call easy to express",
+          "Every UTM and telemetry interface from Modules 8–9 is a natural Karate target: contract-test it before you trust it",
+          "This is the <strong>Safety &amp; Testing gate, API edition</strong>: the same test-first discipline that keeps the drone out of the wall keeps your backend honest"
         ]
       }
     ]

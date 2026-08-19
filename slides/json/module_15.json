@@ -6,63 +6,83 @@
       "opts": {
         "perched": true,
         "anchor": ".cover-card",
-        "anchorOffsetX": 95,
-        "anchorOffsetY": -15,
+        "anchorOffsetX": 90,
+        "anchorOffsetY": -20,
         "scale": 1.05,
-        "color": "#e11d48"
+        "color": "#64748b"
       }
     },
-    "bg": 7,
-    "icon": "hazard",
-    "h1": "Safety & Testing",
-    "lead": "Test First. Fly Later.",
-    "sub": "An untested command doesn't cost you a failed unit test &mdash; it costs the university a drone. This module is the gate everything else in this course passes through.",
+    "bg": 6,
+    "h1": "Module 15",
+    "lead": "Conclusion & Outlook",
+    "sub": "Where drone technology is heading — and what stands in the way",
     "badges": [
-      "Test-First",
-      "Manual Test Review",
-      "Simulator Gate",
-      "*No Green, No Props"
+      "Opportunities",
+      "AI & Autonomy",
+      "International Standards",
+      "*Wrap-up"
     ]
   },
   {
     "type": "content",
     "mod": "15",
-    "tag": "safety",
-    "title": "One Bad Command Is All It Takes",
-    "desc": "A drone has no undo, no rollback, no restore-from-backup",
+    "tag": "",
+    "title": "Opportunities & Challenges of Future Drone Technologies",
     "body": [
       {
-        "card": "The stakes",
+        "card": "Opportunities",
         "items": [
-          "A crashed Mini 4 Pro is <strong>dead hardware and real money</strong> &mdash; the university paid for it once, and won't be happy paying twice",
-          "A flyaway is worse than a crash: the drone simply <strong>leaves and never comes back</strong>, and so does the course equipment",
-          "On a backend, a bad deploy is rolled back in minutes &mdash; <strong>a drone in a wall stays in the wall</strong>"
+          "<strong>Logistics</strong> — more efficient transport, especially for the last mile and hard-to-reach areas",
+          "<strong>Agriculture</strong> — precise crop monitoring and targeted treatment",
+          "<strong>Environmental monitoring</strong> — large-area observation at low cost",
+          "<strong>Emergency response</strong> — reaching inaccessible areas in crisis situations quickly"
         ]
       },
       {
-        "table": {
-          "headers": [
-            "You prompt",
-            "What can come back"
-          ],
-          "rows": [
-            [
-              "<em>&quot;fly up&quot;</em>",
-              "Climb velocity set with <strong>no ceiling and no stop condition</strong> &mdash; indoors it grinds into the ceiling; outdoors it climbs until the link drops and <strong>the drone is gone</strong>"
-            ],
-            [
-              "<em>&quot;fly forward 2 m&quot;</em>",
-              "Meters confused with <strong>m/s or with seconds of loop time</strong> &mdash; a wrong tick-rate assumption turns 2 m into <strong>7 m</strong>, straight into a wall, the projector, or a person"
-            ]
-          ]
-        }
-      },
-      {
-        "card": "The rule",
+        "card": "Challenges",
         "items": [
-          "<strong>Untested code never gets props.</strong> Not yours, not Claude's &mdash; no exceptions, not even for &quot;trivial&quot; one-liners. <em>Especially</em> not for those."
+          "Privacy concerns and security risks from unauthorized use",
+          "The need for clear regulatory frameworks",
+          "<strong>Integration into existing air traffic systems</strong> — the central theme of this entire lecture",
+          "Guaranteeing safe and ethical operation as fleets scale up"
         ],
         "warn": true
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "15",
+    "tag": "",
+    "title": "The Potential of AI & Autonomous Systems",
+    "body": [
+      {
+        "card": "",
+        "items": [
+          "AI and autonomous systems can <strong>automate processes, raise efficiency and improve decision-making</strong>",
+          "Industry: more precise production and predictive maintenance",
+          "Healthcare: personalized treatment plans and faster diagnoses",
+          "Transport: autonomous vehicles and drones could revolutionize mobility while increasing safety",
+          "The open problems mirror aviation's: <strong>ethical use, avoiding failures in critical situations, robust safeguards</strong> against misuse and malfunction — Module 5's principles apply to AI components too"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "15",
+    "tag": "",
+    "title": "International Standards & Regulations",
+    "body": [
+      {
+        "card": "Why they matter",
+        "items": [
+          "Standards ensure innovations are <strong>globally harmonized</strong>: products and services stay compatible and safe worldwide",
+          "They promote trade, protect user privacy and safety, and prevent technological abuse",
+          "They create fair competition — without unnecessarily slowing progress",
+          "The hard part: developing <strong>flexible, future-proof norms</strong> that keep pace with rapid technological change",
+          "You have now seen the aviation instances: EU 2019/947, DO-178C, ED-153, AIXM, ASTERIX, OLDI — one coherent regulatory-technical stack"
+        ]
       }
     ]
   },
@@ -70,70 +90,18 @@
     "type": "content",
     "mod": "15",
     "tag": "important",
-    "title": "AI-Generated Flight Code: Compiles, Looks Right, Flies Wrong",
-    "desc": "Claude writes Kotlin that reads clean and builds green — the drone doesn't know that",
+    "title": "One System, End to End",
+    "desc": "The diagram from Module 3, revisited — every box is now something you have built or can build",
     "body": [
       {
-        "card": "Why AI code is uniquely risky here",
-        "items": [
-          "LLM-generated code fails <em>plausibly</em>: it compiles, reads clean, and a quick review nods it through",
-          "On a backend, a wrong unit is a failed test &mdash; on a drone <strong>the bug has propellers</strong>; the error budget is the distance to the nearest wall",
-          "Virtual stick has <strong>no &quot;fly 2 m&quot; command</strong> &mdash; only velocity &times; time at &ge; 5 Hz. Every distance is an implicit calculation the AI can silently get wrong"
-        ]
+        "code": "[ DJI Mini 4 Pro ] --&gt; [ Android client ]        the Lab (M4)\n                              |  OpenAPI-described REST  (M8)\n                              v\n                      [ Ingest API ]  WebFlux stream  (M9)\n                              |\n                              v\n                  [ telemetry topic  (M10) ]\n                    |         |          |\n                    v         v          v\n            [ live map ] [ avoidance ] [ CQRS store ]\n             (M14, GIS)   logic --&gt;      (M11)\n                          validated in\n                          BlueSky (M13)\n\n  fed by NOTAM / METAR / AIXM context (M6)  ·  inside a UTM picture (M7)\n  Karate tests every boundary (M12)  ·  the Safety &amp; Testing gate and\n  DO-178C mindset (M5) guard everything that flies"
       },
       {
-        "card": "The trap: letting the same AI check itself",
+        "card": "The point",
         "items": [
-          "If the same AI writes the code <strong>and</strong> the tests, <strong>both inherit the same wrong assumption</strong> &mdash; the tests go green and the drone still hits the wall",
-          "That is why this course demands a <strong>manual recheck of every test</strong> &mdash; you are the independent verifier the AI cannot be"
-        ],
-        "warn": true
-      }
-    ]
-  },
-  {
-    "type": "content",
-    "mod": "15",
-    "tag": "demo",
-    "title": "Spot the Bug: \"Fly Forward 2 m\"",
-    "desc": "Generated Kotlin, DJI virtual stick — it compiles, it flies, and it overshoots 3.5×",
-    "body": [
-      {
-        "code": "<span class=\"str\">// task: \"fly forward 2 m\"</span>\n<span class=\"kw\">val</span> distance = 2.0\nrepeat(distance.toInt() * 5) {      <span class=\"str\">// \"2 m at 5 Hz\" — actually just 2 s of flight</span>\n    param.pitch = 3.5f              <span class=\"str\">// 3.5 m/s — copied from an SDK sample</span>\n    VirtualStickManager.sendVirtualStickAdvancedParam(param)\n    delay(200L)                     <span class=\"str\">// 5 Hz tick</span>\n}\n<span class=\"str\">// flown: 3.5 m/s × 2 s = 7 m.   requested: 2 m.   wall: hit.</span>"
-      },
-      {
-        "card": "Three bugs, zero compiler errors",
-        "items": [
-          "<strong>Unit confusion</strong> &mdash; <code>distance</code> holds meters, the loop treats it as seconds; <code>pitch</code> is a velocity that never matched the request",
-          "<strong>No bound, no abort</strong> &mdash; nothing limits the leg length, and an exception mid-loop leaves virtual stick <strong>live with the last velocity still applied</strong>",
-          "A test written <em>first</em> &mdash; <code>assertEquals(2.0, plan.distanceMeters, 0.1)</code> &mdash; fails in milliseconds; the wall-impact version of that feedback costs a drone"
-        ],
-        "warn": true
-      }
-    ]
-  },
-  {
-    "type": "content",
-    "mod": "15",
-    "tag": "exercise",
-    "title": "Test Harness First, Flight Later",
-    "desc": "Before any generated command flies: write the tests — then recheck the tests by hand",
-    "body": [
-      {
-        "card": "The workflow — non-negotiable",
-        "items": [
-          "<strong>1. Test framework first</strong> &mdash; unit tests for every distance / velocity / duration calculation <em>before</em> the flight code exists",
-          "<strong>2. Recheck the tests manually</strong> &mdash; read every assertion yourself and confirm the expected values against the SDK docs, <em>not</em> against the generated code",
-          "<strong>3. <code>enableSimulator</code></strong> &mdash; fly the mission virtually and watch the telemetry: did it move 2.0 m, or 7?",
-          "<strong>4. Only then a real flight</strong> &mdash; indoors, propeller guards on, the SAFETY rules from the Lab module apply every single time"
-        ]
-      },
-      {
-        "card": "What your harness must assert",
-        "items": [
-          "Every motion command has an <strong>explicit bound</strong>: max altitude, max distance, hard timeout",
-          "Units are visible in the code &mdash; <code>distanceMeters</code>, <code>speedMetersPerSecond</code>, <code>durationMs</code> &mdash; so a mix-up <strong>fails to read, not just to fly</strong>",
-          "The <strong>abort path is testable without the aircraft</strong>: the deadman timeout fires, virtual stick disables, the mission stops"
+          "Every module of this course was <strong>one station of the same system</strong> &mdash; nothing you learned stands alone",
+          "You can now build this <strong>end to end</strong>: parse aviation data, expose it, stream it, fan it out, guard the writes, test every seam, and prove it in simulation before a single prop spins",
+          "That is the sentence for your CV &mdash; and the one you should be able to <strong>defend in the exam</strong>"
         ]
       }
     ]
@@ -142,25 +110,24 @@
     "type": "content",
     "mod": "15",
     "tag": "takeaway",
-    "title": "The Gate: No Green, No Props",
-    "desc": "This checklist applies to every flight, every time — there is no 'just a quick test'",
+    "title": "Course Wrap-up & Open Questions",
     "body": [
       {
-        "card": "Before every flight",
+        "card": "What you take home",
         "items": [
-          "&#9744; Tests exist for <strong>every motion calculation</strong> &mdash; written before the flight code",
-          "&#9744; Every test <strong>manually reviewed</strong> against the SDK docs by a human",
-          "&#9744; Mission flown in <strong><code>enableSimulator</code></strong> &mdash; telemetry matches the intended distances",
-          "&#9744; Bounds, timeout and <strong>abort path verified</strong>",
-          "&#9744; Only then: props on, guards on, fly"
+          "Why drone traffic needs modeling: regulation, density and safety (Modules 1, 5)",
+          "The data formats aviation speaks: NOTAM, METAR, AIXM, ASTERIX, OLDI (Module 6)",
+          "The system picture: UTM as a federation of services (Module 7)",
+          "The engineering toolbox: OpenAPI, WebFlux, message queues, CQRS, Karate (Modules 9–12)",
+          "The laboratory: BlueSky simulation and GIS integration (Modules 14–14)"
         ]
       },
       {
-        "card": "Where this comes from",
+        "card": "Now it's on you",
         "items": [
-          "This is <strong>verification independence</strong> (DO-178C, Module 4) at lab scale: <strong>the verifier must not be the author</strong> &mdash; and right now, the author is Claude",
-          "Module 11's <strong>Karate</strong> applies the same discipline to your backend: the telemetry pipeline gets tests before it gets traffic",
-          "Aviation learned this the expensive way &mdash; <strong>you get to learn it the cheap way</strong>"
+          "Ship your practical project — working code beats slides",
+          "Fly your project — and be able to explain <em>why</em> your code was safe to arm",
+          "Open questions? Ask now, or bring them to the next session"
         ]
       }
     ]

@@ -10,66 +10,65 @@
       "color": "#f97316"
     },
     "2": {
-      "label": "Module 2",
-      "color": "#eab308"
+      "label": "Safety & Testing",
+      "color": "#e11d48"
     },
     "3": {
+      "label": "Module 3",
+      "color": "#eab308"
+    },
+    "4": {
       "label": "Lab",
       "color": "#0ea5e9"
     },
-    "4": {
-      "label": "Module 4",
-      "color": "#dc2626"
-    },
     "5": {
       "label": "Module 5",
-      "color": "#3b82f6"
+      "color": "#dc2626"
     },
     "6": {
       "label": "Module 6",
-      "color": "#14b8a6"
+      "color": "#3b82f6"
     },
     "7": {
       "label": "Module 7",
-      "color": "#22c55e"
+      "color": "#14b8a6"
     },
     "8": {
       "label": "Module 8",
-      "color": "#8b5cf6"
+      "color": "#22c55e"
     },
     "9": {
       "label": "Module 9",
-      "color": "#ec4899"
+      "color": "#8b5cf6"
     },
     "10": {
       "label": "Module 10",
-      "color": "#ef4444"
+      "color": "#ec4899"
     },
     "11": {
       "label": "Module 11",
-      "color": "#f59e0b"
+      "color": "#ef4444"
     },
     "12": {
       "label": "Module 12",
-      "color": "#06b6d4"
+      "color": "#f59e0b"
     },
     "13": {
       "label": "Module 13",
-      "color": "#84cc16"
+      "color": "#06b6d4"
     },
     "14": {
       "label": "Module 14",
-      "color": "#64748b"
+      "color": "#84cc16"
     },
     "15": {
-      "label": "Safety & Testing",
-      "color": "#e11d48"
+      "label": "Module 15",
+      "color": "#64748b"
     }
   },
   "moduleOrder": [
     "0",
     "1",
-    "15",
     "2",
     "3",
     "4",
@@ -82,7 +81,8 @@
     "11",
     "12",
     "13",
-    "14"
+    "14",
+    "15"
   ],
   "bg_rotation": [
     2,
@@ -103,45 +103,45 @@
     {
       "label": "Safety & Testing",
       "mods": [
-        "15"
+        "2"
       ]
     },
     {
       "label": "Assignments",
       "mods": [
-        "2",
-        "3"
+        "3",
+        "4"
       ]
     },
     {
       "label": "Safety & Aviation Data",
       "mods": [
-        "4",
-        "5"
+        "5",
+        "6"
       ]
     },
     {
       "label": "Architecture & Technologies (Backend)",
       "mods": [
-        "6",
         "7",
         "8",
         "9",
         "10",
-        "11"
+        "11",
+        "12"
       ]
     },
     {
       "label": "Simulation & Data",
       "mods": [
-        "12",
-        "13"
+        "13",
+        "14"
       ]
     },
     {
       "label": "Conclusion & Outlook",
       "mods": [
-        "14"
+        "15"
       ]
     }
   ],
@@ -157,72 +157,72 @@
       "topics": "Live Tracking, Near Misses, EU Regulation 2024, A1/A2/A3"
     },
     {
-      "mod": "15",
+      "mod": "2",
       "title": "Safety & Testing: Code That Flies",
       "topics": "AI-Generated Code Risks, Test-First, Manual Test Review, Simulator Gate"
     },
     {
-      "mod": "2",
+      "mod": "3",
       "title": "Project Ideas & Your Build",
       "topics": "16 Project Ideas, Reference Architecture, Praxis Track"
     },
     {
-      "mod": "3",
+      "mod": "4",
       "title": "Hands-On: DJI Client & Your Project",
       "topics": "Mini 4 Pro, Working Client, Flight Safety, KeyManager, Virtual Stick, Your Own Build"
     },
     {
-      "mod": "4",
+      "mod": "5",
       "title": "Software Safety Standards",
       "topics": "DO-178C, ED-109/ED-153, SIL, 4+1 Principles, Boeing 777 FBW"
     },
     {
-      "mod": "5",
+      "mod": "6",
       "title": "Aeronautical Information Exchange",
       "topics": "NOTAM, METAR, AIXM, ASTERIX, OLDI"
     },
     {
-      "mod": "6",
+      "mod": "7",
       "title": "Control & Monitoring Systems",
       "topics": "UTM, U-space & Remote ID, Fleet Control, Sensor Fusion"
     },
     {
-      "mod": "7",
+      "mod": "8",
       "title": "RESTful APIs: OpenAPI",
       "topics": "Specification, YAML, Swagger UI, Code Generation"
     },
     {
-      "mod": "8",
+      "mod": "9",
       "title": "Reactive Java: Spring WebFlux",
       "topics": "Reactive Streams, Mono/Flux, R2DBC, WebClient"
     },
     {
-      "mod": "9",
+      "mod": "10",
       "title": "Message Queues",
       "topics": "JMS, Queues vs. Topics, ActiveMQ, RabbitMQ, Kafka"
     },
     {
-      "mod": "10",
+      "mod": "11",
       "title": "Design Pattern: CQRS",
       "topics": "Commands vs. Queries, ATC Example, Trade-offs"
     },
     {
-      "mod": "11",
+      "mod": "12",
       "title": "Karate: Test Automation",
       "topics": "Gherkin Syntax, API Tests, CI/CD Integration"
     },
     {
-      "mod": "12",
+      "mod": "13",
       "title": "Simulation Environments",
       "topics": "BlueSky ATM Simulator, DJI Simulator, Validation"
     },
     {
-      "mod": "13",
+      "mod": "14",
       "title": "Real-Time Data in GIS",
       "topics": "Geodata, Route Planning, Real-Time Map, DiPUL"
     },
     {
-      "mod": "14",
+      "mod": "15",
       "title": "Conclusion & Outlook",
       "topics": "Opportunities, AI & Autonomy, Standards, Wrap-up"
     }

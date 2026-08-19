@@ -6,158 +6,63 @@
       "opts": {
         "perched": true,
         "anchor": ".cover-card",
-        "anchorOffsetX": 100,
-        "anchorOffsetY": -25,
+        "anchorOffsetX": 95,
+        "anchorOffsetY": -15,
         "scale": 1.05,
-        "color": "#eab308"
+        "color": "#e11d48"
       }
     },
-    "bg": 5,
-    "h1": "Module 2",
-    "lead": "Project Ideas & Your Build",
-    "sub": "Build your own drone-software project — from data pipelines to real flight",
+    "bg": 7,
+    "icon": "hazard",
+    "h1": "Safety & Testing",
+    "lead": "Test First. Fly Later.",
+    "sub": "An untested command doesn't cost you a failed unit test &mdash; it costs the university a drone. This module is the gate everything else in this course passes through.",
     "badges": [
-      "Your Own Project",
-      "*Real-Drone Praxis"
+      "Test-First",
+      "Manual Test Review",
+      "Simulator Gate",
+      "*No Green, No Props"
     ]
   },
   {
     "type": "content",
     "mod": "2",
-    "tag": "",
-    "title": "Easy Projects (1–5): Get the Data Flowing",
-    "desc": "Start here — read, display, log and test on top of the DJI client (labs/dji-hello-world); no autonomous flight, low risk",
+    "tag": "safety",
+    "title": "One Bad Command Is All It Takes",
+    "desc": "A drone has no undo, no rollback, no restore-from-backup",
     "body": [
+      {
+        "card": "The stakes",
+        "items": [
+          "A crashed Mini 4 Pro is <strong>dead hardware and real money</strong> &mdash; the university paid for it once, and won't be happy paying twice",
+          "A flyaway is worse than a crash: the drone simply <strong>leaves and never comes back</strong>, and so does the course equipment",
+          "On a backend, a bad deploy is rolled back in minutes &mdash; <strong>a drone in a wall stays in the wall</strong>"
+        ]
+      },
       {
         "table": {
           "headers": [
-            "#",
-            "Build",
-            "What you make"
+            "You prompt",
+            "What can come back"
           ],
           "rows": [
             [
-              "1",
-              "<strong>Live telemetry dashboard</strong>",
-              "Subscribe via <strong>KeyManager</strong> to position, altitude, attitude, battery, satellites and link status; show it all as a <strong>live on-screen dashboard</strong> on the phone"
+              "<em>&quot;fly up&quot;</em>",
+              "Climb velocity set with <strong>no ceiling and no stop condition</strong> &mdash; indoors it grinds into the ceiling; outdoors it climbs until the link drops and <strong>the drone is gone</strong>"
             ],
             [
-              "2",
-              "<strong>Flight-track logger &amp; replay</strong>",
-              "Record a flight to a file (CSV / GeoJSON) and visualise the 3D track afterwards &mdash; feeds into the GIS module (Module 13)"
-            ],
-            [
-              "3",
-              "<strong>Readable API test suite in Karate</strong>",
-              "Contract tests for the telemetry / command backend that the whole team can read and run (Module 11)"
-            ],
-            [
-              "4",
-              "<strong>Flight data store &amp; query API</strong>",
-              "Persist flights and expose an API to search, compare and replay them"
-            ],
-            [
-              "5",
-              "<strong>Real-time map of live tracks</strong>",
-              "Plot one or many live drone positions on a <strong>moving map</strong> (Module 13)"
+              "<em>&quot;fly forward 2 m&quot;</em>",
+              "Meters confused with <strong>m/s or with seconds of loop time</strong> &mdash; a wrong tick-rate assumption turns 2 m into <strong>7 m</strong>, straight into a wall, the projector, or a person"
             ]
           ]
         }
-      }
-    ]
-  },
-  {
-    "type": "content",
-    "mod": "2",
-    "tag": "",
-    "title": "Medium Projects (6–11): Build the Pipeline",
-    "desc": "More moving parts — backend plumbing, and flight in the simulator or under close supervision",
-    "body": [
+      },
       {
-        "table": {
-          "headers": [
-            "#",
-            "Build",
-            "What you make"
-          ],
-          "rows": [
-            [
-              "6",
-              "<strong>Geofence &amp; safety guard</strong>",
-              "Enforce a soft boundary from the live position; auto return-to-home or land when the drone nears the limit"
-            ],
-            [
-              "7",
-              "<strong>Telemetry REST / streaming service</strong>",
-              "Push live telemetry to a Spring service described with <strong>OpenAPI</strong>; fan it out over SSE or WebSocket (Modules 7&ndash;8)"
-            ],
-            [
-              "8",
-              "<strong>Message-queue telemetry pipeline</strong>",
-              "Publish tracks to a <strong>topic</strong>; independent consumers log, monitor and raise alerts in parallel (Module 9)"
-            ],
-            [
-              "9",
-              "<strong>Autonomous pattern flyer</strong>",
-              "Fly a waypoint square, orbit or lawn-mower scan &mdash; first in the <strong>DJI simulator</strong>, then on real hardware with margin"
-            ],
-            [
-              "10",
-              "<strong>UTM monitor fed by a real drone</strong>",
-              "Feed the Module 6 <strong>UTM-style monitor</strong> with the Mini 4 Pro's live position &mdash; show it as a tracked aircraft"
-            ],
-            [
-              "11",
-              "<strong>CQRS flight-state service</strong>",
-              "Separate the <strong>command</strong> side (mission commands) from the <strong>query</strong> side (current &amp; historical state) for the drone (Module 10)"
-            ]
-          ]
-        }
-      }
-    ]
-  },
-  {
-    "type": "content",
-    "mod": "2",
-    "tag": "",
-    "title": "Hard Projects (12–16): Autonomy & Systems",
-    "desc": "Control loops, computer vision and multi-aircraft systems — the deep end",
-    "body": [
-      {
-        "table": {
-          "headers": [
-            "#",
-            "Build",
-            "What you make"
-          ],
-          "rows": [
-            [
-              "12",
-              "<strong>Closed-loop precision movement</strong>",
-              "Replace the lab's open-loop timed hops with <strong>distance / position control</strong> driven by live telemetry feedback"
-            ],
-            [
-              "13",
-              "<strong>Camera stream &amp; onboard vision</strong>",
-              "Pull the <strong>live video feed</strong> into the app, grab frames and run simple detection (marker, QR or colour blob) with an on-screen overlay"
-            ],
-            [
-              "14",
-              "<strong>BlueSky &harr; real-drone bridge</strong>",
-              "Inject the real drone as an aircraft into the <strong>BlueSky simulator</strong>, or run a sim scenario alongside a real flight"
-            ],
-            [
-              "15",
-              "<strong>Multi-drone coordination &amp; spacing</strong>",
-              "Simulate several tracks (sim plus one real) and <strong>detect &amp; space conflicts</strong> between them"
-            ],
-            [
-              "16",
-              "<strong>Collision avoidance in BlueSky</strong>",
-              "Study <code>bluesky/plugins/asas</code>, then build and <strong>measure</strong> your own resolver against the built-in ones &mdash; a classic ATM research problem"
-            ]
-          ]
-        }
+        "card": "The rule",
+        "items": [
+          "<strong>Untested code never gets props.</strong> Not yours, not Claude's &mdash; no exceptions, not even for &quot;trivial&quot; one-liners. <em>Especially</em> not for those."
+        ],
+        "warn": true
       }
     ]
   },
@@ -165,19 +70,45 @@
     "type": "content",
     "mod": "2",
     "tag": "important",
-    "title": "How It All Fits: One Reference System",
-    "desc": "Every project idea is one box or one arrow in the same pipeline — from the drone to the map",
+    "title": "AI-Generated Flight Code: Compiles, Looks Right, Flies Wrong",
+    "desc": "Claude writes Kotlin that reads clean and builds green — the drone doesn't know that",
     "body": [
       {
-        "code": "[ DJI Mini 4 Pro ]   telemetry + video\n       |  MSDK v5\n       v\n[ Android app ]   labs/dji-hello-world  (Module 3)\n       |  REST, described by OpenAPI  (M7)\n       v\n[ Ingest API ] --&gt; Reactive stream, Spring WebFlux  (M8)\n       |\n       v\n[ Message queue / topic  (M9) ]\n       |\n  +----+-----------------------+\n  v                            v\n[ CQRS store  (M10) ]     [ UTM monitor  (M6) ]\n  |                            |\n  v                            v\n[ GIS moving map  (M13) ] [ BlueSky sim  (M12) ]\n\n  Karate  (M11)  contract-tests every API boundary above"
+        "card": "Why AI code is uniquely risky here",
+        "items": [
+          "LLM-generated code fails <em>plausibly</em>: it compiles, reads clean, and a quick review nods it through",
+          "On a backend, a wrong unit is a failed test &mdash; on a drone <strong>the bug has propellers</strong>; the error budget is the distance to the nearest wall",
+          "Virtual stick has <strong>no &quot;fly 2 m&quot; command</strong> &mdash; only velocity &times; time at &ge; 5 Hz. Every distance is an implicit calculation the AI can silently get wrong"
+        ]
       },
       {
-        "card": "Reading the diagram",
+        "card": "The trap: letting the same AI check itself",
         "items": [
-          "The <strong>DJI lab (Module 3)</strong> is the source; the <strong>technology blocks (7&ndash;11)</strong> move and shape the data; <strong>UTM, GIS and BlueSky</strong> turn it into an air-traffic picture",
-          "You do <strong>not</strong> build all of it &mdash; you build <strong>one increment</strong> and connect it to the piece next door",
-          "That is why the project ideas run <strong>easy &rarr; medium &rarr; hard</strong> &mdash; start where you are comfortable and climb"
-        ]
+          "If the same AI writes the code <strong>and</strong> the tests, <strong>both inherit the same wrong assumption</strong> &mdash; the tests go green and the drone still hits the wall",
+          "That is why this course demands a <strong>manual recheck of every test</strong> &mdash; you are the independent verifier the AI cannot be"
+        ],
+        "warn": true
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "2",
+    "tag": "demo",
+    "title": "Spot the Bug: \"Fly Forward 2 m\"",
+    "desc": "Generated Kotlin, DJI virtual stick — it compiles, it flies, and it overshoots 3.5×",
+    "body": [
+      {
+        "code": "<span class=\"str\">// task: \"fly forward 2 m\"</span>\n<span class=\"kw\">val</span> distance = 2.0\nrepeat(distance.toInt() * 5) {      <span class=\"str\">// \"2 m at 5 Hz\" — actually just 2 s of flight</span>\n    param.pitch = 3.5f              <span class=\"str\">// 3.5 m/s — copied from an SDK sample</span>\n    VirtualStickManager.sendVirtualStickAdvancedParam(param)\n    delay(200L)                     <span class=\"str\">// 5 Hz tick</span>\n}\n<span class=\"str\">// flown: 3.5 m/s × 2 s = 7 m.   requested: 2 m.   wall: hit.</span>"
+      },
+      {
+        "card": "Three bugs, zero compiler errors",
+        "items": [
+          "<strong>Unit confusion</strong> &mdash; <code>distance</code> holds meters, the loop treats it as seconds; <code>pitch</code> is a velocity that never matched the request",
+          "<strong>No bound, no abort</strong> &mdash; nothing limits the leg length, and an exception mid-loop leaves virtual stick <strong>live with the last velocity still applied</strong>",
+          "A test written <em>first</em> &mdash; <code>assertEquals(2.0, plan.distanceMeters, 0.1)</code> &mdash; fails in milliseconds; the wall-impact version of that feedback costs a drone"
+        ],
+        "warn": true
       }
     ]
   },
@@ -185,23 +116,24 @@
     "type": "content",
     "mod": "2",
     "tag": "exercise",
-    "title": "The Praxis Track: From Idea to Flying Code",
-    "desc": "The real Mini 4 Pro is the goal — the simulators are how you earn your way to it",
+    "title": "Test Harness First, Flight Later",
+    "desc": "Before any generated command flies: write the tests — then recheck the tests by hand",
     "body": [
       {
-        "card": "Real hardware first",
+        "card": "The workflow — non-negotiable",
         "items": [
-          "Wherever your idea allows it, <strong>touch the real drone</strong> &mdash; Module 3 hands you a working client, so the distance from idea to first flight is short",
-          "Flight time is scarce: <strong>book lab slots early</strong> and arrive with the mission <strong>already proven in the simulator</strong>",
-          "Every flight passes the <strong>Safety &amp; Testing gate</strong>: tests written and reviewed, simulator run clean &mdash; then props"
+          "<strong>1. Test framework first</strong> &mdash; unit tests for every distance / velocity / duration calculation <em>before</em> the flight code exists",
+          "<strong>2. Recheck the tests manually</strong> &mdash; read every assertion yourself and confirm the expected values against the SDK docs, <em>not</em> against the generated code",
+          "<strong>3. <code>enableSimulator</code></strong> &mdash; fly the mission virtually and watch the telemetry: did it move 2.0 m, or 7?",
+          "<strong>4. Only then a real flight</strong> &mdash; indoors, propeller guards on, the SAFETY rules from the Lab module apply every single time"
         ]
       },
       {
-        "card": "No drone in reach?",
+        "card": "What your harness must assert",
         "items": [
-          "The <strong>DJI simulator</strong> (<code>enableSimulator</code>) runs your control logic against the real SDK &mdash; identical code paths, zero risk (Module 12)",
-          "<strong>BlueSky</strong> covers airspace-level logic: multi-aircraft scenarios, conflict detection, resolvers (Modules 12, ideas 14&ndash;16)",
-          "A strong <strong>backend or pipeline project</strong> (ideas 3&ndash;8) needs no flight at all &mdash; recorded telemetry from the lab is available"
+          "Every motion command has an <strong>explicit bound</strong>: max altitude, max distance, hard timeout",
+          "Units are visible in the code &mdash; <code>distanceMeters</code>, <code>speedMetersPerSecond</code>, <code>durationMs</code> &mdash; so a mix-up <strong>fails to read, not just to fly</strong>",
+          "The <strong>abort path is testable without the aircraft</strong>: the deadman timeout fires, virtual stick disables, the mission stops"
         ]
       }
     ]
@@ -209,45 +141,27 @@
   {
     "type": "content",
     "mod": "2",
-    "tag": "important",
-    "title": "Expectations: The Path to Grade 1.0",
-    "desc": "The bar is deliberately high — this is a master's module, and working software you understand is its currency",
+    "tag": "takeaway",
+    "title": "The Gate: No Green, No Props",
+    "desc": "This checklist applies to every flight, every time — there is no 'just a quick test'",
     "body": [
       {
-        "table": {
-          "headers": [
-            "Requirement",
-            "The bar"
-          ],
-          "rows": [
-            [
-              "<strong>&ge; 60 hours</strong> of independent work",
-              "That is the <strong>entry ticket, not the goal</strong> — a 1.0 usually takes more. The effort must be <strong>traceable</strong> across the whole semester: repo history, notes, iterations"
-            ],
-            [
-              "<strong>Explain &mdash; and modify &mdash; live</strong>",
-              "At the live demo expect <em>&quot;now change X&quot;</em> and follow-up questions that continue <strong>until it is clear the work is yours</strong>. Every design decision needs a reason you can defend"
-            ],
-            [
-              "A <strong>working, practical build</strong>",
-              "Your own idea on top of the DJI client (Module 3), running on real hardware or the simulator — plus your own critical judgement of where the SDK's limits are"
-            ],
-            [
-              "<strong>Engineering &amp; measurement</strong>",
-              "An approach you designed, <strong>measured and can defend with data</strong> &mdash; where does it work, where does it break, and how did you measure that?"
-            ]
-          ]
-        }
+        "card": "Before every flight",
+        "items": [
+          "&#9744; Tests exist for <strong>every motion calculation</strong> &mdash; written before the flight code",
+          "&#9744; Every test <strong>manually reviewed</strong> against the SDK docs by a human",
+          "&#9744; Mission flown in <strong><code>enableSimulator</code></strong> &mdash; telemetry matches the intended distances",
+          "&#9744; Bounds, timeout and <strong>abort path verified</strong>",
+          "&#9744; Only then: props on, guards on, fly"
+        ]
       },
       {
-        "card": "What does NOT count",
+        "card": "Where this comes from",
         "items": [
-          "A last-week sprint &mdash; your repo history will show it",
-          "Code that runs but that you cannot explain &mdash; it is graded <strong>as if it were missing</strong>",
-          "A demo that only works in one rehearsed run &mdash; or AI output you cannot explain line by line",
-          "Parameters tweaked until one demo run happened to pass"
-        ],
-        "warn": true
+          "This is <strong>verification independence</strong> (DO-178C, Module 5) at lab scale: <strong>the verifier must not be the author</strong> &mdash; and right now, the author is Claude",
+          "Module 12's <strong>Karate</strong> applies the same discipline to your backend: the telemetry pipeline gets tests before it gets traffic",
+          "Aviation learned this the expensive way &mdash; <strong>you get to learn it the cheap way</strong>"
+        ]
       }
     ]
   }

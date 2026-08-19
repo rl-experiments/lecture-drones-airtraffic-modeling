@@ -6,45 +6,39 @@
       "opts": {
         "perched": true,
         "anchor": ".cover-card",
-        "anchorOffsetX": 100,
-        "anchorOffsetY": -10,
+        "anchorOffsetX": 30,
+        "anchorOffsetY": -25,
         "scale": 1.05,
-        "color": "#84cc16"
+        "color": "#06b6d4"
       }
     },
-    "bg": 2,
+    "bg": 4,
     "h1": "Module 13",
-    "lead": "Real-Time Data in GIS Applications",
-    "sub": "Putting drone traffic on the map — literally",
+    "lead": "Simulation Environments for Validation",
+    "sub": "Where your collision-avoidance code gets to fail safely",
     "badges": [
-      "Geodata",
-      "Route Planning",
-      "Visualization",
-      "DiPUL"
+      "BlueSky",
+      "TU Delft",
+      "DJI Simulator",
+      "Real-Time Simulation",
+      "*Validation Arena"
     ]
   },
   {
     "type": "content",
     "mod": "13",
     "tag": "",
-    "title": "Geodata for Flight Route Planning",
-    "desc": "A drone route is a query against many geographic layers at once",
+    "title": "Why Simulate?",
+    "desc": "Virtual test environments for drone flights and real-time simulation",
     "body": [
       {
-        "card": "The layers a route planner needs",
+        "card": "The case for simulation",
         "items": [
-          "<strong>Geo-zones</strong> — no-fly and restricted zones (airports, hospitals, prisons, nature reserves)",
-          "<strong>Terrain &amp; obstacles</strong> — elevation models, buildings, power lines, cranes",
-          "<strong>Population density</strong> — ground risk for the Specific category (SORA) depends on who is below",
-          "<strong>Weather layers</strong> — wind fields and precipitation as time-dependent rasters",
-          "<strong>Live traffic</strong> — other drones and manned aviation, streamed in real time (Modules 5, 6, 8)"
-        ]
-      },
-      {
-        "card": "Visualization of drone movements",
-        "items": [
-          "Live positions rendered on the map — the FlightAware picture from Module 1, now for unmanned traffic",
-          "Track history, planned route and actual route in one view: instant anomaly detection for operators"
+          "You cannot flight-test a deconfliction algorithm against 200 real aircraft — <strong>simulation is the only safe laboratory</strong>",
+          "<strong>Virtual test environments</strong> reproduce airspace structure, traffic and aircraft performance models",
+          "<strong>Real-time simulation</strong> lets humans and systems interact with the scenario as it unfolds; fast-time simulation runs thousands of scenarios overnight",
+          "Remember Module 5: verification evidence under <strong>normal and fault conditions</strong> — simulation is how you produce it cheaply",
+          "Scenario coverage: rare events (link loss, sensor failure, rogue drones) can be triggered on demand"
         ]
       }
     ]
@@ -53,45 +47,52 @@
     "type": "content",
     "mod": "13",
     "tag": "",
-    "title": "Applications & the German Data Source",
-    "desc": "Logistics, rescue services — and where the official geo-zones come from",
+    "title": "Two Simulators, Two Questions",
+    "desc": "This course uses the word \"simulator\" for two very different things — know which one you need",
     "body": [
       {
-        "card": "Application examples",
-        "items": [
-          "<strong>Logistics</strong> — corridor planning for delivery routes, automatically re-routed around temporary geo-zones",
-          "<strong>Rescue services</strong> — fastest legal route for a medical-supply drone, computed against live airspace data",
-          "<strong>Inspection &amp; monitoring</strong> — pipelines, railways and power lines flown along precise geo-referenced paths"
-        ]
-      },
-      {
-        "card": "DiPUL — Digitale Plattform Unbemannte Luftfahrt",
-        "items": [
-          "Germany's official digital platform for unmanned aviation (BMDV / DFS)",
-          "Interactive map of all <strong>geographic zones</strong> relevant for drone flights — the authoritative source for German operations",
-          "Machine-readable access makes it a natural data layer for every route planner discussed on the previous slide"
-        ]
-      },
-      {
-        "img": "dipul-maptool.png",
-        "alt": "DiPUL map tool showing geo-zones over the Berlin region: airport control zones, hospitals, federal roads, nature reserves",
-        "height": 300,
-        "caption": "DiPUL map tool: every colored layer is a rule your route planner must respect (Berlin region shown)"
-      },
-      {
-        "resource": {
-          "title": "Explore",
-          "links": [
-            {
-              "url": "https://maptool-dipul.dfs.de",
-              "label": "DiPUL map tool"
-            },
-            {
-              "url": "https://www.dipul.de",
-              "label": "dipul.de"
-            }
+        "table": {
+          "headers": [
+            "",
+            "<strong>DJI simulator</strong> (Module 4)",
+            "<strong>BlueSky</strong> (this module)"
+          ],
+          "rows": [
+            [
+              "<strong>Answers</strong>",
+              "Does <em>my code</em> fly <em>one</em> aircraft correctly?",
+              "Does <em>my algorithm</em> keep <em>many</em> aircraft apart?"
+            ],
+            [
+              "<strong>What is real</strong>",
+              "The actual flight controller, SDK and telemetry path &mdash; only physics and GPS are synthetic",
+              "Nothing &mdash; a pure Python traffic model"
+            ],
+            [
+              "<strong>Hardware</strong>",
+              "<strong>Required</strong> &mdash; the drone sits on your desk, props off",
+              "None"
+            ],
+            [
+              "<strong>Catches</strong>",
+              "Runaway virtual-stick loops, bad state handling, wrong units",
+              "Conflict-resolution failures, emergent traffic effects"
+            ],
+            [
+              "<strong>Blind to</strong>",
+              "Other traffic &mdash; there is only ever one aircraft",
+              "Whether your app works on real hardware at all"
+            ]
           ]
         }
+      },
+      {
+        "card": "Where the two meet",
+        "items": [
+          "Neither replaces the other: the DJI simulator validates the <strong>client</strong>, BlueSky validates the <strong>traffic logic</strong> &mdash; Module 5's <em>evidence under normal and fault conditions</em> applied at two different levels",
+          "<strong>Project idea #14</strong> attempts that bridge &mdash; expect the <strong>scale mismatch</strong> to be the real work: BlueSky reasons in ATM separation standards and airliner performance models, not 1.5 m hops by a 249 g quadcopter (TU Delft did extend it to urban drone traffic, and called that hard)",
+          "Rule of thumb: anything that <strong>moves a real motor</strong> gets the DJI simulator first; anything that <strong>decides where aircraft go</strong> gets BlueSky first"
+        ]
       }
     ]
   },
@@ -99,30 +100,68 @@
     "type": "content",
     "mod": "13",
     "tag": "",
-    "title": "From Telemetry to a Moving Map",
-    "desc": "The 'real-time' in real-time GIS — how a live position becomes a moving dot",
+    "title": "Test Environment vs. Reality",
+    "desc": "What simulation can and cannot promise you",
     "body": [
       {
-        "card": "The data path",
+        "img": "testing-vs-prod.png",
+        "alt": "MonkeyUser comic: a smooth flat test-environment track ends in a cliff into a production canyon full of spikes, lag hills and performance drops",
+        "height": 455,
+        "caption": "monkeyuser.com &mdash; Testing vs. Production Environment. Simulation is your smooth track; the real airspace is the canyon. Validate in the <em>right</em> simulator first &mdash; and never mistake either one for the canyon."
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "13",
+    "tag": "",
+    "title": "BlueSky: The Open ATM Simulator",
+    "desc": "TU Delft's open-source air traffic simulator — our validation arena for avoidance logic",
+    "body": [
+      {
+        "card": "What you get",
         "items": [
-          "The drone emits a position several times per second; <strong>Spring WebFlux (M8)</strong> pushes each fix to the browser over <strong>SSE or WebSocket</strong> — no polling",
-          "Each fix travels as a <strong>GeoJSON</strong> point in <strong>WGS84</strong> (lat / lon) — the format every map library speaks",
-          "The map redraws only the features that moved, so hundreds of live tracks stay smooth"
+          "Open source (GPL), written in <strong>Python</strong> — easy to read, easy to extend; used in actual ATM research at TU Delft and beyond",
+          "Scenario scripting, aircraft performance models, radar-style visualization",
+          "A <strong>plugin architecture</strong> — including the <code>asas</code> plugins for conflict detection &amp; resolution",
+          "Source: <a href=\"https://github.com/TUDelft-CNS-ATM/bluesky\" target=\"_blank\">TUDelft-CNS-ATM/bluesky (GitHub)</a>"
         ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "13",
+    "tag": "",
+    "title": "BlueSky Radar View",
+    "desc": "Dense traffic over the Balkans — every green tag is an aircraft your plugin must keep apart",
+    "body": [
+      {
+        "img": "bluesky-traffic-simulation.png",
+        "alt": "BlueSky simulator radar view with dense air traffic over the Balkans",
+        "height": 460,
+        "caption": "Traffic simulation using the BlueSky simulator."
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "13",
+    "tag": "exercise",
+    "title": "BlueSky Setup: Stress-Test Your Logic",
+    "desc": "Run your avoidance logic against scripted traffic — measure, don't guess",
+    "body": [
+      {
+        "code": "<span class=\"kw\"># get the simulator</span>\npip install bluesky-simulator[full]\n<span class=\"kw\"># or from source:</span>\ngit clone https://github.com/TUDelft-CNS-ATM/bluesky.git\n\n<span class=\"kw\"># start the GUI</span>\nbluesky\n\n<span class=\"kw\"># where your work goes</span>\nbluesky/plugins/        &lt;-- your plugin lives here\nbluesky/plugins/asas/   &lt;-- study these first"
       },
       {
-        "card": "The map stack",
+        "card": "How to use it",
         "items": [
-          "<strong>Base map</strong>: raster or vector tiles (OpenStreetMap with MapLibre, Leaflet or OpenLayers) — all open-source",
-          "<strong>Overlays</strong>: DiPUL geo-zones underneath, planned route and the live track on top",
-          "<strong>Coordinate care</strong>: tiles are Web Mercator (EPSG:3857), data is WGS84 (EPSG:4326) — mixing them up is the classic first bug"
+          "Script a traffic scenario, let your logic steer the drones, and record when separation fails",
+          "<strong>Time until first conflict is your measurement, not a score</strong> &mdash; vary traffic density and find where your approach breaks",
+          "Study <code>bluesky/plugins/asas</code> first, then measure your resolver against the built-in ones",
+          "Optional deep-dive for airspace-leaning projects (ideas 14&ndash;16) &mdash; and exactly the kind of <strong>measured data</strong> the Grade-1.0 bar asks for (Module 3)"
         ]
-      },
-      {
-        "img": "live-track-map.png",
-        "alt": "Leaflet map of Sigmaringen with a dashed planned route, solid live track, current drone position marker and a red hospital geo-zone",
-        "height": 280,
-        "caption": "The stack in action (Leaflet + OSM): planned route, live track via SSE, DiPUL-style geo-zone — around our campus in Sigmaringen. Project idea <strong>#5</strong> is exactly this slice."
       }
     ]
   },
@@ -135,10 +174,10 @@
       {
         "card": "",
         "items": [
-          "A drone route is a <strong>query across many geographic layers</strong> at once — geo-zones, terrain, population density, weather and live traffic",
-          "The <strong>real-time</strong> layer is the hard part: live positions streamed onto a moving map turn Module 1's manned-traffic picture into an unmanned one",
-          "Authoritative data matters — in Germany, <strong>DiPUL</strong> is the official, machine-readable source of drone geo-zones",
-          "This closes the loop: telemetry from your DJI drone (3) flows through the backend (7–10) and is rendered on the map here"
+          "Two simulators, two questions: the <strong>DJI simulator</strong> answers 'does my control code behave?', <strong>BlueSky</strong> answers 'does my airspace logic scale?'",
+          "Simulation is the <strong>cheap half of the Safety &amp; Testing gate</strong> — every mission flies virtually before it flies physically",
+          "A simulator validates <strong>logic, not reality</strong>: wind, latency and sensor noise stay simplified — margins belong in the design (Module 5)",
+          "<strong>Time-until-first-conflict</strong> under rising traffic density is your measurement — data like this is what the Grade-1.0 bar means by 'measured' (Module 3)"
         ]
       }
     ]
