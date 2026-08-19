@@ -141,7 +141,7 @@
       {
         "card": "Deliverable",
         "items": [
-          "<strong>Propose your own drone-software idea</strong> &mdash; small but real, a capability the base client does not have yet",
+          "<strong>Propose your own drone-software idea</strong> &mdash; small but real; the <strong>16 project ideas in Module 4</strong> are your menu, or bring your own",
           "Build a <strong>working increment</strong> on top of <a href=\"https://github.com/rl-experiments/lecture-drones-airtraffic-modeling/tree/main/labs/dji-hello-world\" target=\"_blank\"><strong>labs/dji-hello-world</strong></a> (or the <a href=\"https://github.com/dji-sdk/Mobile-SDK-Android-V5\" target=\"_blank\">official DJI sample</a>)",
           "Write it up: <strong>what you built, what worked, and where the SDK stopped you</strong>"
         ]
@@ -154,36 +154,6 @@
           "Getting stuck is welcome &mdash; the error and your hypothesis become teaching material"
         ],
         "warn": true
-      }
-    ]
-  },
-  {
-    "type": "content",
-    "mod": "5",
-    "tag": "",
-    "title": "Idea Menu: Directions You Could Take",
-    "desc": "Pick one, combine a few, or bring your own",
-    "body": [
-      {
-        "card": "Data &amp; telemetry",
-        "items": [
-          "Live dashboard: subscribe via <strong>KeyManager</strong> to position, altitude, attitude, satellites, link status",
-          "Log a flight to a file and <strong>visualize the track</strong> afterwards"
-        ]
-      },
-      {
-        "card": "Vision &amp; autonomy",
-        "items": [
-          "Pull the <strong>camera video stream</strong> into the app; grab frames for image processing",
-          "A simple <strong>autonomous pattern</strong> &mdash; waypoint square, orbit &mdash; in the DJI simulator"
-        ]
-      },
-      {
-        "card": "Integration — ties into the backend modules",
-        "items": [
-          "Push live telemetry to a <strong>REST / streaming backend</strong> (Modules 7&ndash;9)",
-          "Feed a <strong>UTM-style monitor</strong> (Module 6) with a real aircraft's position"
-        ]
       }
     ]
   },

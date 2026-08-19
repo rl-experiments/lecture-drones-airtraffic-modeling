@@ -29,7 +29,7 @@
     "mod": "2",
     "tag": "safety",
     "title": "One Bad Command Is All It Takes",
-    "desc": "A drone has no undo, no rollback, no restore-from-backup",
+    "desc": "A drone has no undo — and AI-generated code fails plausibly",
     "body": [
       {
         "card": "The stakes",
@@ -56,6 +56,13 @@
             ]
           ]
         }
+      },
+      {
+        "card": "Why AI code is uniquely risky here",
+        "items": [
+          "LLM-generated code fails <em>plausibly</em>: it compiles, reads clean, and a quick review nods it through &mdash; <strong>the bug has propellers</strong>",
+          "If the same AI writes the code <strong>and</strong> the tests, both inherit the same wrong assumption &mdash; <strong>you are the independent verifier the AI cannot be</strong>"
+        ]
       },
       {
         "card": "The rule",
@@ -143,31 +150,6 @@
           "The person flying is <strong>personally responsible</strong> &mdash; handing you the university's drone does not move the responsibility",
           "<em>&quot;The AI wrote that code&quot;</em> is <strong>not a defense</strong> &mdash; you armed the motors; every rule on the previous two slides exists so this slide never applies to you"
         ]
-      }
-    ]
-  },
-  {
-    "type": "content",
-    "mod": "2",
-    "tag": "important",
-    "title": "AI-Generated Flight Code: Compiles, Looks Right, Flies Wrong",
-    "desc": "Claude writes Kotlin that reads clean and builds green — the drone doesn't know that",
-    "body": [
-      {
-        "card": "Why AI code is uniquely risky here",
-        "items": [
-          "LLM-generated code fails <em>plausibly</em>: it compiles, reads clean, and a quick review nods it through",
-          "On a backend, a wrong unit is a failed test &mdash; on a drone <strong>the bug has propellers</strong>; the error budget is the distance to the nearest wall",
-          "Virtual stick has <strong>no &quot;fly 2 m&quot; command</strong> &mdash; only velocity &times; time at &ge; 5 Hz. Every distance is an implicit calculation the AI can silently get wrong"
-        ]
-      },
-      {
-        "card": "The trap: letting the same AI check itself",
-        "items": [
-          "If the same AI writes the code <strong>and</strong> the tests, <strong>both inherit the same wrong assumption</strong> &mdash; the tests go green and the drone still hits the wall",
-          "That is why this course demands a <strong>manual recheck of every test</strong> &mdash; you are the independent verifier the AI cannot be"
-        ],
-        "warn": true
       }
     ]
   },

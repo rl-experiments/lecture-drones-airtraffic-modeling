@@ -44,27 +44,10 @@
           "Privacy concerns and security risks from unauthorized use",
           "The need for clear regulatory frameworks",
           "<strong>Integration into existing air traffic systems</strong> — the central theme of this entire lecture",
-          "Guaranteeing safe and ethical operation as fleets scale up"
+          "Guaranteeing safe and ethical operation as fleets scale up",
+          "The open problems mirror aviation's: <strong>ethical use, avoiding failures in critical situations, robust safeguards</strong> against misuse and malfunction — Module 3's principles apply to AI components too"
         ],
         "warn": true
-      }
-    ]
-  },
-  {
-    "type": "content",
-    "mod": "15",
-    "tag": "",
-    "title": "The Potential of AI & Autonomous Systems",
-    "body": [
-      {
-        "card": "",
-        "items": [
-          "AI and autonomous systems can <strong>automate processes, raise efficiency and improve decision-making</strong>",
-          "Industry: more precise production and predictive maintenance",
-          "Healthcare: personalized treatment plans and faster diagnoses",
-          "Transport: autonomous vehicles and drones could revolutionize mobility while increasing safety",
-          "The open problems mirror aviation's: <strong>ethical use, avoiding failures in critical situations, robust safeguards</strong> against misuse and malfunction — Module 3's principles apply to AI components too"
-        ]
       }
     ]
   },

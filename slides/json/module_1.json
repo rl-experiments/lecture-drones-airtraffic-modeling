@@ -139,24 +139,15 @@
     "type": "content",
     "mod": "1",
     "tag": "",
-    "title": "How Are Drones Regulated Worldwide?",
-    "desc": "Green = unrestricted, yellow = line-of-sight required, orange/red = effective or outright ban, grey = no legislation (Statista/Surfshark, 2020)",
+    "title": "The EU Drone Regulation Framework",
+    "desc": "EU 2019/947 & 2019/945 — one rulebook, three risk categories, five drone classes",
     "body": [
       {
         "img": "drone-regulation-worldmap.jpg",
         "alt": "World map of drone regulation by country (Statista/Surfshark)",
-        "height": 435,
+        "height": 180,
         "caption": "A fragmented global picture — the EU harmonized its rules in 2021: one framework for all member states (next slides)."
-      }
-    ]
-  },
-  {
-    "type": "content",
-    "mod": "1",
-    "tag": "",
-    "title": "The EU Drone Regulation Framework",
-    "desc": "EU 2019/947 & 2019/945 — one rulebook, three risk categories, five drone classes",
-    "body": [
+      },
       {
         "table": {
           "headers": [

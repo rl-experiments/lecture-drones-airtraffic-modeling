@@ -126,21 +126,12 @@
           "A <strong>plugin architecture</strong> — including the <code>asas</code> plugins for conflict detection &amp; resolution",
           "Source: <a href=\"https://github.com/TUDelft-CNS-ATM/bluesky\" target=\"_blank\">TUDelft-CNS-ATM/bluesky (GitHub)</a>"
         ]
-      }
-    ]
-  },
-  {
-    "type": "content",
-    "mod": "13",
-    "tag": "",
-    "title": "BlueSky Radar View",
-    "desc": "Dense traffic over the Balkans — every green tag is an aircraft your plugin must keep apart",
-    "body": [
+      },
       {
         "img": "bluesky-traffic-simulation.png",
         "alt": "BlueSky simulator radar view with dense air traffic over the Balkans",
-        "height": 460,
-        "caption": "Traffic simulation using the BlueSky simulator."
+        "height": 330,
+        "caption": "Radar view: dense traffic over the Balkans — every green tag is an aircraft your plugin must keep apart."
       }
     ]
   },
