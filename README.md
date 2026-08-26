@@ -49,6 +49,10 @@ Open `http://localhost:3000`
 | Click slide counter | Jump to slide number |
 | Click any content image | Enlarge in a lightbox (`Esc` closes) |
 
+**Presenter remotes** (Logitech R500s and similar send `PageDown` / `PageUp`): the deck runs from
+the remote alone — the first press enters fullscreen, and a press while a lightbox is open closes
+it and moves on. Click the page once after opening it so the browser has keyboard focus.
+
 **Deep links** — the URL hash addresses slides by module: `#2` opens the Safety & Testing
 cover, `#5` the Lab, `#2.3` the 3rd content slide of module 2, `#toc` the table of contents.
 The hash updates as you navigate, so sharing the current slide is copy-the-URL.

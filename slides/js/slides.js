@@ -545,11 +545,16 @@
   };
 
   document.addEventListener('keydown', e => {
-    if (lb.classList.contains('open')) {
-      if (e.key === 'Escape' || e.key === ' ' || e.key === 'Enter') { e.preventDefault(); lb.classList.remove('open'); }
-      return; // don't navigate slides behind an open lightbox
-    }
     const k = e.key;
+    // PageDown / PageUp are what presenter remotes (Logitech R500s etc.) send.
+    // They must be enough to run the whole talk without touching the keyboard:
+    // close an open lightbox, enter fullscreen (a keydown is a user gesture), navigate.
+    const presenterKey = k === 'PageDown' || k === 'PageUp';
+    if (lb.classList.contains('open')) {
+      if (k === 'Escape' || k === ' ' || k === 'Enter' || presenterKey) { e.preventDefault(); lb.classList.remove('open'); }
+      if (!presenterKey) return; // don't navigate slides behind an open lightbox
+    }
+    if (presenterKey && !document.fullscreenElement) document.documentElement.requestFullscreen().catch(() => {});
     if (k === 'ArrowRight' || k === ' ' || k === 'PageDown') { e.preventDefault(); next(); }
     if (k === 'ArrowLeft' || k === 'Backspace' || k === 'PageUp') { e.preventDefault(); prev(); }
     if (k === 'Home') { e.preventDefault(); go(0); }
