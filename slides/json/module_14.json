@@ -35,7 +35,7 @@
         "items": [
           "<strong>Geo-zones</strong> — no-fly and restricted zones (airports, hospitals, prisons, nature reserves)",
           "<strong>Terrain &amp; obstacles</strong> — elevation models, buildings, power lines, cranes",
-          "<strong>Population density</strong> — ground risk for the Specific category (SORA) depends on who is below",
+          "<strong>Population density</strong> — ground risk depends on who is below; in the Specific category (Module 1) the <strong>SORA</strong> risk assessment scores exactly that before a flight is authorised",
           "<strong>Weather layers</strong> — wind fields and precipitation as time-dependent rasters",
           "<strong>Live traffic</strong> — other drones and manned aviation, streamed in real time (Modules 12, 6, 8)"
         ]
@@ -129,6 +129,26 @@
   {
     "type": "content",
     "mod": "14",
+    "tag": "demo",
+    "title": "The Last Twenty Lines: SSE to Leaflet",
+    "desc": "What one position fix looks like on the wire — and the browser code that moves the dot",
+    "body": [
+      {
+        "code": "<span class=\"kw\">// one fix, as the Module 8 endpoint streams it (text/event-stream)</span>\ndata: {<span class=\"str\">\"type\"</span>:<span class=\"str\">\"Feature\"</span>,\n       <span class=\"str\">\"geometry\"</span>:{<span class=\"str\">\"type\"</span>:<span class=\"str\">\"Point\"</span>,<span class=\"str\">\"coordinates\"</span>:[9.2160, 48.0877]},\n       <span class=\"str\">\"properties\"</span>:{<span class=\"str\">\"droneId\"</span>:<span class=\"str\">\"mini4-01\"</span>,<span class=\"str\">\"altMeters\"</span>:38.5,<span class=\"str\">\"ts\"</span>:<span class=\"str\">\"2026-08-26T10:15:02Z\"</span>}}\n\n<span class=\"kw\">// browser — subscribe once, move the marker on every fix</span>\n<span class=\"kw\">const</span> src = <span class=\"kw\">new</span> EventSource(<span class=\"str\">\"/tracks\"</span>);          <span class=\"kw\">// Flux&lt;TrackUpdate&gt; from Module 8</span>\nsrc.onmessage = e =&gt; {\n  <span class=\"kw\">const</span> fix = JSON.parse(e.data);\n  <span class=\"kw\">const</span> [lon, lat] = fix.geometry.coordinates;   <span class=\"kw\">// GeoJSON: lon, lat — Leaflet: lat, lon</span>\n  marker.setLatLng([lat, lon]);\n  track.addLatLng([lat, lon]);                     <span class=\"kw\">// L.polyline — the solid live track</span>\n};"
+      },
+      {
+        "card": "Three things that bite",
+        "items": [
+          "<strong>Coordinate order</strong>: GeoJSON is <code>[lon, lat]</code>, Leaflet wants <code>[lat, lon]</code> &mdash; swap them and the drone flies off the coast of Somalia",
+          "<code>EventSource</code> <strong>reconnects by itself but replays nothing</strong> &mdash; gaps after a dropped connection are filled from the topic (Module 9), not by the browser",
+          "Ten fixes a second per drone is more than any map can draw &mdash; throttle at the source with <code>sample()</code> (Module 8), not in the browser"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "14",
     "tag": "takeaway",
     "title": "Module 14: Key Takeaways",
     "body": [
@@ -138,7 +158,7 @@
           "A drone route is a <strong>query across many geographic layers</strong> at once — geo-zones, terrain, population density, weather and live traffic",
           "The <strong>real-time</strong> layer is the hard part: live positions streamed onto a moving map turn Module 1's manned-traffic picture into an unmanned one",
           "Authoritative data matters — in Germany, <strong>DiPUL</strong> is the official, machine-readable source of drone geo-zones",
-          "This closes the loop: telemetry from your DJI drone (3) flows through the backend (7–10) and is rendered on the map here"
+          "This closes the loop: telemetry from your DJI drone (5) flows through the backend (7–10) and is rendered on the map here"
         ]
       }
     ]

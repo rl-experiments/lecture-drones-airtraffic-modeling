@@ -179,7 +179,7 @@
     {
       "mod": "7",
       "title": "RESTful APIs: OpenAPI",
-      "topics": "Specification, YAML, Swagger UI, Code Generation"
+      "topics": "Specification, telemetry.yaml, Spec-First, Code Generation, Swagger UI"
     },
     {
       "mod": "8",
@@ -194,12 +194,12 @@
     {
       "mod": "10",
       "title": "Design Pattern: CQRS",
-      "topics": "Commands vs. Queries, ATC Example, Trade-offs"
+      "topics": "Commands vs. Queries, ATC Example, Event Sourcing, Trade-offs"
     },
     {
       "mod": "11",
       "title": "Karate: Test Automation",
-      "topics": "Gherkin Syntax, API Tests, CI/CD Integration"
+      "topics": "Gherkin Syntax, Contract Tests, Load Tests, CI/CD Gate"
     },
     {
       "mod": "12",
@@ -214,12 +214,12 @@
     {
       "mod": "14",
       "title": "Real-Time Data in GIS",
-      "topics": "Geodata, Route Planning, Real-Time Map, DiPUL"
+      "topics": "Geodata, Route Planning, DiPUL, SSE to Leaflet"
     },
     {
       "mod": "15",
       "title": "Conclusion & Outlook",
-      "topics": "Opportunities, AI & Autonomy, Standards, Wrap-up"
+      "topics": "One System, Your Build, Outlook, Wrap-up"
     }
   ],
   "cover": {

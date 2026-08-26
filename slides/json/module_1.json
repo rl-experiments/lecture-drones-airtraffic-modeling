@@ -20,7 +20,7 @@
       "FlightAware",
       "EU 2019/947",
       "A1 / A2 / A3",
-      "C0–C4",
+      "C0–C6",
       "*Live Demo"
     ]
   },
@@ -99,7 +99,8 @@
               "Where they happen",
               "<strong>90%</strong> near airports — despite a 1.5 km no-fly radius; one sighting on approach closes a runway for <strong>&ge; 30 minutes</strong>"
             ]
-          ]
+          ],
+          "note": "Source: DFS Deutsche Flugsicherung, press releases on drone disruptions (annual figures 2025, half-year figures 2026). Figures are updated by DFS every six months &mdash; check the current release before each semester."
         }
       },
       {
@@ -181,7 +182,7 @@
       {
         "card": "Since 2024",
         "items": [
-          "New drones are divided into <strong>5 risk classes (C0–C4)</strong> &mdash; certified and labeled by the manufacturer",
+          "New drones carry a <strong>class marking C0–C6</strong>, certified and labeled by the manufacturer: <strong>C0–C4</strong> decide the Open subcategory (C0 = under 250 g, our Mini 4 Pro), <strong>C5–C6</strong> exist for standard scenarios in the Specific category",
           "<strong>Legacy drones</strong> (built before 1.1.2024, no class marking) fall under transitional rules",
           "Applies EU-wide, since 2023 also in Switzerland; national rules still add local specifics"
         ]

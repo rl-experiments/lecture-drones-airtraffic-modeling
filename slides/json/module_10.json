@@ -95,7 +95,7 @@
         "card": "Read the asymmetry",
         "items": [
           "All the business logic sits on the <strong>write side</strong>; the read side is a lookup &mdash; that is what makes it fast",
-          "The bus between them is <strong>Module 9's topic</strong>; the lag between them is the <strong>trade-offs slide</strong> coming next",
+          "The bus between them is <strong>Module 9's topic</strong>; the lag between them is the <strong>trade-offs slide</strong> coming up",
           "Runnable version: the <strong>event-sourcing-spring-boot</strong> repo linked on the previous slide"
         ]
       }
@@ -105,15 +105,37 @@
     "type": "content",
     "mod": "10",
     "tag": "",
-    "title": "CQRS Advantages",
+    "title": "Event Sourcing in 60 Seconds",
+    "desc": "The write side stores what happened, not what is — and everything else is derived",
+    "body": [
+      {
+        "code": "<span class=\"kw\">// the event log — append-only, never updated</span>\nClearanceRequested { zone: <span class=\"str\">\"EDDS-CTR-S\"</span>, drone: <span class=\"str\">\"mini4-01\"</span>, at: 10:15:02Z }\nClearanceGranted   { zone: <span class=\"str\">\"EDDS-CTR-S\"</span>, drone: <span class=\"str\">\"mini4-01\"</span>, until: 10:45:00Z }\nClearanceRevoked   { zone: <span class=\"str\">\"EDDS-CTR-S\"</span>, reason: <span class=\"str\">\"NOTAM A0195/26 GPS UNREL\"</span> }\n\n<span class=\"kw\">// current state = fold over the events</span>\nstate = events.fold(Zone.empty()) { s, e -&gt; s.apply(e) }\n\n<span class=\"kw\">// the read model is just one more subscriber of the same events (M9 topic)</span>",
+        "note": "CQRS does not require event sourcing, and event sourcing does not require CQRS — but they pair naturally: the events that keep the two models in sync are the log."
+      },
+      {
+        "card": "Why aviation likes it",
+        "items": [
+          "The log <strong>is the audit trail</strong>: after an incident, every clearance decision is reproducible &mdash; the verification evidence Module 3 asks for, by construction",
+          "<strong>Replay</strong>: rebuild a read model from scratch, or re-run yesterday's traffic through new conflict logic &mdash; Kafka's offset rewind from Module 9 is the same idea one layer down",
+          "The price: old events never change, so their <strong>schema must be versioned</strong>; long streams need <strong>snapshots</strong> to keep the fold fast"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "10",
+    "tag": "",
+    "title": "What CQRS Buys You",
+    "desc": "Four concrete gains — each one measurable in the ATC example",
     "body": [
       {
         "card": "",
         "items": [
-          "<strong>&#10004; Scalability</strong> — read and write models scale independently; the read model is tuned for fast queries while the write model stays focused on consistency and safety",
-          "<strong>&#10004; Performance</strong> — air traffic controllers need instant airspace queries; a separate read model serves real-time data without slowing down write processing",
-          "<strong>&#10004; Reliability &amp; security</strong> — only authorized users can change flight routes, while others get read-only access to flight information",
-          "<strong>&#10004; Flexibility</strong> — different technologies per side: e.g. a relational database for commands, a memory-optimized store for queries"
+          "<strong>&#10004; Independent scaling</strong> — a thousand map clients read the airspace; a handful of operators write to it. Two loads, two models, two deployments",
+          "<strong>&#10004; A read model shaped like the screen</strong> — the airspace view is pre-joined and pre-sorted: one lookup, no transactions, no locks in the way of a controller's query",
+          "<strong>&#10004; A small, auditable write side</strong> — every state change goes through one command handler where the rules live; reviewing safety logic means reviewing that one place",
+          "<strong>&#10004; Freedom of technology</strong> — a relational store for commands, an in-memory or geo-indexed store for queries (the moving map in Module 14 wants the latter)"
         ]
       }
     ]
@@ -139,6 +161,24 @@
         "card": "Rule of thumb",
         "items": [
           "Use CQRS where read and write loads genuinely diverge — not as a default architecture"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "10",
+    "tag": "takeaway",
+    "title": "Module 10: Key Takeaways",
+    "body": [
+      {
+        "card": "",
+        "items": [
+          "CQRS splits one model into a <strong>write side that guards rules</strong> and a <strong>read side shaped for queries</strong> — synchronized by events on Module 9's topic",
+          "<strong>Event sourcing</strong> stores the events themselves; state is a fold over the log — audit trail and replay come for free, schema versioning and snapshots are the bill",
+          "The gains are concrete: independent scaling, a screen-shaped read model, one auditable place for safety rules",
+          "The cost is <strong>eventual consistency</strong> — in flight monitoring, make the lag visible and bounded, never silent",
+          "Project idea <strong>#11</strong> builds exactly this for the drone: mission commands on one side, current and historical state on the other"
         ]
       }
     ]

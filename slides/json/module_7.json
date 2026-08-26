@@ -19,7 +19,7 @@
     "badges": [
       "OpenAPI 3.1",
       "Swagger UI",
-      "Redoc",
+      "Spec-First",
       "Code Generation",
       "*Live Demo"
     ]
@@ -66,7 +66,8 @@
         "items": [
           "<code>openapi</code> — version of the specification, <code>info</code> — metadata: title, version, description",
           "<code>servers</code> — available servers, <code>paths</code> — definition of the API endpoints",
-          "<code>components</code> — reusable schema definitions (e.g. a <code>Mission</code> object shared by several endpoints)"
+          "<code>components</code> — reusable schema definitions (e.g. a <code>Mission</code> object shared by several endpoints)",
+          "Use <strong>3.1</strong> for new work: its schemas are plain <strong>JSON Schema</strong>, and every generator supports it today"
         ]
       }
     ]
@@ -74,22 +75,48 @@
   {
     "type": "content",
     "mod": "7",
-    "tag": "",
-    "title": "OpenAPI 3.0 vs. 3.1",
-    "desc": "Small version bump, important alignment",
+    "tag": "important",
+    "title": "The Course Contract: telemetry.yaml",
+    "desc": "The one interface every project touches — the Android client posts a fix, the backend accepts it",
     "body": [
       {
-        "img": "openapi-30-vs-31.png",
-        "alt": "Comparison of OpenAPI 3.0 and 3.1 components sections",
-        "height": 300
+        "code": "<span class=\"kw\">openapi:</span> 3.1.0\n<span class=\"kw\">info:</span> { title: Drone Telemetry API, version: 1.0.0 }\n<span class=\"kw\">paths:</span>\n  /drones/{droneId}/fixes:\n    post:\n      summary: Ingest one position fix from the Android client (M5)\n      parameters:\n        - { name: droneId, in: path, required: true, schema: { type: string } }\n      requestBody:\n        required: true\n        content:\n          application/json:\n            schema: { $ref: <span class=\"str\">'#/components/schemas/Fix'</span> }\n      responses:\n        <span class=\"str\">'202'</span>: { description: Accepted &mdash; published to telemetry.topic (M9) }\n        <span class=\"str\">'422'</span>: { description: Rejected &mdash; altitude above 120 m or timestamp in the future }\n<span class=\"kw\">components:</span>\n  schemas:\n    Fix:\n      type: object\n      required: [lat, lon, altMeters, ts]\n      properties:\n        lat:       { type: number, minimum: -90,  maximum: 90 }\n        lon:       { type: number, minimum: -180, maximum: 180 }\n        altMeters: { type: number, minimum: 0,    maximum: 120 }\n        ts:        { type: string, format: date-time }"
       },
       {
-        "card": "",
+        "card": "Read the contract",
         "items": [
-          "3.1 aligns the schema language with <strong>full JSON Schema</strong> — no more OpenAPI-specific dialect",
-          "<code>components</code> gains <strong>pathItems</strong> — reusable path definitions",
-          "Practical advice: start new projects on 3.1; most generators support it today"
+          "<code>Fix</code> is the <strong>same object</strong> Module 9 publishes on the topic and Module 14 draws on the map &mdash; one schema, three modules",
+          "The unit is in the name (<code>altMeters</code>) &mdash; the Module 2 rule, applied at the API boundary",
+          "<code>422</code> turns the open-category ceiling into a <strong>contract rule</strong>: the server refuses what the law forbids &mdash; and Module 11 tests exactly that response"
         ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "7",
+    "tag": "demo",
+    "title": "From Spec to Code: Generate Both Ends",
+    "desc": "Spec-first — the YAML is the source of truth, client and server are derived from it",
+    "body": [
+      {
+        "code": "<span class=\"kw\"># Kotlin client for the Android app (M5)</span>\nopenapi-generator-cli generate -i telemetry.yaml -g kotlin -o client/\n\n<span class=\"kw\"># Spring WebFlux server stub (M8)</span>\nopenapi-generator-cli generate -i telemetry.yaml -g spring \\\n    --additional-properties=reactive=true -o server/\n\n<span class=\"kw\"># Swagger UI served by the running service (build.gradle.kts)</span>\nimplementation(<span class=\"str\">\"org.springdoc:springdoc-openapi-starter-webflux-ui:2.8.0\"</span>)"
+      },
+      {
+        "card": "What you get — and what you still write",
+        "items": [
+          "<strong>Generated</strong>: a typed client (<code>TelemetryApi.postFix(droneId, fix)</code>), the server interface with routes and DTOs, and the <code>Fix</code> class on both sides &mdash; the same object the app sends and the server validates",
+          "<strong>Yours</strong>: the handler body (publish to the topic), and any rule the schema cannot express &mdash; e.g. <em>this drone has no clearance for this zone</em>"
+        ]
+      },
+      {
+        "card": "Two ways to get a spec",
+        "items": [
+          "<strong>Spec-first</strong>: write the YAML, generate the code &mdash; this course, because the Android client (M5) and the Karate tests (M11) are built from the <strong>same file</strong>",
+          "<strong>Code-first</strong>: annotate Spring controllers, let springdoc emit the YAML &mdash; quick for one team, drifts as soon as a second consumer appears",
+          "Either way: <strong>never edit generated code</strong> &mdash; change the spec, regenerate"
+        ],
+        "warn": true
       }
     ]
   },
@@ -113,7 +140,7 @@
         "img": "swagger-editor-petstore.jpg",
         "alt": "Swagger Editor with the Petstore example: YAML on the left, rendered documentation with GET/POST endpoints on the right",
         "height": 360,
-        "caption": "Try it yourself at editor.swagger.io — paste the Petstore example or your own UTM clearance API."
+        "caption": "Try it yourself at editor.swagger.io — paste the Petstore example, or telemetry.yaml from two slides ago."
       }
     ]
   },
@@ -127,9 +154,9 @@
         "card": "",
         "items": [
           "OpenAPI describes a REST API as a <strong>single machine-readable contract</strong> — humans and tooling read the same artifact",
-          "From that one spec you generate <strong>documentation, client/server code and tests</strong> — design once, reuse everywhere",
-          "Start new work on <strong>3.1</strong> for full JSON Schema alignment; the generators have caught up",
-          "In our system every UTM interface — clearance, telemetry, geo-zones — begins life as an OpenAPI document"
+          "From that one spec you generate <strong>documentation, client and server code</strong> — and Module 11 derives the tests from it",
+          "<strong>Spec-first</strong>: the YAML is the source of truth; generated code is never edited, only regenerated",
+          "<code>telemetry.yaml</code> is the course's contract: the <code>Fix</code> schema travels unchanged from the Android app (5) through the topic (9) to the map (14)"
         ]
       }
     ]

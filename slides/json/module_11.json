@@ -37,7 +37,7 @@
           "Tests are written in a simple, readable syntax based on <strong>Gherkin</strong> — accessible even to non-programmers",
           "Supports <strong>functional and performance tests</strong>, plus API, UI and end-to-end testing in one tool",
           "Integrates quickly into <strong>CI/CD pipelines</strong> — known for efficiency and ease of use",
-          "For our domain: every UTM interface from Module 6/7 (clearance, telemetry, geo-zones) is a natural Karate target"
+          "For our domain: every contract from Modules 7 and 10 (telemetry, clearance, airspace view) is a natural Karate target"
         ]
       },
       {
@@ -75,13 +75,26 @@
   {
     "type": "content",
     "mod": "11",
-    "tag": "",
-    "title": "Example 1: Testing a Greeting Endpoint",
-    "desc": "A complete Karate feature file — no Java code required",
+    "tag": "demo",
+    "title": "Example 1: The Airspace Read Model",
+    "desc": "A complete Karate feature file against the Module 10 query side — no Java code required",
     "body": [
       {
-        "code": "<span class=\"kw\">Feature:</span> greeting end-point\n\n<span class=\"kw\">Background:</span>\n  * url demoBaseUrl\n\n<span class=\"kw\">Scenario:</span> get default greeting\n    <span class=\"kw\">Given</span> path <span class=\"str\">'greeting'</span>\n    <span class=\"kw\">When</span> method get\n    <span class=\"kw\">Then</span> status 200\n    <span class=\"kw\">And</span> match response == { id: <span class=\"str\">'#number'</span>, content: <span class=\"str\">'Hello World!'</span> }\n\n<span class=\"kw\">Scenario:</span> get custom greeting\n    <span class=\"kw\">Given</span> path <span class=\"str\">'greeting'</span>\n    <span class=\"kw\">And</span> param name = <span class=\"str\">'Billie'</span>\n    <span class=\"kw\">When</span> method get\n    <span class=\"kw\">Then</span> status 200\n    <span class=\"kw\">And</span> match response == { id: <span class=\"str\">'#number'</span>, content: <span class=\"str\">'Hello Billie!'</span> }",
-        "note": "match validates the whole JSON payload structurally — '#number' is a fuzzy matcher: any numeric id passes."
+        "code": "<span class=\"kw\">Feature:</span> airspace read model (Module 10, query side)\n\n<span class=\"kw\">Background:</span>\n  * url baseUrl\n\n<span class=\"kw\">Scenario:</span> current view of a control zone\n    <span class=\"kw\">Given</span> path <span class=\"str\">'airspace'</span>, <span class=\"str\">'EDDS-CTR-S'</span>\n    <span class=\"kw\">When</span> method get\n    <span class=\"kw\">Then</span> status 200\n    <span class=\"kw\">And</span> match response == { zoneId: <span class=\"str\">'EDDS-CTR-S'</span>, activeClearances: <span class=\"str\">'#[] #object'</span>, updatedAt: <span class=\"str\">'#string'</span> }\n    <span class=\"kw\">And</span> match each response.activeClearances == { droneId: <span class=\"str\">'#string'</span>, until: <span class=\"str\">'#string'</span> }\n\n<span class=\"kw\">Scenario:</span> unknown zone\n    <span class=\"kw\">Given</span> path <span class=\"str\">'airspace'</span>, <span class=\"str\">'NOWHERE'</span>\n    <span class=\"kw\">When</span> method get\n    <span class=\"kw\">Then</span> status 404",
+        "note": "match validates the whole JSON payload structurally — '#string' and '#[] #object' are fuzzy matchers (any string, any array of objects); match each checks every element. The entire read-model contract, in eight lines a non-programmer can review."
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "11",
+    "tag": "demo",
+    "title": "Example 2: Clearance — Granted, Then Refused",
+    "desc": "Chaining requests: the 201 / 409 pair from the Module 7 contract, proven in one scenario",
+    "body": [
+      {
+        "code": "<span class=\"kw\">Feature:</span> flight clearance (Module 7 contract, Module 10 command side)\n\n<span class=\"kw\">Background:</span>\n  * url baseUrl\n  * def mission =\n    <span class=\"str\">\"\"\"</span>\n    { droneId: <span class=\"str\">'mini4-01'</span>, zoneId: <span class=\"str\">'EDDS-CTR-S'</span>,\n      from: <span class=\"str\">'2026-08-26T10:00:00Z'</span>, until: <span class=\"str\">'2026-08-26T10:30:00Z'</span> }\n    <span class=\"str\">\"\"\"</span>\n\n<span class=\"kw\">Scenario:</span> first request in a free volume is granted, the second one conflicts\n    <span class=\"kw\">Given</span> path <span class=\"str\">'clearances'</span>\n    <span class=\"kw\">And</span> request mission\n    <span class=\"kw\">When</span> method post\n    <span class=\"kw\">Then</span> status 201\n    * def clearanceId = response.id\n\n    <span class=\"kw\">Given</span> path <span class=\"str\">'clearances'</span>\n    <span class=\"kw\">And</span> request { droneId: <span class=\"str\">'mini4-02'</span>, zoneId: <span class=\"str\">'EDDS-CTR-S'</span>,\n                  from: <span class=\"str\">'2026-08-26T10:10:00Z'</span>, until: <span class=\"str\">'2026-08-26T10:20:00Z'</span> }\n    <span class=\"kw\">When</span> method post\n    <span class=\"kw\">Then</span> status 409\n    <span class=\"kw\">And</span> match response.conflictsWith == clearanceId",
+        "note": "State flows between steps: the id captured from the first response is asserted in the second. The spec in Module 7 promised '201 granted, 409 conflict' — this file is the proof, and it runs against the real service."
       }
     ]
   },
@@ -89,12 +102,19 @@
     "type": "content",
     "mod": "11",
     "tag": "",
-    "title": "Example 2: CSRF Token & Sign-In Flow",
-    "desc": "Chaining requests: capture a token, then use it in the next request",
+    "title": "Same Feature File, Three Jobs",
+    "desc": "Functional test on your laptop, load test in Gatling, gate in CI — without rewriting a line",
     "body": [
       {
-        "code": "<span class=\"kw\">Feature:</span> csrf and sign-in end point\n\n<span class=\"kw\">Background:</span>\n  * url demoBaseUrl\n  <span class=\"kw\">Given</span> path <span class=\"str\">'signin'</span>, <span class=\"str\">'token'</span>\n  <span class=\"kw\">When</span> method get\n  <span class=\"kw\">Then</span> status 200\n  <span class=\"kw\">And</span> header X-CSRF-TOKEN = response\n\n<span class=\"kw\">Scenario:</span> html url encoded form submit - post\n    <span class=\"kw\">Given</span> path <span class=\"str\">'signin'</span>\n    <span class=\"kw\">And</span> form field username = <span class=\"str\">'john'</span>\n    <span class=\"kw\">And</span> form field password = <span class=\"str\">'secret'</span>\n    <span class=\"kw\">When</span> method post\n    <span class=\"kw\">Then</span> status 200\n    <span class=\"kw\">And</span> match response == <span class=\"str\">'success'</span>",
-        "note": "The Background runs before each scenario: it fetches the CSRF token once and injects it as a header — state flows naturally between steps. The full demo also shows GET-based and manually-formed request variants."
+        "code": "<span class=\"kw\">// Load test: karate-gatling reuses the feature file (Scala)</span>\n<span class=\"kw\">class</span> TelemetryLoad <span class=\"kw\">extends</span> Simulation {\n  <span class=\"kw\">val</span> fixes = scenario(<span class=\"str\">\"1,000 drones at 1 Hz\"</span>)\n    .exec(karateFeature(<span class=\"str\">\"classpath:telemetry/post-fix.feature\"</span>))\n  setUp(fixes.inject(rampUsers(1000) during (60.seconds)))\n}\n\n<span class=\"kw\"># CI gate (GitHub Actions): the contract runs before anything flies</span>\n- run: mvn test -Dkarate.env=ci\n- uses: actions/upload-artifact@v4\n  with: { name: karate-report, path: target/karate-reports/ }"
+      },
+      {
+        "card": "What each run tells you",
+        "items": [
+          "<strong>Functional</strong> — does the service honour the contract? Green or red per scenario, HTML report per run",
+          "<strong>Load</strong> — at what rate does <code>POST /fixes</code> start to queue? The number Module 8 promised (few threads, thousands of streams) gets measured, not believed",
+          "<strong>CI</strong> — a red contract blocks the merge: this is <strong>No Green, No Props</strong> for the backend (Module 2)"
+        ]
       }
     ]
   },
@@ -108,10 +128,10 @@
         "card": "",
         "items": [
           "Karate writes API tests in readable <strong>Gherkin</strong> — no Java required, so the whole team can read and run them",
-          "One tool covers <strong>functional, integration and performance</strong> tests and drops straight into CI/CD",
-          "Chaining requests — capture a token, then reuse it — makes <strong>multi-step flows</strong> like sign-in-then-call easy to express",
-          "Every UTM and telemetry interface from Modules 6–8 is a natural Karate target: contract-test it before you trust it",
-          "This is the <strong>Safety &amp; Testing gate, API edition</strong>: the same test-first discipline that keeps the drone out of the wall keeps your backend honest"
+          "<code>match</code> checks a whole payload structurally; fuzzy matchers (<code>#string</code>, <code>#[] #object</code>) keep tests stable when data changes",
+          "Chaining requests — capture an id, assert it later — expresses <strong>multi-step contracts</strong> like granted-then-conflict in one scenario",
+          "One feature file serves three jobs: <strong>functional test, Gatling load test, CI gate</strong>",
+          "Every contract from Modules 7 and 10 gets a feature file before it gets traffic — the <strong>Safety &amp; Testing gate, API edition</strong>"
         ]
       }
     ]

@@ -220,6 +220,7 @@
           "<strong>SIL 0</strong> = ISO 9001 process only — <em>no safety claim at all; an accident is quite likely to happen</em>",
           "<strong>SIL 1–2</strong> — structured methods, controlled changes, functional testing and reviews",
           "<strong>SIL 3–4</strong> — formal specification, restricted language subsets, validated compilers, static analysis up to 100% testing &amp; proof — <em>this software may hold human lives</em>",
+          "<strong>SIL vs. DAL</strong>: SIL (IEC 61508) is the generic industry scale, DAL A–E (DO-178C) the aviation one &mdash; same idea, rigour graded by the harm a failure can cause, but <strong>not mapped one-to-one</strong>; this lecture uses DAL from here on",
           "Coffee-break reality check: <a href=\"https://www.youtube.com/shorts/RJverdoLwTk\" target=\"_blank\">Developer vs. Tester (YouTube short)</a>"
         ]
       }
@@ -230,7 +231,7 @@
     "mod": "3",
     "tag": "",
     "title": "Principles 1 & 2: Define the Requirements, Preserve the Intent",
-    "desc": "Safety requirements must exist — and must survive decomposition",
+    "desc": "The 4+1 principles of software safety assurance (Hawkins, Habli & Kelly, University of York, 2013) — first: requirements must exist and survive decomposition",
     "body": [
       {
         "card": "Principle 1 — define them",

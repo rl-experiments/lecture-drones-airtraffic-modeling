@@ -15,58 +15,12 @@
     "bg": 6,
     "h1": "Module 15",
     "lead": "Conclusion & Outlook",
-    "sub": "Where drone technology is heading — and what stands in the way",
+    "sub": "What you built, where drone technology is heading — and what stands in the way",
     "badges": [
-      "Opportunities",
+      "One System",
+      "Your Build",
       "AI & Autonomy",
-      "International Standards",
       "*Wrap-up"
-    ]
-  },
-  {
-    "type": "content",
-    "mod": "15",
-    "tag": "",
-    "title": "Opportunities & Challenges of Future Drone Technologies",
-    "body": [
-      {
-        "card": "Opportunities",
-        "items": [
-          "<strong>Logistics</strong> — more efficient transport, especially for the last mile and hard-to-reach areas",
-          "<strong>Agriculture</strong> — precise crop monitoring and targeted treatment",
-          "<strong>Environmental monitoring</strong> — large-area observation at low cost",
-          "<strong>Emergency response</strong> — reaching inaccessible areas in crisis situations quickly"
-        ]
-      },
-      {
-        "card": "Challenges",
-        "items": [
-          "Privacy concerns and security risks from unauthorized use",
-          "The need for clear regulatory frameworks",
-          "<strong>Integration into existing air traffic systems</strong> — the central theme of this entire lecture",
-          "Guaranteeing safe and ethical operation as fleets scale up",
-          "The open problems mirror aviation's: <strong>ethical use, avoiding failures in critical situations, robust safeguards</strong> against misuse and malfunction — Module 3's principles apply to AI components too"
-        ],
-        "warn": true
-      }
-    ]
-  },
-  {
-    "type": "content",
-    "mod": "15",
-    "tag": "",
-    "title": "International Standards & Regulations",
-    "body": [
-      {
-        "card": "Why they matter",
-        "items": [
-          "Standards ensure innovations are <strong>globally harmonized</strong>: products and services stay compatible and safe worldwide",
-          "They promote trade, protect user privacy and safety, and prevent technological abuse",
-          "They create fair competition — without unnecessarily slowing progress",
-          "The hard part: developing <strong>flexible, future-proof norms</strong> that keep pace with rapid technological change",
-          "You have now seen the aviation instances: EU 2019/947, DO-178C, ED-153, AIXM, ASTERIX, OLDI — one coherent regulatory-technical stack"
-        ]
-      }
     ]
   },
   {
@@ -74,18 +28,97 @@
     "mod": "15",
     "tag": "important",
     "title": "One System, End to End",
-    "desc": "The diagram from Module 4, revisited — every box is now something you have built or can build",
+    "desc": "The diagram from the first session, revisited — every box is now something you have built or can build",
     "body": [
       {
-        "code": "[ DJI Mini 4 Pro ] --&gt; [ Android client ]        the Lab (M5)\n                              |  OpenAPI-described REST  (M7)\n                              v\n                      [ Ingest API ]  WebFlux stream  (M8)\n                              |\n                              v\n                  [ telemetry topic  (M9) ]\n                    |         |          |\n                    v         v          v\n            [ live map ] [ avoidance ] [ CQRS store ]\n             (M14, GIS)   logic --&gt;      (M10)\n                          validated in\n                          BlueSky (M13)\n\n  fed by NOTAM / METAR / AIXM context (M12)  ·  inside a UTM picture (M6)\n  Karate tests every boundary (M11)  ·  the Safety &amp; Testing gate and\n  DO-178C mindset (M3) guard everything that flies"
+        "code": "[ DJI Mini 4 Pro ] --&gt; [ Android client ]        the Lab (M5)\n                              |  OpenAPI-described REST  (M7)\n                              v\n                      [ Ingest API ]  WebFlux stream  (M8)\n                              |\n                              v\n                  [ telemetry topic  (M9) ]\n                    |         |          |\n                    v         v          v\n            [ live map ] [ avoidance ] [ CQRS store ]\n             (M14, GIS)   logic --&gt;      (M10)\n                          validated in\n                          BlueSky (M13)\n\n  fed by NOTAM / METAR / AIXM context (M12)  ·  inside a UTM picture (M6)\n  Karate tests every boundary (M11)  ·  the Safety &amp; Testing gate (M2) and\n  DO-178C mindset (M3) guard everything that flies"
       },
       {
         "card": "The point",
         "items": [
           "Every module of this course was <strong>one station of the same system</strong> &mdash; nothing you learned stands alone",
           "You can now build this <strong>end to end</strong>: parse aviation data, expose it, stream it, fan it out, guard the writes, test every seam, and prove it in simulation before a single prop spins",
-          "That is the sentence for your CV &mdash; and the one you should be able to <strong>defend in the exam</strong>"
+          "That is the sentence for your CV &mdash; and the one you defend at the <strong>live demo</strong>"
         ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "15",
+    "tag": "",
+    "title": "What You Actually Built",
+    "desc": "The 16 project ideas from Module 4, placed on the diagram — find your box, name the arrow next to it",
+    "body": [
+      {
+        "table": {
+          "headers": [
+            "Station",
+            "Modules",
+            "Project ideas"
+          ],
+          "rows": [
+            [
+              "<strong>Aircraft &amp; client</strong> — telemetry, video, virtual stick",
+              "5, 2",
+              "1 dashboard &middot; 9 pattern flyer &middot; 12 closed-loop movement &middot; 13 onboard vision"
+            ],
+            [
+              "<strong>APIs &amp; streams</strong> — contract, ingest, fan-out to browsers",
+              "7, 8",
+              "7 telemetry REST / streaming service"
+            ],
+            [
+              "<strong>Messaging &amp; state</strong> — topic, replay, command/query split",
+              "9, 10",
+              "4 flight data store &middot; 8 message-queue pipeline &middot; 11 CQRS flight state"
+            ],
+            [
+              "<strong>Testing</strong> — every boundary under contract",
+              "11",
+              "3 Karate test suite"
+            ],
+            [
+              "<strong>Air-traffic picture</strong> — UTM, map, simulation",
+              "6, 13, 14",
+              "2 track logger &middot; 5 live map &middot; 6 geofence &middot; 10 UTM monitor &middot; 14 BlueSky bridge &middot; 15 spacing &middot; 16 collision avoidance"
+            ]
+          ]
+        }
+      },
+      {
+        "card": "At the live demo",
+        "items": [
+          "Name your station, name the arrow to the neighbouring one, and <strong>show the measurement</strong> that says where your build works and where it breaks (Module 4)",
+          "Then the question you have heard since Module 2: <em>why was this code safe to arm?</em>"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "15",
+    "tag": "",
+    "title": "Where This Is Heading",
+    "desc": "The opportunities are real — and every one of them is gated by the problems this course was about",
+    "body": [
+      {
+        "card": "Opportunities",
+        "items": [
+          "<strong>Logistics</strong> &mdash; the last mile and hard-to-reach areas; <strong>agriculture</strong> &mdash; crop monitoring and targeted treatment",
+          "<strong>Inspection and environmental monitoring</strong> &mdash; large areas at low cost; <strong>emergency response</strong> &mdash; reaching places nobody else can, fast",
+          "<strong>AI on board</strong> &mdash; perception and decision-making that no longer wait for a link to the ground"
+        ]
+      },
+      {
+        "card": "What stands in the way",
+        "items": [
+          "<strong>Integration into existing air traffic</strong> &mdash; U-space exists on paper (Module 6); the interfaces, data and tests you built are what make it real",
+          "<strong>Trust in autonomous components</strong> &mdash; a learned model does not come with a DAL; Module 3's principles apply, the evidence is harder to produce",
+          "<strong>Security and misuse</strong> &mdash; the airport disruptions from Module 1 are not accidents; detection and identification are unsolved at scale",
+          "<strong>Regulation that keeps pace</strong> &mdash; EU 2019/947 and 2021/664 are the frame; the standards behind them (DO-178C, AIXM, ASTERIX, OLDI) are what engineers actually build against"
+        ],
+        "warn": true
       }
     ]
   },
@@ -98,18 +131,18 @@
       {
         "card": "What you take home",
         "items": [
-          "Why drone traffic needs modeling: regulation, density and safety (Modules 1, 3)",
-          "The data formats aviation speaks: NOTAM, METAR, AIXM, ASTERIX, OLDI (Module 12)",
-          "The system picture: UTM as a federation of services (Module 6)",
-          "The engineering toolbox: OpenAPI, WebFlux, message queues, CQRS, Karate (Modules 7–11)",
-          "The laboratory: BlueSky simulation and GIS integration (Modules 14–14)"
+          "Why drone traffic needs modeling: incidents, regulation, density (Module 1) &mdash; and why untested code never gets props (Module 2)",
+          "How aviation software is built differently: DO-178C, the 4+1 principles, confidence proportionate to risk (Module 3)",
+          "The system picture: UTM and U-space as a federation of services (Module 6)",
+          "The engineering toolbox: OpenAPI, WebFlux, message queues, CQRS, Karate (Modules 7&ndash;11)",
+          "The data aviation speaks and the laboratory to prove things in: NOTAM, METAR, AIXM, ASTERIX, OLDI, BlueSky, GIS (Modules 12&ndash;14)"
         ]
       },
       {
         "card": "Now it's on you",
         "items": [
-          "Ship your practical project — working code beats slides",
-          "Fly your project — and be able to explain <em>why</em> your code was safe to arm",
+          "Ship your practical project &mdash; working code beats slides",
+          "Fly it &mdash; and be able to explain <em>why</em> your code was safe to arm",
           "Open questions? Ask now, or bring them to the next session"
         ]
       }
