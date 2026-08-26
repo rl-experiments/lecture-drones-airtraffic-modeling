@@ -164,40 +164,6 @@
   {
     "type": "content",
     "mod": "9",
-    "tag": "",
-    "title": "Implementations & Tools",
-    "body": [
-      {
-        "table": {
-          "headers": [
-            "System",
-            "Character",
-            "Notes"
-          ],
-          "rows": [
-            [
-              "<strong>ActiveMQ</strong> (Apache)",
-              "Open-source JMS provider",
-              "The classic choice for JMS in Java projects"
-            ],
-            [
-              "<strong>RabbitMQ</strong>",
-              "AMQP broker",
-              "Supports JMS via plugins; very flexible routing"
-            ],
-            [
-              "<strong>Kafka</strong>",
-              "Distributed log (not JMS, but similar use cases)",
-              "Massively scalable streaming — the natural fit for high-volume telemetry"
-            ]
-          ]
-        }
-      }
-    ]
-  },
-  {
-    "type": "content",
-    "mod": "9",
     "tag": "takeaway",
     "title": "Module 9: Key Takeaways",
     "body": [
@@ -206,7 +172,7 @@
         "items": [
           "Asynchronous messaging buys <strong>decoupling, buffering and fan-out</strong> &mdash; the sender never waits, the system never loses a message to a restart",
           "<strong>Queue</strong> = work distribution (each message to exactly one consumer); <strong>topic</strong> = broadcast (every subscriber sees everything)",
-          "Pick the broker by <strong>guarantees, not fashion</strong>: throughput, ordering, persistence, replay",
+          "Pick the broker by <strong>guarantees, not fashion</strong>: <strong>ActiveMQ</strong> (the classic JMS broker), <strong>RabbitMQ</strong> (AMQP, JMS via plugin, flexible routing), <strong>Kafka</strong> (a distributed log, not JMS &mdash; replay and volume)",
           "<strong>At-least-once + idempotent consumer</strong> is the practical 'exactly once'; a durable subscription is what keeps a topic's messages for a consumer that is restarting"
         ]
       },

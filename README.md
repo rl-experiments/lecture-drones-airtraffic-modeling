@@ -1,6 +1,6 @@
 # Innovative Technologies for Drones<br><sub>Air Traffic Modeling</sub>
 
-University lecture slides — elective master module (WPM), Albstadt-Sigmaringen University of Applied Sciences. Intro plus 15 modules, 135 slides: a safety-and-testing gate, a hands-on DJI drone lab, the backend technology stack, and validation in the [BlueSky](https://github.com/TUDelft-CNS-ATM/bluesky) ATM simulator.
+University lecture slides — elective master module (WPM), Albstadt-Sigmaringen University of Applied Sciences. Intro plus 15 modules: a safety-and-testing gate, a hands-on DJI drone lab, the backend technology stack, and validation in the [BlueSky](https://github.com/TUDelft-CNS-ATM/bluesky) ATM simulator.
 
 ![Cover slide](.github/cover.webp)
 

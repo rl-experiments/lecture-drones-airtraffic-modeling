@@ -100,19 +100,23 @@
   {
     "type": "content",
     "mod": "6",
-    "tag": "",
+    "tag": "exercise",
     "title": "Who Talks to Whom in UTM",
-    "desc": "Reading the ecosystem diagram as a data-flow problem",
+    "desc": "Reading the ecosystem diagram as a data-flow problem — and what one drone actually says on the air",
     "body": [
       {
         "img": "utm-dataflow.png",
         "alt": "UTM data-flow: drone, operator, drone detection, GBSAS and radar feed the UTM hub; UTM serves DFS and authorities, pilots, and the ATM system",
-        "height": 330
+        "height": 260
       },
       {
-        "card": "Key insight",
+        "code": "<span class=\"kw\"># Direct Remote ID — one Bluetooth advertisement (EN 4709-002 / ASTM F3411), decoded</span>\nBasic ID     UAS ID  1596F1234567890ABC  (serial, ANSI/CTA-2063-A)     UA type  multirotor\nLocation     48.08770 N  9.21600 E   height 38.5 m AGL   speed 4.2 m/s   track 245°   10:15:02.4Z\nSystem       operator position 48.0871 N 9.2159 E\nOperator ID  DEU87astrdge12k8   <span class=\"kw\"># the e-ID from Module 1 — anyone with a phone can read it</span>"
+      },
+      {
+        "card": "Key insight — and a five-minute exercise",
         "items": [
-          "UTM is not a tower with people — it is a <strong>federation of data services</strong>; every arrow in the diagram is an interface, which is why Modules 7–11 are about APIs, streaming, messaging and testing"
+          "UTM is not a tower with people — it is a <strong>federation of data services</strong>; every arrow in the diagram is an interface, which is why Modules 7–11 are about APIs, streaming, messaging and testing",
+          "The Remote ID broadcast is the <code>Fix</code> from Module 7 <strong>plus identity</strong>. Exercise: map its four messages onto <code>telemetry.yaml</code> &mdash; which fields does our contract lack, and which of them would a USSP insist on?"
         ]
       }
     ]

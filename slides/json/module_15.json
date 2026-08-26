@@ -99,19 +99,11 @@
     "type": "content",
     "mod": "15",
     "tag": "",
-    "title": "Where This Is Heading",
-    "desc": "The opportunities are real — and every one of them is gated by the problems this course was about",
+    "title": "What Stands in the Way",
+    "desc": "Delivery, inspection, agriculture, emergency response, AI on board — the applications are known; each one is gated by the four problems this course was about",
     "body": [
       {
-        "card": "Opportunities",
-        "items": [
-          "<strong>Logistics</strong> &mdash; the last mile and hard-to-reach areas; <strong>agriculture</strong> &mdash; crop monitoring and targeted treatment",
-          "<strong>Inspection and environmental monitoring</strong> &mdash; large areas at low cost; <strong>emergency response</strong> &mdash; reaching places nobody else can, fast",
-          "<strong>AI on board</strong> &mdash; perception and decision-making that no longer wait for a link to the ground"
-        ]
-      },
-      {
-        "card": "What stands in the way",
+        "card": "",
         "items": [
           "<strong>Integration into existing air traffic</strong> &mdash; U-space exists on paper (Module 6); the interfaces, data and tests you built are what make it real",
           "<strong>Trust in autonomous components</strong> &mdash; a learned model does not come with a DAL; Module 3's principles apply, the evidence is harder to produce",

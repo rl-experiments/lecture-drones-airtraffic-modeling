@@ -54,11 +54,40 @@
     "desc": "An ATC system processing airspace information — the textbook fit",
     "body": [
       {
-        "card": "Two kinds of operations",
-        "items": [
-          "<strong>Commands</strong> — change or create airspace state: issue a takeoff clearance, adjust flight zones",
-          "<strong>Queries</strong> — retrieve the current information about the airspace"
-        ]
+        "table": {
+          "headers": [
+            "Operation",
+            "Kind",
+            "Who calls it",
+            "What it must guarantee"
+          ],
+          "rows": [
+            [
+              "Issue a takeoff clearance",
+              "<strong>Command</strong>",
+              "Operator, or the authorisation service (M6)",
+              "No second clearance in the same volume and time &mdash; the 409 from Module 7"
+            ],
+            [
+              "Activate a temporary restricted zone (NOTAM, M12)",
+              "<strong>Command</strong>",
+              "Authority",
+              "Every clearance inside the zone is revoked, exactly once"
+            ],
+            [
+              "Current airspace picture for a zone",
+              "<strong>Query</strong>",
+              "Controller screen, live map (M14)",
+              "Answer in milliseconds, for hundreds of screens at once"
+            ],
+            [
+              "Conflicts predicted in the next five minutes",
+              "<strong>Query</strong>",
+              "Conflict detection (M13)",
+              "Read-only &mdash; may never slow down a clearance"
+            ]
+          ]
+        }
       },
       {
         "card": "Applying the pattern",
@@ -104,7 +133,7 @@
   {
     "type": "content",
     "mod": "10",
-    "tag": "",
+    "tag": "exercise",
     "title": "Event Sourcing in 60 Seconds",
     "desc": "The write side stores what happened, not what is — and everything else is derived",
     "body": [
@@ -118,6 +147,13 @@
           "The log <strong>is the audit trail</strong>: after an incident, every clearance decision is reproducible &mdash; the verification evidence Module 3 asks for, by construction",
           "<strong>Replay</strong>: rebuild a read model from scratch, or re-run yesterday's traffic through new conflict logic &mdash; Kafka's offset rewind from Module 9 is the same idea one layer down",
           "The price: old events never change, so their <strong>schema must be versioned</strong>; long streams need <strong>snapshots</strong> to keep the fold fast"
+        ]
+      },
+      {
+        "card": "Your turn — five minutes",
+        "items": [
+          "List the events FLY MISSION (Module 5) emits &mdash; <code>TakeoffCompleted</code>, <code>LegFlown(distanceM, headingDeg)</code>, <code>TurnCompleted</code>, <code>Landed</code>, <code>MissionAborted(reason)</code>, &hellip;",
+          "Which of them does a <em>where is the drone now</em> view need, and which only a <em>what did it do</em> view? That split is the two read models of project idea #11"
         ]
       }
     ]

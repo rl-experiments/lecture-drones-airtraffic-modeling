@@ -268,43 +268,26 @@
     "type": "content",
     "mod": "3",
     "tag": "",
-    "title": "Principle 3: Satisfy the Requirements",
-    "desc": "Safety requirements that exist on paper only are worthless",
+    "title": "Principles 3, 4 & 4+1: Satisfy, Mitigate, Scale the Rigor",
+    "desc": "Requirements on paper are worthless, design can introduce failure modes — and the effort must match the risk",
     "body": [
       {
         "img": "mars-polar-lander.png",
         "alt": "Artist rendering of the Mars Polar Lander on the Martian surface",
-        "height": 250,
+        "height": 170,
         "caption": "Mars Polar Lander, lost on arrival 3 December 1999: the touchdown-detection software satisfied its spec — but a known transient signal on leg deployment shut the engines down 40 meters above the surface."
       },
       {
-        "card": "What DO-178C says",
+        "card": "Principle 3 — satisfy the requirements",
         "items": [
-          "This principle is addressed well by DO-178: it requires <strong>verification evidence</strong> demonstrating requirements under <strong>normal and fault conditions</strong>",
-          "DO-178 was historically heavily test-focused &mdash; <strong>DO-178C permits a wider range of verification techniques</strong>: analysis, reviews, formal methods, not just testing"
+          "DO-178C requires <strong>verification evidence</strong> demonstrating each requirement under <strong>normal and fault conditions</strong> &mdash; and since DO-178C, by analysis, reviews and formal methods, not only by testing"
         ]
-      }
-    ]
-  },
-  {
-    "type": "content",
-    "mod": "3",
-    "tag": "",
-    "title": "Principles 4 & 4+1: Mitigate Hazards, Scale the Rigor",
-    "desc": "Design can introduce failure modes — and the effort must match the risk",
-    "body": [
-      {
-        "img": "patriot-missile.png",
-        "alt": "Patriot missile launch",
-        "height": 150,
-        "caption": "Dhahran, 25 February 1991: a Patriot battery failed to intercept a Scud missile — a floating-point time-accumulation error after 100 hours of continuous operation. 28 soldiers died, 98 were injured."
       },
       {
         "card": "Principle 4 — identify & mitigate hazardous behavior",
         "items": [
-          "Design activities 'could introduce modes of failure into the software or, conversely, preclude others'",
-          "Such findings become <strong>derived requirements</strong> fed back to the <strong>system safety assessment</strong> &mdash; the loop where projects break down in practice",
-          "A core objective of DO-178 verification: remove errors that would cause unacceptable failure conditions"
+          "Design activities 'could introduce modes of failure into the software or, conversely, preclude others' &mdash; such findings become <strong>derived requirements</strong> fed back to the <strong>system safety assessment</strong>, the loop where projects break down in practice",
+          "Dhahran, 25 February 1991: a Patriot battery missed a Scud because of a <strong>floating-point time-accumulation error</strong> after 100 hours of continuous operation &mdash; 28 dead, 98 injured. A failure mode nobody specified; the design created it"
         ]
       },
       {

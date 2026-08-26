@@ -60,21 +60,6 @@
   {
     "type": "content",
     "mod": "11",
-    "tag": "",
-    "title": "Why We Test: Cover All Edge Cases",
-    "desc": "Your collision-avoidance plugin will meet its stick-wielding tester in Module 13",
-    "body": [
-      {
-        "img": "edge-cases.png",
-        "alt": "MonkeyUser comic: a robot builder is asked 'did you cover all edge cases?' — weeks later the robot wears a helmet, pillows and a roll cage",
-        "height": 455,
-        "caption": "monkeyuser.com — Edge Cases"
-      }
-    ]
-  },
-  {
-    "type": "content",
-    "mod": "11",
     "tag": "demo",
     "title": "Example 1: The Airspace Read Model",
     "desc": "A complete Karate feature file against the Module 10 query side — no Java code required",
