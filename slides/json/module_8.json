@@ -28,15 +28,15 @@
     "mod": "8",
     "tag": "",
     "title": "Why Reactive?",
-    "desc": "A non-blocking, asynchronous programming model for reactive applications",
+    "desc": "Thousands of open connections on a handful of threads — the claim, and where it comes from",
     "body": [
       {
-        "card": "The case for Spring Reactive",
+        "card": "The claim",
         "items": [
-          "<strong>Efficiency</strong> — scales better than blocking frameworks: few event-loop threads instead of one thread per request",
-          "<strong>Reactive streams</strong> — large data volumes with minimal resources; <strong>event-driven</strong> — a natural fit for microservices and cloud",
-          "Part of <strong>Spring WebFlux</strong>, built on the <strong>Reactor core</strong> (Flux, Mono)",
-          "Air traffic reality check: 1,000 drones &times; 1 position/second = a permanent stream — exactly the reactive sweet spot"
+          "1,000 drones &times; 1 fix per second, and a live map open in 1,000 browsers = <strong>2,000 permanently open connections</strong>, each carrying a trickle of data",
+          "A blocking stack parks <strong>one thread per open connection</strong>; threads cost ~1 MB of stack each and the OS scheduler starts to choke around a few thousand",
+          "A non-blocking stack keeps a connection open <strong>without a thread</strong> waiting on it: an event loop of ~one thread per CPU core handles all of them &mdash; Spring WebFlux on <strong>Project Reactor</strong> (Flux, Mono)",
+          "Don't take the claim on faith: count the threads of an MVC and a WebFlux build of the same endpoint under the Module 11 load test &mdash; that number belongs in your write-up"
         ]
       }
     ]
@@ -116,6 +116,49 @@
           "<strong>WebFlux router &amp; handlers</strong> — functional alternative to Spring MVC controllers (serve <code>live</code> above as a <code>text/event-stream</code> endpoint)",
           "<strong>Reactive repositories</strong> — non-blocking database access"
         ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "8",
+    "tag": "exercise",
+    "title": "Build the Ingest Handler",
+    "desc": "POST /drones/{droneId}/fixes from telemetry.yaml (Module 7), reactive end to end — fifteen lines",
+    "body": [
+      {
+        "code": "<span class=\"kw\">private final</span> Sinks.Many&lt;Fix&gt; sink = Sinks.many().multicast().onBackpressureBuffer();\n\n@PostMapping(<span class=\"str\">\"/drones/{droneId}/fixes\"</span>)\nMono&lt;ResponseEntity&lt;Void&gt;&gt; ingest(@PathVariable String droneId, @RequestBody Mono&lt;Fix&gt; body) {\n    <span class=\"kw\">return</span> body\n        .filter(f -&gt; f.altMeters() &lt;= 120 &amp;&amp; !f.ts().isAfter(Instant.now()))\n        .switchIfEmpty(Mono.error(<span class=\"kw\">new</span> ResponseStatusException(UNPROCESSABLE_ENTITY)))   <span class=\"str\">// 422</span>\n        .doOnNext(f -&gt; sink.tryEmitNext(f.withDrone(droneId)))                    <span class=\"str\">// -&gt; topic later (M9)</span>\n        .thenReturn(ResponseEntity.accepted().build());                          <span class=\"str\">// 202</span>\n}\n\n@GetMapping(value = <span class=\"str\">\"/tracks\"</span>, produces = TEXT_EVENT_STREAM_VALUE)\nFlux&lt;Fix&gt; tracks() {\n    <span class=\"kw\">return</span> sink.asFlux()\n        .groupBy(Fix::droneId)\n        .flatMap(perDrone -&gt; perDrone.sample(Duration.ofSeconds(1)));   <span class=\"str\">// 1 Hz per drone, not per stream</span>\n}"
+      },
+      {
+        "card": "Your task — 30 minutes, then Karate checks it",
+        "items": [
+          "Generate the stub with <code>-g spring --additional-properties=reactive=true</code> (Module 7), paste this in, run it",
+          "<code>curl -N localhost:8080/tracks</code> in one terminal; post a fix with <code>altMeters: 38.5</code> in another &mdash; it appears on the stream within a second. Post one with <code>150</code> &mdash; <strong>422</strong>",
+          "Why <code>groupBy</code> before <code>sample</code>? Remove it, post fixes for two drones at once, and watch one of them vanish from the stream",
+          "Why a <code>Sink</code> and not a <code>List</code>? Because the list is the blocking bug on the next slide"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "8",
+    "tag": "mistake",
+    "title": "Three Ways to Block a Non-Blocking Server",
+    "desc": "Each of these compiles, passes a unit test, and quietly turns WebFlux back into one-thread-per-request — or worse",
+    "body": [
+      {
+        "code": "<span class=\"str\">// 1. block() inside the chain — the event-loop thread now waits</span>\nFlux&lt;Fix&gt; tracks() { <span class=\"kw\">return</span> Flux.fromIterable(repo.findAll().<span class=\"kw\">collectList</span>().<span class=\"kw\">block</span>()); }\n\n<span class=\"str\">// 2. a blocking driver on the event loop — JDBC, RestTemplate, File I/O</span>\nMono&lt;Zone&gt; zone(String id) { <span class=\"kw\">return</span> Mono.just(<span class=\"kw\">jdbcTemplate</span>.queryForObject(...)); }\n\n<span class=\"str\">// 3. a hot stream with no backpressure policy — memory grows until the JVM dies</span>\nSinks.many().multicast().<span class=\"kw\">onBackpressureBuffer</span>();   <span class=\"str\">// unbounded by default!</span>"
+      },
+      {
+        "card": "The fixes",
+        "items": [
+          "<strong>1.</strong> Never <code>block()</code> on a reactive path &mdash; return the <code>Flux</code>. Add <a href=\"https://github.com/reactor/BlockHound\" target=\"_blank\">BlockHound</a> to the test classpath: it throws the moment a blocking call lands on an event-loop thread",
+          "<strong>2.</strong> Use the reactive driver (R2DBC, WebClient) &mdash; or, if there is none, <code>subscribeOn(Schedulers.boundedElastic())</code> to move the call off the loop and be honest that it blocks",
+          "<strong>3.</strong> Telemetry is a stream where <strong>the latest value wins</strong>: <code>onBackpressureLatest()</code> or <code>sample()</code> at the source; a bounded buffer with <code>onBackpressureBuffer(1000, dropOldest)</code> for anything else",
+          "Rule of thumb: if a slow map client can make the ingest endpoint slow, you have coupled them &mdash; that is what the topic in Module 9 decouples"
+        ],
+        "warn": true
       }
     ]
   },

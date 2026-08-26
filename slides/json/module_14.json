@@ -69,7 +69,7 @@
         "items": [
           "Germany's official digital platform for unmanned aviation (BMDV / DFS)",
           "Interactive map of all <strong>geographic zones</strong> relevant for drone flights — the authoritative source for German operations",
-          "Machine-readable access makes it a natural data layer for every route planner discussed on the previous slide"
+          "The data behind the map is published in <strong>ED-269</strong>, EUROCAE's JSON format for UAS geographical zones that EU 2019/947 (Art. 15) requires of every member state &mdash; download from dipul.de, convert to GeoJSON, and it is a layer in your planner &mdash; and the input of the geofence at the end of this module"
         ]
       },
       {
@@ -149,6 +149,26 @@
   {
     "type": "content",
     "mod": "14",
+    "tag": "exercise",
+    "title": "The Geofence in Twelve Lines",
+    "desc": "Project idea #6: is this fix inside a DiPUL zone, or about to be? Point-in-polygon on the live stream",
+    "body": [
+      {
+        "code": "<span class=\"kw\">import</span> { booleanPointInPolygon, polygonToLine, nearestPointOnLine, distance } <span class=\"kw\">from</span> <span class=\"str\">'@turf/turf'</span>;\n<span class=\"kw\">const</span> zones = <span class=\"kw\">await</span> (<span class=\"kw\">await</span> fetch(<span class=\"str\">'/geozones/sigmaringen.geojson'</span>)).json();   <span class=\"str\">// ED-269 export, converted</span>\n\n<span class=\"kw\">function</span> check(fix) {                                     <span class=\"str\">// fix = the GeoJSON Feature from the SSE stream</span>\n  <span class=\"kw\">for</span> (<span class=\"kw\">const</span> zone <span class=\"kw\">of</span> zones.features) {\n    <span class=\"kw\">if</span> (booleanPointInPolygon(fix, zone))\n      <span class=\"kw\">return</span> { status: <span class=\"str\">'INSIDE'</span>, zone: zone.properties.name };              <span class=\"str\">// land now</span>\n    <span class=\"kw\">const</span> m = distance(fix, nearestPointOnLine(polygonToLine(zone), fix), { units: <span class=\"str\">'meters'</span> });\n    <span class=\"kw\">if</span> (m &lt; 50) <span class=\"kw\">return</span> { status: <span class=\"str\">'NEAR'</span>, zone: zone.properties.name, meters: m };   <span class=\"str\">// slow down, warn</span>\n  }\n  <span class=\"kw\">return</span> { status: <span class=\"str\">'CLEAR'</span> };\n}\nsrc.onmessage = e =&gt; render(check(JSON.parse(e.data)));   <span class=\"str\">// plugs into the previous slide</span>"
+      },
+      {
+        "card": "Your task — and the question behind it",
+        "items": [
+          "Export the zones around campus from DiPUL, convert to GeoJSON, run <code>check()</code> on three hand-made fixes: inside the hospital zone, 10 m outside it, and on the sports field. Assert the three statuses &mdash; that is the unit test",
+          "Then answer: <strong>where does the geofence belong?</strong> On the phone, it reacts in milliseconds and works without a link (Kotlin: JTS <code>Polygon.contains(point)</code>); on the backend, it can veto a flight authorisation before take-off (Module 6). Idea #6 needs the first, a UTM needs both",
+          "Measurement for the write-up: the <strong>overshoot in metres</strong> between the NEAR warning and the actual boundary, at the drone's speed, over 20 simulated approaches"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "14",
     "tag": "takeaway",
     "title": "Module 14: Key Takeaways",
     "body": [
@@ -157,7 +177,8 @@
         "items": [
           "A drone route is a <strong>query across many geographic layers</strong> at once — geo-zones, terrain, population density, weather and live traffic",
           "The <strong>real-time</strong> layer is the hard part: live positions streamed onto a moving map turn Module 1's manned-traffic picture into an unmanned one",
-          "Authoritative data matters — in Germany, <strong>DiPUL</strong> is the official, machine-readable source of drone geo-zones",
+          "Authoritative data matters — in Germany, <strong>DiPUL</strong> is the official source of drone geo-zones, published in the EU-wide <strong>ED-269</strong> format",
+          "A geofence is twelve lines of point-in-polygon on the live stream — the DiPUL layer turned into a rule",
           "This closes the loop: telemetry from your DJI drone (5) flows through the backend (7–10) and is rendered on the map here"
         ]
       }

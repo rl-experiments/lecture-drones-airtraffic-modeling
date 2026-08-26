@@ -133,71 +133,28 @@
   {
     "type": "content",
     "mod": "3",
-    "tag": "",
-    "title": "'Perfect' Software Can Kill",
-    "desc": "Correct code is not the same as a safe system",
+    "tag": "important",
+    "title": "Where Failures Are Actually Born",
+    "desc": "Correct code is not the same as a safe system — the failure statistics say where the problems actually come from",
     "body": [
       {
         "img": "accidental-death-causes.png",
         "alt": "Pie chart of computer-related accidental deaths: 91.9% human-computer interaction problems",
-        "height": 230,
-        "caption": "Source: Donald MacKenzie, Computer-related accidental death, Science and Public Policy 21(4), 1994."
+        "height": 190,
+        "caption": "<strong>91.9%</strong> of computer-related accidental deaths: human-computer interaction. Software errors: <strong>2.8%</strong>. &mdash; MacKenzie, Science and Public Policy 21(4), 1994."
       },
-      {
-        "card": "Computer-related accidental deaths (MacKenzie, 1994)",
-        "items": [
-          "<strong>91.9%</strong> — human-computer interaction problems",
-          "<strong>4.5%</strong> — physical causes, <strong>2.8%</strong> — software errors, <strong>0.8%</strong> — other",
-          "The software can meet every requirement and still contribute to a fatal accident &mdash; if the requirements or the interaction design are wrong"
-        ]
-      }
-    ]
-  },
-  {
-    "type": "content",
-    "mod": "3",
-    "tag": "",
-    "title": "'Out of Control' — Where Failures Are Born",
-    "desc": "UK Health & Safety Executive study of control system failures (HSG 238, 2003)",
-    "body": [
       {
         "img": "control-system-failure-causes.png",
         "alt": "Pie chart of control system failure causes by lifecycle phase, specification dominates with 44%",
-        "height": 240
+        "height": 190,
+        "caption": "<strong>44%</strong> of control-system failures are born in the specification, <strong>20%</strong> in changes after commissioning; design and coding: <strong>15%</strong>. &mdash; UK HSE, 'Out of Control', HSG 238, 2003."
       },
       {
-        "card": "Primary cause by lifecycle phase",
+        "card": "So safe software design is not mainly about coding, fault counts or unit tests — it is about",
         "items": [
-          "<strong>44%</strong> — specification, <strong>20%</strong> — changes after commissioning",
-          "<strong>15%</strong> — design and implementation, <strong>15%</strong> — operation and maintenance, <strong>6%</strong> — installation",
-          "Almost two thirds of failures are created <strong>before or after</strong> the code is written &mdash; in the spec, or in uncontrolled change"
-        ]
-      }
-    ]
-  },
-  {
-    "type": "content",
-    "mod": "3",
-    "tag": "important",
-    "title": "Safe Software Design: What It Is (and Isn't)",
-    "desc": "The uncomfortable conclusion from the failure statistics",
-    "body": [
-      {
-        "card": "Safe software design ISN'T so much about:",
-        "items": [
-          "Design and coding",
-          "Fault counts in code",
-          "Unit testing"
-        ],
-        "warn": true
-      },
-      {
-        "card": "Safe software design IS about:",
-        "items": [
-          "<strong>Understanding context</strong> — what system, what hazards, what environment",
-          "<strong>Requirements / specification</strong> — where 44% of failures are born",
-          "<strong>Understanding the human-control interaction</strong> — where 91.9% of fatal problems live",
-          "<strong>Controlling change</strong> — the second-largest failure source"
+          "<strong>Context</strong> (what system, what hazards, what environment) and the <strong>specification</strong> &mdash; where 44% of failures are born",
+          "The <strong>human-control interaction</strong> &mdash; where 91.9% of fatal problems live",
+          "<strong>Controlling change</strong> &mdash; the second-largest failure source. Two thirds of failures are created <strong>before or after</strong> the code is written"
         ]
       }
     ]
@@ -220,9 +177,60 @@
           "<strong>SIL 0</strong> = ISO 9001 process only — <em>no safety claim at all; an accident is quite likely to happen</em>",
           "<strong>SIL 1–2</strong> — structured methods, controlled changes, functional testing and reviews",
           "<strong>SIL 3–4</strong> — formal specification, restricted language subsets, validated compilers, static analysis up to 100% testing &amp; proof — <em>this software may hold human lives</em>",
-          "<strong>SIL vs. DAL</strong>: SIL (IEC 61508) is the generic industry scale, DAL A–E (DO-178C) the aviation one &mdash; same idea, rigour graded by the harm a failure can cause, but <strong>not mapped one-to-one</strong>; this lecture uses DAL from here on",
-          "Coffee-break reality check: <a href=\"https://www.youtube.com/shorts/RJverdoLwTk\" target=\"_blank\">Developer vs. Tester (YouTube short)</a>"
+          "<strong>SIL vs. DAL</strong>: SIL (IEC 61508) is the generic industry scale, DAL A–E (DO-178C) the aviation one &mdash; same idea, rigour graded by the harm a failure can cause, but <strong>not mapped one-to-one</strong>; this lecture uses DAL from here on"
         ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "3",
+    "tag": "",
+    "title": "DAL A to E: The Aviation Scale",
+    "desc": "DO-178C grades software by the worst failure condition it can contribute to — and scales the evidence accordingly",
+    "body": [
+      {
+        "table": {
+          "headers": [
+            "DAL",
+            "Failure condition",
+            "Example",
+            "What DO-178C demands"
+          ],
+          "rows": [
+            [
+              "<strong>A</strong>",
+              "Catastrophic &mdash; loss of the aircraft, multiple fatalities",
+              "Fly-by-wire flight control (Boeing 777, next slides)",
+              "71 objectives, 33 with independence; MC/DC structural coverage"
+            ],
+            [
+              "<strong>B</strong>",
+              "Hazardous &mdash; serious injuries, large reduction in safety margins",
+              "Autothrottle, primary displays",
+              "69 objectives; decision coverage"
+            ],
+            [
+              "<strong>C</strong>",
+              "Major &mdash; discomfort, significant workload increase",
+              "Flight management system, ACAS displays",
+              "62 objectives; statement coverage"
+            ],
+            [
+              "<strong>D</strong>",
+              "Minor &mdash; slight workload increase",
+              "Cabin systems, some maintenance functions",
+              "26 objectives; no structural coverage"
+            ],
+            [
+              "<strong>E</strong>",
+              "No safety effect",
+              "In-flight entertainment",
+              "None"
+            ]
+          ],
+          "note": "Where would a UTM clearance service land? Deconflicting drones over a city is at least Major — which is why Module 6's 'no human controller' is an engineering commitment, not a convenience."
+        }
       }
     ]
   },
@@ -342,6 +350,49 @@
   {
     "type": "content",
     "mod": "3",
+    "tag": "exercise",
+    "title": "Hazard → Requirement → Test, at Lab Scale",
+    "desc": "The 4+1 principles applied to FLY MISSION — the one-button flight from Module 5",
+    "body": [
+      {
+        "table": {
+          "headers": [
+            "Hazard",
+            "Safety requirement (Principle 1)",
+            "Test that proves it (Principle 3)"
+          ],
+          "rows": [
+            [
+              "Drone flies into a wall or a person",
+              "SR-1: No leg of the mission commands more than <strong>2 m</strong> of travel; every leg has a <strong>hard timeout</strong>",
+              "<code>assertEquals(1.5, plan.legs[0].distanceMeters, 0.5)</code>; timed hop ends after <code>FORWARD_MS</code> even if the loop hangs"
+            ],
+            [
+              "Virtual stick stays live after an exception",
+              "SR-2: Every stick command is <strong>zeroed in a <code>finally</code> block</strong>; abort disables virtual stick",
+              "Throw inside <code>rotate180()</code>; assert sticks are 0 and <code>disableVirtualStick</code> was called"
+            ],
+            [
+              "Yaw never reaches target, drone spins forever",
+              "SR-3: Closed-loop yaw has a <strong>deadline</strong> (<code>YAW_TIMEOUT_MS</code>) and a tolerance",
+              "Feed a heading that never changes; assert the loop exits at the deadline with sticks zeroed"
+            ]
+          ]
+        }
+      },
+      {
+        "card": "Your turn — ten minutes",
+        "items": [
+          "Write <strong>one more row</strong> for the hazard <em>'takeoff succeeds but the drone is not yet stable when virtual stick is enabled'</em>",
+          "Then <strong>trace it</strong> (Principle 2): which line of <code>MainActivity.kt</code> implements the requirement, which test checks it &mdash; and what changes if you change <code>FORWARD_MS</code> (Principle 4: controlling change)",
+          "This table <em>is</em> the Safety &amp; Testing gate of Module 2, written the way DO-178C writes it"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "3",
     "tag": "takeaway",
     "title": "Module 3: Key Takeaways",
     "body": [
@@ -352,7 +403,8 @@
           "Defects get ~<strong>100&times; more expensive</strong> in the field &mdash; standards force the work to the front of the lifecycle",
           "<strong>91.9%</strong> of computer-related accidental deaths come from human-computer interaction, only 2.8% from software errors &mdash; safe design means context, requirements, interaction and change control",
           "<strong>44%</strong> of control-system failures are born in the specification",
-          "The <strong>4+1 principles</strong>: define safety requirements, preserve intent, satisfy them, mitigate hazardous behavior &mdash; with confidence proportionate to risk (DALs)",
+          "The <strong>4+1 principles</strong>: define safety requirements, preserve intent, satisfy them, mitigate hazardous behavior &mdash; with confidence proportionate to risk: <strong>DAL A</strong> (catastrophic) down to <strong>E</strong> (no effect)",
+          "Hazard &rarr; requirement &rarr; test works at lab scale too: FLY MISSION has three safety requirements, and each has a test",
           "The Boeing 777 FBW shows the principles physically: triple-triple redundancy, N-version diversity, ARINC 629"
         ]
       }

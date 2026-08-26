@@ -66,7 +66,7 @@
       {
         "card": "",
         "items": [
-          "In information technology since the age of five &mdash; decades as <strong>backend developer, lead and architect</strong>",
+          "Decades as <strong>backend developer, lead and architect</strong> &mdash; distributed systems, data pipelines, safety-relevant software",
           "Universities, banks, insurance, government, automotive, transport networks, startups, medical &mdash; and <strong>aviation safety</strong>: exactly the mix air traffic systems demand",
           "Connect: <a href=\"https://www.linkedin.com/in/tigraff/\" target=\"_blank\">LinkedIn profile</a>"
         ]
@@ -94,6 +94,137 @@
   {
     "type": "content",
     "mod": "0",
+    "tag": "",
+    "title": "What You Will Be Able to Do",
+    "desc": "Seven outcomes — each one is checked at the live demo, not in a written exam",
+    "body": [
+      {
+        "table": {
+          "headers": [
+            "#",
+            "After this course you can &hellip;",
+            "Where"
+          ],
+          "rows": [
+            [
+              "1",
+              "<strong>Apply the Safety &amp; Testing gate</strong> to flight code: tests first, manual review, simulator, then props &mdash; and explain why AI-generated code makes it necessary",
+              "M2, M3"
+            ],
+            [
+              "2",
+              "<strong>Place a drone and an operation in EU 2019/947</strong>: category, class, subcategory, and what that means for the pilot's liability",
+              "M1, M2"
+            ],
+            [
+              "3",
+              "<strong>Describe an interface with OpenAPI</strong> and generate client and server from it",
+              "M7"
+            ],
+            [
+              "4",
+              "<strong>Build a reactive telemetry pipeline</strong> &mdash; WebFlux ingest, topic fan-out, CQRS state &mdash; and contract-test every seam with Karate",
+              "M8&ndash;M11"
+            ],
+            [
+              "5",
+              "<strong>Decode NOTAM and METAR by hand</strong> and explain what AIXM, ASTERIX and OLDI carry",
+              "M12"
+            ],
+            [
+              "6",
+              "<strong>Validate traffic logic in BlueSky</strong> and put live tracks on a moving map",
+              "M13, M14"
+            ],
+            [
+              "7",
+              "<strong>Build, measure and defend</strong> your own increment on the DJI client",
+              "M4, M5"
+            ]
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "0",
+    "tag": "",
+    "title": "Semester Plan",
+    "desc": "Nine sessions — lecture blocks in the morning, lab and project time after",
+    "body": [
+      {
+        "table": {
+          "headers": [
+            "Session",
+            "Date",
+            "Modules",
+            "Format &amp; milestones"
+          ],
+          "rows": [
+            [
+              "1",
+              "<em>[date]</em>",
+              "Intro, M1",
+              "Lecture &middot; FlightAware exercise"
+            ],
+            [
+              "2",
+              "<em>[date]</em>",
+              "M2, M3",
+              "Lecture &middot; spot-the-bug &middot; safety-requirements exercise"
+            ],
+            [
+              "3",
+              "<em>[date]</em>",
+              "M4, M5",
+              "<strong>Lab</strong>: first flight in the simulator &middot; <strong>project proposal due</strong>"
+            ],
+            [
+              "4",
+              "<em>[date]</em>",
+              "M6, M7",
+              "Lecture &middot; Swagger live demo"
+            ],
+            [
+              "5",
+              "<em>[date]</em>",
+              "M8, M9",
+              "Lecture &middot; ingest handler &middot; delivery guarantees"
+            ],
+            [
+              "6",
+              "<em>[date]</em>",
+              "M10, M11",
+              "Lecture &middot; Karate against the demo service"
+            ],
+            [
+              "7",
+              "<em>[date]</em>",
+              "M12",
+              "Lecture &middot; live METAR decoding &middot; <strong>project checkpoint</strong>"
+            ],
+            [
+              "8",
+              "<em>[date]</em>",
+              "M13, M14",
+              "Lecture &middot; BlueSky scenario &middot; geo-zone check"
+            ],
+            [
+              "9",
+              "<em>[date]</em>",
+              "M15",
+              "<strong>Live demos</strong> &middot; wrap-up"
+            ]
+          ],
+          "note": "Dates are fixed at semester start. Lab flight slots are booked separately — book early, flight time is the scarce resource (Module 4)."
+        }
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "0",
     "tag": "important",
     "title": "Course Organization & Grading",
     "desc": "Your graded deliverable: a hands-on drone-software project",
@@ -101,25 +232,41 @@
       {
         "table": {
           "headers": [
-            "Deliverable",
+            "Graded part",
             "What it is",
-            "Where it is defined"
+            "Weight",
+            "Defined in"
           ],
           "rows": [
             [
-              "<strong>Practical project</strong>",
-              "Build your own drone-software idea on top of the working client",
-              "Module 4 &mdash; ideas and the grading bar &middot; Module 5 &mdash; the client you build on"
+              "<strong>Working build</strong>",
+              "Your own increment on top of the DJI client, on hardware or in the simulator",
+              "<em>[__ %]</em>",
+              "Module 4, 5"
+            ],
+            [
+              "<strong>Live demo &amp; defence</strong>",
+              "Run it, change it on request, explain every design decision",
+              "<em>[__ %]</em>",
+              "Module 4"
+            ],
+            [
+              "<strong>Write-up</strong>",
+              "What you built, what you measured, where the SDK stopped you",
+              "<em>[__ %]</em>",
+              "Module 5"
             ]
-          ]
+          ],
+          "note": "One project, three views of it. Weights are announced in session 1; the bar for each part is spelled out in Module 4."
         }
       },
       {
-        "card": "Ground rules",
+        "card": "Before session 2 — do this at home",
         "items": [
-          "Scope your project early &mdash; narrow and working beats broad and unfinished",
-          "Build on the working client &mdash; a small, real capability the base app does not have yet",
-          "The project counts towards the final grade &mdash; expectations are spelled out in Module 4"
+          "&#9744; Create a <strong>DJI developer account</strong> and an App Key (developer.dji.com) &mdash; approval can take a day",
+          "&#9744; Install <strong>Android Studio</strong> and clone <code>labs/dji-hello-world</code>; it must build before you touch a drone",
+          "&#9744; Start the free <strong>EU A1/A3 online course</strong> at the LBA &mdash; the personal licence behind every outdoor flight (Module 1)",
+          "&#9744; Skim the 16 project ideas (Module 4) &mdash; you propose one in session 3"
         ]
       },
       {

@@ -72,12 +72,16 @@
           "title": "References",
           "links": [
             {
-              "url": "https://de.wikipedia.org/wiki/NOTAM",
-              "label": "NOTAM"
+              "url": "https://skybrary.aero/articles/notice-airmen-notam",
+              "label": "NOTAM (SKYbrary)"
             },
             {
-              "url": "https://de.wikipedia.org/wiki/METAR",
-              "label": "METAR"
+              "url": "https://skybrary.aero/articles/meteorological-terminal-air-report-metar",
+              "label": "METAR (SKYbrary)"
+            },
+            {
+              "url": "https://aviationweather.gov/data/api/",
+              "label": "AWC data API (live METAR/TAF)"
             },
             {
               "url": "https://aixm.aero/page/aixm-52-specification",
@@ -232,6 +236,27 @@
             ]
           ]
         }
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "12",
+    "tag": "exercise",
+    "title": "Live METAR, Decoded by You — Then by a Service",
+    "desc": "The same report, three ways: raw from the API, by hand, and as JSON a go/no-go check can consume",
+    "body": [
+      {
+        "code": "<span class=\"kw\"># 1. the current report for Stuttgart, raw — public API, no key</span>\ncurl <span class=\"str\">\"https://aviationweather.gov/api/data/metar?ids=EDDS&amp;format=raw\"</span>\nMETAR EDDS 261620Z 24008KT 9999 SCT045 22/12 Q1018 NOSIG          <span class=\"kw\">&lt;-- whatever is current right now</span>\n\n<span class=\"kw\"># 2. decode it by hand with the table from the previous slide — wind, visibility, cloud, QNH</span>\n\n<span class=\"kw\"># 3. the same report, already parsed</span>\ncurl <span class=\"str\">\"https://aviationweather.gov/api/data/metar?ids=EDDS&amp;format=json\"</span>\n[{ <span class=\"str\">\"icaoId\"</span>: <span class=\"str\">\"EDDS\"</span>, <span class=\"str\">\"reportTime\"</span>: <span class=\"str\">\"2026-08-26 16:20:00\"</span>, <span class=\"str\">\"wdir\"</span>: 240, <span class=\"str\">\"wspd\"</span>: 8,\n   <span class=\"str\">\"visib\"</span>: <span class=\"str\">\"6+\"</span>, <span class=\"str\">\"temp\"</span>: 22, <span class=\"str\">\"dewp\"</span>: 12, <span class=\"str\">\"altim\"</span>: 1018, <span class=\"str\">\"rawOb\"</span>: <span class=\"str\">\"METAR EDDS 261620Z …\"</span> }]"
+      },
+      {
+        "card": "Your task — 20 minutes",
+        "items": [
+          "Decode the raw line <strong>before</strong> you look at the JSON; compare. Where they differ, the JSON is not wrong &mdash; find the unit (<code>visib</code> is in statute miles)",
+          "Wrap step 3 in a WebFlux endpoint (Module 8): <code>GET /weather/EDDS</code> &rarr; <code>{ windMs, gustMs, cloudBaseFt, qnhHpa }</code> using <code>WebClient</code> &mdash; 20 lines",
+          "Then the drone-relevant part: the Mini 4 Pro's wind limit is about <strong>10 m/s</strong>; 24008KT is 4 m/s. Return <code>goNoGo: true|false</code> &mdash; a check FLY MISSION could call before takeoff, and a fleet system (Module 6) must",
+          "This is the pattern for every format on this module's first slide: <strong>fetch, parse, expose as a contract</strong>"
+        ]
       }
     ]
   },

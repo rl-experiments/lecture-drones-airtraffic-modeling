@@ -78,14 +78,15 @@
     "desc": "The backbone of the Module 4 reference system, in three annotations",
     "body": [
       {
-        "code": "<span class=\"kw\">// producer — the drone gateway publishes each position fix</span>\njmsTemplate.convertAndSend(<span class=\"str\">\"telemetry.topic\"</span>, <span class=\"kw\">new</span> Fix(droneId, lat, lon, alt));\n\n<span class=\"kw\">// consumer A — the live map (Module 14)</span>\n@JmsListener(destination = <span class=\"str\">\"telemetry.topic\"</span>, containerFactory = <span class=\"str\">\"topicFactory\"</span>)\n<span class=\"kw\">void</span> onFix(Fix fix) { mapService.update(fix); }\n\n<span class=\"kw\">// consumer B — conflict detection, same messages, independently</span>\n@JmsListener(destination = <span class=\"str\">\"telemetry.topic\"</span>, containerFactory = <span class=\"str\">\"topicFactory\"</span>)\n<span class=\"kw\">void</span> detect(Fix fix) { conflictEngine.feed(fix); }"
+        "code": "<span class=\"kw\">// producer — the ingest handler from Module 8 publishes each accepted fix</span>\njmsTemplate.convertAndSend(<span class=\"str\">\"telemetry.topic\"</span>, fix.withDrone(droneId));\n\n<span class=\"kw\">// consumer A — the live map (Module 14); durable: fixes wait for it while it restarts</span>\n@JmsListener(destination = <span class=\"str\">\"telemetry.topic\"</span>, containerFactory = <span class=\"str\">\"topicFactory\"</span>,\n             subscription = <span class=\"str\">\"live-map\"</span>)\n<span class=\"kw\">void</span> onFix(Fix fix) { mapService.update(fix); }\n\n<span class=\"kw\">// consumer B — conflict detection, same messages, independently</span>\n@JmsListener(destination = <span class=\"str\">\"telemetry.topic\"</span>, containerFactory = <span class=\"str\">\"topicFactory\"</span>,\n             subscription = <span class=\"str\">\"conflicts\"</span>)\n<span class=\"kw\">void</span> detect(Fix fix) { conflictEngine.feed(fix); }\n\n<span class=\"kw\">// the factory that makes it a topic — and makes the subscriptions survive a restart</span>\nfactory.setPubSubDomain(<span class=\"kw\">true</span>);  factory.setSubscriptionDurable(<span class=\"kw\">true</span>);  factory.setClientId(<span class=\"str\">\"utm-backend\"</span>);"
       },
       {
         "card": "Why this shape",
         "items": [
           "The gateway <strong>doesn't know or care who listens</strong> &mdash; add a flight logger next week without touching it",
           "The map can crash and restart &mdash; <strong>conflict detection keeps running</strong>; that isolation is the whole point",
-          "Queue vs. topic is one word in the destination config &mdash; <strong>same annotation, different delivery semantics</strong>"
+          "<strong>Durable subscription</strong>: without it, a topic delivers only to whoever is connected <em>right now</em> &mdash; the map restarts and the fixes from those 20 seconds are gone. With it, the broker keeps them for the named subscriber",
+          "Queue vs. topic is one flag in the factory &mdash; <strong>same annotation, different delivery semantics</strong>"
         ]
       }
     ]
@@ -107,6 +108,55 @@
           "<strong>Replay is the killer feature for telemetry</strong>: re-run yesterday's traffic through a new conflict detector &mdash; exactly what validation in Module 13 needs",
           "<strong>Consumer groups</strong> give queue semantics on a log; a partition key of <code>droneId</code> gives <strong>per-drone ordering</strong>",
           "The price: <strong>cluster operations</strong> &mdash; for a single lab service, a classic broker is the right size"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "9",
+    "tag": "important",
+    "title": "Delivered Once? Pick Your Guarantee",
+    "desc": "Every broker offers the same three promises — and 'exactly once' is mostly a consumer-side discipline",
+    "body": [
+      {
+        "table": {
+          "headers": [
+            "Guarantee",
+            "Mechanism",
+            "What can go wrong",
+            "Right for"
+          ],
+          "rows": [
+            [
+              "<strong>At most once</strong>",
+              "Fire and forget &mdash; no acknowledgement",
+              "A message is <strong>lost</strong> when the consumer dies mid-processing",
+              "Position fixes: the next one arrives in a second anyway"
+            ],
+            [
+              "<strong>At least once</strong>",
+              "Consumer acknowledges <em>after</em> processing; broker redelivers if no ack",
+              "A message arrives <strong>twice</strong> when the ack is lost",
+              "Everything that matters &mdash; clearances, alerts, mission commands"
+            ],
+            [
+              "<strong>Exactly once</strong>",
+              "Transactions spanning broker and database, or Kafka's idempotent producer + transactional consumer",
+              "Expensive, slow, and only inside one system's boundary",
+              "Rarely worth it &mdash; usually replaced by the line below"
+            ]
+          ]
+        }
+      },
+      {
+        "code": "<span class=\"kw\">// at-least-once + an idempotent consumer = the practical \"exactly once\"</span>\n@JmsListener(destination = <span class=\"str\">\"clearance.requests\"</span>)                  <span class=\"str\">// a QUEUE: one handler per request</span>\n<span class=\"kw\">void</span> handle(ClearanceRequest req) {\n    <span class=\"kw\">if</span> (repo.existsByRequestId(req.requestId())) <span class=\"kw\">return</span>;         <span class=\"str\">// seen it — the redelivery is harmless</span>\n    zone.issueClearance(req);                                     <span class=\"str\">// Module 10's command side</span>\n    repo.save(req.requestId());                                   <span class=\"str\">// same transaction as the clearance</span>\n}"
+      },
+      {
+        "card": "Why it matters here",
+        "items": [
+          "Process a clearance request twice without the guard and the drone holds <strong>two clearances for one mission</strong> &mdash; the second one conflicts with the first, and your own 409 fires against you",
+          "The key is the sender's: <code>requestId</code> for commands, <code>droneId + ts</code> for fixes &mdash; never the broker's message id, it changes on redelivery"
         ]
       }
     ]
@@ -156,7 +206,8 @@
         "items": [
           "Asynchronous messaging buys <strong>decoupling, buffering and fan-out</strong> &mdash; the sender never waits, the system never loses a message to a restart",
           "<strong>Queue</strong> = work distribution (each message to exactly one consumer); <strong>topic</strong> = broadcast (every subscriber sees everything)",
-          "Pick the broker by <strong>guarantees, not fashion</strong>: throughput, ordering, persistence, replay"
+          "Pick the broker by <strong>guarantees, not fashion</strong>: throughput, ordering, persistence, replay",
+          "<strong>At-least-once + idempotent consumer</strong> is the practical 'exactly once'; a durable subscription is what keeps a topic's messages for a consumer that is restarting"
         ]
       },
       {

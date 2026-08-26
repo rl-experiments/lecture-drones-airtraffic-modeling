@@ -89,6 +89,27 @@
   {
     "type": "content",
     "mod": "5",
+    "tag": "demo",
+    "title": "The Code You Inherit: One Hop, One Turn",
+    "desc": "MainActivity.kt, condensed — open-loop hops, closed-loop yaw, and the deadman that makes both survivable",
+    "body": [
+      {
+        "code": "<span class=\"kw\">private const val</span> FORWARD_STICK  = 70       <span class=\"str\">// ~10 % stick — gentle</span>\n<span class=\"kw\">private const val</span> FORWARD_MS     = 1000L    <span class=\"str\">// ~1 s powered, coasts to ~1.5 m</span>\n<span class=\"kw\">private const val</span> YAW_TIMEOUT_MS = 15000L\n\nstep(<span class=\"str\">\"Flying ~1.5 m forward…\"</span>)\nVirtualStickManager.getInstance().rightStick.verticalPosition = FORWARD_STICK\nsleepChecked(FORWARD_MS)                 <span class=\"str\">// throws if STOP was pressed</span>\nzeroSticks()                             <span class=\"str\">// the hop ends here, whatever happened</span>\n\n<span class=\"kw\">private fun</span> rotate180() {\n    <span class=\"kw\">val</span> target = normalizeDeg(heading() + 180.0)\n    VirtualStickManager.getInstance().leftStick.horizontalPosition = YAW_STICK\n    <span class=\"kw\">val</span> deadline = System.currentTimeMillis() + YAW_TIMEOUT_MS\n    <span class=\"kw\">try</span> {\n        <span class=\"kw\">while</span> (System.currentTimeMillis() &lt; deadline) {\n            checkAbort()\n            <span class=\"kw\">if</span> (abs(normalizeDeg(heading() - target)) &lt; YAW_TOLERANCE_DEG) <span class=\"kw\">break</span>\n            Thread.sleep(50)\n        }\n    } <span class=\"kw\">finally</span> { zeroSticks() }         <span class=\"str\">// the deadman: sticks go to 0 on ANY exit</span>\n}"
+      },
+      {
+        "card": "Read it like a safety reviewer",
+        "items": [
+          "<strong>Bounded</strong>: the hop is a fixed <code>FORWARD_MS</code>, the turn has a <code>deadline</code> &mdash; nothing runs until 'done', everything runs until 'done or time is up'",
+          "<strong>Abortable</strong>: <code>sleepChecked</code> and <code>checkAbort</code> throw when STOP is pressed; the handler zeroes the sticks and starts auto-landing",
+          "<strong>Zero on exit</strong>: the <code>finally</code> is the whole safety story &mdash; an exception mid-turn must not leave a yaw command live (Module 2's second bug)",
+          "<strong>Open loop</strong>: 1.5 m is a guess from stick and time, not a measurement. Project idea <strong>#12</strong> closes that loop with telemetry &mdash; the fix for Module 2's 'fly forward 2 m'"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "5",
     "tag": "",
     "title": "Everything That Fought Back",
     "desc": "First flight took a dozen rebuilds — every single layer resisted",
@@ -128,32 +149,6 @@
         "items": [
           "Every one of these is written down so you skip the pain &mdash; the complete troubleshooting log lives in <a href=\"https://github.com/rl-experiments/lecture-drones-airtraffic-modeling/tree/main/labs/dji-hello-world\" target=\"_blank\"><strong>labs/dji-hello-world</strong></a>"
         ]
-      }
-    ]
-  },
-  {
-    "type": "content",
-    "mod": "5",
-    "tag": "exercise",
-    "title": "Your Assignment: Propose & Build",
-    "desc": "The connection is proven — your job is to build something of your own on top",
-    "body": [
-      {
-        "card": "Deliverable",
-        "items": [
-          "<strong>Propose your own drone-software idea</strong> &mdash; small but real; the <strong>16 project ideas in Module 4</strong> are your menu, or bring your own",
-          "Build a <strong>working increment</strong> on top of <a href=\"https://github.com/rl-experiments/lecture-drones-airtraffic-modeling/tree/main/labs/dji-hello-world\" target=\"_blank\"><strong>labs/dji-hello-world</strong></a> (or the <a href=\"https://github.com/dji-sdk/Mobile-SDK-Android-V5\" target=\"_blank\">official DJI sample</a>)",
-          "Write it up: <strong>what you built, what worked, and where the SDK stopped you</strong>"
-        ]
-      },
-      {
-        "card": "Scope &amp; rules",
-        "items": [
-          "Keep it achievable &mdash; a <strong>narrow feature done well</strong> beats a broad plan; the grading bar itself is defined once, in <strong>Module 4</strong>",
-          "<strong>Simulator first</strong> for anything that flies &mdash; then the <strong>SAFETY</strong> rules from the start of this module apply, every flight",
-          "Getting stuck is welcome &mdash; the error and your hypothesis become teaching material"
-        ],
-        "warn": true
       }
     ]
   },
@@ -207,9 +202,9 @@
   {
     "type": "content",
     "mod": "5",
-    "tag": "",
-    "title": "Set Up the Toolchain",
-    "desc": "Four downloads, one account — everything is free",
+    "tag": "exercise",
+    "title": "Set Up the Toolchain — and Your First 30 Minutes",
+    "desc": "Four downloads, one account, everything free — then a first run with the props off",
     "body": [
       {
         "table": {
@@ -241,6 +236,42 @@
             ]
           ]
         }
+      },
+      {
+        "card": "First 30 minutes in the lab — props off, drone on the desk",
+        "items": [
+          "<strong>Build and install</strong> the app on the phone; connect via the RC's <em>data</em> port and wait for <code>FC connected: true</code> in the log",
+          "<strong>Enable the simulator</strong> (<code>SimulatorManager.enableSimulator</code>, README &sect;4) &mdash; the flight controller now flies a virtual aircraft",
+          "<strong>Read one value</strong> from KeyManager &mdash; <code>KeyGPSSatelliteCount</code> or <code>KeyAircraftLocation3D</code> &mdash; and log it every second: your first telemetry",
+          "<strong>Press FLY MISSION</strong> and watch the <code>step()</code> lines scroll: takeoff, hop, turn, hop, landing &mdash; in the simulator, nothing moves but the numbers",
+          "Hand in: a screenshot of that log. That is the baseline every project starts from"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "5",
+    "tag": "exercise",
+    "title": "Your Assignment: Propose & Build",
+    "desc": "The connection is proven — your job is to build something of your own on top",
+    "body": [
+      {
+        "card": "Deliverable",
+        "items": [
+          "<strong>Propose your own drone-software idea</strong> &mdash; small but real; the <strong>16 project ideas in Module 4</strong> are your menu, or bring your own",
+          "Build a <strong>working increment</strong> on top of <a href=\"https://github.com/rl-experiments/lecture-drones-airtraffic-modeling/tree/main/labs/dji-hello-world\" target=\"_blank\"><strong>labs/dji-hello-world</strong></a> (or the <a href=\"https://github.com/dji-sdk/Mobile-SDK-Android-V5\" target=\"_blank\">official DJI sample</a>)",
+          "Write it up: <strong>what you built, what worked, and where the SDK stopped you</strong>"
+        ]
+      },
+      {
+        "card": "Scope &amp; rules",
+        "items": [
+          "Keep it achievable &mdash; a <strong>narrow feature done well</strong> beats a broad plan; the grading bar itself is defined once, in <strong>Module 4</strong>",
+          "<strong>Simulator first</strong> for anything that flies &mdash; then the <strong>SAFETY</strong> rules from the start of this module apply, every flight",
+          "Getting stuck is welcome &mdash; the error and your hypothesis become teaching material"
+        ],
+        "warn": true
       }
     ]
   },
@@ -255,7 +286,7 @@
         "items": [
           "Whatever you build, find out what does <strong>NOT</strong> work &mdash; e.g. direct access to the <strong>motors</strong> or the <strong>control loop</strong>",
           "Naming that boundary cleanly is <strong>at least as valuable for the lecture</strong> as everything that works",
-          "Compare with Module 3: a consumer SDK enforcing safety boundaries <em>is</em> a trust-level decision &mdash; DJI keeps your code away from the SIL-critical parts"
+          "Compare with Module 3: a consumer SDK enforcing safety boundaries <em>is</em> a trust-level decision &mdash; DJI keeps your code away from the DAL-critical parts"
         ]
       },
       {

@@ -100,21 +100,6 @@
     "type": "content",
     "mod": "13",
     "tag": "",
-    "title": "Test Environment vs. Reality",
-    "desc": "What simulation can and cannot promise you",
-    "body": [
-      {
-        "img": "testing-vs-prod.png",
-        "alt": "MonkeyUser comic: a smooth flat test-environment track ends in a cliff into a production canyon full of spikes, lag hills and performance drops",
-        "height": 455,
-        "caption": "monkeyuser.com &mdash; Testing vs. Production Environment. Simulation is your smooth track; the real airspace is the canyon. Validate in the <em>right</em> simulator first &mdash; and never mistake either one for the canyon."
-      }
-    ]
-  },
-  {
-    "type": "content",
-    "mod": "13",
-    "tag": "",
     "title": "BlueSky: The Open ATM Simulator",
     "desc": "TU Delft's open-source air traffic simulator — our validation arena for avoidance logic",
     "body": [
@@ -132,6 +117,19 @@
         "alt": "BlueSky simulator radar view with dense air traffic over the Balkans",
         "height": 330,
         "caption": "Radar view: dense traffic over the Balkans — every green tag is an aircraft your plugin must keep apart."
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "13",
+    "tag": "demo",
+    "title": "What You Actually Write: A Scenario and a Plugin",
+    "desc": "Two drones head-on over Sigmaringen, and forty lines that detect the conflict and turn one of them",
+    "body": [
+      {
+        "code": "<span class=\"kw\"># scenarios/two-drones.scn — time&gt;COMMAND; CRE = callsign, type, lat lon, heading, altitude ft, speed kt</span>\n00:00:00.00&gt;PAN 48.0877,9.2160\n00:00:00.00&gt;ZOOM 20\n00:00:00.00&gt;CRE DRN1 M600 48.0800,9.2160 000 400 30\n00:00:00.00&gt;CRE DRN2 M600 48.0950,9.2160 180 400 30\n00:00:00.00&gt;PLUGIN LOAD SPACING\n\n<span class=\"kw\"># plugins/spacing.py — your conflict detection and resolution, called once per simulated second</span>\n<span class=\"kw\">from</span> bluesky <span class=\"kw\">import</span> core, stack, traf, sim\n<span class=\"kw\">from</span> bluesky.tools <span class=\"kw\">import</span> geo\n\n<span class=\"kw\">def</span> init_plugin():\n    Spacing()\n    <span class=\"kw\">return</span> {<span class=\"str\">'plugin_name'</span>: <span class=\"str\">'SPACING'</span>, <span class=\"str\">'plugin_type'</span>: <span class=\"str\">'sim'</span>}\n\n<span class=\"kw\">class</span> Spacing(core.Entity):\n    @core.timed_function(name=<span class=\"str\">'spacing'</span>, dt=1.0)\n    <span class=\"kw\">def</span> update(self):\n        <span class=\"kw\">for</span> i <span class=\"kw\">in</span> range(traf.ntraf):\n            <span class=\"kw\">for</span> j <span class=\"kw\">in</span> range(i + 1, traf.ntraf):\n                d_m = geo.kwikdist(traf.lat[i], traf.lon[i], traf.lat[j], traf.lon[j]) * 1852\n                <span class=\"kw\">if</span> d_m &lt; 50:                                                <span class=\"str\"># your separation minimum</span>\n                    stack.stack(<span class=\"str\">f'ECHO CONFLICT {traf.id[i]} {traf.id[j]} {d_m:.0f} m at {sim.simt:.0f} s'</span>)\n                    stack.stack(<span class=\"str\">f'HDG {traf.id[i]} {(traf.hdg[i] + 30) % 360:.0f}'</span>)   <span class=\"str\"># your resolver goes here</span>",
+        "note": "The type M600 does not exist in BlueSky's performance database — it falls back to a default aircraft. That is the scale mismatch from two slides ago, in one line: the first real task of project idea #14 is a drone performance model."
       }
     ]
   },

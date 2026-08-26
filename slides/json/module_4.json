@@ -211,6 +211,55 @@
     "type": "content",
     "mod": "4",
     "tag": "important",
+    "title": "From Proposal to Demo: Three Milestones",
+    "desc": "What you hand in, when — and the five lines every proposal must contain",
+    "body": [
+      {
+        "table": {
+          "headers": [
+            "Milestone",
+            "When",
+            "What you hand in",
+            "What we check"
+          ],
+          "rows": [
+            [
+              "<strong>1 &middot; Proposal</strong>",
+              "Session 3 &mdash; <em>[date]</em>",
+              "One page: the five lines below",
+              "Is it one increment? Is the measurement named? Is the risk real?"
+            ],
+            [
+              "<strong>2 &middot; Checkpoint</strong>",
+              "Session 7 &mdash; <em>[date]</em>",
+              "Repo link + 5-minute stand-up: what works, what blocks you",
+              "Traceable progress in the history; simulator run for anything that flies"
+            ],
+            [
+              "<strong>3 &middot; Live demo</strong>",
+              "Session 9 &mdash; <em>[date]</em>",
+              "Running build, write-up, your measurement",
+              "The bar on the next slide"
+            ]
+          ]
+        }
+      },
+      {
+        "card": "The proposal — five lines, no more",
+        "items": [
+          "<strong>Idea</strong>: one sentence &mdash; e.g. <em>geofence guard that lands the Mini 4 Pro when it nears a DiPUL zone</em> (idea #6)",
+          "<strong>Station</strong>: which box or arrow of the reference diagram you build",
+          "<strong>Increment</strong>: what the base client cannot do today and will do when you are done",
+          "<strong>Measurement</strong>: the number you will show &mdash; <em>distance overshoot at the boundary, in metres, over 20 runs</em>",
+          "<strong>Biggest risk</strong>: what could stop you, and what you do then &mdash; <em>no GPS indoors &rarr; test with simulated positions</em>"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "4",
+    "tag": "important",
     "title": "Expectations: The Path to Grade 1.0",
     "desc": "The bar is deliberately high — this is a master's module, and working software you understand is its currency",
     "body": [

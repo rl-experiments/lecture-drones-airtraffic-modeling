@@ -34,8 +34,15 @@
       {
         "img": "utm-ecosystem.png",
         "alt": "UTM ecosystem diagram: drone, mobile network, drone detection, GBSAS, radar, UTM and ATM systems",
-        "height": 0,
-        "fill": true
+        "height": 470
+      },
+      {
+        "card": "Three things to see in the picture",
+        "items": [
+          "<strong>Two worlds, one airspace</strong>: the ATM system on the right has controllers, radar and decades of procedures; the drone side on the left has none of that &mdash; UTM is the bridge",
+          "<strong>Cooperative and non-cooperative</strong>: a registered drone reports itself (mobile network, Remote ID); an unknown one must be <em>detected</em> &mdash; radar, RF sensors, cameras (the airport incidents of Module 1 are the non-cooperative case)",
+          "<strong>Everything is a data feed</strong>: no arrow in this picture is a phone call &mdash; the next slides read it as a data-flow problem"
+        ]
       }
     ]
   },
@@ -118,6 +125,9 @@
     "desc": "Operating one drone is a hobby — operating five hundred is a systems problem",
     "body": [
       {
+        "code": "  every vehicle is a state machine — the fleet system runs 500 of them\n\n  [ PLANNED ] --clearance (M10)--&gt; [ ARMED ] --takeoff--&gt; [ AIRBORNE ] --mission done--&gt; [ LANDED ]\n                                                    |\n                 link lost &gt; 3 s  /  battery &lt; 25 %  /  geo-zone breach  /  weather\n                                                    v\n                                          [ CONTINGENCY ] --&gt; RTH | land here | hold\n                                                    |\n                                       only THIS transition pages a human"
+      },
+      {
         "card": "What a fleet control system does",
         "items": [
           "<strong>Mission planning</strong> — routes computed against geo-zones, weather, battery range and payload",
@@ -180,10 +190,13 @@
         }
       },
       {
+        "code": "  Kalman filter, in two lines a drone repeats 200 times a second\n\n  predict:  x = F·x            IMU says: \"after 5 ms you should be HERE\"     uncertainty P grows\n  update:   x = x + K·(z − H·x) GNSS / vision says: \"you are actually THERE\"  uncertainty P shrinks\n\n  K = how much to trust the measurement vs. the prediction — computed from both uncertainties\n  GNSS jammed?  no update step, P keeps growing, vision + IMU carry the estimate — for a while"
+      },
+      {
         "card": "",
         "items": [
-          "A <strong>Kalman-filter</strong> (or similar estimator) fuses all inputs into one consistent state estimate",
-          "Fusion buys <strong>redundancy</strong>: when GNSS degrades, vision + IMU carry the drone — a direct application of Module 3's safety thinking"
+          "A <strong>Kalman filter</strong> (or similar estimator) fuses all inputs into one consistent state estimate &mdash; the Mini 4 Pro does this on board; indoors without GPS it runs on vision + IMU alone, which is why it drifts (Module 5)",
+          "Fusion buys <strong>redundancy</strong>: when GNSS degrades, vision + IMU carry the drone &mdash; a direct application of Module 3's safety thinking"
         ]
       }
     ]

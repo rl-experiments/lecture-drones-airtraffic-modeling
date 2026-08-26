@@ -27,7 +27,7 @@
   {
     "type": "content",
     "mod": "1",
-    "tag": "demo",
+    "tag": "exercise",
     "title": "Live Flight Tracking",
     "desc": "Every airliner around you is broadcasting its position right now",
     "body": [
@@ -40,8 +40,15 @@
         "card": "What you are looking at",
         "items": [
           "Live map of all aircraft in the sky — positions from <strong>ADS-B</strong>, radar and receiver networks; every symbol carries flight ID, altitude, speed and route",
-          "Keep this picture in mind: <strong>drones must merge into exactly this traffic</strong>",
-          "Try it yourself: <a href=\"https://de.flightaware.com\" target=\"_blank\">flightaware.com</a>"
+          "Keep this picture in mind: <strong>drones must merge into exactly this traffic</strong>"
+        ]
+      },
+      {
+        "card": "Five minutes, right now",
+        "items": [
+          "Open <a href=\"https://flightaware.com/live/\" target=\"_blank\">flightaware.com/live</a> on your phone, click any aircraft near Stuttgart",
+          "Read out: <strong>callsign, altitude, ground speed, heading, squawk, origin &rarr; destination</strong> &mdash; and the age of the last position",
+          "That is one <strong>ADS-B track</strong>: identity + state vector + time. The <code>Fix</code> our drone sends in Module 7 is the same thing with four fields; ASTERIX (Module 12) is the same thing in binary"
         ]
       }
     ]
@@ -144,12 +151,6 @@
     "desc": "EU 2019/947 & 2019/945 — one rulebook, three risk categories, five drone classes",
     "body": [
       {
-        "img": "drone-regulation-worldmap.jpg",
-        "alt": "World map of drone regulation by country (Statista/Surfshark)",
-        "height": 180,
-        "caption": "A fragmented global picture — the EU harmonized its rules in 2021: one framework for all member states (next slides)."
-      },
-      {
         "table": {
           "headers": [
             "Category",
@@ -194,7 +195,7 @@
     "mod": "1",
     "tag": "",
     "title": "EU Drone Regulation 2024 at a Glance",
-    "desc": "Classes, altitudes, distances, insurance, registration and training in one chart",
+    "desc": "The whole rulebook on one chart — find our Mini 4 Pro: C0, first row, A1",
     "body": [
       {
         "img": "eu-drone-regulation-2024.jpg",

@@ -139,8 +139,43 @@
       {
         "img": "swagger-editor-petstore.jpg",
         "alt": "Swagger Editor with the Petstore example: YAML on the left, rendered documentation with GET/POST endpoints on the right",
-        "height": 360,
-        "caption": "Try it yourself at editor.swagger.io — paste the Petstore example, or telemetry.yaml from two slides ago."
+        "height": 280,
+        "caption": "editor.swagger.io — YAML on the left, rendered documentation on the right, 'Try it out' sends real requests."
+      },
+      {
+        "card": "Live demo — follow along on your laptop",
+        "items": [
+          "<strong>1.</strong> Open <a href=\"https://editor.swagger.io\" target=\"_blank\">editor.swagger.io</a>, delete the Petstore, paste <code>telemetry.yaml</code> from two slides ago &mdash; the docs render as you type",
+          "<strong>2.</strong> Change <code>maximum: 120</code> to <code>maximum: 12</code> and watch the rendered schema follow; break the YAML indentation and watch the validator catch it",
+          "<strong>3.</strong> Add a <code>servers: [{ url: http://localhost:8080 }]</code> entry, start the generated stub from the next slide, click <strong>Try it out</strong> on <code>POST /fixes</code> with <code>altMeters: 150</code> &mdash; expect <strong>422</strong>",
+          "<strong>4.</strong> Generate &rarr; Client &rarr; <em>kotlin</em>: the zip you download is the Android client's API layer"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "7",
+    "tag": "exercise",
+    "title": "Rename a Field, Break a Client",
+    "desc": "Why spec-first — and what 'breaking change' means when one of your consumers is an app in someone's pocket",
+    "body": [
+      {
+        "code": "<span class=\"kw\"># telemetry.yaml — someone \"cleans up\" a name</span>\n-        altMeters: { type: number, minimum: 0, maximum: 120 }\n+        altitude:  { type: number, minimum: 0, maximum: 120 }\n\n<span class=\"kw\">// Android app, after regenerating the client (M5)</span>\nval fix = Fix(lat = 48.0877, lon = 9.2160, altMeters = 38.5, ts = now())\n                                            <span class=\"str\">^^^^^^^^^ error: no parameter named 'altMeters'</span>\n\n<span class=\"kw\">// the same app with a hand-written JSON client instead</span>\n{ \"lat\": 48.0877, \"lon\": 9.2160, \"altMeters\": 38.5, \"ts\": \"…\" }   <span class=\"str\">// compiles, ships, and</span>\n                                                                     <span class=\"str\">// the server sees altitude = null</span>"
+      },
+      {
+        "card": "What just happened",
+        "items": [
+          "With a <strong>generated client</strong>, the compiler is the first contract test: the rename fails the build at the desk, not the flight",
+          "With a <strong>hand-written client</strong> the field silently disappears &mdash; and whether the server answers 422 or accepts a fix without altitude is now a matter of luck",
+          "Rule: <strong>additive changes</strong> (new optional field, new endpoint) are free; <strong>renames and removals</strong> are a new major version &mdash; <code>/v2</code> in <code>servers</code>, old clients keep working on <code>/v1</code>"
+        ]
+      },
+      {
+        "card": "Try it — five minutes",
+        "items": [
+          "Rename the field in the editor, regenerate the Kotlin client, find the compile error in the lab app. Then add an optional <code>headingDeg</code> instead and confirm nothing breaks"
+        ]
       }
     ]
   },
