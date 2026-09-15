@@ -83,6 +83,17 @@
           "This is the <strong>proof of concept</strong> your whole project builds on &mdash; the old question <em>&quot;can we even control a DJI drone from code?&quot;</em> is already answered: <strong>yes</strong>",
           "You inherit registration, connection, KeyManager reads, virtual-stick control and landing &mdash; the hard part is done"
         ]
+      },
+      {
+        "resource": {
+          "title": "Watch it fly",
+          "links": [
+            {
+              "url": "https://www.youtube.com/@alex_uspk/videos",
+              "label": "Drone examples (YouTube)"
+            }
+          ]
+        }
       }
     ]
   },
