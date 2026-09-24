@@ -119,7 +119,9 @@
           ]
         }
       }
-    ]
+    ],
+    "icon": "star",
+    "iconPos": "bottom"
   },
   {
     "type": "content",
@@ -184,7 +186,9 @@
           ]
         }
       }
-    ]
+    ],
+    "icon": "star",
+    "iconPos": "bottom"
   },
   {
     "type": "content",
