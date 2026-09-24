@@ -282,7 +282,7 @@
         const tag = tlabel ? ` <span class="type-badge type-${s.tag}" style="font-size:10px;padding:2px 8px;margin-left:6px">${tlabel}</span>` : '';
         const swsAttr = s.body === 'toc' ? 'title' : (renderSwsBadge(s) ? 'yes' : 'no');
         html += `<div class="toc-slide-row" data-sws="${swsAttr}" style="${gridStyle}" onclick="go(${i})" onmouseover="this.style.background='var(--accent)'" onmouseout="this.style.background='transparent'">`;
-        html += `<span style="color:${c};font-size:11px;font-weight:600;text-align:right">${mod && data.modules[mod] ? data.modules[mod].label : ''}</span>`;
+        html += `<span class="toc-mod-label" style="color:${c};font-size:11px;font-weight:600;text-align:right">${mod && data.modules[mod] ? data.modules[mod].label : ''}</span>`;
         html += `<span style="font-weight:400;padding-left:16px">${s.title}${tag}</span>`;
         html += swsCell(s);
         html += `<span style="text-align:right;font-variant-numeric:tabular-nums;color:var(--muted-foreground);font-size:13px">Slide ${i + 1}</span>`;

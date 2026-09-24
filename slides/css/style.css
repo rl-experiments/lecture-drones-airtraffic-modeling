@@ -153,6 +153,10 @@ html, body {
 /* "2 SWS only" filter in All Slides view: hide non-SWS rows; hide cards left empty
    (!important is needed because rows carry inline display:grid on their style attribute) */
 #toc-slides.sws-filtered .toc-slide-row[data-sws="no"] { display: none !important; }
+/* The module header row names the module, so the per-row label is redundant —
+   except when the filter hides that header row, where it is the only module cue.
+   visibility (not display) keeps the grid column aligned with the header row. */
+#toc-slides:not(.sws-filtered) .toc-mod-label { visibility: hidden; }
 #toc-slides.sws-filtered .card-toc:not(:has(.toc-slide-row[data-sws="yes"])):not(:has(.toc-slide-row[data-sws="title"])) { display: none !important; }
 
 /* ══════════════════════════════════════
