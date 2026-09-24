@@ -274,6 +274,9 @@ html, body {
 .content-icon svg { width: 104px; height: 104px; }
 /* pos-bottom: align the icon with the LAST row of a table card instead of its middle */
 .content-icon.pos-bottom { top: auto; bottom: 30px; transform: none; }
+/* The icon reaches ~52px back inside the card, so pull the table text in
+   far enough that no row runs underneath it. */
+.card:has(> .content-icon.pos-bottom) .card-table { padding-right: 68px; }
 .card { position: relative; }
 
 /* ══════════════════════════════════════
