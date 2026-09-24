@@ -70,7 +70,7 @@
     "type": "content",
     "mod": "4",
     "tag": "",
-    "title": "Medium Projects (6–11): Build the Pipeline",
+    "title": "Medium Projects (6–12): Pipeline & Controlled Flight",
     "desc": "More moving parts — backend plumbing, and flight in the simulator or under close supervision",
     "body": [
       {
@@ -110,17 +110,24 @@
               "11",
               "<strong>CQRS flight-state service</strong>",
               "Split mission commands (write side) from state queries (read side) into two models with their own stores, kept in step by events.<br><strong>Done when</strong>: the read side answers <em>where is it now</em> and <em>what did it do</em> without touching the write side (Module 10)."
+            ],
+            [
+              "12",
+              "<strong>Light painting: draw text in the night sky</strong>",
+              "Turn a glyph (SVG outline or vector font) into a waypoint path and fly it; a long exposure records the navigation lights as one continuous line. Letters need to be <strong>~10&nbsp;m tall</strong> to survive &plusmn;1&nbsp;m GNSS error (or use closed-loop control, #13), and <strong>any lamp you fit crosses 250&nbsp;g</strong> &mdash; voiding the C0 marking and dropping the flight from A1 to <strong>A3</strong> (Module 1).<br><strong>Done when</strong>: one readable word is photographed in a single pass."
             ]
           ]
         }
       }
-    ]
+    ],
+    "icon": "star",
+    "iconPos": "lastrow"
   },
   {
     "type": "content",
     "mod": "4",
     "tag": "",
-    "title": "Hard Projects (12–18): Autonomy & Systems",
+    "title": "Hard Projects (13–18): Autonomy & Systems",
     "desc": "Control loops, computer vision and multi-aircraft systems — the deep end",
     "body": [
       {
@@ -131,11 +138,6 @@
             "What you build — and when it is done"
           ],
           "rows": [
-            [
-              "12<span class=\"pick\" title=\"Standout project\">&#9733;</span>",
-              "<strong>Light painting: draw text in the night sky</strong>",
-              "Turn a glyph (SVG outline or vector font) into a waypoint path and fly it; a long exposure records the navigation lights as one continuous line. Letters need to be <strong>~10&nbsp;m tall</strong> to survive &plusmn;1&nbsp;m GNSS error (or use closed-loop control, #13), and <strong>any lamp you fit crosses 250&nbsp;g</strong> &mdash; voiding the C0 marking and dropping the flight from A1 to <strong>A3</strong> (Module 1).<br><strong>Done when</strong>: one readable word is photographed in a single pass."
-            ],
             [
               "13",
               "<strong>Closed-loop precision movement</strong>",
@@ -162,7 +164,7 @@
               "Study <code>bluesky/plugins/asas</code>, implement your own resolver and measure it against the built-in ones on identical scenarios.<br><strong>Done when</strong>: you can state with numbers where yours wins and where it loses."
             ],
             [
-              "18<span class=\"pick\" title=\"Standout project\">&#9733;</span>",
+              "18",
               "<strong>A fly's connectome as the pilot</strong>",
               "The complete male <em>Drosophila</em> nervous system &mdash; 166,700 neurons, ~125&nbsp;million synapses &mdash; was published in <em>Cell</em> in September 2026. Feed the camera image into the <strong>photoreceptors</strong> and read the <strong>descending motor neurons</strong> as flight commands. Scope it to the visual pathway and <strong>one behaviour</strong>: stop before a looming object.<br><strong>Done when</strong>: your connectome run is compared against an edge-shuffled network of the same size &mdash; that comparison is the result."
             ]
@@ -184,7 +186,9 @@
           ]
         }
       }
-    ]
+    ],
+    "icon": "star",
+    "iconPos": "lastrow"
   },
   {
     "type": "content",
