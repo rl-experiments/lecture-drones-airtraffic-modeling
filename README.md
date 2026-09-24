@@ -74,7 +74,7 @@ slides/
     module_1.json         ← M1: Drones & Air Traffic — incidents, EU 2019/947, A1/A2/A3
     module_2.json         ← M2: Safety & Testing — the gate before anything flies
     module_3.json         ← M3: Software Safety Standards — DO-178C, DAL, 4+1 principles
-    module_4.json         ← M4: Project Ideas & Your Build — 16 ideas, milestones, grading bar
+    module_4.json         ← M4: Project Ideas & Your Build — 18 ideas, milestones, grading bar
     module_5.json         ← M5: Lab — DJI client, the mission code, your own build
     module_6.json         ← M6: Control & Monitoring Systems — UTM, U-space, fleet control
     module_7.json         ← M7: RESTful APIs: OpenAPI — telemetry.yaml, the course contract

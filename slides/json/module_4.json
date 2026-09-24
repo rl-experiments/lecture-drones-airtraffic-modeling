@@ -164,6 +164,49 @@
   {
     "type": "content",
     "mod": "4",
+    "tag": "",
+    "title": "Research Projects (17–18): Open Questions",
+    "desc": "Two open-ended projects with a genuine research component — each carries one constraint that must be resolved before work begins",
+    "body": [
+      {
+        "card": "17 &mdash; Trajectory-based light painting",
+        "items": [
+          "Derive a flight path from vector geometry (SVG outline or a vector font) and fly it; a long-exposure photograph renders the aircraft's navigation lights as a continuous trace",
+          "<strong>Positional accuracy governs legibility</strong>: GNSS horizontal error is on the order of &plusmn;1&nbsp;m, which implies character heights of roughly 10&nbsp;m &mdash; or closed-loop position control derived from telemetry (#12)",
+          "<strong>Payload changes the regulatory class</strong>: any added lighting exceeds the 250&nbsp;g threshold, moving the aircraft out of C0 and forfeiting its A1 privileges (Module 1)",
+          "Night operation requires a flashing green light (Module 1). Multi-trace imagery is a compositing step in post-production and must be documented as such"
+        ]
+      },
+      {
+        "card": "18 &mdash; Connectome-driven flight control",
+        "items": [
+          "The complete male <em>Drosophila</em> central nervous system &mdash; 166,700 neurons and approximately 125 million synapses, each connection signed excitatory or inhibitory &mdash; was published in <em>Cell</em> in September 2026 and is publicly available",
+          "Map the camera image onto photoreceptor inputs, propagate activity through the connectome, and interpret descending motor neuron output as flight commands; the flight controller retains stabilisation throughout",
+          "<strong>Recommended scope</strong>: the visual pathway alone (order 10&sup3; neurons, not 1.7&nbsp;&times;&nbsp;10&#8309;) and a single behaviour &mdash; deceleration in response to a looming stimulus. Evaluate the unmodified connectome before introducing any training",
+          "<strong>Required control condition</strong>: a degree-preserving edge-shuffled network of identical size, to establish whether the biological wiring contributes measurably",
+          "Deliverable is the simulation result; flight testing is optional and conducted via virtual stick with the pilot on the controller"
+        ]
+      },
+      {
+        "resource": {
+          "title": "Sources for project 18",
+          "links": [
+            {
+              "url": "https://www.janelia.org/news/researchers-reveal-connectome-of-the-male-fruit-fly-central-nervous-system",
+              "label": "Male CNS connectome (Janelia)"
+            },
+            {
+              "url": "https://research.google/blog/a-connectomics-milestone-mapping-the-complete-male-fruit-fly-brain/",
+              "label": "Dataset & methods (Google Research)"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "4",
     "tag": "important",
     "title": "How It All Fits: One Reference System",
     "desc": "Every project idea is one box or one arrow in the same pipeline — from the drone to the map",
