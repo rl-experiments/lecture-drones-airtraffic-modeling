@@ -121,7 +121,7 @@
       }
     ],
     "icon": "star",
-    "iconPos": "bottom"
+    "iconPos": "lastrow"
   },
   {
     "type": "content",
@@ -188,7 +188,7 @@
       }
     ],
     "icon": "star",
-    "iconPos": "bottom"
+    "iconPos": "lastrow"
   },
   {
     "type": "content",

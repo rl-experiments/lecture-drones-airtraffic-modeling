@@ -272,11 +272,12 @@ html, body {
   filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.2));
 }
 .content-icon svg { width: 104px; height: 104px; }
-/* pos-bottom: align the icon with the LAST row of a table card instead of its middle */
-.content-icon.pos-bottom { top: auto; bottom: 30px; transform: none; }
+/* pos-lastrow: the icon marks the last table row, so its `top` is measured from
+   that row and set in JS (alignRowIcons). The inherited top:50% centres it on
+   the card as a fallback if that never runs. */
 /* The icon reaches ~52px back inside the card, so pull the table text in
    far enough that no row runs underneath it. */
-.card:has(> .content-icon.pos-bottom) .card-table { padding-right: 68px; }
+.card:has(> .content-icon.pos-lastrow) .card-table { padding-right: 68px; }
 .card { position: relative; }
 
 /* ══════════════════════════════════════

@@ -421,6 +421,22 @@
     if (card) card.appendChild(ic);
   });
 
+  // A pos-lastrow icon marks the final table row, so centre it on that row
+  // rather than on the card. Slides are hidden with visibility (not display),
+  // so every slide is laid out and measures correctly here.
+  function alignRowIcons() {
+    container.querySelectorAll('.content-icon.pos-lastrow').forEach(ic => {
+      const card = ic.closest('.card');
+      const rows = card ? card.querySelectorAll('tbody tr') : [];
+      if (!rows.length) return;
+      const rr = rows[rows.length - 1].getBoundingClientRect();
+      const cr = card.getBoundingClientRect();
+      ic.style.top = (rr.top - cr.top + rr.height / 2) + 'px';
+    });
+  }
+  alignRowIcons();
+  window.addEventListener('resize', alignRowIcons);
+
   // ── Per-slide scripts (bug, butterfly, etc.) ────────
   const scriptMap = {};
   data.slides.forEach((s, i) => { if (s.script) scriptMap[i] = s.script; });
