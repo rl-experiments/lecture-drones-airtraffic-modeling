@@ -173,7 +173,7 @@
         "items": [
           "Derive a flight path from vector geometry (SVG outline or a vector font) and fly it; a long-exposure photograph renders the aircraft's navigation lights as a continuous trace",
           "<strong>Positional accuracy governs legibility</strong>: GNSS horizontal error is on the order of &plusmn;1&nbsp;m, which implies character heights of roughly 10&nbsp;m &mdash; or closed-loop position control derived from telemetry (#12)",
-          "<strong>Payload changes the regulatory class</strong>: any added lighting exceeds the 250&nbsp;g threshold, moving the aircraft out of C0 and forfeiting its A1 privileges (Module 1)",
+          "<strong>Payload changes the subcategory, not the category</strong>: the flight stays <strong>Open</strong>, but fitting a lamp voids the C0 class marking, and an unmarked aircraft above 250&nbsp;g is confined to <strong>A3</strong> &mdash; no uninvolved persons in the flight area and 150&nbsp;m from residential, commercial, industrial or recreational areas (Module 1). In practice that moves the shoot out of town; the unmodified C0 aircraft stays in <strong>A1</strong>",
           "Night operation requires a flashing green light (Module 1). Multi-trace imagery is a compositing step in post-production and must be documented as such"
         ]
       },
