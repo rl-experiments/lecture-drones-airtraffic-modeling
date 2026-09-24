@@ -116,7 +116,8 @@
               "<strong>Light painting: draw text in the night sky</strong>",
               "Turn a glyph (SVG outline or vector font) into a waypoint path and fly it; a long exposure records the navigation lights as one continuous line. Letters need to be <strong>~10&nbsp;m tall</strong> to survive &plusmn;1&nbsp;m GNSS error (or use closed-loop control, #13), and <strong>any lamp you fit crosses 250&nbsp;g</strong> &mdash; voiding the C0 marking and dropping the flight from A1 to <strong>A3</strong> (Module 1).<br><strong>Done when</strong>: one readable word is photographed in a single pass."
             ]
-          ]
+          ],
+          "note": "<strong>&#9733;</strong> &mdash; the two projects I would most like to see built this semester."
         }
       }
     ],
@@ -168,7 +169,8 @@
               "<strong>A fly's connectome as the pilot</strong>",
               "The complete male <em>Drosophila</em> nervous system &mdash; 166,700 neurons, ~125&nbsp;million synapses &mdash; was published in <em>Cell</em> in September 2026. Feed the camera image into the <strong>photoreceptors</strong> and read the <strong>descending motor neurons</strong> as flight commands. Scope it to the visual pathway and <strong>one behaviour</strong>: stop before a looming object.<br><strong>Done when</strong>: your connectome run is compared against an edge-shuffled network of the same size &mdash; that comparison is the result."
             ]
-          ]
+          ],
+          "note": "<strong>&#9733;</strong> &mdash; the two projects I would most like to see built this semester."
         }
       },
       {

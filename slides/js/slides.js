@@ -436,6 +436,10 @@
   }
   alignRowIcons();
   window.addEventListener('resize', alignRowIcons);
+  // Row heights change once the web fonts swap in, so the first pass above
+  // measures a stale layout. Re-run when fonts settle and after full load.
+  window.addEventListener('load', alignRowIcons);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(alignRowIcons);
 
   // ── Per-slide scripts (bug, butterfly, etc.) ────────
   const scriptMap = {};
