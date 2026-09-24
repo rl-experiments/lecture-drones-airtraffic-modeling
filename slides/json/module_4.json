@@ -33,33 +33,33 @@
           "headers": [
             "#",
             "Build",
-            "What you make"
+            "What you build — and when it is done"
           ],
           "rows": [
             [
               "1",
               "<strong>Live telemetry dashboard</strong>",
-              "Subscribe via <strong>KeyManager</strong> to position, altitude, attitude, battery, satellites and link status; show it all as a <strong>live on-screen dashboard</strong> on the phone"
+              "Subscribe with <strong>KeyManager</strong> to position, altitude, attitude, velocity, battery, satellite count and link quality, and render all of it on one phone screen.<br><strong>Done when</strong>: the values update continuously in the DJI simulator and match DJI Fly on a real flight."
             ],
             [
               "2",
               "<strong>Flight-track logger &amp; replay</strong>",
-              "Record a flight to a file (CSV / GeoJSON) and visualise the 3D track afterwards &mdash; feeds into the GIS module (Module 14)"
+              "Write every telemetry sample to a <strong>CSV or GeoJSON</strong> file on the phone, then load that file back and draw the flight as a track.<br><strong>Done when</strong>: a recorded flight replays with no drone connected (feeds Module 14)."
             ],
             [
               "3",
               "<strong>Readable API test suite in Karate</strong>",
-              "Contract tests for the telemetry / command backend that the whole team can read and run (Module 11)"
+              "Gherkin feature files against the telemetry/command backend: the happy path, a rejected command, a malformed payload.<br><strong>Done when</strong>: the suite runs green in CI and a non-programmer can read what each scenario checks (Module 11)."
             ],
             [
               "4",
               "<strong>Flight data store &amp; query API</strong>",
-              "Persist flights and expose an API to search, compare and replay them"
+              "Persist completed flights in a database behind a REST API: list flights, filter by time or duration, fetch one full track.<br><strong>Done when</strong>: two flights can be retrieved and compared through the API alone."
             ],
             [
               "5",
               "<strong>Real-time map of live tracks</strong>",
-              "Plot one or many live drone positions on a <strong>moving map</strong> (Module 14)"
+              "Stream positions into a <strong>Leaflet</strong> map; draw each drone as a moving marker with a trailing path.<br><strong>Done when</strong>: the marker follows a simulated flight in the browser with roughly a second of lag (Module 14)."
             ]
           ]
         }
@@ -70,7 +70,7 @@
     "type": "content",
     "mod": "4",
     "tag": "",
-    "title": "Medium Projects (6–11): Build the Pipeline",
+    "title": "Medium Projects (6–12): Pipeline & Controlled Flight",
     "desc": "More moving parts — backend plumbing, and flight in the simulator or under close supervision",
     "body": [
       {
@@ -78,38 +78,43 @@
           "headers": [
             "#",
             "Build",
-            "What you make"
+            "What you build — and when it is done"
           ],
           "rows": [
             [
               "6",
               "<strong>Geofence &amp; safety guard</strong>",
-              "Enforce a soft boundary from the live position; auto return-to-home or land when the drone nears the limit"
+              "Define a polygon boundary, test every incoming position against it, warn at a configurable margin and trigger return-to-home or landing at the edge.<br><strong>Done when</strong>: a simulated flight toward the boundary is stopped automatically and the event is logged."
             ],
             [
               "7",
               "<strong>Telemetry REST / streaming service</strong>",
-              "Push live telemetry to a Spring service described with <strong>OpenAPI</strong>; fan it out over SSE or WebSocket (Modules 7&ndash;8)"
+              "Write the <strong>OpenAPI</strong> spec first, generate the stubs, ingest telemetry into a Spring WebFlux service and fan it out over SSE or WebSocket.<br><strong>Done when</strong>: two browsers receive the same live stream (Modules 7&ndash;8)."
             ],
             [
               "8",
               "<strong>Message-queue telemetry pipeline</strong>",
-              "Publish tracks to a <strong>topic</strong>; independent consumers log, monitor and raise alerts in parallel (Module 9)"
+              "Publish every position to a <strong>topic</strong>, then run three independent consumers off it: a logger, a live monitor and an alerting rule.<br><strong>Done when</strong>: stopping one consumer leaves the other two unaffected (Module 9)."
             ],
             [
               "9",
               "<strong>Autonomous pattern flyer</strong>",
-              "Fly a waypoint square, orbit or lawn-mower scan &mdash; first in the <strong>DJI simulator</strong>, then on real hardware with margin"
+              "Extend the lab client to fly a parametrised square, orbit or lawn-mower scan from a waypoint list, with an abort path throughout.<br><strong>Done when</strong>: the pattern flies clean in the DJI simulator, then outdoors with margin."
             ],
             [
               "10",
               "<strong>UTM monitor fed by a real drone</strong>",
-              "Feed the Module 6 <strong>UTM-style monitor</strong> with the Mini 4 Pro's live position &mdash; show it as a tracked aircraft"
+              "Feed live Mini 4 Pro positions into the Module 6 UTM-style monitor so the aircraft joins the traffic picture.<br><strong>Done when</strong>: the real drone appears alongside simulated traffic with ID, position and altitude."
             ],
             [
               "11",
               "<strong>CQRS flight-state service</strong>",
-              "Separate the <strong>command</strong> side (mission commands) from the <strong>query</strong> side (current &amp; historical state) for the drone (Module 10)"
+              "Split mission commands (write side) from state queries (read side) into two models with their own stores, kept in step by events.<br><strong>Done when</strong>: the read side answers <em>where is it now</em> and <em>what did it do</em> without touching the write side (Module 10)."
+            ],
+            [
+              "12",
+              "<strong>Light painting: draw text in the night sky</strong>",
+              "Turn a glyph (SVG outline or vector font) into a waypoint path and fly it; a long exposure records the navigation lights as one continuous line. Letters need to be <strong>~10&nbsp;m tall</strong> to survive &plusmn;1&nbsp;m GNSS error (or use closed-loop control, #13), and <strong>any lamp you fit crosses 250&nbsp;g</strong> &mdash; voiding the C0 marking and dropping the flight from A1 to <strong>A3</strong> (Module 1).<br><strong>Done when</strong>: one readable word is photographed in a single pass."
             ]
           ]
         }
@@ -120,7 +125,7 @@
     "type": "content",
     "mod": "4",
     "tag": "",
-    "title": "Hard Projects (12–16): Autonomy & Systems",
+    "title": "Hard Projects (13–18): Autonomy & Systems",
     "desc": "Control loops, computer vision and multi-aircraft systems — the deep end",
     "body": [
       {
@@ -128,64 +133,41 @@
           "headers": [
             "#",
             "Build",
-            "What you make"
+            "What you build — and when it is done"
           ],
           "rows": [
             [
-              "12",
-              "<strong>Closed-loop precision movement</strong>",
-              "Replace the lab's open-loop timed hops with <strong>distance / position control</strong> driven by live telemetry feedback"
-            ],
-            [
               "13",
-              "<strong>Camera stream &amp; onboard vision</strong>",
-              "Pull the <strong>live video feed</strong> into the app, grab frames and run simple detection (marker, QR or colour blob) with an on-screen overlay"
+              "<strong>Closed-loop precision movement</strong>",
+              "Replace the lab's timed stick hops with a control loop that reads live position and drives the aircraft to a target offset, with tolerance and timeout.<br><strong>Done when</strong>: <em>fly 2&nbsp;m forward</em> repeatedly lands inside an error margin you measured and can state."
             ],
             [
               "14",
-              "<strong>BlueSky &harr; real-drone bridge</strong>",
-              "Inject the real drone as an aircraft into the <strong>BlueSky simulator</strong>, or run a sim scenario alongside a real flight"
+              "<strong>Camera stream &amp; onboard vision</strong>",
+              "Pull the <strong>live video feed</strong> into the app, grab frames and run a detector &mdash; ArUco marker, QR code or colour blob &mdash; with an on-screen overlay.<br><strong>Done when</strong>: the overlay tracks the target at a usable frame rate during flight."
             ],
             [
               "15",
-              "<strong>Multi-drone coordination &amp; spacing</strong>",
-              "Simulate several tracks (sim plus one real) and <strong>detect &amp; space conflicts</strong> between them"
+              "<strong>BlueSky &harr; real-drone bridge</strong>",
+              "Inject the real drone into <strong>BlueSky</strong> as an aircraft, or run a sim scenario alongside a real flight.<br><strong>Done when</strong>: the drone appears in BlueSky's traffic picture &mdash; expect a drone performance model to be the first real task (Module 13)."
             ],
             [
               "16",
+              "<strong>Multi-drone coordination &amp; spacing</strong>",
+              "Simulate several tracks plus one real aircraft, test every pair against a separation minimum and report conflicts with time-to-conflict.<br><strong>Done when</strong>: a converging pair raises an alert before separation is actually lost."
+            ],
+            [
+              "17",
               "<strong>Collision avoidance in BlueSky</strong>",
-              "Study <code>bluesky/plugins/asas</code>, then build and <strong>measure</strong> your own resolver against the built-in ones &mdash; a classic ATM research problem"
+              "Study <code>bluesky/plugins/asas</code>, implement your own resolver and measure it against the built-in ones on identical scenarios.<br><strong>Done when</strong>: you can state with numbers where yours wins and where it loses."
+            ],
+            [
+              "18",
+              "<strong>A fly's connectome as the pilot</strong>",
+              "The complete male <em>Drosophila</em> nervous system &mdash; 166,700 neurons, ~125&nbsp;million synapses &mdash; was published in <em>Cell</em> in September 2026. Feed the camera image into the <strong>photoreceptors</strong> and read the <strong>descending motor neurons</strong> as flight commands. Scope it to the visual pathway and <strong>one behaviour</strong>: stop before a looming object.<br><strong>Done when</strong>: your connectome run is compared against an edge-shuffled network of the same size &mdash; that comparison is the result."
             ]
           ]
         }
-      }
-    ]
-  },
-  {
-    "type": "content",
-    "mod": "4",
-    "tag": "",
-    "title": "Research Projects (17–18): Open Questions",
-    "desc": "Two open-ended projects with a genuine research component — each carries one constraint that must be resolved before work begins",
-    "body": [
-      {
-        "card": "17 &mdash; Trajectory-based light painting",
-        "items": [
-          "Derive a flight path from vector geometry (SVG outline or a vector font) and fly it; a long-exposure photograph renders the aircraft's navigation lights as a continuous trace",
-          "<strong>Positional accuracy governs legibility</strong>: GNSS horizontal error is on the order of &plusmn;1&nbsp;m, which implies character heights of roughly 10&nbsp;m &mdash; or closed-loop position control derived from telemetry (#12)",
-          "<strong>Payload changes the subcategory, not the category</strong>: the flight stays <strong>Open</strong>, but fitting a lamp voids the C0 class marking, and an unmarked aircraft above 250&nbsp;g is confined to <strong>A3</strong> &mdash; no uninvolved persons in the flight area and 150&nbsp;m from residential, commercial, industrial or recreational areas (Module 1). In practice that moves the shoot out of town; the unmodified C0 aircraft stays in <strong>A1</strong>",
-          "Night operation requires a flashing green light (Module 1). Multi-trace imagery is a compositing step in post-production and must be documented as such"
-        ]
-      },
-      {
-        "card": "18 &mdash; Connectome-driven flight control",
-        "items": [
-          "The complete male <em>Drosophila</em> central nervous system &mdash; 166,700 neurons and approximately 125 million synapses, each connection signed excitatory or inhibitory &mdash; was published in <em>Cell</em> in September 2026 and is publicly available",
-          "Map the camera image onto photoreceptor inputs, propagate activity through the connectome, and interpret descending motor neuron output as flight commands; the flight controller retains stabilisation throughout",
-          "<strong>Recommended scope</strong>: the visual pathway alone (order 10&sup3; neurons, not 1.7&nbsp;&times;&nbsp;10&#8309;) and a single behaviour &mdash; deceleration in response to a looming stimulus. Evaluate the unmodified connectome before introducing any training",
-          "<strong>Required control condition</strong>: a degree-preserving edge-shuffled network of identical size, to establish whether the biological wiring contributes measurably",
-          "Deliverable is the simulation result; flight testing is optional and conducted via virtual stick with the pilot on the controller"
-        ]
       },
       {
         "resource": {

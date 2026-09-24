@@ -113,7 +113,7 @@
           "<strong>Bounded</strong>: the hop is a fixed <code>FORWARD_MS</code>, the turn has a <code>deadline</code> &mdash; nothing runs until 'done', everything runs until 'done or time is up'",
           "<strong>Abortable</strong>: <code>sleepChecked</code> and <code>checkAbort</code> throw when STOP is pressed; the handler zeroes the sticks and starts auto-landing",
           "<strong>Zero on exit</strong>: the <code>finally</code> is the whole safety story &mdash; an exception mid-turn must not leave a yaw command live (Module 2's second bug)",
-          "<strong>Open loop</strong>: 1.5 m is a guess from stick and time, not a measurement. Project idea <strong>#12</strong> closes that loop with telemetry &mdash; the fix for Module 2's 'fly forward 2 m'"
+          "<strong>Open loop</strong>: 1.5 m is a guess from stick and time, not a measurement. Project idea <strong>#13</strong> closes that loop with telemetry &mdash; the fix for Module 2's 'fly forward 2 m'"
         ]
       }
     ]
