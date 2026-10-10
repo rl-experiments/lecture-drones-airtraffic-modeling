@@ -133,6 +133,14 @@
           ],
           "rows": [
             [
+              "Build died with a <strong>connection timeout</strong>",
+              "The school network blocked the SDK downloads &mdash; a <strong>mobile hotspot</strong> fixed it"
+            ],
+            [
+              "DJI Fly refused to connect to the drone",
+              "Outdated firmware &mdash; <strong>update the aircraft in DJI Fly first</strong>"
+            ],
+            [
               "App vanished the instant it launched",
               "<code>NoClassDefFoundError</code> — the SDK secretly needs AndroidX on the classpath"
             ],
@@ -242,6 +250,11 @@
             ],
             [
               "4",
+              "Install <strong>DJI Fly</strong> on the phone: <strong>update the firmware</strong>, link the RC, then force-stop it",
+              "dji.com/downloads (not on Google Play)"
+            ],
+            [
+              "5",
               "Bookmark the docs for reference",
               "<a href=\"https://developer.dji.com/doc/mobile-sdk-tutorial/en/\" target=\"_blank\">Mobile SDK tutorial</a> &middot; <a href=\"https://developer.dji.com/api-reference-v5/android-api/\" target=\"_blank\">API reference (v5)</a>"
             ]

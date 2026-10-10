@@ -24,7 +24,32 @@ auto-landing — in the smallest amount of code that actually flies.
 | Drone | DJI Mini 4 Pro |
 | Controller | DJI RC-N3 (or RC-N2). **RC 2 with built-in screen is not supported by MSDK.** |
 | Phone | Android 7.0+ (arm64), with a USB-C port to plug into the controller |
+| Phone app | **DJI Fly**, from <https://www.dji.com/downloads> (it is not on Google Play) — needed once for firmware and RC linking |
 | Build machine | JDK 17+, Android SDK (compileSdk 35), the bundled Gradle wrapper |
+
+---
+
+## Before the lab — in this order
+
+This is the order that worked in class. The two big downloads (toolchain and
+firmware) come first, because they are the steps that stall a session.
+
+1. **Install the JDK and the Android SDK** on the build machine (Android Studio
+   brings both).
+2. **Run the first build on a network that works** (step 2 below). The first build
+   downloads Gradle, the Android platform and the DJI SDK. School and campus
+   networks often block or throttle these and the build ends in a
+   **connection timeout** — switch the laptop to a **mobile hotspot** and run it again.
+3. **Install DJI Fly** on the Android phone.
+4. **Update the aircraft firmware in DJI Fly.** Plug the phone into the RC, power on
+   the drone and let DJI Fly finish every update it offers. An outdated drone will
+   not get past this screen, and the update needs internet and a charged battery.
+5. **Link the RC to the drone** in DJI Fly (step 3 below), confirm it connects, then
+   **force-stop DJI Fly**.
+6. Install **Drone Hello** and run the demo (steps 3 and 4 below).
+
+An emulator is not an option: the SDK ships arm64 libraries only and the emulator
+has no link to the controller. Use a real phone.
 
 ---
 
@@ -184,6 +209,8 @@ All flight logic is in `app/src/main/java/com/example/djihellodrone/MainActivity
 
 | Symptom | Cause & fix |
 |---|---|
+| Build or SDK download fails with **connection timeout** | The network blocks or throttles the downloads (common on school networks). Switch the laptop to a **mobile hotspot** and rebuild. |
+| DJI Fly asks for a **firmware update** and won't go further | The drone's firmware is outdated. Let DJI Fly finish the update (internet, charged battery), then link the RC and force-stop DJI Fly. |
 | App closes right after "Initializing DJI SDK" | Registration/init crash. The app now prints the exception on screen instead of closing — read it. A missing App Key or no internet is the usual cause. |
 | Plugged phone into RC, **no popup, nothing happens** | Wrong USB port or reversed cable. Use the **top** data port by the clamp; the controller-logo end of the cable goes into the controller. |
 | Status stuck at "Waiting for drone…" | RC-N3 not linked to the drone. Link once via **DJI Fly** (see step 3), then force-stop DJI Fly. |
