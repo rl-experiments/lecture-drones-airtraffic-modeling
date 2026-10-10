@@ -173,6 +173,10 @@ All flight logic is in `app/src/main/java/com/example/djihellodrone/MainActivity
 - **Live diagnostics** — while idle, the screen shows the drone's real state
   (FC connected, product type, firmware, flight mode, motors, GPS) so problems are
   visible without a PC.
+- **On-screen log** — a timestamped log under the status shows every SDK event, each
+  link coming up or dropping (RC, air link, flight controller) and the error code of
+  any failed read. **Share log** sends it as text; the same lines go to logcat under
+  the tag `DroneHello`.
 
 ---
 

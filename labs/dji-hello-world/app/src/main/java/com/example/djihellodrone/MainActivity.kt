@@ -2,14 +2,20 @@ package com.example.djihellodrone
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
+import android.widget.ScrollView
 import android.widget.TextView
+import dji.sdk.keyvalue.key.AirLinkKey
 import dji.sdk.keyvalue.key.DJIActionKeyInfo
 import dji.sdk.keyvalue.key.DJIKeyInfo
 import dji.sdk.keyvalue.key.FlightControllerKey
 import dji.sdk.keyvalue.key.ProductKey
+import dji.sdk.keyvalue.key.RemoteControllerKey
 import java.util.concurrent.atomic.AtomicReference
 import dji.sdk.keyvalue.key.KeyTools
 import dji.sdk.keyvalue.value.common.EmptyMsg
@@ -20,6 +26,10 @@ import dji.v5.manager.KeyManager
 import dji.v5.manager.SDKManager
 import dji.v5.manager.aircraft.virtualstick.VirtualStickManager
 import dji.v5.manager.interfaces.SDKManagerCallback
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import kotlin.concurrent.thread
@@ -44,11 +54,19 @@ class MainActivity : Activity() {
         private const val YAW_STICK = 200           // ~30 % rotation stick
         private const val YAW_TOLERANCE_DEG = 12.0
         private const val YAW_TIMEOUT_MS = 15000L
+        private const val MAX_LOG_LINES = 400
     }
 
     private lateinit var statusView: TextView
     private lateinit var goButton: Button
     private lateinit var stopButton: Button
+    private lateinit var logView: TextView
+    private lateinit var logScroll: ScrollView
+
+    private val logLines = ArrayDeque<String>()
+    private val logClock = SimpleDateFormat("HH:mm:ss.SSS", Locale.US)
+    private val lastOutcome = ConcurrentHashMap<String, String>()
+    @Volatile private var watching = false
 
     @Volatile private var aborted = false
     @Volatile private var missionRunning = false
@@ -61,15 +79,21 @@ class MainActivity : Activity() {
         statusView = findViewById(R.id.statusText)
         goButton = findViewById(R.id.goButton)
         stopButton = findViewById(R.id.stopButton)
+        logView = findViewById(R.id.logText)
+        logScroll = findViewById(R.id.logScroll)
         goButton.isEnabled = false
 
         goButton.setOnClickListener { confirmAndFly() }
         stopButton.setOnClickListener { emergencyStop() }
+        findViewById<Button>(R.id.shareLogButton).setOnClickListener { shareLog() }
+
+        logLine("Drone Hello on ${Build.MANUFACTURER} ${Build.MODEL}, Android ${Build.VERSION.RELEASE}")
 
         // Surface ANY crash (any thread) on screen instead of silently closing.
         Thread.setDefaultUncaughtExceptionHandler { _, e ->
             Log.e(TAG, "UNCAUGHT", e)
             val trace = e.stackTraceToString().take(1500)
+            logLine("CRASH: $trace")
             runOnUiThread { statusView.text = "CRASH:\n$trace" }
             // keep the process alive long enough to read the screen
             try { Thread.sleep(60_000) } catch (_: InterruptedException) {}
@@ -92,7 +116,7 @@ class MainActivity : Activity() {
         thread(name = "diagnostics", isDaemon = true) {
             while (true) {
                 if (showDiagnostics && !missionRunning) {
-                    try { setStatus(readDiagnostics()) } catch (_: Exception) {}
+                    try { show(readDiagnostics()) } catch (_: Exception) {}
                 }
                 Thread.sleep(2000)
             }
@@ -100,15 +124,19 @@ class MainActivity : Activity() {
     }
 
     private fun readDiagnostics(): String {
-        val fcConn = pull(FlightControllerKey.KeyConnection, 1000)
-        val type = pull(ProductKey.KeyProductType, 1000)
-        val name = pull(FlightControllerKey.KeyAircraftName, 1000)
-        val fw = pull(FlightControllerKey.KeyFirmwareVersion, 1000)
-        val mode = pull(FlightControllerKey.KeyFlightModeString, 1000)
-        val flying = pull(FlightControllerKey.KeyIsFlying, 1000)
-        val motors = pull(FlightControllerKey.KeyAreMotorsOn, 1000)
-        val sats = pull(FlightControllerKey.KeyGPSSatelliteCount, 1000)
+        val rcConn = describe(RemoteControllerKey.KeyConnection, 1000)
+        val linkConn = describe(AirLinkKey.KeyConnection, 1000)
+        val fcConn = describe(FlightControllerKey.KeyConnection, 1000)
+        val type = describe(ProductKey.KeyProductType, 1000)
+        val name = describe(FlightControllerKey.KeyAircraftName, 1000)
+        val fw = describe(FlightControllerKey.KeyFirmwareVersion, 1000)
+        val mode = describe(FlightControllerKey.KeyFlightModeString, 1000)
+        val flying = describe(FlightControllerKey.KeyIsFlying, 1000)
+        val motors = describe(FlightControllerKey.KeyAreMotorsOn, 1000)
+        val sats = describe(FlightControllerKey.KeyGPSSatelliteCount, 1000)
         return "DRONE STATUS\n" +
+            "RC connected: $rcConn\n" +
+            "Air link: $linkConn\n" +
             "FC connected: $fcConn\n" +
             "Product type: $type\n" +
             "Aircraft: $name\n" +
@@ -124,7 +152,9 @@ class MainActivity : Activity() {
     private fun initSdk() {
         SDKManager.getInstance().init(applicationContext, object : SDKManagerCallback {
             override fun onInitProcess(event: DJISDKInitEvent?, totalProcess: Int) {
+                logLine("SDK init: $event ($totalProcess)")
                 if (event == DJISDKInitEvent.INITIALIZE_COMPLETE) {
+                    logLine("MSDK version ${SDKManager.getInstance().sdkVersion}")
                     setStatus("SDK initialized, registering app…")
                     SDKManager.getInstance().registerApp()
                 }
@@ -132,6 +162,7 @@ class MainActivity : Activity() {
 
             override fun onRegisterSuccess() {
                 setStatus("App registered ✓\nWaiting for drone…\n(RC plugged in, drone on?)")
+                watchLinks()
             }
 
             override fun onRegisterFailure(error: IDJIError?) {
@@ -139,17 +170,22 @@ class MainActivity : Activity() {
             }
 
             override fun onProductConnect(productId: Int) {
+                logLine("Product connected, id=$productId")
                 showDiagnostics = true
                 runOnUiThread { goButton.isEnabled = true }
+                thread(name = "link-snapshot") { logLinkSnapshot("after product connect") }
             }
 
             override fun onProductDisconnect(productId: Int) {
+                logLine("Product disconnected, id=$productId")
                 showDiagnostics = false
                 setStatus("Drone disconnected.")
                 runOnUiThread { goButton.isEnabled = false }
             }
 
-            override fun onProductChanged(productId: Int) {}
+            override fun onProductChanged(productId: Int) {
+                logLine("Product changed, id=$productId")
+            }
             override fun onDatabaseDownloadProgress(current: Long, total: Long) {}
         })
     }
@@ -197,6 +233,8 @@ class MainActivity : Activity() {
             if (pull(FlightControllerKey.KeyConnection) == true) break
             Thread.sleep(300)
         }
+
+        logLinkSnapshot("before takeoff")
 
         step("Checking GPS…")
         val sats = pull(FlightControllerKey.KeyGPSSatelliteCount) ?: -1
@@ -316,17 +354,62 @@ class MainActivity : Activity() {
      * cached values (null until something subscribes), so we use the async getValue
      * with a latch to actually query the aircraft.
      */
-    private fun <T> pull(keyInfo: DJIKeyInfo<T>, timeoutMs: Long = 2500): T? {
+    private fun <T> pull(keyInfo: DJIKeyInfo<T>, timeoutMs: Long = 2500): T? = query(keyInfo, timeoutMs).first
+
+    /** Like pull(), but shows why a read failed instead of a bare null. */
+    private fun <T> describe(keyInfo: DJIKeyInfo<T>, timeoutMs: Long = 2500): String {
+        val (value, failure) = query(keyInfo, timeoutMs)
+        return failure?.let { "✗ $it" } ?: value.toString()
+    }
+
+    /** Value plus failure reason (SDK error code or "timeout"); the reason is null on success. */
+    private fun <T> query(keyInfo: DJIKeyInfo<T>, timeoutMs: Long): Pair<T?, String?> {
         val latch = CountDownLatch(1)
         val result = AtomicReference<T?>(null)
+        val failure = AtomicReference<String?>(null)
         KeyManager.getInstance().getValue(
             KeyTools.createKey(keyInfo),
             object : CommonCallbacks.CompletionCallbackWithParam<T> {
                 override fun onSuccess(t: T?) { result.set(t); latch.countDown() }
-                override fun onFailure(e: IDJIError) { latch.countDown() }
+                override fun onFailure(e: IDJIError) { failure.set(e.errorCode() ?: e.toString()); latch.countDown() }
             })
-        latch.await(timeoutMs, TimeUnit.MILLISECONDS)
-        return result.get()
+        if (!latch.await(timeoutMs, TimeUnit.MILLISECONDS)) failure.set("timeout")
+        // Reads run in tight loops, so only log when a key's outcome changes.
+        val name = keyInfo.identifier
+        val outcome = failure.get() ?: "ok"
+        if (lastOutcome.put(name, outcome) != outcome) logLine("read $name: $outcome")
+        return result.get() to failure.get()
+    }
+
+    /** One log line with every link in the chain phone → RC → air link → flight controller. */
+    private fun logLinkSnapshot(why: String) {
+        logLine("Link snapshot ($why): " +
+            "product=${describe(ProductKey.KeyConnection, 1000)}, " +
+            "type=${describe(ProductKey.KeyProductType, 1000)}, " +
+            "RC=${describe(RemoteControllerKey.KeyConnection, 1000)}, " +
+            "airlink=${describe(AirLinkKey.KeyConnection, 1000)}, " +
+            "FC=${describe(FlightControllerKey.KeyConnection, 1000)}, " +
+            "firmware=${describe(ProductKey.KeyFirmwareVersion, 1000)}")
+    }
+
+    /** Logs every connect/disconnect of the individual links as it happens. */
+    private fun watchLinks() {
+        if (watching) return
+        watching = true
+        watch(ProductKey.KeyConnection, "product link")
+        watch(RemoteControllerKey.KeyConnection, "RC link")
+        watch(AirLinkKey.KeyConnection, "air link")
+        watch(FlightControllerKey.KeyConnection, "FC link")
+        watch(ProductKey.KeyProductType, "product type")
+    }
+
+    private fun <T> watch(keyInfo: DJIKeyInfo<T>, label: String) {
+        KeyManager.getInstance().listen(KeyTools.createKey(keyInfo), this,
+            object : CommonCallbacks.KeyListener<T> {
+                override fun onValueChange(oldValue: T?, newValue: T?) {
+                    logLine("$label: $oldValue → $newValue")
+                }
+            })
     }
 
     /** Retry takeoff: right after connect the FC may briefly reject with request_handler_not_found. */
@@ -339,13 +422,14 @@ class MainActivity : Activity() {
                 return
             } catch (e: Exception) {
                 last = e
-                Log.w(TAG, "Takeoff attempt ${attempt + 1} failed: ${e.message}")
+                logLine("Takeoff attempt ${attempt + 1} failed: ${e.message}")
                 setStatus("Takeoff not ready, retrying (${attempt + 1}/5)…")
                 sleepChecked(2_000)
             }
         }
-        val motorErr = pull(FlightControllerKey.KeyMotorStartFailureError, 1500)
-        val mode = pull(FlightControllerKey.KeyFlightModeString, 1500)
+        logLinkSnapshot("takeoff failed")
+        val motorErr = describe(FlightControllerKey.KeyMotorStartFailureError, 1500)
+        val mode = describe(FlightControllerKey.KeyFlightModeString, 1500)
         throw IllegalStateException(
             "Takeoff failed after 5 tries.\nReason from drone: $motorErr\nFlight mode: $mode\n${last?.message}")
     }
@@ -432,7 +516,36 @@ class MainActivity : Activity() {
     }
 
     private fun setStatus(msg: String) {
-        Log.i(TAG, msg)
+        logLine(msg)
+        show(msg)
+    }
+
+    /** Updates the status text without adding to the log (used by the 2 s diagnostics refresh). */
+    private fun show(msg: String) {
         runOnUiThread { statusView.text = msg }
+    }
+
+    private fun logLine(msg: String) {
+        Log.i(TAG, msg)
+        val text = synchronized(logLines) {
+            logLines.addLast("${logClock.format(Date())}  $msg")
+            while (logLines.size > MAX_LOG_LINES) logLines.removeFirst()
+            logLines.joinToString("\n")
+        }
+        runOnUiThread {
+            logView.text = text
+            logScroll.post { logScroll.fullScroll(View.FOCUS_DOWN) }
+        }
+    }
+
+    private fun shareLog() {
+        val text = synchronized(logLines) { logLines.joinToString("\n") }
+        val send = Intent(Intent.ACTION_SEND).setType("text/plain").putExtra(Intent.EXTRA_TEXT, text)
+        startActivity(Intent.createChooser(send, "Share log"))
+    }
+
+    override fun onDestroy() {
+        KeyManager.getInstance().cancelListen(this)
+        super.onDestroy()
     }
 }
