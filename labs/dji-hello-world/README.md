@@ -1,7 +1,7 @@
 # Drone Hello — DJI Mini 4 Pro "Hello World"
 
 Minimal Android app (DJI Mobile SDK v5.18) for the **DJI Mini 4 Pro** flown with a
-**DJI RC-N3** controller. One button runs a fixed mission:
+**DJI RC-N3** controller. One button runs a fixed mission, **Mission 1 (demo)**:
 
 > **take off → fly ~1.5 m forward → rotate 180° → fly ~1.5 m back → land**
 
@@ -122,7 +122,7 @@ links must be up.
 
 1. Clear space: **~4 m** in the forward direction, nothing overhead, no people/pets.
 2. Put the drone flat on the ground (not on metal or in your hand).
-3. Press **FLY MISSION** and confirm.
+3. Press **Mission 1 (demo)** and confirm.
 4. Keep a thumb near the RC sticks and the red **STOP + LAND** button.
 
 The status text walks through each stage: *Waiting for aircraft → Checking GPS →

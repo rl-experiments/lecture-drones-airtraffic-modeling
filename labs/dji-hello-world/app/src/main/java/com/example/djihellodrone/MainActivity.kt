@@ -2,13 +2,10 @@ package com.example.djihellodrone
 
 import android.app.Activity
 import android.app.AlertDialog
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Button
-import android.widget.ScrollView
 import android.widget.TextView
 import dji.sdk.keyvalue.key.AirLinkKey
 import dji.sdk.keyvalue.key.DJIActionKeyInfo
@@ -26,9 +23,6 @@ import dji.v5.manager.KeyManager
 import dji.v5.manager.SDKManager
 import dji.v5.manager.aircraft.virtualstick.VirtualStickManager
 import dji.v5.manager.interfaces.SDKManagerCallback
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
@@ -36,7 +30,7 @@ import kotlin.concurrent.thread
 import kotlin.math.abs
 
 /**
- * Hello-world mission: take off, fly ~1.5 m forward, rotate 180°, fly ~1.5 m back, land.
+ * Mission 1 (demo): take off, fly ~1.5 m forward, rotate 180°, fly ~1.5 m back, land.
  *
  * Movement uses the *basic* virtual-stick API: emulated stick positions with the
  * exact semantics of the physical RC in mode 2 (right stick up = forward,
@@ -54,17 +48,13 @@ class MainActivity : Activity() {
         private const val YAW_STICK = 200           // ~30 % rotation stick
         private const val YAW_TOLERANCE_DEG = 12.0
         private const val YAW_TIMEOUT_MS = 15000L
-        private const val MAX_LOG_LINES = 400
     }
 
     private lateinit var statusView: TextView
     private lateinit var goButton: Button
     private lateinit var stopButton: Button
-    private lateinit var logView: TextView
-    private lateinit var logScroll: ScrollView
+    private lateinit var logPanel: LogPanel
 
-    private val logLines = ArrayDeque<String>()
-    private val logClock = SimpleDateFormat("HH:mm:ss.SSS", Locale.US)
     private val lastOutcome = ConcurrentHashMap<String, String>()
     @Volatile private var watching = false
 
@@ -79,13 +69,11 @@ class MainActivity : Activity() {
         statusView = findViewById(R.id.statusText)
         goButton = findViewById(R.id.goButton)
         stopButton = findViewById(R.id.stopButton)
-        logView = findViewById(R.id.logText)
-        logScroll = findViewById(R.id.logScroll)
+        logPanel = findViewById(R.id.logPanel)
         goButton.isEnabled = false
 
         goButton.setOnClickListener { confirmAndFly() }
         stopButton.setOnClickListener { emergencyStop() }
-        findViewById<Button>(R.id.shareLogButton).setOnClickListener { shareLog() }
 
         logLine("Drone Hello on ${Build.MANUFACTURER} ${Build.MODEL}, Android ${Build.VERSION.RELEASE}")
 
@@ -144,7 +132,7 @@ class MainActivity : Activity() {
             "Flight mode: $mode\n" +
             "In air: $flying   Motors: $motors\n" +
             "GPS sats: $sats\n\n" +
-            "Press FLY MISSION to attempt takeoff."
+            "Press Mission 1 (demo) to attempt takeoff."
     }
 
     // ---------------------------------------------------------------- SDK setup
@@ -195,7 +183,7 @@ class MainActivity : Activity() {
     private fun confirmAndFly() {
         if (missionRunning) return
         AlertDialog.Builder(this)
-            .setTitle("Start mission?")
+            .setTitle("Start mission 1 (demo)?")
             .setMessage("The drone will TAKE OFF, fly ~1.5 m forward, turn 180°, fly ~1.5 m back and land.\n\nMake sure you have ~4 m of clear space and GPS signal. Keep hands off the RC sticks (moving them takes control back).")
             .setPositiveButton("FLY") { _, _ -> startMission() }
             .setNegativeButton("Cancel", null)
@@ -527,21 +515,7 @@ class MainActivity : Activity() {
 
     private fun logLine(msg: String) {
         Log.i(TAG, msg)
-        val text = synchronized(logLines) {
-            logLines.addLast("${logClock.format(Date())}  $msg")
-            while (logLines.size > MAX_LOG_LINES) logLines.removeFirst()
-            logLines.joinToString("\n")
-        }
-        runOnUiThread {
-            logView.text = text
-            logScroll.post { logScroll.fullScroll(View.FOCUS_DOWN) }
-        }
-    }
-
-    private fun shareLog() {
-        val text = synchronized(logLines) { logLines.joinToString("\n") }
-        val send = Intent(Intent.ACTION_SEND).setType("text/plain").putExtra(Intent.EXTRA_TEXT, text)
-        startActivity(Intent.createChooser(send, "Share log"))
+        logPanel.append(msg)
     }
 
     override fun onDestroy() {
