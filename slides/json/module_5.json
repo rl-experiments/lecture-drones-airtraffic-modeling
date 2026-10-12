@@ -100,6 +100,123 @@
   {
     "type": "content",
     "mod": "5",
+    "tag": "important",
+    "title": "DJI SDK Architecture: Four Managers, One Aircraft",
+    "desc": "Your code never touches the drone — it asks a manager on the phone, and the answer comes back later",
+    "body": [
+      {
+        "img": "dji-msdk-architecture.svg",
+        "alt": "Your app on the phone calls four DJI SDK managers, which reach the aircraft through the remote controller: USB cable, then radio link. The flight controller decides who flies, and the pilot can take over at the remote controller",
+        "height": 340,
+        "caption": "Drawn from the class signatures in MSDK 5.18.0, the version the lab app builds against &mdash; the next two slides show the same SDK as UML"
+      },
+      {
+        "card": "What the picture tells you",
+        "items": [
+          "<strong>Your code runs on the phone, not on the drone</strong> &mdash; every command crosses a USB cable and a radio link; if either drops, your loop keeps running and nothing arrives",
+          "<strong>Control is on loan</strong> &mdash; the flight controller hands it to your code and takes it back: link lost, pause button, mode switch, low battery, near a geo-zone boundary. The drone then follows <em>its own</em> settings, not your loop (Module 2)",
+          "<strong>There is no drone object</strong> &mdash; each capability is a singleton manager you reach with <code>getInstance()</code>; the lab app uses these four out of about 35 in the SDK",
+          "<strong>The simulator lives in the flight controller</strong> &mdash; so it needs the real drone switched on, props off (Module 2)"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "5",
+    "tag": "",
+    "title": "The Managers in UML: Interface, Singleton, Callback",
+    "desc": "The managers the lab app uses share one shape — learn it once and most of the SDK reads the same way",
+    "body": [
+      {
+        "img": "dji-msdk-uml-managers.svg",
+        "alt": "UML class diagram: SDKManager, VirtualStickManager and SimulatorManager each implement an interface, and answer through callback interfaces that fail with an IDJIError",
+        "height": 380,
+        "caption": "Dashed line with triangle: implements &middot; dashed arrow: uses &middot; only the methods the lab app needs are listed &middot; <code>CompletionCallback</code> is nested in <code>CommonCallbacks</code>"
+      },
+      {
+        "card": "How to read it",
+        "items": [
+          "<strong>Interface + singleton</strong>: each manager is one class implementing an interface of the same name, and <code>getInstance()</code> is the only way in &mdash; most of the SDK's managers follow this pattern",
+          "<strong>Commands are asynchronous</strong>: <code>enableVirtualStick(callback)</code> returns at once; later the SDK calls <code>onSuccess()</code> or <code>onFailure(error)</code>. Wait for <code>onSuccess</code> before the next step &mdash; if you skip that, your loop steers a drone that never accepted the command",
+          "<strong>Movement commands give no feedback</strong>: setting <code>rightStick.verticalPosition</code> or calling <code>sendVirtualStickAdvancedParam(param)</code> has no callback and no return value &mdash; to know the drone really moved, read its position back through <code>KeyManager</code>"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "5",
+    "tag": "",
+    "title": "The Key Model in UML: One Manager for Every Value",
+    "desc": "Telemetry and commands are not methods — they are constants, and KeyManager is the only door to them",
+    "body": [
+      {
+        "img": "dji-msdk-uml-keys.svg",
+        "alt": "UML class diagram: key classes hold DJIKeyInfo constants, KeyTools turns one into a DJIKey, and KeyManager reads, writes, listens to or fires it",
+        "height": 410,
+        "caption": "Solid line with triangle: extends &middot; dashed arrow: uses &middot; three of several hundred constants shown; <code>BatteryKey</code>, <code>ProductKey</code>, <code>CameraKey</code> have the same shape"
+      },
+      {
+        "card": "Follow one call through the diagram",
+        "items": [
+          "<strong>Pick a constant</strong> on a key class &mdash; <code>FlightControllerKey.KeyIsFlying</code> is a <code>DJIKeyInfo</code>; <strong>wrap it</strong> with <code>KeyTools.createKey</code> to get a <code>DJIKey</code>; <strong>hand it</strong> to <code>KeyManager</code>",
+          "<strong>Commands are the action variants</strong>: <code>KeyStartTakeoff</code> is a <code>DJIActionKeyInfo</code>, becomes an <code>ActionKey</code>, and goes to <code>performAction</code> &mdash; the code is on the next slide"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "5",
+    "tag": "",
+    "title": "Keys, Not Methods — and Every Answer Comes Later",
+    "desc": "The two SDK conventions to know before you read or generate a single line of flight code",
+    "body": [
+      {
+        "code": "<span class=\"str\">// a value: pick a key constant, make it addressable, hand it to KeyManager</span>\n<span class=\"kw\">val</span> sats = KeyTools.createKey(FlightControllerKey.KeyGPSSatelliteCount)\nKeyManager.getInstance().listen(sats, <span class=\"kw\">this</span>) { old, new -&gt; logLine(<span class=\"str\">\"satellites: $old → $new\"</span>) }\n\n<span class=\"str\">// a command is a key too — and this call returns before the drone has done anything</span>\nKeyManager.getInstance().performAction(\n    KeyTools.createKey(FlightControllerKey.KeyStartTakeoff),\n    <span class=\"kw\">object</span> : CommonCallbacks.CompletionCallbackWithParam&lt;EmptyMsg&gt; {\n        <span class=\"kw\">override fun</span> onSuccess(t: EmptyMsg?) { <span class=\"str\">/* takeoff accepted — now wait until it is flying */</span> }\n        <span class=\"kw\">override fun</span> onFailure(e: IDJIError) { <span class=\"str\">/* the mission ends here */</span> }\n    })"
+      },
+      {
+        "card": "Read it like this",
+        "items": [
+          "<strong>No <code>getAltitude()</code>, no <code>takeOff()</code></strong> &mdash; every value and command is a constant on a key class (<code>FlightControllerKey</code>, <code>BatteryKey</code>, <code>ProductKey</code>&hellip;); <code>KeyManager</code> reads, writes, listens to or fires it",
+          "<strong>A command does not return its result</strong> &mdash; the outcome arrives in <code>onSuccess</code> / <code>onFailure</code>; the lab app waits for it with a timeout before the next step",
+          "If generated code calls <code>drone.takeOff()</code>, <strong>it was invented</strong> &mdash; check every SDK call against the API reference",
+          "<strong>Two ways to steer</strong>, same manager: stick positions (the lab app) or <code>sendVirtualStickAdvancedParam</code> with velocities (Module 2's bug slide)"
+        ]
+      },
+      {
+        "resource": {
+          "title": "Architecture and reference",
+          "links": [
+            {
+              "url": "https://developer.dji.com/doc/mobile-sdk-tutorial/en/basic-introduction/overview.html",
+              "label": "DJI: overview of MSDK architecture"
+            },
+            {
+              "url": "https://developer.dji.com/doc/mobile-sdk-tutorial/en/tutorials/keymanager.html",
+              "label": "DJI: KeyManager tutorial"
+            },
+            {
+              "url": "https://developer.dji.com/api-reference-v5/android-api/Components/SDKManager/DJISDKManager.html",
+              "label": "API reference (v5)"
+            },
+            {
+              "url": "https://github.com/dji-sdk/Mobile-SDK-Android-V5",
+              "label": "Sample code (GitHub)"
+            },
+            {
+              "url": "https://sdk-forum.dji.net/hc/en-us",
+              "label": "DJI SDK forum"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "5",
     "tag": "demo",
     "title": "The Code You Inherit: One Hop, One Turn",
     "desc": "MainActivity.kt, condensed — open-loop hops, closed-loop yaw, and the deadman that makes both survivable",
@@ -182,8 +299,7 @@
         "card": "Flight control",
         "items": [
           "<strong>Takeoff, landing, return-to-home</strong> as direct commands",
-          "<strong>Virtual Stick</strong> &mdash; synthesise stick input to fly the aircraft from code",
-          "<strong>Waypoint &amp; hotpoint missions</strong> uploaded to and flown by the aircraft"
+          "<strong>Virtual Stick</strong> &mdash; synthesise stick input to fly the aircraft from code; on this drone it is the <strong>only</strong> way to fly a route"
         ]
       },
       {
@@ -212,6 +328,7 @@
         "card": "Reality check — where v5 stops",
         "items": [
           "The old <strong>ActiveTrack / TapFly / Point-of-Interest</strong> modes are <em>not</em> exposed as SDK-controllable missions on consumer drones like the Mini 4 Pro",
+          "<strong>No waypoint missions either</strong>: routes that the aircraft stores and flies on its own are in the SDK for enterprise models only &mdash; here your phone steers every metre, so a dropped link ends the route",
           "You get the <strong>building blocks</strong> (virtual stick, telemetry, video) &mdash; <strong>you build the intelligence yourself</strong>"
         ],
         "warn": true

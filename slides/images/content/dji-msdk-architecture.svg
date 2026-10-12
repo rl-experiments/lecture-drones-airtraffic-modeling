@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 400" font-family="Inter, 'Segoe UI', Arial, sans-serif" role="img" aria-label="Your app on the phone calls four DJI SDK managers, which reach the aircraft through the remote controller: USB cable, then radio link. The flight controller decides who flies, and the pilot can take over at the remote controller.">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#171717"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="1120" height="400" fill="#ffffff"/>
+
+  <!-- Phone: everything your code can see -->
+  <rect x="10" y="26" width="650" height="358" rx="14" fill="#fafafa" stroke="#a3a3a3" stroke-width="1.5" stroke-dasharray="7 5"/>
+  <text x="28" y="54" font-size="15.5" font-weight="600" fill="#737373">Phone (Android)</text>
+
+  <rect x="30" y="150" width="170" height="100" rx="10" fill="#ffffff" stroke="#171717" stroke-width="2"/>
+  <text x="115" y="194" font-size="19" font-weight="700" fill="#171717" text-anchor="middle">Your app</text>
+  <text x="115" y="220" font-size="14.5" fill="#525252" text-anchor="middle" font-family="Consolas, 'Courier New', monospace">MainActivity.kt</text>
+
+  <line x1="200" y1="183" x2="268" y2="183" stroke="#171717" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="234" y="173" font-size="14" fill="#171717" text-anchor="middle">calls</text>
+  <line x1="270" y1="220" x2="202" y2="220" stroke="#171717" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+  <text x="234" y="242" font-size="14" fill="#171717" text-anchor="middle">callbacks</text>
+
+  <rect x="270" y="66" width="370" height="302" rx="12" fill="#f5f5f5" stroke="#171717" stroke-width="2"/>
+  <text x="286" y="91" font-size="15.5" font-weight="600" fill="#171717">DJI Mobile SDK V5 (inside your app)</text>
+
+  <rect x="286" y="102" width="338" height="56" rx="8" fill="#ffffff" stroke="#171717" stroke-width="1.5"/>
+  <text x="300" y="126" font-size="18" font-weight="700" fill="#171717">SDKManager</text>
+  <text x="300" y="147" font-size="15" fill="#525252">start-up, app key, connection events</text>
+
+  <rect x="286" y="168" width="338" height="56" rx="8" fill="#ffffff" stroke="#171717" stroke-width="1.5"/>
+  <text x="300" y="192" font-size="18" font-weight="700" fill="#171717">KeyManager</text>
+  <text x="300" y="213" font-size="15" fill="#525252">read, write, listen to and fire keys</text>
+
+  <rect x="286" y="234" width="338" height="56" rx="8" fill="#ffffff" stroke="#171717" stroke-width="1.5"/>
+  <text x="300" y="258" font-size="18" font-weight="700" fill="#171717">VirtualStickManager</text>
+  <text x="300" y="279" font-size="15" fill="#525252">stick input from code</text>
+
+  <rect x="286" y="300" width="338" height="56" rx="8" fill="#ffffff" stroke="#171717" stroke-width="1.5"/>
+  <text x="300" y="324" font-size="18" font-weight="700" fill="#171717">SimulatorManager</text>
+  <text x="300" y="345" font-size="15" fill="#525252">simulated flight on or off</text>
+
+  <!-- Hardware chain -->
+  <text x="935" y="112" font-size="15.5" font-weight="600" fill="#737373" text-anchor="middle">Hardware: out of your code&#39;s reach</text>
+
+  <line x1="644" y1="200" x2="756" y2="200" stroke="#171717" stroke-width="2" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+  <text x="700" y="189" font-size="14" fill="#171717" text-anchor="middle">USB cable</text>
+
+  <rect x="760" y="150" width="140" height="100" rx="10" fill="#ffffff" stroke="#171717" stroke-width="2"/>
+  <text x="830" y="195" font-size="18" font-weight="700" fill="#171717" text-anchor="middle">Remote</text>
+  <text x="830" y="218" font-size="18" font-weight="700" fill="#171717" text-anchor="middle">controller</text>
+
+  <line x1="904" y1="200" x2="966" y2="200" stroke="#171717" stroke-width="2" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+  <text x="935" y="189" font-size="14" fill="#171717" text-anchor="middle">radio</text>
+
+  <rect x="970" y="150" width="140" height="100" rx="10" fill="#ffffff" stroke="#171717" stroke-width="2"/>
+  <text x="1040" y="195" font-size="18" font-weight="700" fill="#171717" text-anchor="middle">Aircraft</text>
+  <text x="1040" y="218" font-size="15" fill="#525252" text-anchor="middle">flight controller</text>
+
+  <!-- Who is in control -->
+  <text x="830" y="278" font-size="14" font-weight="600" fill="#2563eb" text-anchor="middle">pilot can take over:</text>
+  <text x="830" y="298" font-size="14" font-weight="600" fill="#2563eb" text-anchor="middle">pause, mode switch</text>
+  <text x="1040" y="278" font-size="14" font-weight="600" fill="#2563eb" text-anchor="middle">decides who flies</text>
+  <text x="1040" y="298" font-size="14" font-weight="600" fill="#2563eb" text-anchor="middle">runs the simulator</text>
+</svg>
