@@ -29,7 +29,7 @@
     "mod": "5",
     "tag": "safety",
     "title": "Flying Safely — Before You Arm the Motors",
-    "desc": "Under 250 g is not harmless — and your own code bypasses the guardrails DJI Fly enforces",
+    "desc": "Under 250 g is not harmless — and your own app shows none of the warnings DJI Fly gives",
     "body": [
       {
         "card": "Where you fly",
@@ -52,7 +52,7 @@
         "card": "Your code is the risk",
         "items": [
           "<strong>Virtual stick is the dangerous mode</strong> &mdash; the aircraft obeys your loop, not the pilot; build in a timeout / deadman check",
-          "<strong>DJI Fly's limits are not the law</strong> &mdash; the app ceiling is configurable and <strong>your own SDK code bypasses it entirely</strong>",
+          "<strong>The drone's limits are not the law</strong> &mdash; its height limit and no-fly zones still apply to your code, but the height limit is a setting any app can raise, and <strong>your app shows none of DJI Fly's warnings</strong>",
           "<strong>Props off + <code>enableSimulator</code> first</strong>, then indoors with guards &mdash; <strong>your code never flies outdoors</strong> (Module 2)",
           "<strong>Know the abort path before takeoff</strong>: RC pause &gt; left stick down &gt; power cut &mdash; misbehaves? Land immediately",
           "Everything on this slide has one price tag: <strong>as pilot you are the personally liable operator</strong> (Module 2)"
@@ -71,9 +71,9 @@
       {
         "card": "What it does",
         "items": [
-          "A single screen with one green button: <strong>FLY MISSION</strong>",
+          "A single screen with one mission button, <strong>Mission 1 (demo)</strong>, and a red <strong>STOP + LAND</strong>",
           "Press it &rarr; the Mini 4 Pro <strong>takes off, flies ~1.5&nbsp;m forward, spins 180&deg;, flies ~1.5&nbsp;m back, and lands</strong> &mdash; entirely on its own",
-          "~400 lines of Kotlin on the DJI Mobile SDK v5, built in a couple of hours",
+          "~500 lines of Kotlin on the DJI Mobile SDK v5, built in a couple of hours",
           "Code &amp; full write-up: <a href=\"https://github.com/rl-experiments/lecture-drones-airtraffic-modeling/tree/main/labs/dji-hello-world\" target=\"_blank\"><strong>labs/dji-hello-world</strong></a>"
         ]
       },
@@ -305,7 +305,7 @@
       {
         "card": "Camera &amp; gimbal",
         "items": [
-          "Adjust settings &mdash; <strong>shutter, ISO, aperture, exposure</strong>",
+          "Adjust settings &mdash; <strong>shutter, ISO, exposure</strong>",
           "Capture photos and video; <strong>point the gimbal</strong> from code",
           "Pull the <strong>live video feed</strong> into your app for image processing"
         ]
@@ -384,7 +384,7 @@
           "<strong>Build and install</strong> the app on the phone; connect via the RC's <em>data</em> port and wait for <code>FC connected: true</code> in the log",
           "<strong>Enable the simulator</strong> (<code>SimulatorManager.enableSimulator</code>, README &sect;4) &mdash; the flight controller now flies a virtual aircraft",
           "<strong>Read one value</strong> from KeyManager &mdash; <code>KeyGPSSatelliteCount</code> or <code>KeyAircraftLocation3D</code> &mdash; and log it every second: your first telemetry",
-          "<strong>Press FLY MISSION</strong> and watch the <code>step()</code> lines scroll: takeoff, hop, turn, hop, landing &mdash; in the simulator, nothing moves but the numbers",
+          "<strong>Press Mission 1 (demo)</strong> and watch the <code>step()</code> lines scroll: takeoff, hop, turn, hop, landing &mdash; in the simulator, nothing moves but the numbers",
           "Hand in: a screenshot of that log. That is the baseline every project starts from"
         ]
       }

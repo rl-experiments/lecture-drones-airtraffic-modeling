@@ -87,7 +87,7 @@
         "card": "Why outdoor + code is a different animal",
         "items": [
           "Indoors a runaway loop meets <strong>a wall within meters</strong> &mdash; outdoors nothing stops it: the link drops, your code keeps commanding, and the drone is <strong>gone across the city</strong>",
-          "Our SDK code <strong>bypasses DJI Fly's guardrails</strong> &mdash; altitude limits and geo-zone warnings simply don't exist in your virtual-stick loop",
+          "Your app shows <strong>none of DJI Fly's warnings</strong> &mdash; no altitude alert, no geo-zone prompt. The drone's own height limit and no-fly zones still apply, but the height limit is a setting any app can raise, and neither is the legal limit",
           "Outdoors the drone meets <strong>uninvolved people</strong> &mdash; a code bug is no longer a lab incident, it is an <strong>aviation incident with you as the liable operator</strong>"
         ]
       },
