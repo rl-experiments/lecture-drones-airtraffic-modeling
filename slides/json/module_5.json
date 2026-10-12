@@ -339,7 +339,7 @@
     "type": "content",
     "mod": "5",
     "tag": "exercise",
-    "title": "Set Up the Toolchain — and Your First 30 Minutes",
+    "title": "Set Up the Toolchain",
     "desc": "Four downloads, one account, everything free — then a first run with the props off",
     "body": [
       {
@@ -379,7 +379,7 @@
         }
       },
       {
-        "card": "First 30 minutes in the lab — props off, drone on the desk",
+        "card": "First run in the lab — props off, drone on the desk",
         "items": [
           "<strong>Build and install</strong> the app on the phone; connect via the RC's <em>data</em> port and wait for <code>FC connected: true</code> in the log",
           "<strong>Enable the simulator</strong> (<code>SimulatorManager.enableSimulator</code>, README &sect;4) &mdash; the flight controller now flies a virtual aircraft",
