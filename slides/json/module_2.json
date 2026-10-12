@@ -78,6 +78,8 @@
     "type": "content",
     "mod": "2",
     "tag": "safety",
+    "icon": "hazard",
+    "iconPos": "lastcard",
     "title": "Code Flies Indoors. Outdoors, Hands Fly.",
     "desc": "The course rule on programmatic flight — and why it exists",
     "body": [

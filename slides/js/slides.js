@@ -415,9 +415,11 @@
   container.innerHTML = allHtml;
 
   // Re-parent content icons into their slide's first card so they can
-  // center vertically on it (card heights vary per slide)
+  // center vertically on it (card heights vary per slide); pos-lastcard
+  // picks the slide's last card instead
   container.querySelectorAll('.slide-content .content-icon').forEach(ic => {
-    const card = ic.parentElement.querySelector('.card');
+    const cards = ic.parentElement.querySelectorAll('.card');
+    const card = ic.classList.contains('pos-lastcard') ? cards[cards.length - 1] : cards[0];
     if (card) card.appendChild(ic);
   });
 
