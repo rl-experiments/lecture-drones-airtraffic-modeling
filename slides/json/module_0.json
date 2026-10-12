@@ -224,30 +224,26 @@
           "headers": [
             "Graded part",
             "What it is",
-            "Weight",
             "Defined in"
           ],
           "rows": [
             [
               "<strong>Working build</strong>",
               "Your own increment on top of the DJI client, on hardware or in the simulator",
-              "<em>[__ %]</em>",
               "Module 4, 5"
             ],
             [
               "<strong>Live demo &amp; defence</strong>",
               "Run it, change it on request, explain every design decision",
-              "<em>[__ %]</em>",
               "Module 4"
             ],
             [
               "<strong>Write-up</strong>",
               "What you built, what you measured, where the SDK stopped you",
-              "<em>[__ %]</em>",
               "Module 5"
             ]
           ],
-          "note": "One project, three views of it. Weights are announced in session 1; the bar for each part is spelled out in Module 4."
+          "note": "One project, three views of it. The bar for each part is spelled out in Module 4."
         }
       },
       {
