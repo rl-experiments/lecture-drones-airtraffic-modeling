@@ -32,12 +32,19 @@
     "desc": "Under 250 g is not harmless — and your own app shows none of the warnings DJI Fly gives",
     "body": [
       {
-        "card": "Where you fly",
+        "card": "Indoors &mdash; the university's drones",
         "items": [
-          "<strong>Indoors: propeller guards mandatory</strong>, no exceptions &mdash; props at ~14,000 rpm cut skin and eyes",
-          "<strong>Indoors: no GPS</strong> &mdash; the drone drifts on optical flow alone; keep <strong>&ge; 2 m clearance</strong> to walls, windows, lamps",
-          "<strong>Outdoors: 120 m above ground is the ceiling</strong> for the whole Open category &mdash; a narrow allowance exists near obstacles over 105 m tall, don't plan around it",
-          "<strong>Outdoors: check DiPUL first</strong> &mdash; airports, hospitals, prisons and nature reserves are geo-zones (<a href=\"https://maptool-dipul.dfs.de\" target=\"_blank\">maptool-dipul.dfs.de</a>, Module 14)"
+          "<strong>The university's drones fly indoors only</strong> &mdash; they have no insurance for outdoor flight",
+          "<strong>Propeller guards mandatory</strong>, no exceptions &mdash; props at ~14,000 rpm cut skin and eyes",
+          "<strong>No GPS</strong> &mdash; the drone drifts on optical flow alone; keep <strong>&ge; 2 m clearance</strong> to walls, windows, lamps"
+        ]
+      },
+      {
+        "card": "Outdoors &mdash; only your own drone, with your own insurance",
+        "muted": true,
+        "items": [
+          "<strong>120 m above ground is the ceiling</strong> for the whole Open category",
+          "<strong>Check DiPUL first</strong> &mdash; airports, hospitals, prisons and nature reserves are geo-zones (<a href=\"https://maptool-dipul.dfs.de\" target=\"_blank\">maptool-dipul.dfs.de</a>, Module 14)"
         ]
       },
       {
@@ -297,6 +304,7 @@
     "body": [
       {
         "card": "Flight control",
+        "accent": "#0369a1",
         "items": [
           "<strong>Takeoff, landing, return-to-home</strong> as direct commands",
           "<strong>Virtual Stick</strong> &mdash; synthesise stick input to fly the aircraft from code; on this drone it is the <strong>only</strong> way to fly a route"
@@ -304,6 +312,7 @@
       },
       {
         "card": "Camera &amp; gimbal",
+        "accent": "#b45309",
         "items": [
           "Adjust settings &mdash; <strong>shutter, ISO, exposure</strong>",
           "Capture photos and video; <strong>point the gimbal</strong> from code",
@@ -312,6 +321,7 @@
       },
       {
         "card": "Telemetry",
+        "accent": "#15803d",
         "items": [
           "Subscribe via <strong>KeyManager</strong> to GPS, altitude, attitude, velocity",
           "<strong>Battery, satellites, link status</strong> in real time (up to ~10 Hz)"
@@ -319,6 +329,7 @@
       },
       {
         "card": "Perception &amp; media",
+        "accent": "#0f766e",
         "items": [
           "Read <strong>obstacle-avoidance state</strong> &mdash; distances and warnings from the vision system",
           "Browse and <strong>download photos / video</strong> from the aircraft's storage"
@@ -326,6 +337,7 @@
       },
       {
         "card": "Reality check — where v5 stops",
+        "accent": "#b91c1c",
         "items": [
           "The old <strong>ActiveTrack / TapFly / Point-of-Interest</strong> modes are <em>not</em> exposed as SDK-controllable missions on consumer drones like the Mini 4 Pro",
           "<strong>No waypoint missions either</strong>: routes that the aircraft stores and flies on its own are in the SDK for enterprise models only &mdash; here your phone steers every metre, so a dropped link ends the route",

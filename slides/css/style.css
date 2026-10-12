@@ -88,6 +88,9 @@ html, body {
   content: ""; position: absolute; left: 0; top: 12px;
   width: 7px; height: 7px; border-radius: 50%; background: var(--primary);
 }
+.card.accent { border-left: 5px solid var(--card-accent); }
+.card.accent .card-title { color: var(--card-accent); }
+.card.muted { background: #ebebeb; }
 .card.warn .card-content ul li { padding-left: 30px; }
 .card.warn .card-content ul li::before {
   content: "⚠️"; background: none; width: auto; height: auto; border-radius: 0; top: 50%; transform: translateY(-50%); font-size: 20px;

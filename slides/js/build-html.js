@@ -113,8 +113,9 @@ function renderTypeBadge(tag) {
 }
 
 function renderCard(item) {
-  const warnClass = item.warn ? ' warn' : '';
-  let html = `<div class="card${warnClass}">`;
+  const warnClass = (item.warn ? ' warn' : '') + (item.muted ? ' muted' : '') + (item.accent ? ' accent' : '');
+    const accentStyle = item.accent ? ` style="--card-accent:${item.accent}"` : '';
+  let html = `<div class="card${warnClass}"${accentStyle}>`;
   if (item.card) {
     html += `<div class="card-header"><div class="card-title">${item.card}</div></div>`;
   }
