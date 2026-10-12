@@ -243,32 +243,29 @@
     "mod": "4",
     "tag": "important",
     "title": "From Proposal to Demo: Three Milestones",
-    "desc": "What you hand in, when — and the five lines every proposal must contain",
+    "desc": "What you hand in — and the five lines every proposal must contain",
     "body": [
       {
         "table": {
+          "widths": ["15%", "42%", "43%"],
           "headers": [
             "Milestone",
-            "When",
             "What you hand in",
             "What we check"
           ],
           "rows": [
             [
-              "<strong>1 &middot; Proposal</strong>",
-              "Session 3 &mdash; <em>[date]</em>",
+              "<strong>1. Proposal</strong>",
               "One page: the five lines below",
               "Is it one increment? Is the measurement named? Is the risk real?"
             ],
             [
-              "<strong>2 &middot; Checkpoint</strong>",
-              "Session 7 &mdash; <em>[date]</em>",
+              "<strong>2. Checkpoint</strong>",
               "Repo link + 5-minute stand-up: what works, what blocks you",
               "Traceable progress in the history; simulator run for anything that flies"
             ],
             [
-              "<strong>3 &middot; Live demo</strong>",
-              "Session 9 &mdash; <em>[date]</em>",
+              "<strong>3. Live demo</strong>",
               "Running build, write-up, your measurement",
               "The bar on the next slide"
             ]
