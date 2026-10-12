@@ -36,7 +36,8 @@
         "items": [
           "A crashed Mini 4 Pro is <strong>dead hardware and real money</strong> &mdash; the university paid for it once, and won't be happy paying twice",
           "A flyaway is worse than a crash: the drone simply <strong>leaves and never comes back</strong>, and so does the course equipment",
-          "On a backend, a bad deploy is rolled back in minutes &mdash; <strong>a drone in a wall stays in the wall</strong>"
+          "On a backend, a bad deploy is rolled back in minutes &mdash; <strong>a drone in a wall stays in the wall</strong>",
+          "And the drone is still the cheap part: the order is always <strong>people, then property, then the drone</strong> &mdash; hardware gets replaced, an eye does not"
         ]
       },
       {
@@ -121,7 +122,15 @@
         "items": [
           "Overflying <strong>individual uninvolved people</strong> is tolerated only if unplanned &mdash; and must be ended immediately; <strong>never plan a route over anyone</strong>",
           "A2 (30 m distance) and A3 (150 m from built-up areas) apply to heavier drones &mdash; the full table is in Module 1",
-          "The <strong>A1/A3 certificate</strong> (EU online training + exam) is the minimum license &mdash; and it binds <em>you</em> personally, not the university"
+          "For a C0 drone the EU itself only asks that you have read the manual &mdash; <strong>this course still expects the A1/A3 certificate</strong> (EU online training + exam) before you fly outdoors, and it binds <em>you</em> personally, not the university"
+        ]
+      },
+      {
+        "card": "Camera, property, weather",
+        "items": [
+          "The Mini 4 Pro carries a camera: <strong>no flight over residential property without the owner's consent</strong> &mdash; the under-250 g exemption only covers drones that cannot record",
+          "Recording identifiable people falls under <strong>GDPR</strong> &mdash; don't film anyone who hasn't agreed, and never into gardens or windows",
+          "<strong>No rain, no fog, no gusty wind</strong> &mdash; a 249 g aircraft is pushed around long before the spec-sheet limit; at night only with a <strong>green flashing light</strong>, and VLOS still applies"
         ]
       }
     ]
@@ -187,7 +196,14 @@
           "<strong>1. Test framework first</strong> &mdash; unit tests for every distance / velocity / duration calculation <em>before</em> the flight code exists",
           "<strong>2. Recheck the tests manually</strong> &mdash; read every assertion yourself and confirm the expected values against the SDK docs, <em>not</em> against the generated code",
           "<strong>3. <code>enableSimulator</code></strong> &mdash; fly the mission virtually and watch the telemetry: did it move 2.0 m, or 7?",
-          "<strong>4. Only then a real flight</strong> &mdash; indoors, propeller guards on, the SAFETY rules from the Lab module apply every single time"
+          "<strong>4. Only then a real flight</strong> &mdash; indoors, propeller guards on, and in a <strong>reduced envelope first</strong>: low speed, low height, short legs; the SAFETY rules from the Lab module apply every single time"
+        ]
+      },
+      {
+        "card": "What the simulator cannot prove",
+        "items": [
+          "A green simulator run proves <strong>your arithmetic, not the room</strong>: indoors there is no GPS, and the drone drifts on optical flow alone",
+          "Optical flow <strong>loses its grip</strong> over plain or reflective floors and in low light &mdash; and the air near walls and the ceiling pushes back in ways no simulator models"
         ]
       },
       {
@@ -196,6 +212,48 @@
           "Every motion command has an <strong>explicit bound</strong>: max altitude, max distance, hard timeout",
           "Units are visible in the code &mdash; <code>distanceMeters</code>, <code>speedMetersPerSecond</code>, <code>durationMs</code> &mdash; so a mix-up <strong>fails to read, not just to fly</strong>",
           "The <strong>abort path is testable without the aircraft</strong>: the deadman timeout fires, virtual stick disables, the mission stops"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "2",
+    "tag": "safety",
+    "icon": "hazard",
+    "title": "When It Goes Wrong: People First, Drone Last",
+    "desc": "Decide all of this before takeoff — in the air there is no time to think",
+    "body": [
+      {
+        "card": "The order of priority",
+        "items": [
+          "<strong>People, then property, then the drone</strong> &mdash; a wrecked Mini 4 Pro is paperwork; an injured eye is not",
+          "<strong>Never grab a flying drone, never step under it &mdash; let it crash.</strong> Props at ~14,000 rpm cut skin and eyes, guards or not"
+        ],
+        "warn": true
+      },
+      {
+        "card": "Abort — one pilot, hands on the RC",
+        "items": [
+          "<strong>One named pilot</strong> holds the RC for the whole flight and does nothing else; a <strong>spotter</strong> watches the aircraft and the room &mdash; whoever watches the laptop is never the pilot",
+          "The abort sequence, rehearsed with props off: <strong>RC pause &gt; left stick down &gt; power cut</strong>",
+          "<strong>Anyone in the room may call &quot;abort&quot;</strong> &mdash; the pilot lands first and discusses afterwards"
+        ]
+      },
+      {
+        "card": "Failsafes and batteries",
+        "items": [
+          "Indoors, set the <strong>signal-lost action to hover or land</strong> before takeoff &mdash; Return-to-Home climbs first, <strong>straight into the ceiling</strong>",
+          "A low battery makes the drone return or land <strong>on its schedule, not yours</strong> &mdash; be on the ground by 30 %",
+          "A <strong>swollen, dented or crashed battery</strong> is never flown or charged again &mdash; hand it in. Charge only attended, on a surface that cannot burn",
+          "A burning battery gives off toxic smoke: <strong>clear the room and raise the alarm</strong> &mdash; don't try to carry it out"
+        ]
+      },
+      {
+        "card": "After any incident",
+        "items": [
+          "<strong>Report every crash, flyaway and near miss to the lecturer right away</strong> &mdash; no blame; a reported incident is how the course learns, a hidden one is the real problem",
+          "A crashed drone is <strong>grounded until checked</strong>: props, arms, battery"
         ]
       }
     ]
@@ -214,6 +272,8 @@
           "&#9744; Every test <strong>manually reviewed</strong> against the SDK docs by a human",
           "&#9744; Mission flown in <strong><code>enableSimulator</code></strong> &mdash; telemetry matches the intended distances",
           "&#9744; Bounds, timeout and <strong>abort path verified</strong>",
+          "&#9744; Aircraft checked: <strong>props undamaged, guards on, battery healthy</strong> &mdash; and the room cleared",
+          "&#9744; <strong>Pilot and spotter named</strong>, failsafe set to hover or land, abort sequence said out loud",
           "&#9744; Only then: props on, guards on, fly"
         ]
       },
