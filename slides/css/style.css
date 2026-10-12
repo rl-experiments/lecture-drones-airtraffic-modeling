@@ -38,6 +38,7 @@ html, body {
   transition: opacity 0.4s ease, visibility 0.4s;
 }
 .slide.active { visibility: visible; opacity: 1; }
+.slide.slide-takeaway { background-color: #ede4fb; background-image: none !important; }
 
 /* ══════════════════════════════════════
    BUTTONS (shadcn)

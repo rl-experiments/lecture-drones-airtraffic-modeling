@@ -340,7 +340,8 @@ function renderSlide(slide, idx) {
   // Content slide
   const layout = slide.layout || 'left';
   const activeClass = idx === 0 ? ' active' : '';
-  let html = `<div class="slide${activeClass} slide-content layout-${layout}"${bgStyle}>`;
+  const tagClass = slide.tag === 'takeaway' ? ' slide-takeaway' : '';
+  let html = `<div class="slide${activeClass} slide-content layout-${layout}${tagClass}"${bgStyle}>`;
 
   // Exercise overlay
   if (slide.tag === 'exercise') {

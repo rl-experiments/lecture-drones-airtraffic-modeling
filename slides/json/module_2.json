@@ -14,8 +14,8 @@
     },
     "bg": 7,
     "icon": "hazard",
-    "h1": "Safety & Testing",
-    "lead": "Test First. Fly Later.",
+    "h1": "Module 2",
+    "lead": "Safety &amp; Testing: Test First. Fly Later.",
     "sub": "<span style=\"color: var(--destructive)\">An untested command doesn't cost you a failed unit test &mdash; it costs the university a drone.</span> This module is the gate everything else in this course passes through.",
     "badges": [
       "Test-First",
