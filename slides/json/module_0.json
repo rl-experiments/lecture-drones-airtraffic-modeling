@@ -157,67 +157,57 @@
         "table": {
           "headers": [
             "Session",
-            "Date",
             "Modules",
             "Format &amp; milestones"
           ],
           "rows": [
             [
               "1",
-              "<em>[date]</em>",
               "Intro, M1",
               "Lecture &middot; FlightAware exercise"
             ],
             [
               "2",
-              "<em>[date]</em>",
               "M2, M3",
               "Lecture &middot; spot-the-bug &middot; safety-requirements exercise"
             ],
             [
               "3",
-              "<em>[date]</em>",
               "M4, M5",
               "<strong>Lab</strong>: first flight in the simulator &middot; <strong>project proposal due</strong>"
             ],
             [
               "4",
-              "<em>[date]</em>",
               "M6, M7",
               "Lecture &middot; Swagger live demo"
             ],
             [
               "5",
-              "<em>[date]</em>",
               "M8, M9",
               "Lecture &middot; ingest handler &middot; delivery guarantees"
             ],
             [
               "6",
-              "<em>[date]</em>",
               "M10, M11",
               "Lecture &middot; Karate against the demo service"
             ],
             [
               "7",
-              "<em>[date]</em>",
               "M12",
               "Lecture &middot; live METAR decoding &middot; <strong>project checkpoint</strong>"
             ],
             [
               "8",
-              "<em>[date]</em>",
               "M13, M14",
               "Lecture &middot; BlueSky scenario &middot; geo-zone check"
             ],
             [
               "9",
-              "<em>[date]</em>",
               "M15",
               "<strong>Live demos</strong> &middot; wrap-up"
             ]
           ],
-          "note": "Dates are fixed at semester start. Lab flight slots are booked separately — book early, flight time is the scarce resource (Module 4)."
+          "note": "Lab flight slots are booked separately — book early, flight time is the scarce resource (Module 4)."
         }
       }
     ]
