@@ -146,15 +146,61 @@ entirely virtually, reporting simulated GPS, altitude and attitude back through
 nothing. The Mini 4 Pro supports this: `SimulatorManager` is declared in the
 SDK's own `assets/ProductCapability/DJIMini4Pro/DJIMini4ProCapability.json`.
 
-The course client does **not** call it yet — wiring it up is a good first change.
+The app calls it from the **Simulator** checkbox above the mission buttons. Tick it
+once the drone is connected; the log confirms *Simulator ON* and the status block
+shows `Simulator: ON`. It switches itself off when the drone disconnects.
+
+### Mission 2 (light painting)
+
+The second button draws three lines in the air for a long-exposure photo:
+**"Albstadt"**, under it **"Informatik"**, under that a **heart**. The words are
+traced from the script font Agatha Bergman. Where the pen of the font lifts, the drone
+switches its lights off, flies to the next piece, and switches them on again. The
+figure is about 61 m wide and reaches 73 m; the whole flight is about 800 m and takes
+roughly twelve minutes.
+
+1. Camera on a tripod, far enough back to frame ~70 m of sky across and ~75 m up. The
+   drone's own lights draw the lines, so the drone stays stock and under 250 g.
+2. Put the drone down with its **nose pointing at the camera**. That spot is under the
+   bottom-left corner of the figure, as the camera sees it.
+3. Press **Mission 2 (light painting)** and type `yes, fly` to unlock the flight.
+4. Open the shutter and keep it open for the whole flight. Take the cover off the lens
+   when the status says **UNCOVER THE LENS** and put it back at **COVER THE LENS**: the
+   drone hovers 5 s at each, and flies from one line to the next while the lens is
+   covered. After the heart it flies back and lands.
+
+Unlike Mission 1 it steers on the measured GPS position, not on time, so it refuses to
+start with fewer than 10 satellites, less than 90 % battery (the simulator only warns),
+or a height limit below 78 m (or a distance limit below 71 m, if one is on). If it
+leaves the box around the figure by more than 8 m, or loses its position, it stops and **hovers** —
+take over with the RC or press **STOP + LAND**.
+
+**Check the lights first.** With the drone connected on the table, untick **Drone lights
+on**: its LEDs should go dark, and the log says *Switching the lights: ok*. If they stay
+on, the flight still works, but the hops between the pieces show in the photo as thin
+lines.
+
+**Fly it in the simulator first.** The stick directions and the speed constants at the
+top of `MainActivity.kt` have only been checked against a model, not against the drone.
+The figure itself is the lists of points in `FigurePath.kt`.
+
+### Mission 3 (star)
+
+Draws a five-pointed star, **2 m across**, standing upright above the take-off spot:
+the lowest tips at ~1.2 m, the top at 3.0 m (under 5 m). Place the drone with its nose
+pointing at the camera; the star stands across the nose, 1 m to each side. The lights
+are on while the star is drawn. Like Mission 1, it steers on the drone's measured
+velocity, so it flies indoors and outdoors. You need a ceiling above 3.7 m. Tune with
+`STAR_DIAMETER_M` / `STAR_BOTTOM_ALT_M`; the path is drawn in `mission3-path.svg`.
 
 ### Outdoors vs. indoors
 
 - **Outdoors** with good GPS is the safest first *real* flight (after the
   simulator) — the drone holds position precisely and lands cleanly. Check
   [DiPUL](https://maptool-dipul.dfs.de) for geo-zones first, and stay under the
-  **120 m** open-category ceiling — note that your own SDK code is not bound by
-  the limits DJI Fly enforces.
+  **120 m** open-category ceiling — note that your own app shows none of the
+  warnings DJI Fly gives. The drone's own height limit and no-fly zones still
+  apply, but the height limit is a setting any app can raise.
 - **Indoors / no GPS** works too: the Mini holds position on its downward vision
   sensors (exactly like DJI Fly). The app warns but proceeds. Needs **good lighting**
   and a **textured floor**; expect a little drift.
@@ -169,10 +215,14 @@ The course client does **not** call it yet — wiring it up is a good first chan
 - **STOP + LAND** aborts and auto-lands at any time.
 - **Moving the physical RC sticks instantly takes control back** from the app — that
   is always your manual override. The RC pause button also cancels app control.
-- The forward legs are **timed and open-loop** (~10 % stick for 1 s ≈ 1.5 m once
-  braking is included), so distance is approximate and overshoots — test with margin
-  indoors. Tune `FORWARD_STICK` / `FORWARD_MS` in `MainActivity.kt`, or add closed-loop
-  distance control for an exact stop.
+  The app notices this, stops the mission and sends nothing more: **it will not land
+  the drone after you have taken over.** You are flying; land it yourself.
+- Both legs steer on a **measured position**: the drone's own velocity, added up from
+  the take-off spot. That works on GPS outdoors and on the vision sensors indoors, and
+  the way back aims at the take-off spot, so errors in the turn don't add up. Expect
+  ~10–30 cm off after landing; the log shows the drone's own count. If the drone
+  reports no velocity, the app falls back to the old timed legs (`FORWARD_STICK` /
+  `FORWARD_MS`).
 
 ---
 
