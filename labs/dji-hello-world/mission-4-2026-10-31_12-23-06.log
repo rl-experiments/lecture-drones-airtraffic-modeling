@@ -1,0 +1,337 @@
+17 avoidance type=BRAKE horizontal=failed: UNSUPPORTED
+18 obstacle nearest_mm=null sector_deg=null up_mm=0 down_mm=0
+337 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=60000
+1066 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=100
+2565 obstacle nearest_mm=1800 sector_deg=23 up_mm=5696 down_mm=100
+2864 obstacle nearest_mm=2099 sector_deg=23 up_mm=5619 down_mm=152
+3155 obstacle nearest_mm=2116 sector_deg=23 up_mm=5549 down_mm=224
+3364 obstacle nearest_mm=2118 sector_deg=23 up_mm=5300 down_mm=351
+3566 obstacle nearest_mm=1978 sector_deg=173 up_mm=5216 down_mm=321
+3863 obstacle nearest_mm=2144 sector_deg=173 up_mm=5187 down_mm=468
+4064 obstacle nearest_mm=2049 sector_deg=173 up_mm=5371 down_mm=557
+4264 obstacle nearest_mm=2026 sector_deg=173 up_mm=4644 down_mm=752
+4556 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=867
+4763 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1025
+4964 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1141
+5164 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1172
+5464 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1202
+5763 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1182
+5975 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1181
+6266 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1158
+6474 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1204
+6758 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1205
+7075 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1186
+7358 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1198
+7564 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1182
+7774 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1207
+7974 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1156
+8274 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1182
+8475 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1198
+8675 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1219
+8963 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1168
+9174 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1184
+9462 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1200
+9686 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1193
+9688 leg target n=0.73 e=0.68 u=1.20
+9714 step dt_ms=26 n=0.00 e=0.00 u=1.20 dist=1.00 heading=43.0 stick_fwd=33 stick_right=0 stick_up=0 vn=0.00 ve=0.00 vd=0.00 updates=1
+9819 step dt_ms=105 n=0.00 e=0.00 u=1.20 dist=1.00 heading=43.0 stick_fwd=33 stick_right=0 stick_up=0 vn=0.00 ve=0.00 vd=0.00 updates=1
+9924 step dt_ms=104 n=0.00 e=0.00 u=1.20 dist=1.00 heading=43.1 stick_fwd=33 stick_right=0 stick_up=0 vn=0.00 ve=0.00 vd=0.00 updates=1
+9964 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1142
+10030 step dt_ms=105 n=0.00 e=0.00 u=1.20 dist=1.00 heading=43.0 stick_fwd=33 stick_right=0 stick_up=0 vn=0.00 ve=0.00 vd=0.00 updates=1
+10134 step dt_ms=105 n=0.00 e=0.00 u=1.20 dist=0.99 heading=43.0 stick_fwd=33 stick_right=0 stick_up=0 vn=0.10 ve=0.10 vd=0.00 updates=2
+10238 step dt_ms=104 n=0.02 e=0.02 u=1.20 dist=0.97 heading=43.0 stick_fwd=33 stick_right=0 stick_up=0 vn=0.30 ve=0.20 vd=0.00 updates=3
+10276 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1158
+10342 step dt_ms=105 n=0.06 e=0.05 u=1.20 dist=0.92 heading=43.0 stick_fwd=33 stick_right=0 stick_up=0 vn=0.40 ve=0.40 vd=0.00 updates=4
+10450 step dt_ms=107 n=0.11 e=0.10 u=1.20 dist=0.85 heading=43.0 stick_fwd=33 stick_right=0 stick_up=0 vn=0.60 ve=0.50 vd=0.00 updates=5
+10554 step dt_ms=104 n=0.18 e=0.16 u=1.20 dist=0.75 heading=42.9 stick_fwd=33 stick_right=0 stick_up=0 vn=0.70 ve=0.70 vd=0.00 updates=6
+10564 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1160
+10658 step dt_ms=105 n=0.27 e=0.24 u=1.20 dist=0.64 heading=43.0 stick_fwd=28 stick_right=0 stick_up=0 vn=0.90 ve=0.80 vd=0.00 updates=7
+10763 step dt_ms=104 n=0.37 e=0.33 u=1.20 dist=0.50 heading=43.0 stick_fwd=22 stick_right=0 stick_up=0 vn=1.00 ve=0.90 vd=0.00 updates=8
+10766 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1183
+10867 step dt_ms=104 n=0.48 e=0.43 u=1.20 dist=0.35 heading=43.0 stick_fwd=15 stick_right=0 stick_up=0 vn=1.10 ve=1.00 vd=0.00 updates=9
+10971 step dt_ms=104 n=0.60 e=0.55 u=1.20 dist=0.19 heading=43.0 stick_fwd=8 stick_right=0 stick_up=0 vn=1.10 ve=1.10 vd=0.00 updates=10
+10974 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1186
+11072 leg arrived dist=0.03
+11263 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1188
+11574 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1152
+11875 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1174
+12162 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1154
+12362 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1161
+12414 leg target n=-0.99 e=-0.12 u=1.20
+12421 step dt_ms=5 n=1.09 e=1.01 u=1.20 dist=2.37 heading=43.0 stick_fwd=-32 stick_right=8 stick_up=0 vn=-0.10 ve=-0.10 vd=0.00 updates=18
+12526 step dt_ms=106 n=1.08 e=1.01 u=1.20 dist=2.36 heading=43.0 stick_fwd=-32 stick_right=8 stick_up=0 vn=0.00 ve=0.00 vd=0.00 updates=19
+12566 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1184
+12633 step dt_ms=106 n=1.08 e=1.01 u=1.20 dist=2.36 heading=43.1 stick_fwd=-32 stick_right=8 stick_up=0 vn=0.00 ve=0.00 vd=0.00 updates=19
+12737 step dt_ms=105 n=1.08 e=1.01 u=1.20 dist=2.36 heading=43.1 stick_fwd=-32 stick_right=8 stick_up=0 vn=0.00 ve=0.00 vd=0.00 updates=19
+12766 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1133
+12842 step dt_ms=105 n=1.08 e=1.01 u=1.20 dist=2.36 heading=43.2 stick_fwd=-32 stick_right=8 stick_up=0 vn=-0.10 ve=0.00 vd=0.00 updates=20
+12947 step dt_ms=105 n=1.06 e=1.00 u=1.20 dist=2.34 heading=43.4 stick_fwd=-32 stick_right=8 stick_up=0 vn=-0.30 ve=-0.10 vd=0.00 updates=21
+13052 step dt_ms=105 n=1.02 e=0.98 u=1.20 dist=2.29 heading=43.4 stick_fwd=-32 stick_right=8 stick_up=0 vn=-0.50 ve=-0.20 vd=0.00 updates=22
+13156 step dt_ms=105 n=0.95 e=0.96 u=1.20 dist=2.22 heading=43.4 stick_fwd=-32 stick_right=8 stick_up=0 vn=-0.70 ve=-0.30 vd=0.00 updates=23
+13166 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1173
+13261 step dt_ms=104 n=0.87 e=0.92 u=1.20 dist=2.13 heading=43.3 stick_fwd=-32 stick_right=8 stick_up=0 vn=-0.90 ve=-0.40 vd=0.00 updates=24
+13367 step dt_ms=107 n=0.76 e=0.87 u=1.20 dist=2.01 heading=43.2 stick_fwd=-32 stick_right=8 stick_up=0 vn=-1.10 ve=-0.50 vd=0.00 updates=25
+13472 step dt_ms=104 n=0.63 e=0.81 u=1.20 dist=1.88 heading=43.1 stick_fwd=-32 stick_right=8 stick_up=0 vn=-1.20 ve=-0.60 vd=0.00 updates=26
+13474 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1133
+13576 step dt_ms=104 n=0.50 e=0.74 u=1.20 dist=1.73 heading=43.0 stick_fwd=-32 stick_right=7 stick_up=0 vn=-1.30 ve=-0.70 vd=0.00 updates=27
+13680 step dt_ms=105 n=0.36 e=0.67 u=1.20 dist=1.56 heading=42.9 stick_fwd=-32 stick_right=7 stick_up=0 vn=-1.40 ve=-0.70 vd=0.00 updates=28
+13766 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1188
+13784 step dt_ms=103 n=0.21 e=0.59 u=1.20 dist=1.40 heading=42.9 stick_fwd=-32 stick_right=7 stick_up=0 vn=-1.40 ve=-0.70 vd=0.00 updates=28
+13889 step dt_ms=105 n=0.07 e=0.52 u=1.20 dist=1.24 heading=43.0 stick_fwd=-32 stick_right=7 stick_up=0 vn=-1.40 ve=-0.70 vd=0.00 updates=28
+13973 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1102
+13994 step dt_ms=105 n=-0.07 e=0.45 u=1.20 dist=1.08 heading=43.4 stick_fwd=-32 stick_right=7 stick_up=0 vn=-1.30 ve=-0.70 vd=0.00 updates=29
+14099 step dt_ms=105 n=-0.17 e=0.39 u=1.20 dist=0.96 heading=43.3 stick_fwd=-32 stick_right=7 stick_up=0 vn=-0.70 ve=-0.40 vd=0.00 updates=31
+14173 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1138
+14209 step dt_ms=109 n=-0.25 e=0.35 u=1.20 dist=0.88 heading=43.1 stick_fwd=-32 stick_right=6 stick_up=0 vn=-0.40 ve=-0.30 vd=0.00 updates=32
+14315 step dt_ms=105 n=-0.29 e=0.31 u=1.20 dist=0.83 heading=43.0 stick_fwd=-32 stick_right=7 stick_up=0 vn=-0.30 ve=-0.30 vd=0.00 updates=33
+14419 step dt_ms=106 n=-0.32 e=0.28 u=1.20 dist=0.78 heading=43.1 stick_fwd=-32 stick_right=7 stick_up=0 vn=-0.30 ve=-0.30 vd=0.00 updates=33
+14466 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1176
+14525 step dt_ms=106 n=-0.35 e=0.25 u=1.20 dist=0.74 heading=43.2 stick_fwd=-32 stick_right=7 stick_up=0 vn=-0.40 ve=-0.30 vd=0.00 updates=34
+14629 step dt_ms=104 n=-0.40 e=0.21 u=1.20 dist=0.68 heading=43.2 stick_fwd=-29 stick_right=7 stick_up=0 vn=-0.50 ve=-0.40 vd=0.00 updates=35
+14734 step dt_ms=105 n=-0.46 e=0.17 u=1.20 dist=0.61 heading=43.2 stick_fwd=-26 stick_right=7 stick_up=0 vn=-0.60 ve=-0.40 vd=0.00 updates=36
+14839 step dt_ms=105 n=-0.52 e=0.13 u=1.20 dist=0.54 heading=43.0 stick_fwd=-23 stick_right=6 stick_up=0 vn=-0.60 ve=-0.40 vd=0.00 updates=36
+14865 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1193
+14943 step dt_ms=104 n=-0.58 e=0.09 u=1.20 dist=0.46 heading=43.0 stick_fwd=-20 stick_right=6 stick_up=0 vn=-0.60 ve=-0.40 vd=0.00 updates=36
+15047 step dt_ms=104 n=-0.64 e=0.05 u=1.20 dist=0.39 heading=43.1 stick_fwd=-17 stick_right=5 stick_up=0 vn=-0.50 ve=-0.30 vd=0.00 updates=37
+15065 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1150
+15151 step dt_ms=104 n=-0.68 e=0.03 u=1.20 dist=0.35 heading=43.1 stick_fwd=-15 stick_right=5 stick_up=0 vn=-0.30 ve=-0.20 vd=0.00 updates=38
+15256 step dt_ms=106 n=-0.70 e=0.01 u=1.20 dist=0.32 heading=43.0 stick_fwd=-13 stick_right=4 stick_up=0 vn=-0.20 ve=-0.10 vd=0.00 updates=39
+15265 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1188
+15361 step dt_ms=104 n=-0.73 e=0.00 u=1.20 dist=0.29 heading=43.0 stick_fwd=-12 stick_right=4 stick_up=0 vn=-0.20 ve=-0.10 vd=0.00 updates=39
+15465 step dt_ms=105 n=-0.75 e=-0.01 u=1.20 dist=0.27 heading=43.0 stick_fwd=-11 stick_right=4 stick_up=0 vn=-0.20 ve=-0.10 vd=0.00 updates=39
+15570 step dt_ms=104 n=-0.77 e=-0.02 u=1.20 dist=0.25 heading=43.0 stick_fwd=-10 stick_right=3 stick_up=0 vn=-0.20 ve=-0.10 vd=0.00 updates=39
+15668 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1230
+15674 step dt_ms=105 n=-0.79 e=-0.03 u=1.20 dist=0.22 heading=43.1 stick_fwd=-9 stick_right=3 stick_up=0 vn=-0.20 ve=-0.10 vd=0.00 updates=39
+15778 step dt_ms=104 n=-0.82 e=-0.04 u=1.20 dist=0.19 heading=43.1 stick_fwd=-8 stick_right=3 stick_up=0 vn=-0.30 ve=-0.10 vd=0.00 updates=40
+15874 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1192
+15884 step dt_ms=105 n=-0.85 e=-0.05 u=1.20 dist=0.16 heading=43.1 stick_fwd=-7 stick_right=2 stick_up=0 vn=-0.30 ve=-0.10 vd=0.00 updates=40
+15986 leg arrived dist=0.13
+16023 leg target n=0.87 e=-0.48 u=1.20
+16030 step dt_ms=6 n=-0.89 e=-0.06 u=1.20 dist=1.82 heading=43.0 stick_fwd=18 stick_right=-27 stick_up=0 vn=-0.30 ve=-0.10 vd=0.00 updates=40
+16134 step dt_ms=105 n=-0.92 e=-0.08 u=1.20 dist=1.85 heading=43.0 stick_fwd=19 stick_right=-27 stick_up=0 vn=-0.30 ve=-0.10 vd=0.00 updates=40
+16165 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1195
+16240 step dt_ms=105 n=-0.96 e=-0.09 u=1.20 dist=1.87 heading=43.0 stick_fwd=19 stick_right=-27 stick_up=0 vn=-0.30 ve=-0.10 vd=0.00 updates=40
+16347 step dt_ms=107 n=-0.98 e=-0.10 u=1.20 dist=1.90 heading=43.2 stick_fwd=19 stick_right=-27 stick_up=0 vn=-0.20 ve=-0.10 vd=0.00 updates=41
+16364 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1173
+16452 step dt_ms=105 n=-0.99 e=-0.11 u=1.20 dist=1.90 heading=43.6 stick_fwd=19 stick_right=-27 stick_up=0 vn=0.00 ve=-0.10 vd=0.00 updates=42
+16557 step dt_ms=105 n=-0.98 e=-0.12 u=1.20 dist=1.89 heading=43.8 stick_fwd=19 stick_right=-27 stick_up=0 vn=0.10 ve=-0.20 vd=0.00 updates=43
+16567 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1148
+16661 step dt_ms=104 n=-0.95 e=-0.14 u=1.20 dist=1.86 heading=43.9 stick_fwd=19 stick_right=-27 stick_up=0 vn=0.40 ve=-0.20 vd=0.00 updates=44
+16767 step dt_ms=107 n=-0.90 e=-0.17 u=1.20 dist=1.80 heading=43.8 stick_fwd=19 stick_right=-27 stick_up=0 vn=0.60 ve=-0.20 vd=0.00 updates=45
+16869 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1125
+16873 step dt_ms=105 n=-0.82 e=-0.19 u=1.20 dist=1.72 heading=43.6 stick_fwd=20 stick_right=-27 stick_up=0 vn=0.80 ve=-0.20 vd=0.00 updates=46
+16977 step dt_ms=104 n=-0.71 e=-0.21 u=1.20 dist=1.61 heading=43.4 stick_fwd=20 stick_right=-26 stick_up=0 vn=1.00 ve=-0.20 vd=0.00 updates=47
+17080 step dt_ms=104 n=-0.60 e=-0.23 u=1.20 dist=1.50 heading=43.3 stick_fwd=20 stick_right=-26 stick_up=0 vn=1.10 ve=-0.20 vd=0.00 updates=48
+17184 step dt_ms=103 n=-0.48 e=-0.25 u=1.20 dist=1.37 heading=43.2 stick_fwd=20 stick_right=-26 stick_up=0 vn=1.20 ve=-0.20 vd=0.00 updates=49
+17186 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1200
+17289 step dt_ms=105 n=-0.35 e=-0.27 u=1.20 dist=1.25 heading=43.0 stick_fwd=20 stick_right=-26 stick_up=0 vn=1.20 ve=-0.20 vd=0.00 updates=49
+17393 step dt_ms=105 n=-0.23 e=-0.29 u=1.20 dist=1.12 heading=43.0 stick_fwd=20 stick_right=-26 stick_up=0 vn=1.20 ve=-0.10 vd=0.00 updates=50
+17468 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1187
+17497 step dt_ms=104 n=-0.10 e=-0.30 u=1.20 dist=0.99 heading=43.0 stick_fwd=20 stick_right=-27 stick_up=0 vn=1.20 ve=-0.10 vd=0.00 updates=50
+17602 step dt_ms=104 n=0.02 e=-0.31 u=1.20 dist=0.87 heading=43.0 stick_fwd=19 stick_right=-27 stick_up=0 vn=1.10 ve=-0.10 vd=0.00 updates=51
+17670 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1160
+17708 step dt_ms=106 n=0.14 e=-0.32 u=1.20 dist=0.76 heading=43.0 stick_fwd=19 stick_right=-27 stick_up=0 vn=1.10 ve=-0.10 vd=0.00 updates=51
+17811 step dt_ms=104 n=0.25 e=-0.33 u=1.20 dist=0.64 heading=43.0 stick_fwd=15 stick_right=-24 stick_up=0 vn=1.10 ve=-0.10 vd=0.00 updates=51
+17872 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1193
+17920 step dt_ms=108 n=0.37 e=-0.34 u=1.20 dist=0.53 heading=43.0 stick_fwd=12 stick_right=-20 stick_up=0 vn=1.10 ve=-0.10 vd=0.00 updates=51
+18025 step dt_ms=105 n=0.49 e=-0.35 u=1.20 dist=0.41 heading=43.0 stick_fwd=9 stick_right=-16 stick_up=0 vn=1.10 ve=-0.10 vd=0.00 updates=51
+18129 step dt_ms=104 n=0.60 e=-0.36 u=1.20 dist=0.30 heading=43.0 stick_fwd=5 stick_right=-12 stick_up=0 vn=1.00 ve=-0.10 vd=0.00 updates=52
+18185 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1179
+18232 step dt_ms=104 n=0.70 e=-0.38 u=1.20 dist=0.20 heading=43.1 stick_fwd=2 stick_right=-9 stick_up=0 vn=1.00 ve=-0.20 vd=0.00 updates=53
+18334 leg arrived dist=0.11
+18368 leg target n=-0.42 e=0.91 u=1.20
+18373 step dt_ms=3 n=0.83 e=-0.41 u=1.20 dist=1.82 heading=43.1 stick_fwd=0 stick_right=33 stick_up=0 vn=0.90 ve=-0.20 vd=0.00 updates=54
+18468 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1146
+18476 step dt_ms=104 n=0.92 e=-0.43 u=1.20 dist=1.89 heading=43.1 stick_fwd=-1 stick_right=33 stick_up=0 vn=0.80 ve=-0.20 vd=0.00 updates=55
+18581 step dt_ms=105 n=0.99 e=-0.45 u=1.20 dist=1.96 heading=43.2 stick_fwd=-2 stick_right=33 stick_up=0 vn=0.70 ve=-0.20 vd=0.00 updates=56
+18684 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1157
+18690 step dt_ms=109 n=1.05 e=-0.47 u=1.20 dist=2.01 heading=43.6 stick_fwd=-2 stick_right=33 stick_up=0 vn=0.30 ve=-0.10 vd=0.00 updates=58
+18795 step dt_ms=104 n=1.08 e=-0.48 u=1.20 dist=2.04 heading=43.7 stick_fwd=-2 stick_right=33 stick_up=0 vn=0.10 ve=0.00 vd=0.00 updates=59
+18899 step dt_ms=105 n=1.09 e=-0.48 u=1.20 dist=2.05 heading=43.6 stick_fwd=-2 stick_right=33 stick_up=0 vn=0.00 ve=0.00 vd=0.00 updates=60
+18964 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1167
+19005 step dt_ms=105 n=1.09 e=-0.48 u=1.20 dist=2.05 heading=43.5 stick_fwd=-2 stick_right=33 stick_up=0 vn=-0.20 ve=0.10 vd=0.00 updates=61
+19109 step dt_ms=105 n=1.06 e=-0.46 u=1.20 dist=2.02 heading=43.3 stick_fwd=-2 stick_right=33 stick_up=0 vn=-0.50 ve=0.30 vd=0.00 updates=62
+19164 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1152
+19212 step dt_ms=103 n=1.00 e=-0.43 u=1.20 dist=1.96 heading=43.1 stick_fwd=-2 stick_right=33 stick_up=0 vn=-0.60 ve=0.40 vd=0.00 updates=63
+19315 step dt_ms=103 n=0.94 e=-0.39 u=1.20 dist=1.88 heading=43.0 stick_fwd=-2 stick_right=33 stick_up=0 vn=-0.80 ve=0.50 vd=0.00 updates=64
+19364 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1158
+19420 step dt_ms=104 n=0.85 e=-0.33 u=1.20 dist=1.78 heading=42.9 stick_fwd=-2 stick_right=33 stick_up=0 vn=-0.90 ve=0.60 vd=0.00 updates=65
+19525 step dt_ms=105 n=0.76 e=-0.26 u=1.20 dist=1.66 heading=42.9 stick_fwd=-1 stick_right=33 stick_up=0 vn=-0.90 ve=0.70 vd=0.00 updates=66
+19567 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1168
+19630 step dt_ms=105 n=0.66 e=-0.19 u=1.20 dist=1.54 heading=42.9 stick_fwd=-1 stick_right=33 stick_up=0 vn=-0.90 ve=0.70 vd=0.00 updates=66
+19734 step dt_ms=105 n=0.57 e=-0.12 u=1.20 dist=1.42 heading=42.9 stick_fwd=-1 stick_right=33 stick_up=0 vn=-0.90 ve=0.70 vd=0.00 updates=66
+19771 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1202
+19842 step dt_ms=105 n=0.47 e=-0.04 u=1.20 dist=1.31 heading=42.9 stick_fwd=0 stick_right=33 stick_up=0 vn=-0.90 ve=0.70 vd=0.00 updates=66
+19946 step dt_ms=107 n=0.38 e=0.03 u=1.20 dist=1.19 heading=42.9 stick_fwd=0 stick_right=33 stick_up=0 vn=-0.90 ve=0.70 vd=0.00 updates=66
+19975 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1207
+20056 step dt_ms=107 n=0.29 e=0.10 u=1.20 dist=1.07 heading=43.0 stick_fwd=1 stick_right=33 stick_up=0 vn=-0.80 ve=0.70 vd=0.00 updates=67
+20163 step dt_ms=108 n=0.20 e=0.18 u=1.20 dist=0.96 heading=43.0 stick_fwd=1 stick_right=33 stick_up=0 vn=-0.80 ve=0.70 vd=0.00 updates=67
+20273 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1209
+20281 step dt_ms=109 n=0.11 e=0.26 u=1.20 dist=0.84 heading=43.0 stick_fwd=2 stick_right=33 stick_up=0 vn=-0.80 ve=0.70 vd=0.00 updates=67
+20391 step dt_ms=118 n=0.02 e=0.34 u=1.20 dist=0.72 heading=43.1 stick_fwd=3 stick_right=32 stick_up=0 vn=-0.80 ve=0.70 vd=0.00 updates=67
+20498 step dt_ms=109 n=-0.05 e=0.40 u=1.20 dist=0.63 heading=43.0 stick_fwd=3 stick_right=27 stick_up=0 vn=-0.40 ve=0.40 vd=0.00 updates=69
+20574 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1168
+20606 step dt_ms=106 n=-0.09 e=0.45 u=1.20 dist=0.57 heading=43.0 stick_fwd=3 stick_right=25 stick_up=0 vn=-0.30 ve=0.30 vd=0.00 updates=70
+20713 step dt_ms=109 n=-0.12 e=0.48 u=1.20 dist=0.52 heading=43.0 stick_fwd=3 stick_right=23 stick_up=0 vn=-0.30 ve=0.30 vd=0.00 updates=70
+20775 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1177
+20821 step dt_ms=107 n=-0.15 e=0.51 u=1.20 dist=0.48 heading=42.9 stick_fwd=3 stick_right=21 stick_up=0 vn=-0.30 ve=0.40 vd=0.00 updates=71
+20930 step dt_ms=110 n=-0.18 e=0.56 u=1.20 dist=0.42 heading=42.9 stick_fwd=3 stick_right=18 stick_up=0 vn=-0.30 ve=0.40 vd=0.00 updates=71
+21036 step dt_ms=106 n=-0.22 e=0.60 u=1.20 dist=0.36 heading=42.9 stick_fwd=3 stick_right=16 stick_up=0 vn=-0.40 ve=0.50 vd=0.00 updates=72
+21087 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1186
+21145 step dt_ms=109 n=-0.26 e=0.66 u=1.20 dist=0.30 heading=42.9 stick_fwd=2 stick_right=13 stick_up=0 vn=-0.30 ve=0.50 vd=0.00 updates=73
+21252 step dt_ms=106 n=-0.29 e=0.71 u=1.20 dist=0.24 heading=43.0 stick_fwd=2 stick_right=10 stick_up=0 vn=-0.30 ve=0.40 vd=0.00 updates=74
+21359 step dt_ms=107 n=-0.32 e=0.74 u=1.20 dist=0.19 heading=43.0 stick_fwd=2 stick_right=8 stick_up=0 vn=-0.20 ve=0.30 vd=0.00 updates=75
+21373 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1171
+21466 step dt_ms=108 n=-0.33 e=0.77 u=1.20 dist=0.17 heading=43.1 stick_fwd=1 stick_right=7 stick_up=0 vn=-0.10 ve=0.20 vd=0.00 updates=76
+21569 leg arrived dist=0.14
+21633 leg target n=-0.19 e=-0.98 u=1.20
+21641 step dt_ms=6 n=-0.35 e=0.80 u=1.20 dist=1.79 heading=43.0 stick_fwd=-20 stick_right=-26 stick_up=0 vn=-0.10 ve=0.10 vd=0.00 updates=77
+21673 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1193
+21748 step dt_ms=108 n=-0.36 e=0.81 u=1.20 dist=1.80 heading=43.0 stick_fwd=-20 stick_right=-26 stick_up=0 vn=-0.10 ve=0.10 vd=0.00 updates=77
+21866 step dt_ms=117 n=-0.37 e=0.82 u=1.20 dist=1.81 heading=43.0 stick_fwd=-20 stick_right=-26 stick_up=0 vn=-0.10 ve=0.10 vd=0.00 updates=77
+21886 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1177
+21972 step dt_ms=107 n=-0.38 e=0.84 u=1.20 dist=1.83 heading=42.7 stick_fwd=-20 stick_right=-26 stick_up=0 vn=-0.10 ve=0.10 vd=0.00 updates=77
+22081 step dt_ms=108 n=-0.39 e=0.84 u=1.20 dist=1.83 heading=42.5 stick_fwd=-19 stick_right=-27 stick_up=0 vn=-0.10 ve=0.00 vd=0.00 updates=78
+22166 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1150
+22187 step dt_ms=107 n=-0.39 e=0.82 u=1.20 dist=1.81 heading=42.3 stick_fwd=-19 stick_right=-27 stick_up=0 vn=0.00 ve=-0.20 vd=0.00 updates=79
+22295 step dt_ms=108 n=-0.39 e=0.78 u=1.20 dist=1.77 heading=42.4 stick_fwd=-19 stick_right=-27 stick_up=0 vn=0.00 ve=-0.70 vd=0.00 updates=81
+22374 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1156
+22404 step dt_ms=109 n=-0.39 e=0.70 u=1.20 dist=1.70 heading=42.5 stick_fwd=-19 stick_right=-27 stick_up=0 vn=0.00 ve=-0.90 vd=0.00 updates=82
+22519 step dt_ms=115 n=-0.39 e=0.60 u=1.20 dist=1.60 heading=42.6 stick_fwd=-19 stick_right=-27 stick_up=0 vn=0.00 ve=-1.00 vd=0.00 updates=83
+22576 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1195
+22626 step dt_ms=107 n=-0.39 e=0.48 u=1.20 dist=1.48 heading=42.6 stick_fwd=-19 stick_right=-27 stick_up=0 vn=0.10 ve=-1.10 vd=0.00 updates=84
+22732 step dt_ms=105 n=-0.38 e=0.37 u=1.20 dist=1.36 heading=42.7 stick_fwd=-19 stick_right=-27 stick_up=0 vn=0.10 ve=-1.10 vd=0.00 updates=84
+22839 step dt_ms=107 n=-0.37 e=0.26 u=1.20 dist=1.25 heading=42.5 stick_fwd=-19 stick_right=-27 stick_up=0 vn=0.10 ve=-0.90 vd=0.00 updates=85
+22876 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1172
+22947 step dt_ms=108 n=-0.36 e=0.17 u=1.20 dist=1.17 heading=42.3 stick_fwd=-18 stick_right=-27 stick_up=0 vn=0.10 ve=-0.70 vd=0.00 updates=86
+23054 step dt_ms=107 n=-0.35 e=0.11 u=1.20 dist=1.10 heading=42.4 stick_fwd=-18 stick_right=-27 stick_up=0 vn=0.00 ve=-0.50 vd=0.00 updates=87
+23162 step dt_ms=108 n=-0.35 e=0.07 u=1.20 dist=1.06 heading=42.7 stick_fwd=-18 stick_right=-27 stick_up=0 vn=0.00 ve=-0.30 vd=0.00 updates=88
+23186 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1192
+23270 step dt_ms=109 n=-0.35 e=0.04 u=1.20 dist=1.04 heading=42.9 stick_fwd=-18 stick_right=-27 stick_up=0 vn=0.00 ve=-0.20 vd=0.00 updates=89
+23377 step dt_ms=107 n=-0.35 e=0.02 u=1.20 dist=1.02 heading=42.8 stick_fwd=-18 stick_right=-27 stick_up=0 vn=0.00 ve=-0.20 vd=0.00 updates=89
+23476 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1187
+23483 step dt_ms=106 n=-0.35 e=-0.01 u=1.20 dist=0.99 heading=42.6 stick_fwd=-18 stick_right=-28 stick_up=0 vn=0.00 ve=-0.30 vd=0.00 updates=90
+23607 step dt_ms=121 n=-0.35 e=-0.06 u=1.20 dist=0.93 heading=42.6 stick_fwd=-18 stick_right=-28 stick_up=0 vn=0.00 ve=-0.70 vd=0.00 updates=92
+23712 step dt_ms=110 n=-0.35 e=-0.14 u=1.20 dist=0.85 heading=43.0 stick_fwd=-17 stick_right=-28 stick_up=0 vn=0.00 ve=-0.70 vd=0.00 updates=92
+23774 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1184
+23818 step dt_ms=104 n=-0.35 e=-0.22 u=1.20 dist=0.78 heading=43.0 stick_fwd=-17 stick_right=-28 stick_up=0 vn=0.00 ve=-0.70 vd=0.00 updates=92
+23926 step dt_ms=105 n=-0.35 e=-0.29 u=1.20 dist=0.71 heading=42.9 stick_fwd=-16 stick_right=-27 stick_up=0 vn=0.00 ve=-0.60 vd=0.00 updates=93
+23976 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1167
+24032 step dt_ms=109 n=-0.35 e=-0.35 u=1.20 dist=0.65 heading=42.8 stick_fwd=-14 stick_right=-25 stick_up=0 vn=0.00 ve=-0.50 vd=0.00 updates=94
+24140 step dt_ms=105 n=-0.35 e=-0.40 u=1.20 dist=0.61 heading=42.8 stick_fwd=-12 stick_right=-24 stick_up=0 vn=0.00 ve=-0.40 vd=0.00 updates=95
+24176 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1206
+24248 step dt_ms=111 n=-0.35 e=-0.43 u=1.20 dist=0.57 heading=43.1 stick_fwd=-11 stick_right=-23 stick_up=0 vn=0.00 ve=-0.20 vd=0.00 updates=96
+24360 step dt_ms=111 n=-0.35 e=-0.45 u=1.20 dist=0.55 heading=43.1 stick_fwd=-11 stick_right=-22 stick_up=0 vn=0.00 ve=-0.20 vd=0.00 updates=96
+24378 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1174
+24465 step dt_ms=107 n=-0.35 e=-0.48 u=1.20 dist=0.53 heading=43.0 stick_fwd=-10 stick_right=-21 stick_up=0 vn=0.00 ve=-0.30 vd=0.00 updates=97
+24570 step dt_ms=105 n=-0.35 e=-0.52 u=1.20 dist=0.49 heading=42.9 stick_fwd=-9 stick_right=-20 stick_up=0 vn=0.00 ve=-0.40 vd=0.00 updates=98
+24678 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1186
+24682 step dt_ms=111 n=-0.35 e=-0.57 u=1.20 dist=0.44 heading=42.9 stick_fwd=-7 stick_right=-18 stick_up=0 vn=0.00 ve=-0.50 vd=0.00 updates=99
+24791 step dt_ms=109 n=-0.34 e=-0.63 u=1.20 dist=0.38 heading=43.0 stick_fwd=-5 stick_right=-16 stick_up=0 vn=0.10 ve=-0.50 vd=0.00 updates=101
+24881 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1189
+24898 step dt_ms=107 n=-0.33 e=-0.69 u=1.20 dist=0.33 heading=42.9 stick_fwd=-4 stick_right=-14 stick_up=0 vn=0.10 ve=-0.40 vd=0.00 updates=102
+25005 step dt_ms=106 n=-0.32 e=-0.73 u=1.20 dist=0.28 heading=42.9 stick_fwd=-3 stick_right=-12 stick_up=0 vn=0.10 ve=-0.30 vd=0.00 updates=103
+25115 step dt_ms=110 n=-0.31 e=-0.76 u=1.20 dist=0.25 heading=43.0 stick_fwd=-3 stick_right=-11 stick_up=0 vn=0.00 ve=-0.30 vd=0.00 updates=104
+25175 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1188
+25221 step dt_ms=107 n=-0.31 e=-0.79 u=1.20 dist=0.22 heading=43.1 stick_fwd=-2 stick_right=-10 stick_up=0 vn=0.10 ve=-0.20 vd=0.00 updates=105
+25333 step dt_ms=111 n=-0.30 e=-0.81 u=1.20 dist=0.20 heading=43.1 stick_fwd=-1 stick_right=-9 stick_up=0 vn=0.10 ve=-0.20 vd=0.00 updates=105
+25376 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1174
+25448 step dt_ms=112 n=-0.29 e=-0.84 u=1.20 dist=0.17 heading=43.1 stick_fwd=-1 stick_right=-7 stick_up=0 vn=0.10 ve=-0.30 vd=0.00 updates=106
+25552 leg arrived dist=0.14
+25622 leg target n=0.73 e=0.68 u=1.20
+25625 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1196
+25647 step dt_ms=21 n=-0.27 e=-0.90 u=1.20 dist=1.87 heading=43.1 stick_fwd=32 stick_right=8 stick_up=0 vn=0.10 ve=-0.30 vd=0.00 updates=106
+25754 step dt_ms=109 n=-0.26 e=-0.94 u=1.20 dist=1.90 heading=43.1 stick_fwd=32 stick_right=9 stick_up=0 vn=0.10 ve=-0.30 vd=0.00 updates=106
+25861 step dt_ms=107 n=-0.25 e=-0.97 u=1.20 dist=1.92 heading=43.0 stick_fwd=32 stick_right=9 stick_up=0 vn=0.10 ve=-0.30 vd=0.00 updates=106
+25876 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1184
+25967 step dt_ms=106 n=-0.24 e=-0.99 u=1.20 dist=1.93 heading=42.7 stick_fwd=32 stick_right=10 stick_up=0 vn=0.10 ve=-0.20 vd=0.00 updates=107
+26073 step dt_ms=106 n=-0.23 e=-1.00 u=1.20 dist=1.93 heading=42.6 stick_fwd=31 stick_right=10 stick_up=0 vn=0.10 ve=0.00 vd=0.00 updates=108
+26081 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1173
+26181 step dt_ms=108 n=-0.21 e=-1.00 u=1.20 dist=1.92 heading=42.5 stick_fwd=31 stick_right=10 stick_up=0 vn=0.20 ve=0.00 vd=0.00 updates=109
+26287 step dt_ms=106 n=-0.19 e=-0.97 u=1.20 dist=1.89 heading=42.5 stick_fwd=31 stick_right=10 stick_up=0 vn=0.20 ve=0.30 vd=0.00 updates=110
+26393 step dt_ms=106 n=-0.15 e=-0.92 u=1.20 dist=1.83 heading=42.5 stick_fwd=31 stick_right=10 stick_up=0 vn=0.30 ve=0.50 vd=0.00 updates=111
+26478 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1143
+26498 step dt_ms=106 n=-0.11 e=-0.85 u=1.20 dist=1.75 heading=42.7 stick_fwd=31 stick_right=10 stick_up=0 vn=0.40 ve=0.80 vd=0.00 updates=113
+26604 step dt_ms=105 n=-0.07 e=-0.77 u=1.20 dist=1.66 heading=42.8 stick_fwd=31 stick_right=10 stick_up=0 vn=0.40 ve=0.90 vd=0.00 updates=114
+26708 step dt_ms=105 n=-0.03 e=-0.67 u=1.20 dist=1.55 heading=42.9 stick_fwd=31 stick_right=10 stick_up=0 vn=0.50 ve=1.00 vd=0.00 updates=115
+26775 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1159
+26813 step dt_ms=104 n=0.02 e=-0.57 u=1.20 dist=1.44 heading=43.0 stick_fwd=31 stick_right=10 stick_up=0 vn=0.50 ve=1.10 vd=0.00 updates=116
+26918 step dt_ms=105 n=0.08 e=-0.45 u=1.20 dist=1.31 heading=43.0 stick_fwd=32 stick_right=10 stick_up=0 vn=0.50 ve=1.10 vd=0.00 updates=116
+26977 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1209
+27025 step dt_ms=107 n=0.13 e=-0.34 u=1.20 dist=1.18 heading=43.0 stick_fwd=32 stick_right=9 stick_up=0 vn=0.50 ve=1.10 vd=0.00 updates=116
+27131 step dt_ms=107 n=0.18 e=-0.22 u=1.20 dist=1.05 heading=43.1 stick_fwd=32 stick_right=9 stick_up=0 vn=0.50 ve=1.10 vd=0.00 updates=116
+27238 step dt_ms=106 n=0.24 e=-0.10 u=1.20 dist=0.93 heading=43.0 stick_fwd=32 stick_right=8 stick_up=0 vn=0.50 ve=1.00 vd=0.00 updates=117
+27276 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1212
+27344 step dt_ms=106 n=0.29 e=0.00 u=1.20 dist=0.81 heading=43.0 stick_fwd=32 stick_right=8 stick_up=0 vn=0.50 ve=1.00 vd=0.00 updates=117
+27452 step dt_ms=108 n=0.34 e=0.11 u=1.20 dist=0.69 heading=43.0 stick_fwd=30 stick_right=7 stick_up=0 vn=0.50 ve=1.00 vd=0.00 updates=117
+27476 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1188
+27560 step dt_ms=109 n=0.40 e=0.22 u=1.20 dist=0.57 heading=43.0 stick_fwd=25 stick_right=5 stick_up=0 vn=0.50 ve=1.00 vd=0.00 updates=117
+27667 step dt_ms=106 n=0.45 e=0.32 u=1.20 dist=0.46 heading=43.0 stick_fwd=20 stick_right=3 stick_up=0 vn=0.50 ve=0.90 vd=0.00 updates=118
+27677 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1206
+27772 step dt_ms=105 n=0.51 e=0.41 u=1.20 dist=0.35 heading=43.0 stick_fwd=15 stick_right=2 stick_up=0 vn=0.60 ve=0.90 vd=0.00 updates=119
+27882 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1203
+27884 step dt_ms=107 n=0.57 e=0.51 u=1.20 dist=0.23 heading=43.0 stick_fwd=10 stick_right=1 stick_up=0 vn=0.60 ve=0.90 vd=0.00 updates=119
+27988 leg arrived dist=0.11
+28175 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1187
+28361 leg target n=0.00 e=0.00 u=1.20
+28375 step dt_ms=13 n=0.81 e=0.86 u=1.20 dist=1.18 heading=42.9 stick_fwd=-33 stick_right=-2 stick_up=0 vn=0.40 ve=0.50 vd=0.00 updates=123
+28376 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1160
+28481 step dt_ms=105 n=0.85 e=0.90 u=1.20 dist=1.24 heading=42.9 stick_fwd=-33 stick_right=-2 stick_up=0 vn=0.30 ve=0.30 vd=0.00 updates=124
+28582 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1184
+28600 step dt_ms=119 n=0.88 e=0.92 u=1.20 dist=1.27 heading=43.0 stick_fwd=-33 stick_right=-2 stick_up=0 vn=0.20 ve=0.20 vd=0.00 updates=125
+28705 step dt_ms=105 n=0.89 e=0.93 u=1.20 dist=1.28 heading=43.0 stick_fwd=-33 stick_right=-2 stick_up=0 vn=0.00 ve=0.00 vd=0.00 updates=127
+28810 step dt_ms=105 n=0.89 e=0.93 u=1.20 dist=1.28 heading=43.0 stick_fwd=-33 stick_right=-2 stick_up=0 vn=-0.10 ve=-0.10 vd=0.00 updates=128
+28881 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1154
+28917 step dt_ms=108 n=0.87 e=0.91 u=1.20 dist=1.26 heading=42.9 stick_fwd=-33 stick_right=-2 stick_up=0 vn=-0.20 ve=-0.30 vd=0.00 updates=129
+29022 step dt_ms=105 n=0.85 e=0.88 u=1.20 dist=1.22 heading=43.0 stick_fwd=-33 stick_right=-2 stick_up=0 vn=-0.40 ve=-0.50 vd=0.00 updates=130
+29128 step dt_ms=106 n=0.80 e=0.82 u=1.20 dist=1.15 heading=43.0 stick_fwd=-33 stick_right=-2 stick_up=0 vn=-0.50 ve=-0.60 vd=0.00 updates=131
+29176 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1171
+29233 step dt_ms=105 n=0.74 e=0.75 u=1.20 dist=1.06 heading=43.0 stick_fwd=-33 stick_right=-1 stick_up=0 vn=-0.70 ve=-0.80 vd=0.00 updates=132
+29339 step dt_ms=106 n=0.66 e=0.67 u=1.20 dist=0.94 heading=43.0 stick_fwd=-33 stick_right=-1 stick_up=0 vn=-0.80 ve=-0.80 vd=0.00 updates=133
+29383 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1166
+29444 step dt_ms=105 n=0.58 e=0.58 u=1.20 dist=0.82 heading=43.0 stick_fwd=-33 stick_right=-1 stick_up=0 vn=-0.80 ve=-0.90 vd=0.00 updates=134
+29555 step dt_ms=111 n=0.49 e=0.48 u=1.20 dist=0.69 heading=43.0 stick_fwd=-30 stick_right=-1 stick_up=0 vn=-0.90 ve=-0.90 vd=0.00 updates=135
+29660 step dt_ms=105 n=0.39 e=0.38 u=1.20 dist=0.54 heading=43.0 stick_fwd=-24 stick_right=0 stick_up=0 vn=-0.90 ve=-1.00 vd=0.00 updates=136
+29684 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1199
+29769 step dt_ms=107 n=0.30 e=0.28 u=1.20 dist=0.41 heading=43.3 stick_fwd=-18 stick_right=0 stick_up=0 vn=-0.90 ve=-0.90 vd=0.00 updates=137
+29877 step dt_ms=110 n=0.21 e=0.19 u=1.20 dist=0.28 heading=43.0 stick_fwd=-13 stick_right=0 stick_up=0 vn=-0.70 ve=-0.80 vd=0.00 updates=138
+29887 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1167
+29989 step dt_ms=106 n=0.16 e=0.12 u=1.20 dist=0.20 heading=42.9 stick_fwd=-9 stick_right=1 stick_up=0 vn=-0.50 ve=-0.60 vd=0.00 updates=139
+30091 leg arrived dist=0.14
+30181 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1162
+30384 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1174
+30683 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1191
+30883 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1197
+31238 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1173
+31486 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1162
+31786 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1196
+32093 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1137
+32384 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1078
+32590 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1044
+32884 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=994
+33089 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=938
+33387 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=899
+33600 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=842
+33892 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=793
+34188 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=732
+34388 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=689
+34599 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=644
+34876 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=605
+35086 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=556
+35288 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=522
+35488 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=474
+35778 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=407
+35986 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=387
+36186 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=342
+36386 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=306
+36589 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=272
+36889 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=210
+37181 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=158
+37383 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=111
+37683 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=84
+37885 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=43
+38086 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=23
+38383 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=15
+38586 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=14
+38785 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=15
+39189 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=100

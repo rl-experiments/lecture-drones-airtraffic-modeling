@@ -1,0 +1,441 @@
+29 avoidance type=BRAKE horizontal=failed: UNSUPPORTED
+30 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=100
+310 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=60000
+851 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=100
+2653 obstacle nearest_mm=1873 sector_deg=3 up_mm=5746 down_mm=100
+2852 obstacle nearest_mm=1884 sector_deg=3 up_mm=5690 down_mm=112
+3053 obstacle nearest_mm=1871 sector_deg=208 up_mm=5713 down_mm=243
+3366 obstacle nearest_mm=1908 sector_deg=3 up_mm=5557 down_mm=359
+3657 obstacle nearest_mm=1833 sector_deg=208 up_mm=5489 down_mm=292
+3958 obstacle nearest_mm=1944 sector_deg=173 up_mm=5433 down_mm=505
+4253 obstacle nearest_mm=1924 sector_deg=203 up_mm=4916 down_mm=649
+4553 obstacle nearest_mm=2045 sector_deg=88 up_mm=4769 down_mm=724
+4753 obstacle nearest_mm=1926 sector_deg=108 up_mm=4673 down_mm=870
+4961 obstacle nearest_mm=1879 sector_deg=113 up_mm=4576 down_mm=934
+5160 obstacle nearest_mm=1977 sector_deg=103 up_mm=4354 down_mm=985
+5361 obstacle nearest_mm=2031 sector_deg=98 up_mm=4382 down_mm=1187
+5562 obstacle nearest_mm=1739 sector_deg=113 up_mm=4347 down_mm=1257
+5860 obstacle nearest_mm=1975 sector_deg=103 up_mm=4366 down_mm=1216
+6061 obstacle nearest_mm=1971 sector_deg=103 up_mm=4244 down_mm=1180
+6263 obstacle nearest_mm=1970 sector_deg=103 up_mm=4370 down_mm=1170
+6560 obstacle nearest_mm=1965 sector_deg=103 up_mm=4119 down_mm=1225
+6760 obstacle nearest_mm=1969 sector_deg=103 up_mm=4368 down_mm=1253
+6960 obstacle nearest_mm=1966 sector_deg=103 up_mm=4363 down_mm=1262
+7260 obstacle nearest_mm=1853 sector_deg=103 up_mm=4235 down_mm=1270
+7461 obstacle nearest_mm=1924 sector_deg=183 up_mm=4109 down_mm=1227
+7662 obstacle nearest_mm=2083 sector_deg=103 up_mm=4108 down_mm=1238
+7863 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1110
+8063 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1250
+8263 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1246
+8465 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1274
+8763 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1207
+9185 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1276
+9187 height sensor=1.22 before=1.20 after=1.20
+9188 height sensor=1.19 before=1.20 after=1.20
+9247 height sensor=1.17 before=1.20 after=1.20
+9361 height sensor=1.23 before=1.20 after=1.20
+9463 height sensor=1.27 before=1.20 after=1.21
+9464 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1265
+9562 height sensor=1.27 before=1.21 after=1.21
+9652 height sensor=1.27 before=1.21 after=1.22
+9764 height sensor=1.22 before=1.22 after=1.22
+9765 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1218
+9863 height sensor=1.16 before=1.22 after=1.21
+9963 height sensor=1.19 before=1.21 after=1.21
+10061 height sensor=1.26 before=1.21 after=1.22
+10062 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1263
+10161 height sensor=1.12 before=1.22 after=1.21
+10251 leg target n=-0.00 e=0.00 u=2.70
+10260 height sensor=1.24 before=1.21 after=1.21
+10263 step dt_ms=12 n=0.00 e=0.00 u=1.21 dist=1.49 heading=51.3 stick_fwd=0 stick_right=0 stick_up=78 vn=0.00 ve=0.00 vd=0.00 updates=1
+10359 height sensor=1.19 before=1.21 after=1.21
+10360 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1188
+10366 step dt_ms=103 n=0.00 e=0.00 u=1.21 dist=1.49 heading=51.3 stick_fwd=0 stick_right=0 stick_up=78 vn=0.00 ve=0.00 vd=0.00 updates=1
+10463 height sensor=1.18 before=1.21 after=1.20
+10470 step dt_ms=104 n=0.00 e=0.00 u=1.20 dist=1.50 heading=51.3 stick_fwd=0 stick_right=0 stick_up=78 vn=0.00 ve=0.00 vd=0.00 updates=1
+10563 height sensor=1.20 before=1.20 after=1.20
+10564 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1199
+10573 step dt_ms=103 n=0.00 e=0.00 u=1.20 dist=1.50 heading=51.2 stick_fwd=0 stick_right=0 stick_up=78 vn=0.00 ve=0.00 vd=0.00 updates=1
+10663 height sensor=1.28 before=1.22 after=1.23
+10676 step dt_ms=103 n=0.00 e=0.00 u=1.23 dist=1.47 heading=51.1 stick_fwd=0 stick_right=0 stick_up=78 vn=0.00 ve=0.00 vd=-0.30 updates=2
+10763 height sensor=1.30 before=1.27 after=1.28
+10764 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1303
+10779 step dt_ms=103 n=0.00 e=0.00 u=1.28 dist=1.42 heading=51.2 stick_fwd=0 stick_right=0 stick_up=78 vn=0.00 ve=0.00 vd=-0.50 updates=3
+10867 height sensor=1.27 before=1.33 after=1.33
+10884 step dt_ms=104 n=0.00 e=0.00 u=1.34 dist=1.36 heading=51.4 stick_fwd=0 stick_right=0 stick_up=78 vn=0.00 ve=0.00 vd=-0.60 updates=4
+10963 height sensor=1.46 before=1.39 after=1.40
+10964 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1455
+10987 step dt_ms=104 n=0.00 e=0.00 u=1.41 dist=1.29 heading=51.4 stick_fwd=0 stick_right=0 stick_up=78 vn=0.00 ve=0.00 vd=-0.70 updates=5
+11063 height sensor=1.55 before=1.47 after=1.48
+11091 step dt_ms=103 n=0.00 e=0.00 u=1.49 dist=1.21 heading=51.5 stick_fwd=0 stick_right=0 stick_up=78 vn=0.00 ve=0.00 vd=-0.70 updates=5
+11151 height sensor=1.62 before=1.54 after=1.54
+11194 step dt_ms=104 n=0.00 e=0.00 u=1.57 dist=1.13 heading=51.5 stick_fwd=0 stick_right=0 stick_up=78 vn=0.00 ve=0.00 vd=-0.70 updates=5
+11264 height sensor=1.65 before=1.62 after=1.63
+11265 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1646
+11302 step dt_ms=108 n=0.00 e=0.00 u=1.65 dist=1.05 heading=51.5 stick_fwd=0 stick_right=0 stick_up=78 vn=0.00 ve=0.00 vd=-0.70 updates=5
+11363 height sensor=1.76 before=1.69 after=1.70
+11406 step dt_ms=104 n=0.00 e=0.00 u=1.73 dist=0.97 heading=51.5 stick_fwd=0 stick_right=0 stick_up=78 vn=0.00 ve=0.00 vd=-0.70 updates=5
+11462 height sensor=1.77 before=1.77 after=1.77
+11510 step dt_ms=104 n=0.00 e=0.00 u=1.80 dist=0.90 heading=51.5 stick_fwd=0 stick_right=0 stick_up=78 vn=0.00 ve=0.00 vd=-0.70 updates=5
+11565 height sensor=1.90 before=1.84 after=1.85
+11566 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1899
+11615 step dt_ms=104 n=0.00 e=0.00 u=1.88 dist=0.82 heading=51.5 stick_fwd=0 stick_right=0 stick_up=78 vn=0.00 ve=0.00 vd=-0.70 updates=5
+11665 height sensor=1.91 before=1.92 after=1.92
+11718 step dt_ms=104 n=0.00 e=0.00 u=1.95 dist=0.75 heading=51.5 stick_fwd=0 stick_right=0 stick_up=78 vn=0.00 ve=0.00 vd=-0.70 updates=5
+11762 height sensor=2.05 before=1.98 after=1.99
+11822 step dt_ms=103 n=0.00 e=0.00 u=2.03 dist=0.67 heading=51.5 stick_fwd=0 stick_right=0 stick_up=70 vn=0.00 ve=0.00 vd=-0.70 updates=5
+11863 height sensor=2.07 before=2.06 after=2.06
+11864 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=2069
+11925 step dt_ms=104 n=0.00 e=0.00 u=2.10 dist=0.60 heading=51.5 stick_fwd=0 stick_right=0 stick_up=62 vn=0.00 ve=0.00 vd=-0.70 updates=5
+11963 height sensor=2.12 before=2.13 after=2.13
+12028 step dt_ms=103 n=0.00 e=0.00 u=2.18 dist=0.52 heading=51.4 stick_fwd=0 stick_right=0 stick_up=55 vn=0.00 ve=0.00 vd=-0.70 updates=5
+12063 height sensor=2.20 before=2.20 after=2.20
+12064 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=2198
+12134 step dt_ms=106 n=0.00 e=0.00 u=2.24 dist=0.46 heading=51.4 stick_fwd=0 stick_right=0 stick_up=47 vn=0.00 ve=0.00 vd=-0.60 updates=6
+12152 height sensor=2.29 before=2.26 after=2.26
+12238 step dt_ms=104 n=0.00 e=0.00 u=2.31 dist=0.39 heading=51.4 stick_fwd=0 stick_right=0 stick_up=41 vn=0.00 ve=0.00 vd=-0.60 updates=6
+12263 height sensor=2.40 before=2.33 after=2.33
+12264 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=2398
+12341 step dt_ms=103 n=0.00 e=0.00 u=2.38 dist=0.32 heading=51.4 stick_fwd=0 stick_right=0 stick_up=34 vn=0.00 ve=0.00 vd=-0.50 updates=7
+12360 height sensor=2.44 before=2.39 after=2.39
+12443 step dt_ms=102 n=0.00 e=0.00 u=2.43 dist=0.27 heading=51.4 stick_fwd=0 stick_right=0 stick_up=28 vn=0.00 ve=0.00 vd=-0.50 updates=7
+12453 height sensor=2.48 before=2.44 after=2.44
+12546 step dt_ms=103 n=0.00 e=0.00 u=2.48 dist=0.22 heading=51.4 stick_fwd=0 stick_right=0 stick_up=23 vn=0.00 ve=0.00 vd=-0.40 updates=8
+12567 height sensor=2.49 before=2.49 after=2.49
+12568 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=2494
+12650 step dt_ms=104 n=0.00 e=0.00 u=2.52 dist=0.18 heading=51.4 stick_fwd=0 stick_right=0 stick_up=19 vn=0.00 ve=0.00 vd=-0.30 updates=9
+12663 height sensor=2.52 before=2.52 after=2.52
+12751 leg arrived dist=0.15
+12765 height sensor=2.58 before=2.56 after=2.56
+12857 height sensor=2.51 before=2.58 after=2.58
+12858 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=2514
+12968 height sensor=2.57 before=2.60 after=2.59
+13062 height sensor=2.61 before=2.61 after=2.61
+13064 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=2614
+13163 height sensor=2.60 before=2.61 after=2.61
+13263 height sensor=2.65 before=2.61 after=2.61
+13264 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=2654
+13363 height sensor=2.65 before=2.61 after=2.62
+13462 height sensor=2.63 before=2.62 after=2.62
+13567 height sensor=2.58 before=2.62 after=2.61
+13568 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=2577
+13662 height sensor=2.62 before=2.61 after=2.61
+13768 height sensor=2.61 before=2.61 after=2.61
+13769 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=2608
+13849 height sensor=2.59 before=2.61 after=2.61
+13962 height sensor=2.53 before=2.61 after=2.60
+14063 height sensor=2.64 before=2.60 after=2.61
+14064 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=2643
+14117 leg target n=-0.68 e=0.54 u=1.20
+14120 step dt_ms=4 n=0.00 e=0.00 u=2.61 dist=1.65 heading=51.2 stick_fwd=0 stick_right=17 stick_up=-66 vn=0.00 ve=0.00 vd=0.00 updates=12
+14166 height sensor=2.59 before=2.61 after=2.61
+14224 step dt_ms=102 n=0.00 e=0.00 u=2.61 dist=1.65 heading=51.2 stick_fwd=0 stick_right=17 stick_up=-66 vn=0.00 ve=0.00 vd=0.00 updates=12
+14270 height sensor=2.58 before=2.61 after=2.60
+14271 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=2580
+14328 step dt_ms=104 n=0.00 e=0.00 u=2.60 dist=1.65 heading=51.2 stick_fwd=0 stick_right=17 stick_up=-66 vn=0.00 ve=0.00 vd=0.00 updates=12
+14367 height sensor=2.53 before=2.60 after=2.60
+14431 step dt_ms=104 n=0.00 e=0.00 u=2.59 dist=1.64 heading=51.3 stick_fwd=0 stick_right=17 stick_up=-66 vn=0.00 ve=0.00 vd=0.20 updates=13
+14452 height sensor=2.54 before=2.59 after=2.58
+14533 step dt_ms=102 n=-0.00 e=0.00 u=2.56 dist=1.61 heading=51.2 stick_fwd=0 stick_right=18 stick_up=-66 vn=-0.10 ve=0.10 vd=0.40 updates=14
+14567 height sensor=2.46 before=2.55 after=2.54
+14568 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=2464
+14636 step dt_ms=103 n=-0.02 e=0.02 u=2.51 dist=1.55 heading=51.2 stick_fwd=0 stick_right=18 stick_up=-66 vn=-0.30 ve=0.20 vd=0.50 updates=15
+14668 height sensor=2.44 before=2.49 after=2.49
+14739 step dt_ms=103 n=-0.06 e=0.04 u=2.45 dist=1.48 heading=51.2 stick_fwd=0 stick_right=18 stick_up=-66 vn=-0.40 ve=0.30 vd=0.50 updates=16
+14770 height sensor=2.37 before=2.43 after=2.43
+14771 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=2370
+14842 step dt_ms=103 n=-0.10 e=0.08 u=2.39 dist=1.40 heading=51.2 stick_fwd=0 stick_right=17 stick_up=-66 vn=-0.50 ve=0.40 vd=0.50 updates=17
+14853 height sensor=2.30 before=2.39 after=2.38
+14947 step dt_ms=105 n=-0.15 e=0.12 u=2.33 dist=1.31 heading=51.2 stick_fwd=0 stick_right=17 stick_up=-67 vn=-0.50 ve=0.40 vd=0.60 updates=18
+14968 height sensor=2.33 before=2.31 after=2.32
+15051 step dt_ms=103 n=-0.20 e=0.16 u=2.27 dist=1.23 heading=51.3 stick_fwd=0 stick_right=16 stick_up=-68 vn=-0.40 ve=0.30 vd=0.60 updates=19
+15070 height sensor=2.23 before=2.26 after=2.25
+15072 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=2230
+15158 step dt_ms=107 n=-0.24 e=0.18 u=2.20 dist=1.15 heading=51.4 stick_fwd=0 stick_right=16 stick_up=-68 vn=-0.30 ve=0.20 vd=0.60 updates=20
+15175 height sensor=2.16 before=2.19 after=2.19
+15260 step dt_ms=103 n=-0.26 e=0.20 u=2.14 dist=1.08 heading=51.4 stick_fwd=0 stick_right=16 stick_up=-68 vn=-0.20 ve=0.20 vd=0.60 updates=21
+15268 height sensor=2.16 before=2.13 after=2.13
+15363 step dt_ms=103 n=-0.28 e=0.22 u=2.08 dist=1.02 heading=51.4 stick_fwd=0 stick_right=17 stick_up=-67 vn=-0.10 ve=0.10 vd=0.60 updates=22
+15368 height sensor=2.08 before=2.07 after=2.07
+15369 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=2084
+15464 height sensor=2.01 before=2.02 after=2.02
+15470 step dt_ms=106 n=-0.29 e=0.23 u=2.01 dist=0.95 heading=51.4 stick_fwd=0 stick_right=17 stick_up=-67 vn=-0.20 ve=0.10 vd=0.60 updates=23
+15570 height sensor=1.93 before=1.95 after=1.95
+15572 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1926
+15575 step dt_ms=106 n=-0.32 e=0.25 u=1.95 dist=0.88 heading=51.4 stick_fwd=0 stick_right=17 stick_up=-66 vn=-0.20 ve=0.20 vd=0.60 updates=24
+15671 height sensor=1.91 before=1.89 after=1.89
+15679 step dt_ms=104 n=-0.34 e=0.27 u=1.89 dist=0.81 heading=51.3 stick_fwd=0 stick_right=18 stick_up=-66 vn=-0.20 ve=0.20 vd=0.60 updates=24
+15766 height sensor=1.81 before=1.83 after=1.83
+15782 step dt_ms=103 n=-0.37 e=0.29 u=1.82 dist=0.74 heading=51.3 stick_fwd=0 stick_right=18 stick_up=-65 vn=-0.30 ve=0.20 vd=0.60 updates=25
+15870 height sensor=1.75 before=1.77 after=1.77
+15871 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1747
+15886 step dt_ms=104 n=-0.40 e=0.32 u=1.76 dist=0.66 heading=51.3 stick_fwd=0 stick_right=16 stick_up=-58 vn=-0.30 ve=0.30 vd=0.60 updates=26
+15965 height sensor=1.68 before=1.71 after=1.71
+15990 step dt_ms=104 n=-0.44 e=0.35 u=1.69 dist=0.58 heading=51.4 stick_fwd=0 stick_right=14 stick_up=-51 vn=-0.40 ve=0.30 vd=0.60 updates=27
+16054 height sensor=1.65 before=1.65 after=1.65
+16094 step dt_ms=104 n=-0.48 e=0.38 u=1.63 dist=0.50 heading=51.4 stick_fwd=0 stick_right=11 stick_up=-45 vn=-0.40 ve=0.30 vd=0.60 updates=27
+16169 height sensor=1.55 before=1.59 after=1.58
+16170 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1548
+16198 step dt_ms=103 n=-0.51 e=0.40 u=1.57 dist=0.42 heading=51.4 stick_fwd=0 stick_right=10 stick_up=-38 vn=-0.30 ve=0.20 vd=0.60 updates=28
+16270 height sensor=1.55 before=1.53 after=1.53
+16304 step dt_ms=107 n=-0.53 e=0.41 u=1.51 dist=0.37 heading=51.4 stick_fwd=1 stick_right=9 stick_up=-33 vn=-0.20 ve=0.10 vd=0.40 updates=30
+16370 height sensor=1.50 before=1.49 after=1.49
+16371 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1503
+16407 step dt_ms=103 n=-0.55 e=0.42 u=1.47 dist=0.32 heading=51.4 stick_fwd=1 stick_right=7 stick_up=-28 vn=-0.20 ve=0.10 vd=0.40 updates=30
+16470 height sensor=1.46 before=1.45 after=1.45
+16510 step dt_ms=103 n=-0.57 e=0.43 u=1.43 dist=0.28 heading=51.4 stick_fwd=1 stick_right=7 stick_up=-24 vn=-0.10 ve=0.10 vd=0.30 updates=31
+16567 height sensor=1.41 before=1.42 after=1.42
+16614 step dt_ms=103 n=-0.58 e=0.44 u=1.40 dist=0.24 heading=51.3 stick_fwd=1 stick_right=6 stick_up=-21 vn=-0.10 ve=0.10 vd=0.30 updates=31
+16665 height sensor=1.38 before=1.39 after=1.39
+16666 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1382
+16717 step dt_ms=104 n=-0.59 e=0.45 u=1.37 dist=0.21 heading=51.3 stick_fwd=1 stick_right=5 stick_up=-18 vn=-0.10 ve=0.10 vd=0.20 updates=32
+16767 height sensor=1.35 before=1.36 after=1.36
+16819 step dt_ms=102 n=-0.60 e=0.46 u=1.35 dist=0.18 heading=51.3 stick_fwd=1 stick_right=5 stick_up=-16 vn=-0.10 ve=0.10 vd=0.20 updates=32
+16869 height sensor=1.34 before=1.34 after=1.34
+16870 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1340
+16925 step dt_ms=106 n=-0.61 e=0.47 u=1.33 dist=0.16 heading=51.3 stick_fwd=1 stick_right=4 stick_up=-14 vn=-0.10 ve=0.10 vd=0.10 updates=33
+16973 height sensor=1.32 before=1.33 after=1.33
+17026 leg arrived dist=0.14
+17077 leg target n=0.68 e=-0.54 u=1.20
+17087 height sensor=1.29 before=1.31 after=1.31
+17087 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1291
+17089 step dt_ms=12 n=-0.63 e=0.49 u=1.32 dist=1.67 heading=51.3 stick_fwd=0 stick_right=-33 stick_up=-12 vn=-0.10 ve=0.10 vd=0.10 updates=33
+17170 height sensor=1.29 before=1.30 after=1.30
+17194 step dt_ms=104 n=-0.64 e=0.50 u=1.30 dist=1.68 heading=51.2 stick_fwd=0 stick_right=-33 stick_up=-10 vn=-0.10 ve=0.10 vd=0.10 updates=33
+17253 height sensor=1.25 before=1.29 after=1.29
+17297 step dt_ms=104 n=-0.65 e=0.51 u=1.29 dist=1.70 heading=51.2 stick_fwd=0 stick_right=-33 stick_up=-9 vn=-0.10 ve=0.10 vd=0.10 updates=33
+17370 height sensor=1.23 before=1.28 after=1.27
+17371 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1232
+17401 step dt_ms=103 n=-0.66 e=0.52 u=1.27 dist=1.71 heading=51.3 stick_fwd=0 stick_right=-33 stick_up=-7 vn=-0.10 ve=0.10 vd=0.10 updates=33
+17455 height sensor=1.20 before=1.27 after=1.26
+17505 step dt_ms=104 n=-0.66 e=0.52 u=1.26 dist=1.71 heading=51.2 stick_fwd=0 stick_right=-33 stick_up=-6 vn=0.10 ve=0.00 vd=0.10 updates=35
+17559 height sensor=1.19 before=1.25 after=1.24
+17608 step dt_ms=103 n=-0.65 e=0.52 u=1.24 dist=1.70 heading=51.2 stick_fwd=0 stick_right=-33 stick_up=-4 vn=0.30 ve=-0.20 vd=0.00 updates=36
+17670 height sensor=1.18 before=1.24 after=1.23
+17671 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1180
+17712 step dt_ms=104 n=-0.62 e=0.50 u=1.23 dist=1.66 heading=51.3 stick_fwd=0 stick_right=-33 stick_up=-3 vn=0.50 ve=-0.40 vd=0.00 updates=37
+17755 height sensor=1.18 before=1.23 after=1.23
+17815 step dt_ms=104 n=-0.57 e=0.46 u=1.23 dist=1.59 heading=51.3 stick_fwd=0 stick_right=-33 stick_up=-3 vn=0.60 ve=-0.50 vd=0.00 updates=38
+17920 step dt_ms=105 n=-0.50 e=0.40 u=1.23 dist=1.51 heading=51.3 stick_fwd=0 stick_right=-33 stick_up=-3 vn=0.80 ve=-0.60 vd=0.00 updates=39
+17972 height sensor=1.17 before=1.23 after=1.22
+17974 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1169
+18023 step dt_ms=103 n=-0.42 e=0.34 u=1.22 dist=1.40 heading=51.3 stick_fwd=0 stick_right=-33 stick_up=-2 vn=0.90 ve=-0.70 vd=0.00 updates=40
+18072 height sensor=1.19 before=1.22 after=1.21
+18131 step dt_ms=107 n=-0.32 e=0.27 u=1.21 dist=1.28 heading=51.2 stick_fwd=0 stick_right=-33 stick_up=-2 vn=0.90 ve=-0.70 vd=0.00 updates=40
+18173 height sensor=1.20 before=1.21 after=1.21
+18174 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1199
+18237 step dt_ms=106 n=-0.23 e=0.19 u=1.21 dist=1.16 heading=51.1 stick_fwd=0 stick_right=-33 stick_up=-1 vn=0.90 ve=-0.70 vd=0.00 updates=40
+18272 height sensor=1.19 before=1.21 after=1.21
+18340 step dt_ms=104 n=-0.13 e=0.12 u=1.21 dist=1.04 heading=51.1 stick_fwd=0 stick_right=-33 stick_up=-1 vn=0.90 ve=-0.70 vd=0.00 updates=40
+18372 height sensor=1.19 before=1.21 after=1.21
+18445 step dt_ms=104 n=-0.04 e=0.04 u=1.21 dist=0.92 heading=51.0 stick_fwd=0 stick_right=-33 stick_up=-1 vn=0.90 ve=-0.70 vd=0.00 updates=40
+18472 height sensor=1.19 before=1.21 after=1.21
+18474 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1186
+18548 step dt_ms=103 n=0.05 e=-0.03 u=1.21 dist=0.81 heading=51.1 stick_fwd=0 stick_right=-33 stick_up=-1 vn=0.80 ve=-0.70 vd=0.00 updates=41
+18652 step dt_ms=104 n=0.13 e=-0.10 u=1.21 dist=0.70 heading=51.1 stick_fwd=0 stick_right=-31 stick_up=-1 vn=0.80 ve=-0.70 vd=0.00 updates=41
+18672 height sensor=1.18 before=1.21 after=1.20
+18755 step dt_ms=104 n=0.22 e=-0.17 u=1.20 dist=0.59 heading=51.2 stick_fwd=0 stick_right=-26 stick_up=0 vn=0.80 ve=-0.70 vd=0.00 updates=41
+18774 height sensor=1.17 before=1.20 after=1.20
+18776 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1173
+18863 step dt_ms=108 n=0.30 e=-0.25 u=1.20 dist=0.48 heading=51.2 stick_fwd=0 stick_right=-21 stick_up=0 vn=0.80 ve=-0.70 vd=0.00 updates=41
+18871 height sensor=1.17 before=1.20 after=1.20
+18969 height sensor=1.16 before=1.20 after=1.19
+18971 step dt_ms=108 n=0.39 e=-0.32 u=1.20 dist=0.36 heading=51.3 stick_fwd=0 stick_right=-16 stick_up=0 vn=0.80 ve=-0.70 vd=0.00 updates=41
+19073 height sensor=1.17 before=1.19 after=1.19
+19075 step dt_ms=104 n=0.47 e=-0.40 u=1.19 dist=0.25 heading=51.3 stick_fwd=1 stick_right=-11 stick_up=1 vn=0.80 ve=-0.70 vd=0.00 updates=41
+19173 height sensor=1.20 before=1.19 after=1.19
+19174 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1199
+19176 leg arrived dist=0.14
+19227 leg target n=0.00 e=-0.00 u=2.70
+19233 step dt_ms=7 n=0.60 e=-0.51 u=1.19 dist=1.70 heading=51.2 stick_fwd=0 stick_right=15 stick_up=69 vn=0.70 ve=-0.60 vd=0.00 updates=42
+19274 height sensor=1.18 before=1.19 after=1.19
+19336 step dt_ms=103 n=0.67 e=-0.57 u=1.19 dist=1.75 heading=51.2 stick_fwd=0 stick_right=17 stick_up=67 vn=0.60 ve=-0.50 vd=0.00 updates=43
+19372 height sensor=1.18 before=1.19 after=1.19
+19440 step dt_ms=104 n=0.73 e=-0.61 u=1.19 dist=1.79 heading=51.1 stick_fwd=0 stick_right=18 stick_up=66 vn=0.50 ve=-0.40 vd=0.00 updates=44
+19472 height sensor=1.13 before=1.19 after=1.18
+19473 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1133
+19543 step dt_ms=103 n=0.77 e=-0.65 u=1.19 dist=1.81 heading=51.1 stick_fwd=0 stick_right=18 stick_up=65 vn=0.30 ve=-0.30 vd=-0.20 updates=45
+19573 height sensor=1.16 before=1.20 after=1.20
+19647 step dt_ms=103 n=0.79 e=-0.67 u=1.22 dist=1.81 heading=51.1 stick_fwd=0 stick_right=19 stick_up=64 vn=0.10 ve=0.00 vd=-0.40 updates=46
+19673 height sensor=1.19 before=1.23 after=1.23
+19674 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1194
+19750 step dt_ms=104 n=0.79 e=-0.67 u=1.26 dist=1.77 heading=51.2 stick_fwd=0 stick_right=19 stick_up=63 vn=-0.10 ve=0.00 vd=-0.50 updates=47
+19773 height sensor=1.27 before=1.28 after=1.28
+19853 step dt_ms=102 n=0.77 e=-0.66 u=1.32 dist=1.71 heading=51.2 stick_fwd=1 stick_right=20 stick_up=63 vn=-0.20 ve=0.20 vd=-0.60 updates=48
+19876 height sensor=1.31 before=1.33 after=1.33
+19877 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1309
+19956 step dt_ms=104 n=0.74 e=-0.63 u=1.38 dist=1.64 heading=51.2 stick_fwd=1 stick_right=20 stick_up=63 vn=-0.40 ve=0.30 vd=-0.60 updates=49
+19974 height sensor=1.44 before=1.39 after=1.40
+20060 step dt_ms=104 n=0.70 e=-0.60 u=1.44 dist=1.56 heading=51.2 stick_fwd=1 stick_right=19 stick_up=63 vn=-0.50 ve=0.30 vd=-0.50 updates=50
+20074 height sensor=1.49 before=1.45 after=1.45
+20165 step dt_ms=105 n=0.64 e=-0.56 u=1.50 dist=1.48 heading=51.2 stick_fwd=1 stick_right=19 stick_up=64 vn=-0.50 ve=0.40 vd=-0.50 updates=51
+20176 height sensor=1.52 before=1.50 after=1.50
+20177 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1515
+20270 step dt_ms=105 n=0.59 e=-0.52 u=1.55 dist=1.39 heading=51.2 stick_fwd=1 stick_right=19 stick_up=64 vn=-0.50 ve=0.40 vd=-0.50 updates=51
+20276 height sensor=1.59 before=1.55 after=1.56
+20373 height sensor=1.62 before=1.61 after=1.61
+20377 step dt_ms=107 n=0.54 e=-0.48 u=1.61 dist=1.31 heading=51.2 stick_fwd=1 stick_right=18 stick_up=65 vn=-0.50 ve=0.40 vd=-0.50 updates=51
+20472 height sensor=1.66 before=1.66 after=1.66
+20474 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1660
+20479 step dt_ms=102 n=0.49 e=-0.45 u=1.66 dist=1.23 heading=51.3 stick_fwd=1 stick_right=18 stick_up=66 vn=-0.40 ve=0.30 vd=-0.50 updates=52
+20573 height sensor=1.71 before=1.71 after=1.71
+20583 step dt_ms=103 n=0.46 e=-0.42 u=1.71 dist=1.17 heading=51.3 stick_fwd=1 stick_right=18 stick_up=66 vn=-0.30 ve=0.20 vd=-0.50 updates=53
+20668 height sensor=1.81 before=1.76 after=1.76
+20686 step dt_ms=103 n=0.45 e=-0.41 u=1.77 dist=1.11 heading=51.3 stick_fwd=1 stick_right=18 stick_up=65 vn=-0.10 ve=0.10 vd=-0.50 updates=54
+20773 height sensor=1.86 before=1.81 after=1.82
+20774 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1857
+20790 step dt_ms=104 n=0.44 e=-0.40 u=1.82 dist=1.06 heading=51.3 stick_fwd=1 stick_right=19 stick_up=65 vn=-0.10 ve=0.10 vd=-0.50 updates=54
+20873 height sensor=1.89 before=1.87 after=1.87
+20896 step dt_ms=106 n=0.43 e=-0.39 u=1.88 dist=1.01 heading=51.2 stick_fwd=1 stick_right=19 stick_up=64 vn=-0.20 ve=0.20 vd=-0.50 updates=55
+20972 height sensor=2.03 before=1.92 after=1.93
+20999 step dt_ms=103 n=0.41 e=-0.37 u=1.94 dist=0.94 heading=51.2 stick_fwd=1 stick_right=19 stick_up=63 vn=-0.30 ve=0.20 vd=-0.50 updates=56
+21073 height sensor=2.00 before=1.98 after=1.98
+21074 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=2000
+21102 step dt_ms=104 n=0.38 e=-0.35 u=1.99 dist=0.87 heading=51.2 stick_fwd=1 stick_right=19 stick_up=63 vn=-0.30 ve=0.20 vd=-0.50 updates=56
+21175 height sensor=2.04 before=2.03 after=2.03
+21207 step dt_ms=105 n=0.35 e=-0.32 u=2.05 dist=0.80 heading=51.2 stick_fwd=1 stick_right=19 stick_up=63 vn=-0.40 ve=0.30 vd=-0.50 updates=58
+21271 height sensor=2.14 before=2.08 after=2.09
+21310 step dt_ms=103 n=0.30 e=-0.29 u=2.10 dist=0.73 heading=51.2 stick_fwd=1 stick_right=18 stick_up=62 vn=-0.40 ve=0.30 vd=-0.50 updates=58
+21358 height sensor=2.14 before=2.13 after=2.13
+21358 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=2138
+21413 step dt_ms=102 n=0.26 e=-0.26 u=2.16 dist=0.66 heading=51.3 stick_fwd=2 stick_right=16 stick_up=57 vn=-0.30 ve=0.20 vd=-0.50 updates=59
+21472 height sensor=2.21 before=2.19 after=2.19
+21516 step dt_ms=104 n=0.24 e=-0.24 u=2.21 dist=0.59 heading=51.3 stick_fwd=2 stick_right=15 stick_up=51 vn=-0.20 ve=0.20 vd=-0.50 updates=60
+21574 height sensor=2.35 before=2.24 after=2.25
+21576 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=2350
+21619 step dt_ms=103 n=0.22 e=-0.22 u=2.27 dist=0.53 heading=51.3 stick_fwd=2 stick_right=13 stick_up=44 vn=-0.20 ve=0.10 vd=-0.50 updates=61
+21672 height sensor=2.37 before=2.30 after=2.31
+21724 step dt_ms=104 n=0.19 e=-0.21 u=2.33 dist=0.47 heading=51.2 stick_fwd=2 stick_right=12 stick_up=38 vn=-0.20 ve=0.20 vd=-0.50 updates=62
+21772 height sensor=2.45 before=2.36 after=2.37
+21826 step dt_ms=103 n=0.17 e=-0.19 u=2.39 dist=0.40 heading=51.2 stick_fwd=2 stick_right=11 stick_up=32 vn=-0.20 ve=0.20 vd=-0.50 updates=62
+21873 height sensor=2.44 before=2.42 after=2.42
+21874 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=2436
+21929 step dt_ms=103 n=0.15 e=-0.17 u=2.44 dist=0.34 heading=51.2 stick_fwd=1 stick_right=10 stick_up=27 vn=-0.20 ve=0.20 vd=-0.40 updates=63
+21976 height sensor=2.55 before=2.46 after=2.47
+22033 step dt_ms=104 n=0.13 e=-0.14 u=2.49 dist=0.29 heading=51.2 stick_fwd=1 stick_right=8 stick_up=22 vn=-0.20 ve=0.30 vd=-0.30 updates=64
+22073 height sensor=2.58 before=2.50 after=2.51
+22074 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=2576
+22136 step dt_ms=103 n=0.11 e=-0.11 u=2.53 dist=0.23 heading=51.2 stick_fwd=1 stick_right=7 stick_up=18 vn=-0.20 ve=0.30 vd=-0.30 updates=64
+22172 height sensor=2.56 before=2.54 after=2.54
+22240 step dt_ms=104 n=0.09 e=-0.08 u=2.56 dist=0.19 heading=51.2 stick_fwd=0 stick_right=5 stick_up=15 vn=-0.20 ve=0.30 vd=-0.20 updates=65
+22272 height sensor=2.68 before=2.56 after=2.57
+22341 leg arrived dist=0.14
+22391 height sensor=2.63 before=2.60 after=2.60
+22392 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=2634
+22472 height sensor=2.60 before=2.61 after=2.61
+22572 height sensor=2.66 before=2.62 after=2.62
+22702 leg target n=0.00 e=0.00 u=1.20
+22705 height sensor=2.68 before=2.62 after=2.63
+22707 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=2676
+22708 step dt_ms=6 n=0.01 e=0.02 u=2.62 dist=1.42 heading=51.3 stick_fwd=0 stick_right=0 stick_up=-78 vn=-0.10 ve=0.10 vd=0.00 updates=67
+22777 height sensor=2.58 before=2.63 after=2.63
+22813 step dt_ms=103 n=0.00 e=0.03 u=2.63 dist=1.43 heading=51.2 stick_fwd=-1 stick_right=0 stick_up=-78 vn=0.00 ve=0.00 vd=0.00 updates=68
+22869 height sensor=2.61 before=2.63 after=2.63
+22917 step dt_ms=105 n=0.00 e=0.03 u=2.63 dist=1.43 heading=51.2 stick_fwd=-1 stick_right=0 stick_up=-78 vn=0.00 ve=0.00 vd=0.00 updates=68
+22975 height sensor=2.71 before=2.63 after=2.63
+22977 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=2711
+23021 step dt_ms=104 n=0.00 e=0.03 u=2.63 dist=1.43 heading=51.3 stick_fwd=-1 stick_right=0 stick_up=-78 vn=0.00 ve=0.00 vd=0.10 updates=69
+23078 height sensor=2.73 before=2.63 after=2.64
+23125 step dt_ms=104 n=0.00 e=0.03 u=2.63 dist=1.43 heading=51.3 stick_fwd=-1 stick_right=0 stick_up=-78 vn=0.00 ve=0.00 vd=0.30 updates=70
+23173 height sensor=2.66 before=2.61 after=2.62
+23229 step dt_ms=104 n=0.00 e=0.03 u=2.59 dist=1.39 heading=51.2 stick_fwd=-1 stick_right=0 stick_up=-78 vn=0.00 ve=0.00 vd=0.60 updates=71
+23277 height sensor=2.52 before=2.56 after=2.56
+23279 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=2522
+23333 step dt_ms=104 n=0.00 e=0.03 u=2.52 dist=1.32 heading=51.1 stick_fwd=-1 stick_right=0 stick_up=-78 vn=0.00 ve=0.00 vd=0.70 updates=72
+23377 height sensor=2.57 before=2.49 after=2.50
+23437 step dt_ms=104 n=0.00 e=0.03 u=2.46 dist=1.26 heading=51.0 stick_fwd=-1 stick_right=0 stick_up=-78 vn=0.00 ve=0.00 vd=0.70 updates=72
+23474 height sensor=2.44 before=2.43 after=2.43
+23543 step dt_ms=104 n=0.00 e=0.03 u=2.38 dist=1.18 heading=51.0 stick_fwd=-1 stick_right=0 stick_up=-78 vn=0.00 ve=0.00 vd=0.70 updates=72
+23572 height sensor=2.45 before=2.36 after=2.37
+23574 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=2450
+23647 step dt_ms=106 n=0.00 e=0.03 u=2.32 dist=1.12 heading=51.0 stick_fwd=-1 stick_right=-1 stick_up=-78 vn=0.00 ve=0.00 vd=0.70 updates=72
+23678 height sensor=2.36 before=2.29 after=2.30
+23751 step dt_ms=104 n=0.00 e=0.03 u=2.25 dist=1.05 heading=51.0 stick_fwd=-1 stick_right=-1 stick_up=-78 vn=0.00 ve=0.00 vd=0.70 updates=72
+23778 height sensor=2.25 before=2.23 after=2.23
+23779 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=2245
+23855 step dt_ms=104 n=0.00 e=0.03 u=2.18 dist=0.98 heading=51.0 stick_fwd=-1 stick_right=-1 stick_up=-78 vn=0.00 ve=0.00 vd=0.70 updates=72
+23878 height sensor=2.21 before=2.16 after=2.17
+23960 step dt_ms=105 n=0.00 e=0.03 u=2.11 dist=0.91 heading=51.0 stick_fwd=-1 stick_right=-1 stick_up=-78 vn=0.00 ve=0.00 vd=0.70 updates=72
+23978 height sensor=2.17 before=2.10 after=2.10
+23979 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=2171
+24065 step dt_ms=105 n=0.00 e=0.03 u=2.05 dist=0.85 heading=50.9 stick_fwd=-1 stick_right=-1 stick_up=-78 vn=0.00 ve=0.00 vd=0.60 updates=73
+24078 height sensor=2.09 before=2.04 after=2.05
+24170 step dt_ms=105 n=0.00 e=0.03 u=1.99 dist=0.79 heading=50.9 stick_fwd=-1 stick_right=-1 stick_up=-78 vn=0.00 ve=0.00 vd=0.70 updates=74
+24174 height sensor=1.98 before=1.98 after=1.98
+24278 height sensor=1.95 before=1.91 after=1.91
+24279 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1946
+24281 step dt_ms=105 n=0.00 e=0.03 u=1.91 dist=0.71 heading=50.9 stick_fwd=-1 stick_right=-1 stick_up=-74 vn=0.00 ve=0.00 vd=0.70 updates=74
+24377 height sensor=1.87 before=1.84 after=1.85
+24385 step dt_ms=111 n=0.00 e=0.03 u=1.84 dist=0.64 heading=50.9 stick_fwd=-1 stick_right=-1 stick_up=-67 vn=0.00 ve=0.00 vd=0.70 updates=74
+24462 height sensor=1.82 before=1.79 after=1.79
+24490 step dt_ms=103 n=0.00 e=0.03 u=1.77 dist=0.57 heading=50.9 stick_fwd=-1 stick_right=-1 stick_up=-59 vn=0.00 ve=0.00 vd=0.70 updates=74
+24577 height sensor=1.74 before=1.71 after=1.71
+24579 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1738
+24600 step dt_ms=110 n=0.00 e=0.03 u=1.70 dist=0.50 heading=51.0 stick_fwd=-1 stick_right=-1 stick_up=-52 vn=0.00 ve=0.00 vd=0.60 updates=75
+24670 height sensor=1.64 before=1.65 after=1.65
+24705 step dt_ms=105 n=0.00 e=0.03 u=1.63 dist=0.43 heading=51.0 stick_fwd=-1 stick_right=-1 stick_up=-45 vn=0.00 ve=0.00 vd=0.60 updates=75
+24763 height sensor=1.62 before=1.60 after=1.60
+24810 step dt_ms=106 n=0.00 e=0.03 u=1.57 dist=0.37 heading=51.0 stick_fwd=-1 stick_right=-1 stick_up=-39 vn=0.00 ve=0.00 vd=0.50 updates=76
+24880 height sensor=1.52 before=1.54 after=1.53
+24881 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1516
+24916 step dt_ms=106 n=0.00 e=0.03 u=1.52 dist=0.32 heading=51.0 stick_fwd=-1 stick_right=-1 stick_up=-33 vn=0.00 ve=0.00 vd=0.50 updates=76
+24963 height sensor=1.49 before=1.49 after=1.49
+25027 step dt_ms=111 n=0.00 e=0.03 u=1.46 dist=0.27 heading=51.0 stick_fwd=-1 stick_right=-1 stick_up=-28 vn=0.00 ve=0.00 vd=0.40 updates=77
+25081 height sensor=1.46 before=1.44 after=1.44
+25083 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1458
+25131 step dt_ms=104 n=0.00 e=0.03 u=1.43 dist=0.23 heading=51.1 stick_fwd=-1 stick_right=-1 stick_up=-24 vn=0.00 ve=0.00 vd=0.30 updates=78
+25186 height sensor=1.42 before=1.41 after=1.41
+25235 step dt_ms=104 n=0.00 e=0.03 u=1.40 dist=0.20 heading=51.1 stick_fwd=-1 stick_right=-1 stick_up=-21 vn=0.00 ve=0.00 vd=0.30 updates=78
+25280 height sensor=1.38 before=1.38 after=1.38
+25340 step dt_ms=105 n=0.00 e=0.03 u=1.37 dist=0.17 heading=51.1 stick_fwd=-1 stick_right=-1 stick_up=-18 vn=0.00 ve=0.00 vd=0.20 updates=79
+25377 height sensor=1.34 before=1.36 after=1.36
+25378 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1338
+25441 leg arrived dist=0.15
+25465 height sensor=1.31 before=1.34 after=1.34
+25580 height sensor=1.29 before=1.32 after=1.31
+25581 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1288
+25664 height sensor=1.27 before=1.30 after=1.30
+25782 height sensor=1.26 before=1.30 after=1.29
+25783 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1257
+25875 height sensor=1.26 before=1.29 after=1.29
+25980 height sensor=1.25 before=1.29 after=1.29
+26081 height sensor=1.25 before=1.29 after=1.28
+26082 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1249
+26180 height sensor=1.28 before=1.28 after=1.28
+26281 height sensor=1.26 before=1.28 after=1.28
+26282 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1259
+26380 height sensor=1.25 before=1.28 after=1.28
+26533 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1253
+26762 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1238
+26963 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1244
+27163 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1295
+27381 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1209
+27581 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1174
+27866 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1137
+28183 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1049
+28383 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=1043
+28583 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=984
+28883 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=931
+29163 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=880
+29384 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=841
+29661 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=772
+29872 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=734
+30166 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=687
+30470 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=625
+30783 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=565
+31084 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=500
+31364 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=439
+31567 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=400
+31791 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=360
+32067 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=315
+32273 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=272
+32570 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=222
+32770 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=183
+32983 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=145
+33271 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=103
+33470 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=71
+33673 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=46
+33973 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=22
+34175 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=15
+34573 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=12
+34773 obstacle nearest_mm=60000 sector_deg=0 up_mm=60000 down_mm=14
