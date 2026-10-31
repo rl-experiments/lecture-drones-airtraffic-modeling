@@ -298,6 +298,22 @@
   {
     "type": "content",
     "mod": "5",
+    "tag": "",
+    "title": "Plan vs. Flight: Two Stars",
+    "desc": "Both stars look right from a distance — the log shows how the drone really flew them",
+    "body": [
+      {
+        "img": "dji-star-flights.svg",
+        "alt": "Two stars planned and flown, from the drone's own log. Mission 3 stands upright, mean deviation 7.4 centimetres, maximum 16.5. Mission 4 lies flat, mean 8.3 centimetres, maximum 48.8, overshooting the first tip by about half a metre",
+        "height": 0,
+        "fill": true,
+        "caption": "Position is the drone's own summed-up velocity, not measured from outside, so real drift does not show. One flight each, with the app as it was before the later speed and braking changes"
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "5",
     "tag": "important",
     "title": "What the DJI SDK Actually Gives You",
     "desc": "The Mobile SDK v5 exposes the aircraft as a set of programmable interfaces — here is the surface you build on",
