@@ -1,13 +1,15 @@
 # Drone Hello — DJI Mini 4 Pro "Hello World"
 
 Minimal Android app (DJI Mobile SDK v5.18) for the **DJI Mini 4 Pro** flown with a
-**DJI RC-N3** controller. One button runs a fixed mission, **Mission 1 (demo)**:
+**DJI RC-N3** controller. Five buttons each run a fixed mission. Start with
+**Mission 1 (demo)**:
 
 > **take off → fly ~1.5 m forward → rotate 180° → fly ~1.5 m back → land**
 
 It exists to prove the full chain works end to end — SDK registration, aircraft
 connection, takeoff, virtual-stick movement, a closed-loop yaw turn, and an
-auto-landing — in the smallest amount of code that actually flies.
+auto-landing. Missions 2 to 5 draw figures in the air: light painting outdoors, two
+stars and a triangle. Every mission writes a flight log.
 
 > ⚠️ **Be careful — this was vibe-coded in a couple of hours.**
 > It's a teaching demo, not production-grade software, and it commands **real
