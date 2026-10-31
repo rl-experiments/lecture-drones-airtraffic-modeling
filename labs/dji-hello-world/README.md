@@ -155,7 +155,7 @@ The app calls it from the **Simulator** checkbox above the mission buttons. Tick
 once the drone is connected; the log confirms *Simulator ON* and the status block
 shows `Simulator: ON`. It switches itself off when the drone disconnects.
 
-### Mission 2 (light painting)
+### Mission 2 (light painting, outdoors)
 
 The second button draws three lines in the air for a long-exposure photo:
 **"Albstadt"**, under it **"Informatik"**, under that a **heart**. The words are
@@ -168,7 +168,7 @@ roughly twelve minutes.
    drone's own lights draw the lines, so the drone stays stock and under 250 g.
 2. Put the drone down with its **nose pointing at the camera**. That spot is under the
    bottom-left corner of the figure, as the camera sees it.
-3. Press **Mission 2 (light painting)** and type `yes, fly` to unlock the flight.
+3. Press **Mission 2 (light painting, outdoors)** and type `yes, fly` to unlock the flight.
 4. Open the shutter and keep it open for the whole flight. Take the cover off the lens
    when the status says **UNCOVER THE LENS** and put it back at **COVER THE LENS**: the
    drone hovers 5 s at each, and flies from one line to the next while the lens is
@@ -189,7 +189,7 @@ lines.
 top of `MainActivity.kt` have only been checked against a model, not against the drone.
 The figure itself is the lists of points in `FigurePath.kt`.
 
-### Mission 3 (star)
+### Mission 3 (star, vertical)
 
 Draws a five-pointed star, **2 m across**, standing upright above the take-off spot:
 the lowest tips at ~1.2 m, the top at 3.0 m (under 5 m). Place the drone with its nose
@@ -197,6 +197,30 @@ pointing at the camera; the star stands across the nose, 1 m to each side. The l
 are on while the star is drawn. Like Mission 1, it steers on the drone's measured
 velocity, so it flies indoors and outdoors. You need a ceiling above 3.7 m. Tune with
 `STAR_DIAMETER_M` / `STAR_BOTTOM_ALT_M`; the path is drawn in `mission3-path.svg`.
+
+### Mission 4 (star, horizontal)
+
+Draws the same **2 m** star lying flat at ~1.2 m, centred above the take-off spot, with
+the first tip 1 m ahead of the nose. Keep 1 m clear in every direction, plus room to
+spare. It steers like Mission 3, so it flies indoors and outdoors. A camera has to look
+down on the star or up at it: from the side it is only a line. Tune with
+`STAR_DIAMETER_M` / `STAR_FLAT_ALT_M`.
+
+### Mission 5 (triangle, vertical)
+
+Draws a triangle standing upright above the take-off spot, across the nose like
+Mission 3: the bottom line at ~1.2 m, the top corner at ~2.7 m, sides of about 1.7 m and
+about 0.9 m to each side. Place the drone with its nose pointing at the camera. You need
+a ceiling above 3.4 m.
+
+This mission tries out a height correction: while the triangle is flown, the tracked
+height follows the downward sensor, so it **needs a flat floor** with no tables or stairs
+below. A reading that jumps by more than 0.4 m is dropped. The flight log records each
+correction, and the on-screen log says how many readings were used and dropped.
+
+The start dialog offers **Fly with height correction** and **Fly without height
+correction**: the same triangle, for comparison. The on-screen log and the flight log
+say which one it was.
 
 ### Outdoors vs. indoors
 
@@ -257,6 +281,10 @@ All flight logic is in `app/src/main/java/com/example/djihellodrone/MainActivity
   link coming up or dropping (RC, air link, flight controller) and the error code of
   any failed read. **Share log** sends it as text; the same lines go to logcat under
   the tag `DroneHello`.
+- **Flight log** — every mission writes a file with the obstacle-avoidance setting and
+  the obstacle readings; Missions 1 and 3 also record each control step. The on-screen
+  log names the file at the end of the mission. Fetch it with
+  `adb pull /sdcard/Android/data/com.example.djihellodrone/files/`.
 
 ---
 

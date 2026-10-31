@@ -40,32 +40,52 @@
     <Button
         android:id="@+id/goButton"
         android:layout_width="match_parent"
-        android:layout_height="72dp"
+        android:layout_height="60dp"
         android:layout_marginBottom="8dp"
         android:backgroundTint="#2E7D32"
         android:textColor="#FFFFFF"
-        android:textSize="22sp"
+        android:textSize="18sp"
         android:text="🚁  Mission 1 (demo)" />
 
     <Button
         android:id="@+id/mission2Button"
         android:layout_width="match_parent"
-        android:layout_height="72dp"
+        android:layout_height="60dp"
         android:layout_marginBottom="8dp"
         android:backgroundTint="#2E7D32"
         android:textColor="#FFFFFF"
-        android:textSize="22sp"
-        android:text="✨  Mission 2 (light painting)" />
+        android:textSize="18sp"
+        android:text="✨  Mission 2 (light painting, outdoors)" />
 
     <Button
         android:id="@+id/mission3Button"
         android:layout_width="match_parent"
-        android:layout_height="72dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="#2E7D32"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:text="⭐  Mission 3 (star, vertical)" />
+
+    <Button
+        android:id="@+id/mission4Button"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="#2E7D32"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:text="⭐  Mission 4 (star, horizontal)" />
+
+    <Button
+        android:id="@+id/mission5Button"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         android:layout_marginBottom="16dp"
         android:backgroundTint="#2E7D32"
         android:textColor="#FFFFFF"
-        android:textSize="22sp"
-        android:text="⭐  Mission 3 (star)" />
+        android:textSize="18sp"
+        android:text="🔺  Mission 5 (triangle, vertical)" />
 
     <Button
         android:id="@+id/stopButton"

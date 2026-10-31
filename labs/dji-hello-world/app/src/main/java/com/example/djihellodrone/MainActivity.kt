@@ -31,18 +31,24 @@ import dji.v5.common.error.IDJIError
 import dji.v5.common.register.DJISDKInitEvent
 import dji.v5.manager.KeyManager
 import dji.v5.manager.SDKManager
+import dji.v5.manager.aircraft.perception.PerceptionManager
+import dji.v5.manager.aircraft.perception.data.ObstacleData
+import dji.v5.manager.aircraft.perception.data.PerceptionDirection
+import dji.v5.manager.aircraft.perception.listener.ObstacleDataListener
 import dji.v5.manager.aircraft.simulator.InitializationSettings
 import dji.v5.manager.aircraft.simulator.SimulatorManager
 import dji.v5.manager.aircraft.virtualstick.VirtualStickManager
 import dji.v5.manager.aircraft.virtualstick.VirtualStickState
 import dji.v5.manager.aircraft.virtualstick.VirtualStickStateListener
 import dji.v5.manager.interfaces.SDKManagerCallback
+import java.util.Locale
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import kotlin.concurrent.thread
 import kotlin.math.abs
 import kotlin.math.cos
+import kotlin.math.exp
 import kotlin.math.hypot
 import kotlin.math.max
 import kotlin.math.min
@@ -71,11 +77,20 @@ class MainActivity : Activity() {
         private const val LEG_MAX_MPS = 0.6         // top speed on a leg
         private const val LEG_ARRIVE_M = 0.15       // "reached the point"
         private const val LEG_TIMEOUT_MS = 15_000L
+        private const val OBSTACLE_LOG_PERIOD_MS = 200L
 
         // Mission 3: a five-pointed star standing upright above the take-off spot, facing
         // the nose. Its top is at bottom + 1.81 × radius: 3.0 m, under the 5 m allowed.
         private const val STAR_DIAMETER_M = 2.0
         private const val STAR_BOTTOM_ALT_M = 1.2   // the lowest tips, about take-off height
+        private const val STAR_FLAT_ALT_M = 1.2     // Mission 4: the whole star, at take-off height
+        private const val STAR_STEP_DEG = 144.0     // each line of a star jumps two tips on
+
+        // Mission 5: the height comes from the downward sensor, so it needs a flat floor.
+        private const val HEIGHT_TIME_CONSTANT_S = 1.0  // how fast the tracked height follows the sensor
+        private const val HEIGHT_MAX_JUMP_M = 0.4       // a bigger step is a table or a stair, not the drone
+        private const val HEIGHT_MAX_SENSOR_M = 30.0    // readings above this mean "nothing measured"
+        private const val HEIGHT_FIRM_BAND_M = 0.3      // a smaller height error gets its full correction
         private const val YAW_STICK = 200           // ~30 % rotation stick
         private const val YAW_TOLERANCE_DEG = 12.0
         private const val YAW_TIMEOUT_MS = 15000L
@@ -128,12 +143,30 @@ class MainActivity : Activity() {
     private lateinit var goButton: Button
     private lateinit var mission2Button: Button
     private lateinit var mission3Button: Button
+    private lateinit var mission4Button: Button
+    private lateinit var mission5Button: Button
     private lateinit var simulatorCheck: CheckBox
     private lateinit var lightsCheck: CheckBox
     private lateinit var stopButton: Button
     private lateinit var logPanel: LogPanel
 
     private val lastOutcome = ConcurrentHashMap<String, String>()
+
+    @Volatile private var flightLog: FlightLog? = null
+    @Volatile private var obstacleUpdates = 0
+    @Volatile private var lastObstacleLogMs = 0L
+    private var lastObstacleLine = ""
+    private val obstacleListener = ObstacleDataListener { data ->
+        correctHeight(data)
+        logObstacles(data)
+    }
+
+    // The tracker that follows the downward sensor; null when no flight uses it.
+    @Volatile private var heightTracker: Tracker? = null
+    private var lastHeightM = Double.NaN
+    private var lastHeightNs = 0L
+    @Volatile private var heightAccepted = 0
+    @Volatile private var heightRejected = 0
     @Volatile private var watching = false
 
     @Volatile private var aborted = false
@@ -189,6 +222,8 @@ class MainActivity : Activity() {
         logPanel = findViewById(R.id.logPanel)
         mission2Button = findViewById(R.id.mission2Button)
         mission3Button = findViewById(R.id.mission3Button)
+        mission4Button = findViewById(R.id.mission4Button)
+        mission5Button = findViewById(R.id.mission5Button)
         simulatorCheck = findViewById(R.id.simulatorCheck)
         simulatorCheck.setOnCheckedChangeListener { _, checked -> if (checked != simulatorOn) setSimulator(checked) }
         // A check on the table, before mission 2 relies on it: do the drone's lights obey?
@@ -199,6 +234,8 @@ class MainActivity : Activity() {
         goButton.setOnClickListener { confirmAndFly() }
         mission2Button.setOnClickListener { confirmMission2() }
         mission3Button.setOnClickListener { confirmMission3() }
+        mission4Button.setOnClickListener { confirmMission4() }
+        mission5Button.setOnClickListener { confirmMission5() }
         stopButton.setOnClickListener { emergencyStop() }
 
         logLine("Drone Hello on ${Build.MANUFACTURER} ${Build.MODEL}, Android ${Build.VERSION.RELEASE}")
@@ -315,7 +352,7 @@ class MainActivity : Activity() {
         AlertDialog.Builder(this)
             .setTitle("Start mission 1 (demo)?")
             .setMessage("The drone will TAKE OFF, fly ~1.5 m forward, turn 180°, fly ~1.5 m back and land.\n\nMake sure you have ~4 m of clear space and GPS signal. Keep hands off the RC sticks (moving them takes control back).")
-            .setPositiveButton("FLY") { _, _ -> startMission("Mission 1", hoverOnFailure = false) { runMission() } }
+            .setPositiveButton("Fly") { _, _ -> startMission("Mission 1", hoverOnFailure = false) { runMission() } }
             .setNegativeButton("Cancel", null)
             .show()
     }
@@ -328,7 +365,7 @@ class MainActivity : Activity() {
             setSingleLine()
         }
         val dialog = AlertDialog.Builder(this)
-            .setTitle("Start mission 2 (light painting)?")
+            .setTitle("Start mission 2 (light painting, outdoors)?")
             .setMessage("The drone will TAKE OFF and draw \"Albstadt\", \"Informatik\" and a heart in the air, " +
                 "one line under the other: about ${FIGURE_WIDTH_M.roundToInt()} m wide, " +
                 "up to ${(BOTTOM_ALT_M + FIGURE_HEIGHT_M).roundToInt()} m high. Then it flies back and lands.\n\n" +
@@ -359,13 +396,45 @@ class MainActivity : Activity() {
     private fun confirmMission3() {
         if (missionRunning) return
         AlertDialog.Builder(this)
-            .setTitle("Start mission 3 (star)?")
+            .setTitle("Start mission 3 (star, vertical)?")
             .setMessage("The drone will TAKE OFF and draw a ${STAR_DIAMETER_M.roundToInt()} m star standing upright " +
                 "above the take-off spot, up to 3 m high. Then it flies back down and lands.\n\n" +
                 "Place the drone with its nose pointing at the camera. The star spreads " +
                 "${(STAR_DIAMETER_M / 2).roundToInt()} m to each side: keep that clear, plus room to spare, and nothing overhead. " +
                 "Keep hands off the RC sticks (moving them takes control back).")
-            .setPositiveButton("FLY") { _, _ -> startMission("Mission 3", hoverOnFailure = false) { runMission3() } }
+            .setPositiveButton("Fly") { _, _ -> startMission("Mission 3", hoverOnFailure = false) { runMission3() } }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    private fun confirmMission4() {
+        if (missionRunning) return
+        AlertDialog.Builder(this)
+            .setTitle("Start mission 4 (star, horizontal)?")
+            .setMessage("The drone will TAKE OFF and draw a ${STAR_DIAMETER_M.roundToInt()} m star lying flat " +
+                "at about ${"%.1f".format(STAR_FLAT_ALT_M)} m, centred above the take-off spot. Then it flies back and lands.\n\n" +
+                "The star spreads ${(STAR_DIAMETER_M / 2).roundToInt()} m in every direction: keep that clear, plus room to spare. " +
+                "Stay out of the way at this height. " +
+                "Keep hands off the RC sticks (moving them takes control back).")
+            .setPositiveButton("Fly") { _, _ -> startMission("Mission 4", hoverOnFailure = false) { runMission4() } }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    private fun confirmMission5() {
+        if (missionRunning) return
+        AlertDialog.Builder(this)
+            .setTitle("Start mission 5 (triangle, vertical)?")
+            .setMessage("The drone will TAKE OFF and draw a triangle standing upright above the take-off spot, " +
+                "up to about 2.7 m high. Then it flies back down and lands.\n\n" +
+                "Place the drone with its nose pointing at the camera. The triangle spreads about 0.9 m to each side, " +
+                "and the drone can overshoot its corners: keep that clear, plus room to spare, and nothing overhead. " +
+                "With height correction, the drone holds its height on the downward sensor: fly over a flat floor, with no tables or stairs below. " +
+                "Without it, the drone flies the same triangle, for comparison. " +
+                "Stay out of the way at this height. " +
+                "Keep hands off the RC sticks (moving them takes control back).")
+            .setPositiveButton("Fly with height correction") { _, _ -> startMission("Mission 5", hoverOnFailure = false) { runMission5(true) } }
+            .setNeutralButton("Fly without height correction") { _, _ -> startMission("Mission 5", hoverOnFailure = false) { runMission5(false) } }
             .setNegativeButton("Cancel", null)
             .show()
     }
@@ -376,6 +445,8 @@ class MainActivity : Activity() {
             goButton.isEnabled = enabled
             mission2Button.isEnabled = enabled
             mission3Button.isEnabled = enabled
+            mission4Button.isEnabled = enabled
+            mission5Button.isEnabled = enabled
             simulatorCheck.isEnabled = enabled
             lightsCheck.isEnabled = enabled
         }
@@ -394,6 +465,7 @@ class MainActivity : Activity() {
 
         thread(name = "mission") {
             try {
+                startFlightLog(name)
                 mission()
                 setStatus(if (aborted) "$name aborted — landed." else "$name complete ✓")
             } catch (e: ControlTakenBack) {
@@ -419,10 +491,106 @@ class MainActivity : Activity() {
                     tryRecoverAndLand()
                 }
             } finally {
+                stopFlightLog()
                 missionRunning = false
                 setControlsEnabled(true)
             }
         }
+    }
+
+    // ---------------------------------------------------------------- flight log
+
+    /** Opens the mission's log file, records the avoidance setting and listens to the obstacle data. */
+    private fun startFlightLog(name: String) {
+        obstacleUpdates = 0
+        lastObstacleLogMs = 0L
+        lastObstacleLine = ""
+        val log = FlightLog(getExternalFilesDir(null), name.lowercase(Locale.US).replace(' ', '-'))
+        flightLog = log
+        // Logging must never stop a flight.
+        try {
+            val perception = PerceptionManager.getInstance()
+            val type = readSetting<Any> { perception.getObstacleAvoidanceType(it.asCallback()) }
+            val horizontal = readSetting<Any> {
+                perception.getObstacleAvoidanceEnabled(PerceptionDirection.HORIZONTAL, it.asCallback())
+            }
+            logLine("Obstacle avoidance: type $type, horizontal $horizontal")
+            log.line("avoidance type=$type horizontal=$horizontal")
+            perception.addObstacleDataListener(obstacleListener)
+        } catch (e: Exception) {
+            logLine("Obstacle avoidance could not be read: $e")
+        }
+    }
+
+    private fun stopFlightLog() {
+        try {
+            PerceptionManager.getInstance().removeObstacleDataListener(obstacleListener)
+        } catch (e: Exception) {
+            Log.w(TAG, "Removing the obstacle listener failed: ${e.message}")
+        }
+        val log = flightLog ?: return
+        flightLog = null
+        log.close()
+        logLine("Obstacle data updates: $obstacleUpdates. Flight log: ${log.path ?: "could not be written"}")
+    }
+
+    /** A setting read through a callback, as text: the value, or why it could not be read. */
+    private fun <T> readSetting(read: (SettingResult<T>) -> Unit): String {
+        val result = SettingResult<T>()
+        read(result)
+        return if (result.latch.await(1000, TimeUnit.MILLISECONDS)) result.text else "timeout"
+    }
+
+    private class SettingResult<T> {
+        val latch = CountDownLatch(1)
+        @Volatile var text = "no answer"
+
+        fun <V> asCallback() = object : CommonCallbacks.CompletionCallbackWithParam<V> {
+            override fun onSuccess(t: V?) { text = t.toString(); latch.countDown() }
+            override fun onFailure(e: IDJIError) { text = "failed: ${e.errorCode() ?: e}"; latch.countDown() }
+        }
+    }
+
+    /**
+     * Pulls the tracked height towards the downward sensor. The tracker misses slow climbs,
+     * because the drone reports speeds under ~0.1 m/s as zero. A reading that jumps away
+     * from the last good one is dropped until the sensor comes back to it.
+     */
+    private fun correctHeight(data: ObstacleData) {
+        val tracker = heightTracker ?: return
+        val measured = data.downwardObstacleDistance / 1000.0
+        if (measured <= 0.0 || measured >= HEIGHT_MAX_SENSOR_M) return
+        val reference = if (lastHeightM.isNaN()) tracker.position().third else lastHeightM
+        if (abs(measured - reference) > HEIGHT_MAX_JUMP_M) {
+            heightRejected++
+            flightLog?.line(String.format(Locale.US, "height rejected sensor=%.2f reference=%.2f", measured, reference))
+            return
+        }
+        val now = System.nanoTime()
+        if (lastHeightNs != 0L) {
+            val dt = (now - lastHeightNs) / 1e9
+            val before = tracker.position().third
+            val after = tracker.correctUp(measured, 1 - exp(-dt / HEIGHT_TIME_CONSTANT_S))
+            flightLog?.line(String.format(Locale.US, "height sensor=%.2f before=%.2f after=%.2f", measured, before, after))
+        }
+        lastHeightM = measured
+        lastHeightNs = now
+        heightAccepted++
+    }
+
+    /** Writes the nearest obstacle at most five times a second, and only when it changes. */
+    private fun logObstacles(data: ObstacleData) {
+        obstacleUpdates++
+        val now = System.currentTimeMillis()
+        if (now - lastObstacleLogMs < OBSTACLE_LOG_PERIOD_MS) return
+        val horizontal = data.horizontalObstacleDistance.orEmpty()
+        val nearest = horizontal.withIndex().filter { it.value > 0 }.minByOrNull { it.value }
+        val line = "obstacle nearest_mm=${nearest?.value} sector_deg=${nearest?.let { it.index * data.horizontalAngleInterval }} " +
+            "up_mm=${data.upwardObstacleDistance} down_mm=${data.downwardObstacleDistance}"
+        if (line == lastObstacleLine) return
+        lastObstacleLine = line
+        lastObstacleLogMs = now
+        flightLog?.line(line)
     }
 
     /** Best-effort wait for the flight-controller link (fresh read, not the cache).
@@ -551,6 +719,16 @@ class MainActivity : Activity() {
             updates++
         }
 
+        /** The velocity last reported by the drone. */
+        @Synchronized fun velocity(): Velocity3D? = last
+
+        /** Moves the height a share [gain] of the way to [measured]. Returns the new height. */
+        @Synchronized fun correctUp(measured: Double, gain: Double): Double {
+            advance(System.nanoTime())
+            up += (measured - up) * gain
+            return up
+        }
+
         /** North, east, up. */
         @Synchronized fun position(): Triple<Double, Double, Double> {
             advance(System.nanoTime())
@@ -569,12 +747,16 @@ class MainActivity : Activity() {
 
     /**
      * Flies to ([north], [east]) on the tracked position, slowing down on the way in.
-     * With [up] it also climbs or sinks to that height, on a straight line.
+     * With [up] it also climbs or sinks to that height, on a straight line. With [firmHeight]
+     * a small height error gets its full correction even early on a long level line, where
+     * the straight-line share of the stick would be too small to move the drone.
      */
-    private fun driveTo(tracker: Tracker, north: Double, east: Double, up: Double? = null) {
+    private fun driveTo(tracker: Tracker, north: Double, east: Double, up: Double? = null, firmHeight: Boolean = false) {
         val deadline = System.currentTimeMillis() + LEG_TIMEOUT_MS
         val sticks = VirtualStickManager.getInstance()
         var h = heading() ?: 0.0
+        var lastStepMs = System.currentTimeMillis()
+        flightLog?.line(String.format(Locale.US, "leg target n=%.2f e=%.2f u=%s", north, east, up?.let { "%.2f".format(Locale.US, it) }))
         try {
             while (true) {
                 checkAbort()
@@ -583,9 +765,13 @@ class MainActivity : Activity() {
                 val de = east - e
                 val du = if (up != null) up - u else 0.0
                 val dist = sqrt(dn * dn + de * de + du * du)
-                if (dist < LEG_ARRIVE_M) return
+                if (dist < LEG_ARRIVE_M) {
+                    flightLog?.line(String.format(Locale.US, "leg arrived dist=%.2f", dist))
+                    return
+                }
                 if (System.currentTimeMillis() > deadline) {
                     logLine("Gave up %.2f m short of the point".format(dist))
+                    flightLog?.line(String.format(Locale.US, "leg gave_up dist=%.2f", dist))
                     return
                 }
                 h = heading() ?: h
@@ -594,9 +780,20 @@ class MainActivity : Activity() {
                 // North/east to the drone's own forward/right.
                 val forward = (dn * cos(r) + de * sin(r)) * scale
                 val right = (-dn * sin(r) + de * cos(r)) * scale
-                sticks.rightStick.verticalPosition = toStick(forward * STICK_PER_MPS_HORIZONTAL)
-                sticks.rightStick.horizontalPosition = toStick(right * STICK_PER_MPS_HORIZONTAL)
-                sticks.leftStick.verticalPosition = toStick(du * scale * STICK_PER_MPS_VERTICAL)
+                val stickForward = toStick(forward * STICK_PER_MPS_HORIZONTAL)
+                val stickRight = toStick(right * STICK_PER_MPS_HORIZONTAL)
+                val climb = if (firmHeight && abs(du) < HEIGHT_FIRM_BAND_M) du * APPROACH_GAIN else du * scale
+                val stickUp = toStick(climb * STICK_PER_MPS_VERTICAL)
+                sticks.rightStick.verticalPosition = stickForward
+                sticks.rightStick.horizontalPosition = stickRight
+                sticks.leftStick.verticalPosition = stickUp
+                val v = tracker.velocity()
+                val now = System.currentTimeMillis()
+                flightLog?.line(String.format(Locale.US,
+                    "step dt_ms=%d n=%.2f e=%.2f u=%.2f dist=%.2f heading=%.1f stick_fwd=%d stick_right=%d stick_up=%d vn=%.2f ve=%.2f vd=%.2f updates=%d",
+                    now - lastStepMs, n, e, u, dist, h, stickForward, stickRight, stickUp,
+                    v?.x ?: Double.NaN, v?.y ?: Double.NaN, v?.z ?: Double.NaN, tracker.updates))
+                lastStepMs = now
                 Thread.sleep(CONTROL_PERIOD_MS)
             }
         } finally {
@@ -650,11 +847,58 @@ class MainActivity : Activity() {
 
     /**
      * Mission 3: a five-pointed star standing upright above the take-off spot, in the
-     * plane across the nose, so a camera in front of the nose sees it whole. Steered on
-     * the [Tracker] like mission 1, so it flies indoors and outdoors. The lights are on
-     * while the star is drawn.
+     * plane across the nose, so a camera in front of the nose sees it whole.
      */
     private fun runMission3() {
+        val r = STAR_DIAMETER_M / 2
+        val centreAlt = STAR_BOTTOM_ALT_M + r * cos(Math.toRadians(36.0))
+        // Sideways is the drone's right, so north/east = side × (-sin h, cos h).
+        runFigure("star", STAR_STEP_DEG, 5, STAR_BOTTOM_ALT_M) { h, a ->
+            val side = r * sin(a)
+            Triple(-side * sin(h), side * cos(h), centreAlt + r * cos(a))
+        }
+    }
+
+    /**
+     * Mission 4: the same star lying flat at [STAR_FLAT_ALT_M], centred above the take-off
+     * spot, with one tip ahead of the nose. A camera has to look down on it or up at it.
+     */
+    private fun runMission4() {
+        val r = STAR_DIAMETER_M / 2
+        runFigure("star", STAR_STEP_DEG, 5, STAR_FLAT_ALT_M) { h, a ->
+            Triple(r * cos(h + a), r * sin(h + a), STAR_FLAT_ALT_M)
+        }
+    }
+
+    /**
+     * Mission 5: a triangle standing upright across the nose like mission 3, its corners on
+     * a circle of the star's size and its bottom line at [STAR_BOTTOM_ALT_M]. With
+     * [heightCorrection] the height follows the downward sensor; without it, the same
+     * flight serves as the comparison, and the log says which one it was.
+     */
+    private fun runMission5(heightCorrection: Boolean) {
+        val r = STAR_DIAMETER_M / 2
+        val centreAlt = STAR_BOTTOM_ALT_M + r / 2
+        logLine("Height correction: ${if (heightCorrection) "on" else "off"}")
+        flightLog?.line("height_correction ${if (heightCorrection) "on" else "off"}")
+        runFigure("triangle", 120.0, 3, STAR_BOTTOM_ALT_M, heightFromSensor = heightCorrection) { h, a ->
+            val side = r * sin(a)
+            Triple(-side * sin(h), side * cos(h), centreAlt + r * cos(a))
+        }
+    }
+
+    /**
+     * Takes off, draws a closed figure and lands. Steered on the [Tracker] like mission 1,
+     * so it flies indoors and outdoors. The lights are on while the figure is drawn. Each
+     * of the [lines] jumps [stepDeg] on. [tip] gives north, east and height of a point from
+     * the start heading and the point's angle, both in radians; the figure ends at
+     * [endAlt] above the take-off spot. With [heightFromSensor] the height follows the
+     * downward sensor while the figure is flown, which only suits a flat figure.
+     */
+    private fun runFigure(
+        name: String, stepDeg: Double, lines: Int, endAlt: Double, heightFromSensor: Boolean = false,
+        tip: (Double, Double) -> Triple<Double, Double, Double>,
+    ) {
         waitForAircraft()
         logLinkSnapshot("before takeoff")
 
@@ -671,43 +915,46 @@ class MainActivity : Activity() {
         // Height above the take-off spot, from the barometer; the tracker carries it on.
         val tracker = Tracker(pull(FlightControllerKey.KeyAltitude) ?: STAR_BOTTOM_ALT_M)
         tracker.start()
+        if (heightFromSensor) {
+            lastHeightM = Double.NaN
+            lastHeightNs = 0L
+            heightAccepted = 0
+            heightRejected = 0
+            heightTracker = tracker
+        }
         try {
             sleepChecked(1_000)
             val start = heading()
             if (tracker.updates == 0 || start == null) {
-                throw IllegalStateException("No velocity or heading from the drone: cannot draw the star.")
+                throw IllegalStateException("No velocity or heading from the drone: cannot draw the $name.")
             }
-            // Each line jumps two tips on (144°), starting at the top. Sideways is the
-            // drone's right, so north/east = side × (-sin h, cos h).
             val h = Math.toRadians(start)
-            val r = STAR_DIAMETER_M / 2
-            val centreAlt = STAR_BOTTOM_ALT_M + r * cos(Math.toRadians(36.0))
-            val tips = (0..5).map { k ->
-                val a = Math.toRadians(144.0 * k)
-                val side = r * sin(a)
-                Triple(-side * sin(h), side * cos(h), centreAlt + r * cos(a))
-            }
+            val tips = (0..lines).map { k -> tip(h, Math.toRadians(stepDeg * k)) }
 
-            step("Climbing to the top of the star…")
+            step("Flying to the first point of the $name…")
             setLights(false)
-            driveTo(tracker, tips[0].first, tips[0].second, tips[0].third)
+            driveTo(tracker, tips[0].first, tips[0].second, tips[0].third, heightFromSensor)
             sleepChecked(1_000)
 
             setLights(true)
             sleepChecked(LIGHT_SWITCH_MS)
-            for (k in 1..5) {
-                step("Drawing the star, line $k of 5…")
-                driveTo(tracker, tips[k].first, tips[k].second, tips[k].third)
+            for (k in 1..lines) {
+                step("Drawing the $name, line $k of $lines…")
+                driveTo(tracker, tips[k].first, tips[k].second, tips[k].third, heightFromSensor)
             }
             setLights(false)
             sleepChecked(LIGHT_SWITCH_MS)
 
-            step("Flying back down to the take-off spot…")
-            driveTo(tracker, 0.0, 0.0, STAR_BOTTOM_ALT_M)
+            step("Flying back to the take-off spot…")
+            driveTo(tracker, 0.0, 0.0, endAlt, heightFromSensor)
             sleepChecked(1_000)
             val (n, e) = tracker.position()
             logLine("Back above the take-off spot, %.2f m off by the drone's own count".format(hypot(n, e)))
         } finally {
+            if (heightFromSensor) {
+                heightTracker = null
+                logLine("Height sensor readings: $heightAccepted used, $heightRejected dropped")
+            }
             tracker.stop()
             setLights(true)   // also when the mission fails: the pilot has to see the drone
             runOnUiThread { lightsCheck.isChecked = true }
