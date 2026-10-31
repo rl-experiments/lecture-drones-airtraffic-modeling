@@ -379,8 +379,8 @@
             ],
             [
               "4",
-              "Install <strong>DJI Fly</strong> on the phone: <strong>update the firmware</strong>, link the RC, then force-stop it",
-              "dji.com/downloads (not on Google Play)"
+              "Install <strong>DJI Fly</strong> on the phone and <strong>check that it connects</strong> to the RC: <strong>update the firmware</strong>, link the RC, then force-stop it",
+              "<a href=\"https://www.dji.com/de/downloads/djiapp/dji-fly\" target=\"_blank\">dji.com: DJI Fly</a> (not on Google Play)"
             ],
             [
               "5",

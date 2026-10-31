@@ -24,7 +24,7 @@ auto-landing — in the smallest amount of code that actually flies.
 | Drone | DJI Mini 4 Pro |
 | Controller | DJI RC-N3 (or RC-N2). **RC 2 with built-in screen is not supported by MSDK.** |
 | Phone | Android 7.0+ (arm64), with a USB-C port to plug into the controller |
-| Phone app | **DJI Fly**, from <https://www.dji.com/downloads> (it is not on Google Play) — needed once for firmware and RC linking |
+| Phone app | **DJI Fly**, from <https://www.dji.com/de/downloads/djiapp/dji-fly> (it is not on Google Play) — needed to check the phone-to-RC connection, and for firmware and RC linking |
 | Build machine | JDK 17+, Android SDK (compileSdk 35), the bundled Gradle wrapper |
 
 ---
@@ -40,13 +40,18 @@ firmware) come first, because they are the steps that stall a session.
    downloads Gradle, the Android platform and the DJI SDK. School and campus
    networks often block or throttle these and the build ends in a
    **connection timeout** — switch the laptop to a **mobile hotspot** and run it again.
-3. **Install DJI Fly** on the Android phone.
-4. **Update the aircraft firmware in DJI Fly.** Plug the phone into the RC, power on
-   the drone and let DJI Fly finish every update it offers. An outdated drone will
-   not get past this screen, and the update needs internet and a charged battery.
-5. **Link the RC to the drone** in DJI Fly (step 3 below), confirm it connects, then
+3. **Install DJI Fly** on the Android phone from
+   <https://www.dji.com/de/downloads/djiapp/dji-fly>.
+4. **Check the connection in DJI Fly (required).** Plug the phone into the RC's data
+   port (step 3 below), power on the RC and open DJI Fly. It must connect: that proves
+   the phone is connected to the RC. If it does not, fix this first, because
+   **Drone Hello** will not connect either.
+5. **Update the aircraft firmware in DJI Fly.** Power on the drone and let DJI Fly
+   finish every update it offers. An outdated drone will not get past this screen,
+   and the update needs internet and a charged battery.
+6. **Link the RC to the drone** in DJI Fly (step 3 below), confirm it connects, then
    **force-stop DJI Fly**.
-6. Install **Drone Hello** and run the demo (steps 3 and 4 below).
+7. Install **Drone Hello** and run the demo (steps 3 and 4 below).
 
 An emulator is not an option: the SDK ships arm64 libraries only and the emulator
 has no link to the controller. Use a real phone.
