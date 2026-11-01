@@ -198,7 +198,7 @@ the lowest tips at ~1.2 m, the top at 3.0 m (under 5 m). Place the drone with it
 pointing at the camera; the star stands across the nose, 1 m to each side. The lights
 are on while the star is drawn. Like Mission 1, it steers on the drone's measured
 velocity, so it flies indoors and outdoors. You need a ceiling above 3.7 m. Tune with
-`STAR_DIAMETER_M` / `STAR_BOTTOM_ALT_M`; the path is drawn in `mission3-path.svg`.
+`STAR_DIAMETER_M` / `STAR_BOTTOM_ALT_M`; the path is drawn in [`docs/mission3-path.svg`](docs/mission3-path.svg).
 
 ### Mission 4 (star, horizontal)
 
