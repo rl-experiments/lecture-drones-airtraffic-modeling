@@ -2,3 +2,5 @@
 export/
 frameworks/
 *.pptx
+output/
+*.logcat
