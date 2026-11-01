@@ -1,15 +1,19 @@
 # Drone Hello — DJI Mini 4 Pro "Hello World"
 
 Minimal Android app (DJI Mobile SDK v5.18) for the **DJI Mini 4 Pro** flown with a
-**DJI RC-N3** controller. Five buttons each run a fixed mission. Start with
-**Mission 1 (demo)**:
+**DJI RC-N3** controller. Five buttons each run a fixed mission:
 
-> **take off → fly ~1.5 m forward → rotate 180° → fly ~1.5 m back → land**
+- **Mission 1 (demo):** take off → fly ~1.5 m forward → rotate 180° → fly ~1.5 m back → land.
+- **Mission 2 (light painting, outdoors):** draw "Albstadt", "Informatik" and a heart for a
+  long-exposure photo, about 61 m wide and up to 73 m high.
+- **Mission 3 (star, vertical):** draw a 2 m star standing upright above the take-off spot.
+- **Mission 4 (star, horizontal):** draw the same star lying flat at ~1.2 m.
+- **Mission 5 (triangle, vertical):** draw an upright triangle, with or without a height
+  correction from the downward sensor.
 
-It exists to prove the full chain works end to end — SDK registration, aircraft
-connection, takeoff, virtual-stick movement, a closed-loop yaw turn, and an
-auto-landing. Missions 2 to 5 draw figures in the air: light painting outdoors, two
-stars and a triangle. Every mission writes a flight log.
+Start with Mission 1. It proves the full chain works end to end: SDK registration,
+aircraft connection, takeoff, virtual-stick movement, a closed-loop yaw turn and an
+auto-landing. Every mission writes a flight log.
 
 > ⚠️ **Be careful — this was vibe-coded in a couple of hours.**
 > It's a teaching demo, not production-grade software, and it commands **real
@@ -198,7 +202,8 @@ the lowest tips at ~1.2 m, the top at 3.0 m (under 5 m). Place the drone with it
 pointing at the camera; the star stands across the nose, 1 m to each side. The lights
 are on while the star is drawn. Like Mission 1, it steers on the drone's measured
 velocity, so it flies indoors and outdoors. You need a ceiling above 3.7 m. Tune with
-`STAR_DIAMETER_M` / `STAR_BOTTOM_ALT_M`; the path is drawn in [`docs/mission3-path.svg`](docs/mission3-path.svg).
+`STAR_DIAMETER_M` / `STAR_BOTTOM_ALT_M`; the path is drawn in
+[`docs/mission3-path.svg`](docs/mission3-path.svg).
 
 ### Mission 4 (star, horizontal)
 
@@ -248,7 +253,7 @@ say which one it was.
   is always your manual override. The RC pause button also cancels app control.
   The app notices this, stops the mission and sends nothing more: **it will not land
   the drone after you have taken over.** You are flying; land it yourself.
-- Both legs steer on a **measured position**: the drone's own velocity, added up from
+- Both legs of Mission 1 steer on a **measured position**: the drone's own velocity, added up from
   the take-off spot. That works on GPS outdoors and on the vision sensors indoors, and
   the way back aims at the take-off spot, so errors in the turn don't add up. Expect
   ~10–30 cm off after landing; the log shows the drone's own count. If the drone
@@ -284,9 +289,16 @@ All flight logic is in `app/src/main/java/com/example/djihellodrone/MainActivity
   any failed read. **Share log** sends it as text; the same lines go to logcat under
   the tag `DroneHello`.
 - **Flight log** — every mission writes a file with the obstacle-avoidance setting and
-  the obstacle readings; Missions 1 and 3 also record each control step. The on-screen
-  log names the file at the end of the mission. Fetch it with
-  `adb pull /sdcard/Android/data/com.example.djihellodrone/files/`.
+  the obstacle readings; every mission except Mission 2 also records each control step.
+  The on-screen log names the file at the end of the mission. Logs stay out of the repo,
+  so fetch them into the git-ignored `output/` directory at the repo root:
+  ```bash
+  mkdir -p ../../output/flight-logs
+  adb pull /sdcard/Android/data/com.example.djihellodrone/files/. ../../output/flight-logs/
+  ```
+- **Flight analysis** — the scripts in `tools/flight-analysis/` turn those logs into
+  statistics and SVG plots. The logs are not in the repo: `slide.py` and `slower.py` read
+  the 31 October files by name, the others take the log paths as arguments.
 
 ---
 
@@ -324,14 +336,19 @@ All flight logic is in `app/src/main/java/com/example/djihellodrone/MainActivity
 ## Project layout
 
 ```
-DJI-mini/
+dji-hello-world/
 ├─ app/
 │  ├─ build.gradle                 # module config + DJI SDK dependencies
 │  └─ src/main/
 │     ├─ AndroidManifest.xml        # USB-accessory intent, API_KEY placeholder
 │     ├─ java/.../HelloDroneApplication.kt
 │     ├─ java/.../MainActivity.kt   # all flight logic
-│     └─ res/                       # layout, accessory_filter.xml
+│     ├─ java/.../FigurePath.kt     # the points of the Mission 2 figure
+│     ├─ java/.../FlightLog.kt      # one log file per mission
+│     ├─ java/.../LogPanel.kt       # the on-screen log
+│     └─ res/                       # layouts, accessory_filter.xml
+├─ docs/                            # mission3-path.svg
+├─ tools/flight-analysis/           # scripts that read the flight logs
 ├─ gradle.properties.template       # copy to gradle.properties, add your key
 ├─ build.gradle · settings.gradle · gradlew · gradlew.bat
 └─ README.md
