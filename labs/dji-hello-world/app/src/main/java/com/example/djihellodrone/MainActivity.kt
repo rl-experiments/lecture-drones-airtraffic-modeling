@@ -7,9 +7,14 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
+import android.widget.LinearLayout
+import android.widget.RadioButton
+import android.widget.RadioGroup
+import android.widget.ScrollView
 import android.widget.TextView
 import dji.sdk.keyvalue.key.AirLinkKey
 import dji.sdk.keyvalue.key.BatteryKey
@@ -79,14 +84,15 @@ class MainActivity : Activity() {
         private const val LEG_TIMEOUT_MS = 15_000L
         private const val OBSTACLE_LOG_PERIOD_MS = 200L
 
-        // Mission 3: a five-pointed star standing upright above the take-off spot, facing
-        // the nose. Its top is at bottom + 1.81 × radius: 3.0 m, under the 5 m allowed.
-        private const val STAR_DIAMETER_M = 2.0
-        private const val STAR_BOTTOM_ALT_M = 1.2   // the lowest tips, about take-off height
-        private const val STAR_FLAT_ALT_M = 1.2     // Mission 4: the whole star, at take-off height
+        // Mission 3: a star or a triangle, upright across the nose or flat above the take-off
+        // spot. Upright, the star's top is at bottom + 1.81 × radius: 3.0 m, under the 5 m allowed.
+        private const val STAR_DIAMETER_M = 2.0     // the circle the tips lie on, for both figures
+        private const val STAR_BOTTOM_ALT_M = 1.2   // upright: the lowest tips, about take-off height
+        private const val STAR_FLAT_ALT_M = 1.2     // flat: the whole figure, at take-off height
         private const val STAR_STEP_DEG = 144.0     // each line of a star jumps two tips on
+        private const val TRIANGLE_STEP_DEG = 120.0
 
-        // Mission 5: the height comes from the downward sensor, so it needs a flat floor.
+        // Height correction: the height comes from the downward sensor, so it needs a flat floor.
         private const val HEIGHT_TIME_CONSTANT_S = 1.0  // how fast the tracked height follows the sensor
         private const val HEIGHT_MAX_JUMP_M = 0.4       // a bigger step is a table or a stair, not the drone
         private const val HEIGHT_MAX_SENSOR_M = 30.0    // readings above this mean "nothing measured"
@@ -143,8 +149,6 @@ class MainActivity : Activity() {
     private lateinit var goButton: Button
     private lateinit var mission2Button: Button
     private lateinit var mission3Button: Button
-    private lateinit var mission4Button: Button
-    private lateinit var mission5Button: Button
     private lateinit var simulatorCheck: CheckBox
     private lateinit var lightsCheck: CheckBox
     private lateinit var stopButton: Button
@@ -222,8 +226,6 @@ class MainActivity : Activity() {
         logPanel = findViewById(R.id.logPanel)
         mission2Button = findViewById(R.id.mission2Button)
         mission3Button = findViewById(R.id.mission3Button)
-        mission4Button = findViewById(R.id.mission4Button)
-        mission5Button = findViewById(R.id.mission5Button)
         simulatorCheck = findViewById(R.id.simulatorCheck)
         simulatorCheck.setOnCheckedChangeListener { _, checked -> if (checked != simulatorOn) setSimulator(checked) }
         // A check on the table, before mission 2 relies on it: do the drone's lights obey?
@@ -234,8 +236,6 @@ class MainActivity : Activity() {
         goButton.setOnClickListener { confirmAndFly() }
         mission2Button.setOnClickListener { confirmMission2() }
         mission3Button.setOnClickListener { confirmMission3() }
-        mission4Button.setOnClickListener { confirmMission4() }
-        mission5Button.setOnClickListener { confirmMission5() }
         stopButton.setOnClickListener { emergencyStop() }
 
         logLine("Drone Hello on ${Build.MANUFACTURER} ${Build.MODEL}, Android ${Build.VERSION.RELEASE}")
@@ -393,50 +393,79 @@ class MainActivity : Activity() {
         })
     }
 
+    /** The figures of mission 3. Each line jumps [stepDeg] on; [lines] lines close the figure. */
+    private enum class Figure(val label: String, val stepDeg: Double, val lines: Int) {
+        STAR("star", STAR_STEP_DEG, 5),
+        TRIANGLE("triangle", TRIANGLE_STEP_DEG, 3),
+    }
+
+    /** Mission 3: the pilot picks the figure, upright or flat, and the height correction. */
     private fun confirmMission3() {
         if (missionRunning) return
+        val pad = (16 * resources.displayMetrics.density).roundToInt()
+        fun radio(label: String) = RadioButton(this).apply { id = View.generateViewId(); text = label }
+        fun group(vararg buttons: RadioButton) = RadioGroup(this).apply {
+            orientation = RadioGroup.HORIZONTAL
+            buttons.forEach { addView(it) }
+            check(buttons[0].id)
+        }
+        val star = radio("Star")
+        val triangle = radio("Triangle")
+        val upright = radio("Upright")
+        val flat = radio("Flat")
+        val heightCheck = CheckBox(this).apply { text = "Height correction from the downward sensor" }
+        val message = TextView(this).apply { setPadding(0, pad / 2, 0, 0) }
+        fun figure() = if (triangle.isChecked) Figure.TRIANGLE else Figure.STAR
+        fun update() { message.text = mission3Message(figure(), upright.isChecked, heightCheck.isChecked) }
+        val shapes = group(star, triangle).apply { setOnCheckedChangeListener { _, _ -> update() } }
+        val planes = group(upright, flat).apply { setOnCheckedChangeListener { _, _ -> update() } }
+        heightCheck.setOnCheckedChangeListener { _, _ -> update() }
+        update()
+
+        val content = LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            setPadding(pad, pad / 2, pad, 0)
+            addView(shapes)
+            addView(planes)
+            addView(heightCheck)
+            addView(message)
+        }
         AlertDialog.Builder(this)
-            .setTitle("Start mission 3 (star, vertical)?")
-            .setMessage("The drone will TAKE OFF and draw a ${STAR_DIAMETER_M.roundToInt()} m star standing upright " +
-                "above the take-off spot, up to 3 m high. Then it flies back down and lands.\n\n" +
-                "Place the drone with its nose pointing at the camera. The star spreads " +
-                "${(STAR_DIAMETER_M / 2).roundToInt()} m to each side: keep that clear, plus room to spare, and nothing overhead. " +
-                "Keep hands off the RC sticks (moving them takes control back).")
-            .setPositiveButton("Fly") { _, _ -> startMission("Mission 3", hoverOnFailure = false) { runMission3() } }
+            .setTitle("Start mission 3 (star or triangle)?")
+            .setView(ScrollView(this).apply { addView(content) })
+            .setPositiveButton("Fly") { _, _ ->
+                val f = figure()
+                val up = upright.isChecked
+                val correction = heightCheck.isChecked
+                startMission("Mission 3", hoverOnFailure = false) { runMission3(f, up, correction) }
+            }
             .setNegativeButton("Cancel", null)
             .show()
     }
 
-    private fun confirmMission4() {
-        if (missionRunning) return
-        AlertDialog.Builder(this)
-            .setTitle("Start mission 4 (star, horizontal)?")
-            .setMessage("The drone will TAKE OFF and draw a ${STAR_DIAMETER_M.roundToInt()} m star lying flat " +
-                "at about ${"%.1f".format(STAR_FLAT_ALT_M)} m, centred above the take-off spot. Then it flies back and lands.\n\n" +
-                "The star spreads ${(STAR_DIAMETER_M / 2).roundToInt()} m in every direction: keep that clear, plus room to spare. " +
-                "Stay out of the way at this height. " +
-                "Keep hands off the RC sticks (moving them takes control back).")
-            .setPositiveButton("Fly") { _, _ -> startMission("Mission 4", hoverOnFailure = false) { runMission4() } }
-            .setNegativeButton("Cancel", null)
-            .show()
-    }
-
-    private fun confirmMission5() {
-        if (missionRunning) return
-        AlertDialog.Builder(this)
-            .setTitle("Start mission 5 (triangle, vertical)?")
-            .setMessage("The drone will TAKE OFF and draw a triangle standing upright above the take-off spot, " +
-                "up to about 2.7 m high. Then it flies back down and lands.\n\n" +
-                "Place the drone with its nose pointing at the camera. The triangle spreads about 0.9 m to each side, " +
-                "and the drone can overshoot its corners: keep that clear, plus room to spare, and nothing overhead. " +
-                "With height correction, the drone holds its height on the downward sensor: fly over a flat floor, with no tables or stairs below. " +
-                "Without it, the drone flies the same triangle, for comparison. " +
-                "Stay out of the way at this height. " +
-                "Keep hands off the RC sticks (moving them takes control back).")
-            .setPositiveButton("Fly with height correction") { _, _ -> startMission("Mission 5", hoverOnFailure = false) { runMission5(true) } }
-            .setNeutralButton("Fly without height correction") { _, _ -> startMission("Mission 5", hoverOnFailure = false) { runMission5(false) } }
-            .setNegativeButton("Cancel", null)
-            .show()
+    private fun mission3Message(figure: Figure, upright: Boolean, heightCorrection: Boolean): String {
+        val r = STAR_DIAMETER_M / 2
+        val name = figure.label
+        val text = StringBuilder()
+        if (upright) {
+            val top = STAR_BOTTOM_ALT_M + r * cos(Math.PI / figure.lines) + r
+            val side = (0 until figure.lines).maxOf { k -> abs(r * sin(Math.toRadians(figure.stepDeg * k))) }
+            text.append("The drone will TAKE OFF and draw a ${STAR_DIAMETER_M.roundToInt()} m $name standing upright " +
+                "above the take-off spot, up to ${"%.1f".format(Locale.US, top)} m high. Then it flies back down and lands.\n\n" +
+                "Place the drone with its nose pointing at the camera. The $name spreads about ${"%.1f".format(Locale.US, side)} m " +
+                "to each side, and the drone can overshoot its tips: keep that clear, plus room to spare, and nothing overhead. ")
+        } else {
+            text.append("The drone will TAKE OFF and draw a ${STAR_DIAMETER_M.roundToInt()} m $name lying flat " +
+                "at about ${"%.1f".format(Locale.US, STAR_FLAT_ALT_M)} m, centred above the take-off spot. Then it flies back and lands.\n\n" +
+                "The $name spreads ${"%.0f".format(Locale.US, r)} m in every direction, and the drone can overshoot its tips: " +
+                "keep that clear, plus room to spare. Film it from above or below. ")
+        }
+        if (heightCorrection) {
+            text.append("With height correction, the drone holds its height on the downward sensor: " +
+                "fly over a flat floor, with no tables or stairs below. ")
+        }
+        text.append("Stay out of the way at this height. Keep hands off the RC sticks (moving them takes control back).")
+        return text.toString()
     }
 
     /** The mission buttons and the checkboxes: usable while connected and no mission flies. */
@@ -445,8 +474,6 @@ class MainActivity : Activity() {
             goButton.isEnabled = enabled
             mission2Button.isEnabled = enabled
             mission3Button.isEnabled = enabled
-            mission4Button.isEnabled = enabled
-            mission5Button.isEnabled = enabled
             simulatorCheck.isEnabled = enabled
             lightsCheck.isEnabled = enabled
         }
@@ -843,47 +870,34 @@ class MainActivity : Activity() {
         throw IllegalStateException("Landing did not complete within ${timeoutMs / 1000} s")
     }
 
-    // ---------------------------------------------------------------- mission 3 (star)
+    // ---------------------------------------------------------------- mission 3 (figures)
 
     /**
-     * Mission 3: a five-pointed star standing upright above the take-off spot, in the
-     * plane across the nose, so a camera in front of the nose sees it whole.
+     * Mission 3: a star or a triangle with its tips on a circle of [STAR_DIAMETER_M].
+     * [upright], it stands above the take-off spot in the plane across the nose, so a camera
+     * in front of the nose sees it whole; its lowest tips are at [STAR_BOTTOM_ALT_M]. Flat,
+     * it lies at [STAR_FLAT_ALT_M] centred above the take-off spot, with one tip ahead of
+     * the nose, and a camera has to look down on it or up at it. With [heightCorrection]
+     * the height follows the downward sensor; the log records all three choices.
      */
-    private fun runMission3() {
+    private fun runMission3(figure: Figure, upright: Boolean, heightCorrection: Boolean) {
         val r = STAR_DIAMETER_M / 2
-        val centreAlt = STAR_BOTTOM_ALT_M + r * cos(Math.toRadians(36.0))
-        // Sideways is the drone's right, so north/east = side × (-sin h, cos h).
-        runFigure("star", STAR_STEP_DEG, 5, STAR_BOTTOM_ALT_M) { h, a ->
-            val side = r * sin(a)
-            Triple(-side * sin(h), side * cos(h), centreAlt + r * cos(a))
-        }
-    }
-
-    /**
-     * Mission 4: the same star lying flat at [STAR_FLAT_ALT_M], centred above the take-off
-     * spot, with one tip ahead of the nose. A camera has to look down on it or up at it.
-     */
-    private fun runMission4() {
-        val r = STAR_DIAMETER_M / 2
-        runFigure("star", STAR_STEP_DEG, 5, STAR_FLAT_ALT_M) { h, a ->
-            Triple(r * cos(h + a), r * sin(h + a), STAR_FLAT_ALT_M)
-        }
-    }
-
-    /**
-     * Mission 5: a triangle standing upright across the nose like mission 3, its corners on
-     * a circle of the star's size and its bottom line at [STAR_BOTTOM_ALT_M]. With
-     * [heightCorrection] the height follows the downward sensor; without it, the same
-     * flight serves as the comparison, and the log says which one it was.
-     */
-    private fun runMission5(heightCorrection: Boolean) {
-        val r = STAR_DIAMETER_M / 2
-        val centreAlt = STAR_BOTTOM_ALT_M + r / 2
-        logLine("Height correction: ${if (heightCorrection) "on" else "off"}")
-        flightLog?.line("height_correction ${if (heightCorrection) "on" else "off"}")
-        runFigure("triangle", 120.0, 3, STAR_BOTTOM_ALT_M, heightFromSensor = heightCorrection) { h, a ->
-            val side = r * sin(a)
-            Triple(-side * sin(h), side * cos(h), centreAlt + r * cos(a))
+        val plane = if (upright) "upright" else "flat"
+        val correction = if (heightCorrection) "on" else "off"
+        logLine("Figure: ${figure.label}, $plane, height correction $correction")
+        flightLog?.line("figure ${figure.label} $plane")
+        flightLog?.line("height_correction $correction")
+        if (upright) {
+            val centreAlt = STAR_BOTTOM_ALT_M + r * cos(Math.PI / figure.lines)
+            // Sideways is the drone's right, so north/east = side × (-sin h, cos h).
+            runFigure(figure.label, figure.stepDeg, figure.lines, STAR_BOTTOM_ALT_M, heightFromSensor = heightCorrection) { h, a ->
+                val side = r * sin(a)
+                Triple(-side * sin(h), side * cos(h), centreAlt + r * cos(a))
+            }
+        } else {
+            runFigure(figure.label, figure.stepDeg, figure.lines, STAR_FLAT_ALT_M, heightFromSensor = heightCorrection) { h, a ->
+                Triple(r * cos(h + a), r * sin(h + a), STAR_FLAT_ALT_M)
+            }
         }
     }
 

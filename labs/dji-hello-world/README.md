@@ -1,15 +1,13 @@
 # Drone Hello: DJI Mini 4 Pro "Hello World"
 
 Android app (DJI Mobile SDK v5.18) for the **DJI Mini 4 Pro** with a **DJI RC-N3**
-controller. Five buttons each run a fixed mission:
+controller. Three buttons each run a mission:
 
 - **Mission 1 (demo):** take off → fly ~1.5 m forward → rotate 180° → fly ~1.5 m back → land.
 - **Mission 2 (light painting, outdoors):** draw "Albstadt", "Informatik" and a heart for a
   long-exposure photo, about 61 m wide and up to 73 m high.
-- **Mission 3 (star, vertical):** draw a 2 m star standing upright above the take-off spot.
-- **Mission 4 (star, horizontal):** draw the same star lying flat at ~1.2 m.
-- **Mission 5 (triangle, vertical):** draw an upright triangle, with or without a height
-  correction from the downward sensor.
+- **Mission 3 (star or triangle):** draw a 2 m star or triangle, upright above the take-off
+  spot or flat at ~1.2 m, with or without a height correction from the downward sensor.
 
 Start with Mission 1. It proves the full chain works end to end: SDK registration,
 aircraft connection, takeoff, virtual-stick movement, a closed-loop yaw turn and an
@@ -151,30 +149,29 @@ This mission steers on GPS position. If it leaves the box around the figure by m
 8 m or loses its position, it stops and **hovers**: take over with the RC or press
 **STOP + LAND**. The figure is defined in `FigurePath.kt`.
 
-### Mission 3 (star, vertical)
+### Mission 3 (star or triangle)
 
-A five-pointed star across the nose, 1 m to each side, with the lowest tips at ~1.2 m and
-the top at 3.0 m. Place the drone with its nose pointing at the camera. It needs a ceiling
-above 3.7 m and flies indoors and outdoors. Tune with `STAR_DIAMETER_M` and
-`STAR_BOTTOM_ALT_M`. See the [planned path](docs/mission3-path.svg).
+The start dialog offers three choices; the flight log records all of them.
 
-### Mission 4 (star, horizontal)
+| Choice | Options |
+|---|---|
+| Figure | **Star** (five tips) or **Triangle** (three corners), both on a 2 m circle |
+| Plane | **Upright** across the nose, or **Flat** above the take-off spot |
+| Height correction | on or off |
 
-The same star, flat at ~1.2 m and centred above the take-off spot, with the first tip 1 m
-ahead of the nose. Keep 1 m clear in every direction, plus a margin. It flies indoors and
-outdoors. Film it from above or below, because from the side it is only a line. Tune with
-`STAR_DIAMETER_M` and `STAR_FLAT_ALT_M`.
+- **Upright:** the lowest tips at ~1.2 m. The star reaches 3.0 m and ~1 m to each side, the
+  triangle 2.7 m and ~0.9 m to each side. Place the drone with its nose pointing at the
+  camera. It needs a ceiling above 3.7 m. See the [planned star](docs/mission3-path.svg).
+- **Flat:** the whole figure at ~1.2 m, centred above the take-off spot, with the first tip
+  1 m ahead of the nose. Keep 1 m clear in every direction, plus a margin. Film it from above
+  or below, because from the side it is only a line.
+- **Height correction:** the tracked height follows the downward sensor, so it needs a
+  **flat floor** with no tables or stairs below; a reading that jumps by more than 0.4 m is
+  dropped. The flight log records each correction and the on-screen log reports readings used
+  and dropped.
 
-### Mission 5 (triangle, vertical)
-
-A triangle across the nose, with sides of about 1.7 m, ~0.9 m to each side, the bottom line
-at ~1.2 m and the top corner at ~2.7 m. Place the drone with its nose pointing at the camera.
-It needs a ceiling above 3.4 m.
-
-The start dialog offers **Fly with height correction** and **Fly without height correction**.
-With correction, the tracked height follows the downward sensor, so it needs a **flat floor**
-with no tables or stairs below; a reading that jumps by more than 0.4 m is dropped. The
-flight log records each correction and the on-screen log reports readings used and dropped.
+Both figures fly indoors and outdoors. Tune with `STAR_DIAMETER_M`, `STAR_BOTTOM_ALT_M` and
+`STAR_FLAT_ALT_M`.
 
 ### Outdoors and indoors
 
@@ -195,12 +192,13 @@ flight log records each correction and the on-screen log reports readings used a
 - **Moving the RC sticks takes control back immediately**; the RC pause button also cancels
   app control. The app then stops the mission and sends nothing more. **It will not land the
   drone after you take over, so land it yourself.**
-- **If a mission fails**, Missions 1, 3, 4 and 5 try to land. Mission 2 hovers instead, because
+- **If a mission fails**, Missions 1 and 3 try to land. Mission 2 hovers instead, because
   it may be far from the take-off spot.
 
 ## Known limitations
 
-From the flights of Missions 3 to 5 on 31 October 2026:
+From the flights of 31 October 2026, when the upright star, the flat star and the upright
+triangle were still Missions 3, 4 and 5:
 
 - **Horizontal position is unverified.** It is velocity added up, reported in 0.1 m/s steps,
   and has not been checked from outside. A creep of ~0.08 m/s reads as 0.
@@ -210,7 +208,7 @@ From the flights of Missions 3 to 5 on 31 October 2026:
   ~1.3 m off at the top of the star, so that tuning was reverted. At normal speed the height
   stays within ~10–17 cm of the downward sensor.
 - **The height correction has a small effect.** Across three flights each, the bottom line of
-  the triangle was about equally straight, so it was not transferred to Missions 3 and 4.
+  the triangle was about equally straight, so it stays off by default.
 - **Obstacle avoidance is not set by the app.** It stays as configured on the drone (`BRAKE`
   in these flights), and each flight log records the setting.
 

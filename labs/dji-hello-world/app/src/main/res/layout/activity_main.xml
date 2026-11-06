@@ -61,31 +61,11 @@
         android:id="@+id/mission3Button"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginBottom="8dp"
-        android:backgroundTint="#2E7D32"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        android:text="⭐  Mission 3 (star, vertical)" />
-
-    <Button
-        android:id="@+id/mission4Button"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginBottom="8dp"
-        android:backgroundTint="#2E7D32"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        android:text="⭐  Mission 4 (star, horizontal)" />
-
-    <Button
-        android:id="@+id/mission5Button"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
         android:layout_marginBottom="16dp"
         android:backgroundTint="#2E7D32"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
-        android:text="🔺  Mission 5 (triangle, vertical)" />
+        android:text="⭐  Mission 3 (star or triangle)" />
 
     <Button
         android:id="@+id/stopButton"
