@@ -118,7 +118,7 @@ switches off when the drone disconnects.
 Both legs steer on a measured position: the drone's velocity, added up from the take-off
 spot. This works on GPS outdoors and on the vision sensors indoors. The way back aims at the
 take-off spot, so errors in the turn do not add up. Expect to land ~10–30 cm off. If the
-drone reports no velocity, the app falls back to timed legs (`FORWARD_STICK`, `FORWARD_MS`).
+drone reports no velocity or heading, the mission stops and lands on the spot.
 
 ### Mission 2 (light painting, outdoors)
 
@@ -152,7 +152,7 @@ correctly from a camera on the ground looking up.
 | Distance limit, if enabled | upright: the width plus 10 m (71 m for the full picture); flat: the far corner of the flight box plus 2 m (101 m for the full picture) |
 
 1. **Fly it in the simulator first.** The stick directions and speed constants in
-   `MainActivity.kt` have only been checked against a model, not on the drone. The flat
+   `LightPaintingMission.kt` have only been checked against a model, not on the drone. The flat
    version has never flown.
 2. **Check the lights.** With the drone connected on the table, untick **Drone lights on**:
    the LEDs go dark and the log says *Switching the lights: ok*. If they stay on, the hops
@@ -171,7 +171,8 @@ correctly from a camera on the ground looking up.
 
 This mission steers on GPS position. If it leaves the box around the figure by more than
 8 m or loses its position, it stops and **hovers**: take over with the RC or press
-**STOP + LAND**. The figure is defined in `FigurePath.kt`, and `FLAT_ALT_M` sets the flat height.
+**STOP + LAND**. The figure is defined in `FigurePath.kt`, and `FLAT_ALT_M` in `LightPaintingMission.kt`
+sets the flat height.
 
 ### Mission 3 (star or triangle)
 
@@ -194,8 +195,8 @@ The start dialog offers three choices; the flight log records all of them.
   dropped. The flight log records each correction and the on-screen log reports readings used
   and dropped.
 
-Both figures fly indoors and outdoors. Tune with `STAR_DIAMETER_M`, `STAR_BOTTOM_ALT_M` and
-`STAR_FLAT_ALT_M`.
+Both figures fly indoors and outdoors. Tune with `FIGURE_DIAMETER_M`, `FIGURE_BOTTOM_ALT_M` and
+`FIGURE_FLAT_ALT_M` in `FigureMission.kt`.
 
 ### Outdoors and indoors
 
@@ -238,7 +239,23 @@ triangle were still Missions 3, 4 and 5:
 
 ## How it works
 
-The flight logic is in `app/src/main/java/com/example/djihellodrone/MainActivity.kt`.
+The code is in `app/src/main/java/com/example/djihellodrone/`:
+
+| File | Role |
+|---|---|
+| `MainActivity.kt` | The screen only: buttons, start dialogs, status, log, STOP + LAND |
+| `Mission.kt` | The `Mission` interface every mission implements, and `Plane` |
+| `DemoMission.kt` | Mission 1 |
+| `LightPaintingMission.kt` | Mission 2, steered on GPS in the drawing plane |
+| `FigureMission.kt` | Mission 3, with the optional height correction |
+| `Drone.kt` | MSDK v5 wrapped as blocking calls: reads, takeoff, sticks, landing, lights, simulator, STOP and loss of control |
+| `Tracker.kt` | The position from the drone's own velocity, and `driveTo` steering on it (Missions 1 and 3) |
+| `FigurePath.kt` | The points of the Mission 2 figure |
+| `FlightLog.kt`, `LogPanel.kt` | The flight log file and the on-screen log |
+
+A mission runs on its own thread and calls `Drone`, which blocks until the drone has
+answered. Between steps `Drone` checks for STOP and for the pilot taking control back, and
+throws; `MainActivity` then lands the drone or, for Mission 2, leaves it hovering.
 
 - **Bootstrap:** `HelloDroneApplication` calls `com.cySdkyc.clx.Helper.install(this)` in
   `attachBaseContext`. MSDK v5 requires this and crashes without it.
@@ -308,7 +325,10 @@ dji-hello-world/
 │  └─ src/main/
 │     ├─ AndroidManifest.xml        # USB-accessory intent, API_KEY placeholder
 │     ├─ java/.../HelloDroneApplication.kt
-│     ├─ java/.../MainActivity.kt   # flight logic
+│     ├─ java/.../MainActivity.kt   # the screen; see How it works for every file
+│     ├─ java/.../*Mission.kt       # one class per mission
+│     ├─ java/.../Drone.kt          # the SDK as blocking calls
+│     ├─ java/.../Tracker.kt        # position from velocity, steering on it
 │     ├─ java/.../FigurePath.kt     # the points of the Mission 2 figure
 │     ├─ java/.../FlightLog.kt      # one log file per mission
 │     ├─ java/.../LogPanel.kt       # the on-screen log
