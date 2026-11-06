@@ -106,8 +106,10 @@ class MainActivity : Activity() {
 
         // Mission 2 figure. The take-off spot is under its bottom-left corner.
         private const val LETTER_HEIGHT_M = 14.0    // capitals; the small letters are a third of that
-        private const val BOTTOM_ALT_M = 10.0       // altitude of the figure's bottom edge
-        private val FIGURE_WIDTH_M = FigurePath.widthInLetterHeights * LETTER_HEIGHT_M
+        private const val BOTTOM_ALT_M = 10.0       // upright: altitude of the figure's bottom edge
+        // Flat: the altitude of the whole figure. A camera on the ground with a ~75° lens
+        // pointing straight up sees about 75 m across at this height.
+        private const val FLAT_ALT_M = 50.0
         private val FIGURE_HEIGHT_M = FigurePath.heightInLetterHeights * LETTER_HEIGHT_M
         private const val SPEED_MPS = 1.5
         private const val LENS_PAUSE_MS = 5000L     // hover before and after each line
@@ -126,6 +128,9 @@ class MainActivity : Activity() {
         private const val CONTROL_PERIOD_MS = 100L
         private const val FOLLOW_TIMEOUT_MS = 6 * 60_000L
         private const val MAX_MISSED_READS = 5
+        private const val CLIMB_MPS = 2.0           // flat: climb to the drawing plane at most this fast
+        private const val CLIMB_ARRIVE_M = 0.5
+        private const val CLIMB_TIMEOUT_MS = 90_000L
 
         // Mission 2 safety.
         private const val MIN_SATELLITES = 10
@@ -133,9 +138,6 @@ class MainActivity : Activity() {
         // can reach its low-battery level and fly home on its own in the middle of the figure.
         private const val MIN_BATTERY_PERCENT = 90
         private const val BOX_MARGIN_M = 8.0        // leave the figure by more than this: stop and hover
-        // The drone's own limits must leave room for the whole figure (top ~73 m, ~61 m across).
-        private val MIN_HEIGHT_LIMIT_M = (BOTTOM_ALT_M + FIGURE_HEIGHT_M).roundToInt() + 5
-        private val MIN_DISTANCE_LIMIT_M = FIGURE_WIDTH_M.roundToInt() + 10
 
         private const val METERS_PER_DEG = 111_320.0
 
@@ -357,26 +359,56 @@ class MainActivity : Activity() {
             .show()
     }
 
-    /** Mission 2 (light painting): the pilot must type [CONFIRM_PHRASE] before Fly unlocks. */
+    private fun dp(value: Int): Int = (value * resources.displayMetrics.density).roundToInt()
+
+    private fun radioButton(label: String) = RadioButton(this).apply { id = View.generateViewId(); text = label }
+
+    /** A group of [buttons] with the first one checked; [onChange] runs on every new choice. */
+    private fun radioGroup(horizontal: Boolean, vararg buttons: RadioButton, onChange: () -> Unit) =
+        RadioGroup(this).apply {
+            orientation = if (horizontal) RadioGroup.HORIZONTAL else RadioGroup.VERTICAL
+            buttons.forEach { addView(it) }
+            check(buttons[0].id)
+            setOnCheckedChangeListener { _, _ -> onChange() }
+        }
+
+    /** The dialog body: [views] one under the other, scrolling when the screen is small. */
+    private fun dialogBody(vararg views: android.view.View): ScrollView {
+        val content = LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            setPadding(dp(16), dp(8), dp(16), 0)
+            views.forEach { addView(it) }
+        }
+        return ScrollView(this).apply { addView(content) }
+    }
+
+    /**
+     * Mission 2 (light painting): the pilot picks upright or flat and the whole picture or
+     * one line, and must type [CONFIRM_PHRASE] before Fly unlocks.
+     */
     private fun confirmMission2() {
         if (missionRunning) return
+        val upright = radioButton("Upright")
+        val flat = radioButton("Flat (camera below)")
+        val parts = listOf(radioButton("Full picture")) +
+            FigurePath.names.map { radioButton(it.replaceFirstChar { c -> c.uppercase() }) }
+        val message = TextView(this).apply { setPadding(0, dp(8), 0, dp(8)) }
+        fun drawing() = Drawing(flat.isChecked, parts.indexOfFirst { it.isChecked }.takeIf { it > 0 }?.minus(1))
+        fun update() { message.text = mission2Message(drawing()) }
+        val planes = radioGroup(true, upright, flat) { update() }
+        val choices = radioGroup(false, *parts.toTypedArray()) { update() }
+        update()
         val input = EditText(this).apply {
             hint = CONFIRM_PHRASE
             setSingleLine()
         }
         val dialog = AlertDialog.Builder(this)
             .setTitle("Start mission 2 (light painting, outdoors)?")
-            .setMessage("The drone will TAKE OFF and draw \"Albstadt\", \"Informatik\" and a heart in the air, " +
-                "one line under the other: about ${FIGURE_WIDTH_M.roundToInt()} m wide, " +
-                "up to ${(BOTTOM_ALT_M + FIGURE_HEIGHT_M).roundToInt()} m high. Then it flies back and lands.\n\n" +
-                "Place the drone with its nose pointing at the camera. Seen from the camera, " +
-                "the figure appears above that spot and to the right of it.\n\n" +
-                "Cover and uncover the lens when the status tells you to.\n\n" +
-                "You need an open field, good GPS and a charged battery.\n\n" +
-                (if (simulatorOn) "SIMULATOR IS ON: nothing really flies.\n\n" else "") +
-                "Type \"$CONFIRM_PHRASE\" to unlock the flight.")
-            .setView(input)
-            .setPositiveButton("Fly") { _, _ -> startMission("Mission 2", hoverOnFailure = true) { runMission2() } }
+            .setView(dialogBody(planes, choices, message, input))
+            .setPositiveButton("Fly") { _, _ ->
+                val chosen = drawing()
+                startMission("Mission 2", hoverOnFailure = true) { runMission2(chosen) }
+            }
             .setNegativeButton("Cancel", null)
             .create()
         dialog.show()
@@ -393,6 +425,35 @@ class MainActivity : Activity() {
         })
     }
 
+    private fun mission2Message(drawing: Drawing): String {
+        val what = when (drawing.only) {
+            null -> "\"Albstadt\", \"Informatik\" and a heart, one line under the other"
+            FigurePath.names.lastIndex -> "a heart"
+            else -> "\"${FigurePath.names[drawing.only]}\""
+        }
+        val width = drawing.widthM.roundToInt()
+        val text = StringBuilder()
+        if (drawing.flat) {
+            val depth = (drawing.topM - drawing.bottomM).roundToInt()
+            text.append("The drone will TAKE OFF, climb to ${FLAT_ALT_M.roundToInt()} m and draw $what lying flat: " +
+                "about $width m across and $depth m deep, mirrored so that it reads correctly from below. " +
+                "Then it flies back above the take-off spot and lands.\n\n" +
+                "The figure lies ahead of the nose and to the drone's left. Set the camera on the ground under its middle, " +
+                "about ${((drawing.topM + drawing.bottomM) / 2).roundToInt()} m ahead of the drone and ${width / 2} m to its left, " +
+                "pointing straight up, with the top of the picture towards where the nose points.\n\n")
+        } else {
+            text.append("The drone will TAKE OFF and draw $what in the air, standing upright: " +
+                "about $width m wide, up to ${drawing.topAltM.roundToInt()} m high. Then it flies back and lands.\n\n" +
+                "Place the drone with its nose pointing at the camera. Seen from the camera, " +
+                "the figure appears above that spot and to the right of it.\n\n")
+        }
+        text.append("Cover and uncover the lens when the status tells you to.\n\n" +
+            "You need an open field, good GPS and a charged battery.\n\n" +
+            (if (simulatorOn) "SIMULATOR IS ON: nothing really flies.\n\n" else "") +
+            "Type \"$CONFIRM_PHRASE\" to unlock the flight.")
+        return text.toString()
+    }
+
     /** The figures of mission 3. Each line jumps [stepDeg] on; [lines] lines close the figure. */
     private enum class Figure(val label: String, val stepDeg: Double, val lines: Int) {
         STAR("star", STAR_STEP_DEG, 5),
@@ -402,37 +463,22 @@ class MainActivity : Activity() {
     /** Mission 3: the pilot picks the figure, upright or flat, and the height correction. */
     private fun confirmMission3() {
         if (missionRunning) return
-        val pad = (16 * resources.displayMetrics.density).roundToInt()
-        fun radio(label: String) = RadioButton(this).apply { id = View.generateViewId(); text = label }
-        fun group(vararg buttons: RadioButton) = RadioGroup(this).apply {
-            orientation = RadioGroup.HORIZONTAL
-            buttons.forEach { addView(it) }
-            check(buttons[0].id)
-        }
-        val star = radio("Star")
-        val triangle = radio("Triangle")
-        val upright = radio("Upright")
-        val flat = radio("Flat")
+        val star = radioButton("Star")
+        val triangle = radioButton("Triangle")
+        val upright = radioButton("Upright")
+        val flat = radioButton("Flat")
         val heightCheck = CheckBox(this).apply { text = "Height correction from the downward sensor" }
-        val message = TextView(this).apply { setPadding(0, pad / 2, 0, 0) }
+        val message = TextView(this).apply { setPadding(0, dp(8), 0, 0) }
         fun figure() = if (triangle.isChecked) Figure.TRIANGLE else Figure.STAR
         fun update() { message.text = mission3Message(figure(), upright.isChecked, heightCheck.isChecked) }
-        val shapes = group(star, triangle).apply { setOnCheckedChangeListener { _, _ -> update() } }
-        val planes = group(upright, flat).apply { setOnCheckedChangeListener { _, _ -> update() } }
+        val shapes = radioGroup(true, star, triangle) { update() }
+        val planes = radioGroup(true, upright, flat) { update() }
         heightCheck.setOnCheckedChangeListener { _, _ -> update() }
         update()
 
-        val content = LinearLayout(this).apply {
-            orientation = LinearLayout.VERTICAL
-            setPadding(pad, pad / 2, pad, 0)
-            addView(shapes)
-            addView(planes)
-            addView(heightCheck)
-            addView(message)
-        }
         AlertDialog.Builder(this)
             .setTitle("Start mission 3 (star or triangle)?")
-            .setView(ScrollView(this).apply { addView(content) })
+            .setView(dialogBody(shapes, planes, heightCheck, message))
             .setPositiveButton("Fly") { _, _ ->
                 val f = figure()
                 val up = upright.isChecked
@@ -982,9 +1028,33 @@ class MainActivity : Activity() {
 
     // ---------------------------------------------------------------- mission 2 (light painting)
 
-    private fun runMission2() {
+    /**
+     * What mission 2 draws: the whole figure, or [only] one of its lines on its own, standing
+     * upright in front of the camera or [flat] at [FLAT_ALT_M], for a camera on the ground
+     * looking straight up. Sizes are in metres, in the figure's own x and y.
+     */
+    private class Drawing(val flat: Boolean, val only: Int?) {
+        val lines = FigurePath.lines(LETTER_HEIGHT_M, only)
+        private val points = lines.flatten().flatten()
+        val widthM = points.maxOf { it.x }
+        val topM = points.maxOf { it.y }
+        val bottomM = points.minOf { it.y }
+        /** The highest point of the flight above the take-off spot. */
+        val topAltM = if (flat) FLAT_ALT_M else BOTTOM_ALT_M + topM
+        // The drone's own limits must leave room for the whole drawing. Flat, the farthest
+        // corner of the flight box is diagonal from the take-off spot.
+        val minHeightLimitM = topAltM.roundToInt() + 5
+        val minDistanceLimitM =
+            (if (flat) hypot(widthM + BOX_MARGIN_M, topM + BOX_MARGIN_M) + 2 else widthM + 10).roundToInt()
+
+        override fun toString() = "${if (flat) "flat" else "upright"} ${only?.let { "line_${it + 1}" } ?: "full"}"
+    }
+
+    private fun runMission2(drawing: Drawing) {
         waitForAircraft()
         logLinkSnapshot("before takeoff")
+        logLine("Drawing: $drawing, ${drawing.widthM.roundToInt()} × ${(drawing.topM - drawing.bottomM).roundToInt()} m")
+        flightLog?.line("drawing $drawing")
 
         // Unlike mission 1 this flight has no vision fallback: it is steered on GPS only.
         step("Checking GPS and battery…")
@@ -1002,15 +1072,17 @@ class MainActivity : Activity() {
         // pushing against them. A failed read only warns: the setting may simply be unreadable.
         step("Checking the height and distance limits…")
         val heightLimit = pull(FlightControllerKey.KeyHeightLimit)
-        if (heightLimit == null) logLine("WARNING: could not read the height limit, need $MIN_HEIGHT_LIMIT_M m")
-        else if (heightLimit < MIN_HEIGHT_LIMIT_M) {
-            throw IllegalStateException("Height limit is $heightLimit m, the figure needs $MIN_HEIGHT_LIMIT_M m. Raise it in DJI Fly.")
+        val needHeight = drawing.minHeightLimitM
+        if (heightLimit == null) logLine("WARNING: could not read the height limit, need $needHeight m")
+        else if (heightLimit < needHeight) {
+            throw IllegalStateException("Height limit is $heightLimit m, the figure needs $needHeight m. Raise it in DJI Fly.")
         }
         if (pull(FlightControllerKey.KeyDistanceLimitEnabled) == true) {
             val distanceLimit = pull(FlightControllerKey.KeyDistanceLimit)
-            if (distanceLimit == null) logLine("WARNING: could not read the distance limit, need $MIN_DISTANCE_LIMIT_M m")
-            else if (distanceLimit < MIN_DISTANCE_LIMIT_M) {
-                throw IllegalStateException("Distance limit is $distanceLimit m, the figure needs $MIN_DISTANCE_LIMIT_M m. Raise or switch it off in DJI Fly.")
+            val needDistance = drawing.minDistanceLimitM
+            if (distanceLimit == null) logLine("WARNING: could not read the distance limit, need $needDistance m")
+            else if (distanceLimit < needDistance) {
+                throw IllegalStateException("Distance limit is $distanceLimit m, the figure needs $needDistance m. Raise or switch it off in DJI Fly.")
             }
         }
         logLine("Height limit ${heightLimit ?: "?"} m")
@@ -1020,7 +1092,7 @@ class MainActivity : Activity() {
         waitUntil(20_000, "waiting for takeoff") { isFlying() }
         sleepChecked(6_000)   // let auto-takeoff finish its climb to ~1.2 m and settle
 
-        // The take-off spot is under the figure's bottom-left corner; the nose points at the camera.
+        // The take-off spot is under the figure's bottom-left corner as the camera sees it.
         val origin = pull(FlightControllerKey.KeyAircraftLocation3D)
         val originLat = origin?.latitude
         val originLon = origin?.longitude
@@ -1028,21 +1100,25 @@ class MainActivity : Activity() {
         if (originLat == null || originLon == null || heading == null) {
             throw IllegalStateException("No position or heading from the drone after takeoff.")
         }
-        val frame = FigureFrame(originLat, originLon, heading)
+        val frame = FigureFrame(originLat, originLon, heading, drawing)
 
         step("Enabling virtual stick…")
         enableVirtualStick()
         VirtualStickManager.getInstance().setVirtualStickAdvancedModeEnabled(false)
         zeroSticks()
         sleepChecked(500)
+        if (drawing.flat) {
+            step("Climbing to ${FLAT_ALT_M.roundToInt()} m…")
+            climbToPlane(frame)
+        }
 
         // A line of the figure is its pieces. Each piece is drawn with the lights on,
         // and the drone flies from one piece to the next with them off, like a pen
         // that lifts. The lens is covered while it flies from one line to the next.
-        val lines = FigurePath.lines(LETTER_HEIGHT_M)
+        val lines = drawing.lines
         try {
             for ((index, pieces) in lines.withIndex()) {
-                val line = "line ${index + 1} of ${lines.size}"
+                val line = drawing.only?.let { FigurePath.names[it] } ?: "line ${index + 1} of ${lines.size}"
 
                 step("Flying to the start of $line…")
                 setLights(false)
@@ -1070,25 +1146,30 @@ class MainActivity : Activity() {
             runOnUiThread { lightsCheck.isChecked = true }
         }
 
+        // Upright it stays at the height where the drawing ended; flat it stays at FLAT_ALT_M.
         step("Flying back to the take-off spot…")
-        follow(frame, listOf(PathPoint(0.0, lines.last().last().last().y)))
+        follow(frame, listOf(PathPoint(0.0, if (drawing.flat) 0.0 else lines.last().last().last().y)))
         sleepChecked(1_500)   // brake & settle
 
         step("Landing…")
+        val altitude = pull(FlightControllerKey.KeyAircraftLocation3D)?.altitude ?: drawing.topAltM
         disableVirtualStickQuietly()
         performAction(FlightControllerKey.KeyStartAutoLanding, "start landing")
-        awaitLanded()
+        awaitLanded(40_000 + (max(0.0, altitude) * 1000).toLong())   // about 1 m/s of descent on top
     }
 
-    /** Where the drone is in the figure: [x] and [alt] in the drawing plane, [depth] out of it. */
-    private class Position(val x: Double, val alt: Double, val depth: Double)
+    /** Where the drone is in the figure: [x] and [y] in the drawing plane, [depth] out of it. */
+    private class Position(val x: Double, val y: Double, val depth: Double)
 
     /**
-     * The figure stands in a vertical plane through the take-off spot, seen from the
-     * camera the nose points at: x runs to the camera's right (the drone's left),
-     * depth is towards the camera, altitude is above the take-off spot.
+     * The drawing plane, seen from the camera. x runs to the camera's right, which is the
+     * drone's left in both planes. Upright, the plane stands across the nose: y is the height
+     * above [BOTTOM_ALT_M] and depth is towards the camera. Flat, the plane lies at
+     * [FLAT_ALT_M] and the camera looks up at it, with the top of its picture where the nose
+     * points: y runs ahead of the nose and depth is the height above the plane. The camera's
+     * right is then the drone's left, so the figure reads correctly from below.
      */
-    private class FigureFrame(val originLat: Double, val originLon: Double, headingDeg: Double) {
+    private class FigureFrame(val originLat: Double, val originLon: Double, headingDeg: Double, val drawing: Drawing) {
         private val h = Math.toRadians(headingDeg)
 
         fun locate(lat: Double, lon: Double, alt: Double): Position {
@@ -1096,7 +1177,27 @@ class MainActivity : Activity() {
             val east = (lon - originLon) * METERS_PER_DEG * cos(Math.toRadians(originLat))
             val forward = north * cos(h) + east * sin(h)
             val right = -north * sin(h) + east * cos(h)
-            return Position(x = -right, alt = alt, depth = forward)
+            return if (drawing.flat) Position(x = -right, y = forward, depth = alt - FLAT_ALT_M)
+            else Position(x = -right, y = alt - BOTTOM_ALT_M, depth = forward)
+        }
+    }
+
+    /** Flat drawings: climbs on the spot until the drone is in the drawing plane. */
+    private fun climbToPlane(frame: FigureFrame) {
+        val deadline = System.currentTimeMillis() + CLIMB_TIMEOUT_MS
+        try {
+            while (true) {
+                checkAbort()
+                if (System.currentTimeMillis() > deadline) throw IllegalStateException("the climb took too long")
+                val here = readPosition(frame)
+                if (abs(here.depth) < CLIMB_ARRIVE_M) return
+                // The other sticks stay centred, so the drone holds its place over the take-off spot.
+                val rate = (-APPROACH_GAIN * here.depth).coerceIn(-CLIMB_MPS, CLIMB_MPS)
+                VirtualStickManager.getInstance().leftStick.verticalPosition = toStick(rate * STICK_PER_MPS_VERTICAL)
+                Thread.sleep(CONTROL_PERIOD_MS)
+            }
+        } finally {
+            zeroSticks()
         }
     }
 
@@ -1125,7 +1226,7 @@ class MainActivity : Activity() {
                     isCorner(points, aim) -> min(SPEED_MPS, max(CORNER_MIN_SPEED_MPS, APPROACH_GAIN * left))
                     else -> SPEED_MPS
                 }
-                steer(here, points[aim], speed)
+                steer(frame, here, points[aim], speed)
                 onProgress(100 * aim / max(1, points.lastIndex))
                 Thread.sleep(CONTROL_PERIOD_MS)
             }
@@ -1154,12 +1255,16 @@ class MainActivity : Activity() {
             val alt = loc?.altitude
             if (lat != null && lon != null && alt != null) {
                 val here = frame.locate(lat, lon, alt)
-                val inside = here.x in -BOX_MARGIN_M..(FIGURE_WIDTH_M + BOX_MARGIN_M) &&
-                    abs(here.depth) <= BOX_MARGIN_M &&
-                    here.alt <= BOTTOM_ALT_M + FIGURE_HEIGHT_M + BOX_MARGIN_M
+                val d = frame.drawing
+                // Upright, the ground bounds the box from below; flat, the climb starts far under the plane.
+                val inside = here.x in -BOX_MARGIN_M..(d.widthM + BOX_MARGIN_M) &&
+                    here.y <= d.topM + BOX_MARGIN_M &&
+                    here.depth <= BOX_MARGIN_M &&
+                    (if (d.flat) here.y >= d.bottomM - BOX_MARGIN_M else here.depth >= -BOX_MARGIN_M)
                 if (!inside) {
-                    throw IllegalStateException(
-                        "left the flight box (x %.1f m, depth %.1f m, altitude %.1f m)".format(here.x, here.depth, here.alt))
+                    throw IllegalStateException(String.format(Locale.US,
+                        "left the flight box (x %.1f m, y %.1f m, %.1f m off the plane, altitude %.1f m)",
+                        here.x, here.y, here.depth, alt))
                 }
                 return here
             }
@@ -1171,21 +1276,26 @@ class MainActivity : Activity() {
 
     /** Distance to [target] within the drawing plane, in metres. */
     private fun distance(here: Position, target: PathPoint): Double =
-        hypot(target.x - here.x, BOTTOM_ALT_M + target.y - here.alt)
+        hypot(target.x - here.x, target.y - here.y)
 
     /** One control step: sets the sticks to move towards [target] at [speedMps]. */
-    private fun steer(here: Position, target: PathPoint, speedMps: Double) {
+    private fun steer(frame: FigureFrame, here: Position, target: PathPoint, speedMps: Double) {
         val dx = target.x - here.x
-        val dz = BOTTOM_ALT_M + target.y - here.alt
-        val dist = hypot(dx, dz)
+        val dy = target.y - here.y
+        val dist = hypot(dx, dy)
         val scale = if (dist > 0.01) speedMps / dist else 0.0
         val sticks = VirtualStickManager.getInstance()
         // x grows to the drone's LEFT (the camera's right), so +x is a negative right-stick move.
         sticks.rightStick.horizontalPosition = toStick(-dx * scale * STICK_PER_MPS_HORIZONTAL)
-        sticks.leftStick.verticalPosition = toStick(dz * scale * STICK_PER_MPS_VERTICAL)
-        // Over a long flight the drone creeps towards or away from the camera; push it back gently.
-        sticks.rightStick.verticalPosition =
-            toStick((-APPROACH_GAIN * here.depth).coerceIn(-1.0, 1.0) * STICK_PER_MPS_HORIZONTAL)
+        // Over a long flight the drone creeps out of the drawing plane; push it back gently.
+        val back = (-APPROACH_GAIN * here.depth).coerceIn(-1.0, 1.0)
+        if (frame.drawing.flat) {
+            sticks.rightStick.verticalPosition = toStick(dy * scale * STICK_PER_MPS_HORIZONTAL)
+            sticks.leftStick.verticalPosition = toStick(back * STICK_PER_MPS_VERTICAL)
+        } else {
+            sticks.leftStick.verticalPosition = toStick(dy * scale * STICK_PER_MPS_VERTICAL)
+            sticks.rightStick.verticalPosition = toStick(back * STICK_PER_MPS_HORIZONTAL)
+        }
     }
 
     private fun toStick(value: Double): Int = value.roundToInt().coerceIn(-MAX_STICK, MAX_STICK)

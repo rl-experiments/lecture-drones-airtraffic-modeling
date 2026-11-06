@@ -4,7 +4,7 @@ package com.example.djihellodrone
 data class PathPoint(val x: Double, val y: Double)
 
 /**
- * The Mission 2 (light painting) figure, three centred lines:
+ * The Mission 2 (light painting) figure, three centred lines, flown whole or one at a time:
  *
  *     Albstadt
  *     Informatik
@@ -135,14 +135,26 @@ object FigurePath {
     val widthInLetterHeights: Double = lines.maxOf { widthOf(it) }
     val heightInLetterHeights: Double = (lines.size - 1) * LINE_PITCH + 1.0
 
-    /** The lines of the figure, top line first, each centred; a line is its pieces. In metres. */
-    fun lines(letterHeightM: Double): List<List<List<PathPoint>>> = lines.mapIndexed { index, line ->
-        val offset = (widthInLetterHeights - widthOf(line)) / 2   // centre the line
-        val baseline = (lines.size - 1 - index) * LINE_PITCH
-        line.map { piece ->
-            val control = piece.map { PathPoint((offset + it.x) * letterHeightM, (baseline + it.y) * letterHeightM) }
-            // A doubled control point leaves repeated points behind; the flight wants each once.
-            smooth(control, rounds = 3).let { path -> path.filterIndexed { n, p -> n == 0 || p != path[n - 1] } }
+    /** The names of the lines, top line first, as the dialog and the status show them. */
+    val names = listOf("Albstadt", "Informatik", "the heart")
+
+    /**
+     * The lines of the figure in metres, top line first; a line is its pieces. Without
+     * [only], all lines are centred one under the other. [only] picks one line (0 = top),
+     * which then stands on its own: its left edge at x = 0 and its lowest point at y = 0.
+     */
+    fun lines(letterHeightM: Double, only: Int? = null): List<List<List<PathPoint>>> {
+        val picked = if (only == null) lines.indices.toList() else listOf(only)
+        return picked.map { index ->
+            val line = lines[index]
+            val offset = if (only == null) (widthInLetterHeights - widthOf(line)) / 2 else 0.0   // centre the line
+            val baseline = if (only == null) (lines.size - 1 - index) * LINE_PITCH
+                else -line.minOf { piece -> piece.minOf { it.y } }
+            line.map { piece ->
+                val control = piece.map { PathPoint((offset + it.x) * letterHeightM, (baseline + it.y) * letterHeightM) }
+                // A doubled control point leaves repeated points behind; the flight wants each once.
+                smooth(control, rounds = 3).let { path -> path.filterIndexed { n, p -> n == 0 || p != path[n - 1] } }
+            }
         }
     }
 

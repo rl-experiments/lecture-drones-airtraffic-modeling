@@ -5,7 +5,8 @@ controller. Three buttons each run a mission:
 
 - **Mission 1 (demo):** take off → fly ~1.5 m forward → rotate 180° → fly ~1.5 m back → land.
 - **Mission 2 (light painting, outdoors):** draw "Albstadt", "Informatik" and a heart for a
-  long-exposure photo, about 61 m wide and up to 73 m high.
+  long-exposure photo, about 61 m wide, upright up to 73 m high or flat at 50 m; the whole
+  picture or one line of it.
 - **Mission 3 (star or triangle):** draw a 2 m star or triangle, upright above the take-off
   spot or flat at ~1.2 m, with or without a height correction from the downward sensor.
 
@@ -122,32 +123,55 @@ drone reports no velocity, the app falls back to timed legs (`FORWARD_STICK`, `F
 ### Mission 2 (light painting, outdoors)
 
 The words are traced from the script font Agatha Bergman. Where the pen lifts, the drone
-turns its lights off, flies to the next piece and turns them on again. The flight covers
-about 800 m and takes roughly twelve minutes.
+turns its lights off, flies to the next piece and turns them on again. The full picture
+covers about 800 m and takes roughly twelve minutes.
+
+The start dialog offers two choices; the flight log records both.
+
+| Choice | Options |
+|---|---|
+| Plane | **Upright**, standing in front of the camera, or **Flat (camera below)**, lying at 50 m |
+| Part | **Full picture**, or one line on its own: **Albstadt**, **Informatik** or **The heart** |
+
+A single line is drawn on its own: it starts at the take-off spot, and upright its lowest
+point is at 10 m. Flat, the figure is mirrored, so it reads
+correctly from a camera on the ground looking up.
+
+| Part | Size | Upright: top | Flat: farthest point |
+|---|---|---|---|
+| Full picture | 61 × 64 m | 73 m | 87 m |
+| Albstadt | 61 × 21 m | 31 m | 64 m |
+| Informatik | 48 × 17 m | 27 m | 51 m |
+| The heart | 12 × 15 m | 25 m | 19 m |
 
 | Pre-flight check, enforced by the app | Required |
 |---|---|
 | Satellites | at least 10 |
-| Battery | at least 90 % (the simulator only warns) |
-| Height limit | at least 78 m |
-| Distance limit, if enabled | at least 71 m |
+| Battery | at least 90 % (the simulator only warns), also for one line |
+| Height limit | the top plus 5 m: 78 m for the full picture upright, 55 m for anything flat |
+| Distance limit, if enabled | upright: the width plus 10 m (71 m for the full picture); flat: the far corner of the flight box plus 2 m (101 m for the full picture) |
 
 1. **Fly it in the simulator first.** The stick directions and speed constants in
-   `MainActivity.kt` have only been checked against a model, not on the drone.
+   `MainActivity.kt` have only been checked against a model, not on the drone. The flat
+   version has never flown.
 2. **Check the lights.** With the drone connected on the table, untick **Drone lights on**:
    the LEDs go dark and the log says *Switching the lights: ok*. If they stay on, the hops
    between pieces show in the photo as thin lines.
-3. Put the camera on a tripod, framing ~70 m across and ~75 m up.
-4. Place the drone with its **nose pointing at the camera**. That spot is under the
+3. **Upright:** put the camera on a tripod, framing ~70 m across and ~75 m up for the full
+   picture. Place the drone with its **nose pointing at the camera**. That spot is under the
    bottom-left corner of the figure, as the camera sees it.
-5. Press the button and type `yes, fly` to unlock the flight.
+4. **Flat:** the figure lies ahead of the nose and to the drone's left. Lay the camera on the
+   ground under the middle of the figure (the dialog gives the distances), pointing straight
+   up, with the top of the picture towards where the nose points. At 50 m a ~75° lens sees
+   about 75 m across. The drone first climbs to 50 m over the take-off spot.
+5. Press the button, pick the plane and the part, and type `yes, fly` to unlock the flight.
 6. Keep the shutter open for the whole flight. Uncover the lens at **UNCOVER THE LENS** and
    cover it at **COVER THE LENS**; the drone hovers 5 s at each and moves between lines
-   while the lens is covered. After the heart, it flies back and lands.
+   while the lens is covered. At the end it flies back above the take-off spot and lands.
 
 This mission steers on GPS position. If it leaves the box around the figure by more than
 8 m or loses its position, it stops and **hovers**: take over with the RC or press
-**STOP + LAND**. The figure is defined in `FigurePath.kt`.
+**STOP + LAND**. The figure is defined in `FigurePath.kt`, and `FLAT_ALT_M` sets the flat height.
 
 ### Mission 3 (star or triangle)
 
