@@ -147,7 +147,7 @@ correctly from a camera on the ground looking up.
 | Pre-flight check, enforced by the app | Required |
 |---|---|
 | Satellites | at least 10 |
-| Battery | at least 90 % (the simulator only warns), also for one line |
+| Battery | 30 % reserve + ~5 % per minute of the drawing: ~90 % for the whole figure, much less for one line (the simulator only warns) |
 | Height limit | the top plus 5 m: 78 m for the full picture upright, 55 m for anything flat |
 | Distance limit, if enabled | upright: the width plus 10 m (71 m for the full picture); flat: the far corner of the flight box plus 2 m (101 m for the full picture) |
 

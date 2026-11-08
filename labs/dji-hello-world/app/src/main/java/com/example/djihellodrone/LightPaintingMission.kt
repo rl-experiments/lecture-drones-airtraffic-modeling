@@ -74,9 +74,13 @@ class LightPaintingMission(private val drone: Drone, private val drawing: Drawin
         const val CLIMB_TIMEOUT_MS = 90_000L
 
         const val MIN_SATELLITES = 10
-        // The full picture is ~800 m, about 12 minutes: from less than a full battery the drone
-        // can reach its low-battery level and fly home on its own in the middle of the figure.
-        const val MIN_BATTERY_PERCENT = 90
+        // The battery needed grows with the drawing: the full picture is ~800 m, about 12
+        // minutes, and needs ~90 %; the heart alone needs much less. Budget a conservative
+        // rate per minute and keep a reserve above the drone's own low-battery level, so it
+        // does not turn home on its own in the middle of the figure.
+        const val BATTERY_RESERVE_PERCENT = 30
+        const val BATTERY_PERCENT_PER_MIN = 5.0
+        const val TAKEOFF_LANDING_S = 60.0  // take off, settle, descend and land
         const val METERS_PER_DEG = 111_320.0
     }
 
@@ -182,12 +186,15 @@ class LightPaintingMission(private val drone: Drone, private val drawing: Drawin
         val sats = pull(FlightControllerKey.KeyGPSSatelliteCount) ?: -1
         if (sats < MIN_SATELLITES) throw IllegalStateException("GPS too weak: $sats satellites, need $MIN_SATELLITES.")
         val battery = pull(BatteryKey.KeyChargeRemainingInPercent) ?: -1
-        if (battery < MIN_BATTERY_PERCENT) {
+        val minutes = estimatedFlightMinutes()
+        val needBattery = min(100, (BATTERY_RESERVE_PERCENT + BATTERY_PERCENT_PER_MIN * minutes).roundToInt())
+        if (battery < needBattery) {
             // The simulator spends no battery, so a test run on the desk needs no full one.
-            if (simulatorOn) log("Battery $battery %: fine for the simulator, a real flight needs $MIN_BATTERY_PERCENT %.")
-            else throw IllegalStateException("Battery too low: $battery %, need $MIN_BATTERY_PERCENT %.")
+            if (simulatorOn) log("Battery $battery %: fine for the simulator, a real flight needs $needBattery %.")
+            else throw IllegalStateException(String.format(Locale.US,
+                "Battery too low: $battery %%, this drawing needs $needBattery %% (about %.0f min of flight).", minutes))
         }
-        log("GPS $sats satellites, battery $battery %")
+        log(String.format(Locale.US, "GPS $sats satellites, battery $battery %% (need $needBattery %%, ~%.1f min)", minutes))
 
         step("Checking the height and distance limits…")
         val heightLimit = pull(FlightControllerKey.KeyHeightLimit)
@@ -205,6 +212,27 @@ class LightPaintingMission(private val drone: Drone, private val drawing: Drawin
             }
         }
         log("Height limit ${heightLimit ?: "?"} m")
+    }
+
+    /**
+     * Rough flight time of [drawing], in minutes: the path [run] flies (in the plane, with
+     * the lights on and off, and back), at [SPEED_MPS], plus the pauses, the climb and
+     * take-off and landing. Corners are slower than this, so it errs on the short side;
+     * the reserve covers that.
+     */
+    private fun estimatedFlightMinutes(): Double {
+        var pathM = 0.0
+        var at = PathPoint(0.0, 0.0)
+        var pieces = 0
+        for (line in drawing.lines) for (piece in line) {
+            for (p in piece) { pathM += hypot(p.x - at.x, p.y - at.y); at = p }
+            pieces++
+        }
+        val endY = if (drawing.plane == Plane.FLAT) 0.0 else at.y
+        pathM += hypot(at.x, at.y - endY)
+        val climbS = if (drawing.plane == Plane.FLAT) 2 * FLAT_ALT_M / CLIMB_MPS else 0.0
+        val pausesS = drawing.lines.size * 2 * LENS_PAUSE_MS / 1000.0 + pieces * 2 * LIGHT_SWITCH_MS / 1000.0
+        return (pathM / SPEED_MPS + climbS + pausesS + TAKEOFF_LANDING_S) / 60.0
     }
 
     /** Where the drone is in the figure: [x] and [y] in the drawing plane, [depth] out of it. */
