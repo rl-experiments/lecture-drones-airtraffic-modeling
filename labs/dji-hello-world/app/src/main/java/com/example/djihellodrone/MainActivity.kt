@@ -7,7 +7,10 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.Gravity
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
@@ -15,6 +18,7 @@ import android.widget.LinearLayout
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.ScrollView
+import android.widget.Spinner
 import android.widget.TextView
 import com.example.djihellodrone.Drone.Companion.TAG
 import dji.v5.common.error.IDJIError
@@ -192,31 +196,28 @@ class MainActivity : Activity(), Display {
     }
 
     /**
-     * Mission 2 (light painting): the pilot picks upright or flat, the whole picture or
-     * one line, and the light that draws, and must type [CONFIRM_PHRASE] before Fly unlocks.
+     * Mission 2 (light painting): the pilot picks the plane, the part, the light and the GPS
+     * check from drop-down lists, and must type [CONFIRM_PHRASE] before Fly unlocks.
      */
     private fun confirmMission2() {
         if (missionRunning) return
-        val upright = radioButton("Upright")
-        val flat = radioButton("Flat (camera below)")
-        val full = radioButton("Full picture")
-        val single = FigurePath.names.map { radioButton(it.replaceFirstChar { c -> c.uppercase() }) }
-        val white = radioButton("White light")
-        val green = radioButton("Green light")
-        val noLight = radioButton("No light")
         val message = TextView(this).apply { setPadding(0, dp(8), 0, dp(8)) }
-        fun mission() = LightPaintingMission(drone, Drawing(
-            if (flat.isChecked) Plane.FLAT else Plane.UPRIGHT,
-            single.indexOfFirst { it.isChecked }.takeIf { it >= 0 }),
-            when { green.isChecked -> Pen.GREEN; noLight.isChecked -> Pen.NONE; else -> Pen.WHITE })
-        fun update() {
+        val pens = listOf(Pen.WHITE, Pen.GREEN, Pen.NONE)
+        lateinit var update: () -> Unit
+        val plane = choice(listOf("Upright", "Flat (camera below)")) { update() }
+        val part = choice(listOf("Full picture") + FigurePath.names.map { it.replaceFirstChar { c -> c.uppercase() } }) { update() }
+        val light = choice(listOf("White", "Green", "None (own light)")) { update() }
+        val gps = choice(listOf("On (hover 1–3 min)", "Off")) { update() }
+        fun mission() = LightPaintingMission(drone,
+            Drawing(if (plane.selectedItemPosition == 1) Plane.FLAT else Plane.UPRIGHT,
+                (part.selectedItemPosition - 1).takeIf { it >= 0 }),
+            pens[light.selectedItemPosition],
+            gpsCheck = gps.selectedItemPosition == 0)
+        update = {
             message.text = mission().briefing + "\n\n" +
                 (if (drone.simulatorOn) "SIMULATOR IS ON: nothing really flies.\n\n" else "") +
                 "Type \"$CONFIRM_PHRASE\" to unlock the flight."
         }
-        val planes = radioGroup(RadioGroup.HORIZONTAL, listOf(upright, flat)) { update() }
-        val parts = radioGroup(RadioGroup.VERTICAL, listOf(full) + single) { update() }
-        val pens = radioGroup(RadioGroup.HORIZONTAL, listOf(white, green, noLight)) { update() }
         update()
         val input = EditText(this).apply {
             hint = CONFIRM_PHRASE
@@ -224,7 +225,8 @@ class MainActivity : Activity(), Display {
         }
         val dialog = AlertDialog.Builder(this)
             .setTitle("Start mission 2 (light painting, outdoors)?")
-            .setView(dialogBody(planes, parts, pens, message, input))
+            .setView(dialogBody(labeled("Plane", plane), labeled("Part", part), labeled("Light", light),
+                labeled("GPS check", gps), message, input))
             .setPositiveButton("Fly") { _, _ -> startMission(mission()) }
             .setNegativeButton("Cancel", null)
             .create()
@@ -282,6 +284,23 @@ class MainActivity : Activity(), Display {
             setOnCheckedChangeListener { _, _ -> onChange() }
         }
 
+    /** A drop-down list of [options] with the first one picked; [onChange] runs on every pick. */
+    private fun choice(options: List<String>, onChange: () -> Unit) = Spinner(this).apply {
+        adapter = ArrayAdapter(this@MainActivity, android.R.layout.simple_spinner_dropdown_item, options)
+        onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) = onChange()
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+    }
+
+    /** One row of a dialog: [label] on the left, [view] taking the rest. */
+    private fun labeled(label: String, view: View) = LinearLayout(this).apply {
+        orientation = LinearLayout.HORIZONTAL
+        gravity = Gravity.CENTER_VERTICAL
+        addView(TextView(this@MainActivity).apply { text = label }, LinearLayout.LayoutParams(dp(96), LinearLayout.LayoutParams.WRAP_CONTENT))
+        addView(view, LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f))
+    }
+
     /** The dialog body: [views] one under the other, scrolling when the screen is small. */
     private fun dialogBody(vararg views: View): ScrollView {
         val content = LinearLayout(this).apply {
@@ -316,14 +335,17 @@ class MainActivity : Activity(), Display {
             try {
                 drone.openFlightLog(getExternalFilesDir(null), name)
                 mission.run()
+                drone.flightLog?.line(if (drone.isAborted) "result aborted" else "result complete")
                 status(if (drone.isAborted) "$name aborted — landed." else "$name complete ✓")
             } catch (e: ControlTakenBack) {
                 // The pilot or the drone itself is flying now: let go and send nothing more.
+                drone.flightLog?.line("result control_taken_back ${e.message}")
                 drone.letGo()
                 status("$name stopped: control was taken back (${e.message}).\n" +
                     "The app has let go and will NOT land the drone. Fly it with the RC.")
             } catch (e: Exception) {
                 Log.e(TAG, "$name failed", e)
+                drone.flightLog?.line("result failed ${e.message}")
                 if (drone.isAborted) {
                     // STOP's own thread is normally landing the drone already; this waits for
                     // it. It still lands when STOP came during takeoff, before the drone

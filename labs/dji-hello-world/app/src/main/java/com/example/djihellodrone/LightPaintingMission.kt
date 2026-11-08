@@ -8,6 +8,7 @@ import com.example.djihellodrone.Drone.Companion.toStick
 import dji.sdk.keyvalue.key.BatteryKey
 import dji.sdk.keyvalue.key.FlightControllerKey
 import dji.sdk.keyvalue.value.flightassistant.AuxiliaryLightMode
+import dji.sdk.keyvalue.value.flightcontroller.GPSSignalLevel
 import java.util.Locale
 import kotlin.math.abs
 import kotlin.math.cos
@@ -59,6 +60,7 @@ class LightPaintingMission(
     private val drone: Drone,
     private val drawing: Drawing,
     private val pen: Pen,
+    private val gpsCheck: Boolean,
 ) : Mission {
 
     private companion object {
@@ -86,6 +88,20 @@ class LightPaintingMission(
         const val BATTERY_RESERVE_PERCENT = 30
         const val BATTERY_PERCENT_PER_MIN = 5.0
         const val TAKEOFF_LANDING_S = 60.0  // take off, settle, descend and land
+
+        // GPS check: over the start of the figure, the drone hovers until GPS is good and its
+        // position has stopped jumping. It cannot see slow GPS drift, since it holds its place
+        // with that same GPS; but GPS usually gets better in the first minutes of a flight.
+        const val GPS_MIN_WAIT_MS = 60_000L
+        const val GPS_MIN_WAIT_SIM_MS = 20_000L      // the simulator has nothing to settle
+        const val GPS_MAX_WAIT_MS = 180_000L
+        const val GPS_WINDOW_MS = 20_000L           // the position in the drawing plane must hold this long…
+        const val GPS_STABLE_M = 0.5                // …within this distance of its mean (tune from the logs)
+        const val GPS_MIN_SATELLITES = 15
+        const val GPS_READ_PERIOD_MS = 2_000L
+        val GPS_GOOD_LEVELS = setOf(GPSSignalLevel.LEVEL_4, GPSSignalLevel.LEVEL_5, GPSSignalLevel.LEVEL_10)
+        const val SIGNAL_FLASHES = 3
+        const val SIGNAL_FLASH_MS = 300L
         const val METERS_PER_DEG = 111_320.0
     }
 
@@ -116,16 +132,35 @@ class LightPaintingMission(
             Pen.WHITE -> "The white light under the drone draws; the green lights stay off."
             Pen.GREEN -> "The green lights draw; the white light under the drone stays off."
         }
-        return "$where\n\n$light\n\nCover and uncover the lens when the status tells you to.\n\n" +
+        val gps = if (gpsCheck) "\n\nBefore drawing it hovers over the start for 1 to 3 minutes until GPS is stable, " +
+            "then flashes the white light $SIGNAL_FLASHES times. Keep the lens covered until UNCOVER THE LENS." else ""
+        return "$where\n\n$light$gps\n\nCover and uncover the lens when the status tells you to.\n\n" +
             "You need an open field, good GPS and a charged battery."
     }
 
+    // The flight log: what the drone was doing ([phase]) at every control step, and its own
+    // velocity added up ([tracker]) next to GPS, to tell GPS drift from steering errors.
+    private var phase = "start"
+    private val tracker = Tracker()
+    private var lastStepMs = 0L
+
     override fun run() = with(drone) {
         log("Drawing: ${drawing.logName}, ${drawing.widthM.roundToInt()} × ${drawing.depthM.roundToInt()} m, light ${pen.name.lowercase(Locale.US)}")
-        flightLog?.line("drawing ${drawing.logName} light ${pen.name.lowercase(Locale.US)}")
+        flightLog?.line("drawing ${drawing.logName} light ${pen.name.lowercase(Locale.US)} gps_check=$gpsCheck simulator=$simulatorOn")
+        logPlan()
         waitForAircraft()
         checkPreconditions()
 
+        tracker.start()
+        try {
+            fly()
+        } finally {
+            tracker.stop()
+        }
+    }
+
+    private fun fly() = with(drone) {
+        mark("takeoff")
         takeOff()
         // The take-off spot is under the figure's bottom-left corner as the camera sees it.
         val origin = pull(FlightControllerKey.KeyAircraftLocation3D)
@@ -136,11 +171,14 @@ class LightPaintingMission(
             throw IllegalStateException("No position or heading from the drone after takeoff.")
         }
         val frame = FigureFrame(originLat, originLon, heading, drawing.plane)
+        flightLog?.line(String.format(Locale.US, "frame lat=%.7f lon=%.7f alt=%.2f heading=%.1f plane=%s",
+            originLat, originLon, origin.altitude ?: Double.NaN, heading, drawing.plane.name.lowercase(Locale.US)))
 
         takeSticks()
         sleep(500)
         if (drawing.plane == Plane.FLAT) {
             step("Climbing to ${FLAT_ALT_M.roundToInt()} m…")
+            mark("climb")
             climbToPlane(frame)
         }
 
@@ -156,22 +194,28 @@ class LightPaintingMission(
                 val line = drawing.only?.let { FigurePath.names[it] } ?: "line ${index + 1} of ${lines.size}"
 
                 step("Flying to the start of $line…")
+                mark("to_start line=${index + 1}")
                 follow(frame, listOf(pieces.first().first()))
+                if (gpsCheck && index == 0) waitForStableGps(frame)
 
                 // The drone holds its own position while the sticks are centred.
                 step("UNCOVER THE LENS.\nDrawing $line in ${LENS_PAUSE_MS / 1000} s.")
-                sleep(LENS_PAUSE_MS)
+                mark("lens_open line=${index + 1}")
+                hold(frame, LENS_PAUSE_MS)
 
                 step("Drawing $line…")
                 for ((n, piece) in pieces.withIndex()) {
+                    mark("to_piece line=${index + 1} piece=${n + 1}", status = false)
                     follow(frame, listOf(piece.first()))
+                    mark("draw line=${index + 1} piece=${n + 1}", status = false)
                     setPen(true)
                     follow(frame, piece) { percent -> progress("Drawing $line, part ${n + 1} of ${pieces.size}… $percent %") }
                     setPen(false)
                 }
 
                 step("COVER THE LENS.\nMoving on in ${LENS_PAUSE_MS / 1000} s.")
-                sleep(LENS_PAUSE_MS)
+                mark("lens_close line=${index + 1}")
+                hold(frame, LENS_PAUSE_MS)
             }
         } finally {
             restoreLights()
@@ -179,10 +223,137 @@ class LightPaintingMission(
 
         // Upright it stays at the height where the drawing ended; flat it stays at FLAT_ALT_M.
         step("Flying back to the take-off spot…")
+        mark("home")
         val endY = if (drawing.plane == Plane.FLAT) 0.0 else lines.last().last().last().y
         follow(frame, listOf(PathPoint(0.0, endY)))
-        sleep(1_500)   // brake & settle
+        mark("settle", status = false)
+        hold(frame, 1_500)   // brake & settle
+        mark("land")
         land(pull(FlightControllerKey.KeyAircraftLocation3D)?.altitude ?: drawing.topAltM)
+    }
+
+    /**
+     * Hovers until GPS is good and the position has held within [GPS_STABLE_M] for
+     * [GPS_WINDOW_MS], at least [GPS_MIN_WAIT_MS]; then flashes the white light. After
+     * [GPS_MAX_WAIT_MS] it gives up, and the mission stops with the drone hovering.
+     */
+    private fun waitForStableGps(frame: FigureFrame) = with(drone) {
+        step("Waiting for stable GPS…")
+        mark("gps_check")
+        val start = System.currentTimeMillis()
+        val minWait = if (simulatorOn) GPS_MIN_WAIT_SIM_MS else GPS_MIN_WAIT_MS
+        val window = ArrayDeque<Pair<Long, Position>>()
+        var sats = -1
+        var level: GPSSignalLevel? = null
+        var lastRead = 0L
+        zeroSticks()
+        while (true) {
+            checkAbort()
+            val now = System.currentTimeMillis()
+            if (now - lastRead >= GPS_READ_PERIOD_MS) {
+                sats = pull(FlightControllerKey.KeyGPSSatelliteCount, 500) ?: -1
+                level = pull(FlightControllerKey.KeyGPSSignalLevel, 500)
+                lastRead = now
+            }
+            val here = readPosition(frame)
+            logStep(here, null, null, 0.0)
+            window.addLast(now to here)
+            while (now - window.first().first > GPS_WINDOW_MS) window.removeFirst()
+            // Only the drawing plane counts: out of it, the drone is pushed back while drawing.
+            val mx = window.sumOf { it.second.x } / window.size
+            val my = window.sumOf { it.second.y } / window.size
+            val spread = window.maxOf { (_, p) -> hypot(p.x - mx, p.y - my) }
+            // The simulator's satellites and signal level say nothing about the sky.
+            val goodSignal = simulatorOn || (sats >= GPS_MIN_SATELLITES && level in GPS_GOOD_LEVELS)
+            val elapsed = now - start
+            val state = String.format(Locale.US, "%d s, %d satellites, level %s, moves %.1f m",
+                elapsed / 1000, sats, level?.value() ?: "?", spread)
+            progress("Waiting for stable GPS… $state")
+            if (elapsed >= max(minWait, GPS_WINDOW_MS) && spread <= GPS_STABLE_M && goodSignal) {
+                log("GPS stable: $state")
+                flightLog?.line(String.format(Locale.US, "gps_check ok elapsed_s=%d sats=%d level=%s spread=%.2f",
+                    elapsed / 1000, sats, level, spread))
+                signalReady()
+                return@with
+            }
+            if (elapsed > GPS_MAX_WAIT_MS) {
+                flightLog?.line(String.format(Locale.US, "gps_check failed sats=%d level=%s spread=%.2f", sats, level, spread))
+                throw IllegalStateException("GPS not stable after ${GPS_MAX_WAIT_MS / 60_000} min ($state)")
+            }
+            Thread.sleep(CONTROL_PERIOD_MS)
+        }
+    }
+
+    /** "GPS stable, drawing soon": flashes the white light while the lens is still covered. */
+    private fun signalReady() = with(drone) {
+        flightLog?.line("light signal flashes=$SIGNAL_FLASHES")
+        repeat(SIGNAL_FLASHES) {
+            setWhiteLight(AuxiliaryLightMode.ON)
+            sleep(SIGNAL_FLASH_MS)
+            setWhiteLight(AuxiliaryLightMode.OFF)
+            sleep(SIGNAL_FLASH_MS)
+        }
+    }
+
+    /** Every planned point once, before the flight: the analysis needs no copy of the app's figure. */
+    private fun logPlan() {
+        val log = drone.flightLog ?: return
+        for ((i, line) in drawing.lines.withIndex()) for ((j, piece) in line.withIndex()) {
+            log.line("plan line=${i + 1} piece=${j + 1} pts=" +
+                piece.joinToString(" ") { String.format(Locale.US, "%.2f,%.2f", it.x, it.y) })
+        }
+    }
+
+    /**
+     * A new [phase] in the flight log. With [status] also what changes slowly and takes too
+     * long to read at every step: satellites, GPS level, wind, heading, compass and battery.
+     * Between the pieces of a line it is left out, so the drone does not hover longer there.
+     */
+    private fun mark(name: String, status: Boolean = true) = with(drone) {
+        phase = name.substringBefore(' ')
+        val log = flightLog ?: return@with
+        log.line("phase $name")
+        if (status) log.line("status sats=${pull(FlightControllerKey.KeyGPSSatelliteCount, 500)}" +
+            " gps_level=${pull(FlightControllerKey.KeyGPSSignalLevel, 500)}" +
+            " wind_speed_dmps=${pull(FlightControllerKey.KeyWindSpeed, 500)}" +
+            " wind_dir=${pull(FlightControllerKey.KeyWindDirection, 500)}" +
+            " wind_warning=${pull(FlightControllerKey.KeyWindWarning, 500)}" +
+            " heading=${pull(FlightControllerKey.KeyCompassHeading, 500)}" +
+            " compass_error=${pull(FlightControllerKey.KeyCompassHasError, 500)}" +
+            " battery=${pull(BatteryKey.KeyChargeRemainingInPercent, 500)}")
+    }
+
+    /**
+     * One control step in the flight log: where GPS puts the drone in the figure and on the
+     * globe, the point it aims at ([aim], [target]; null while climbing or hovering), the
+     * speed it was asked for, the sticks, and its own velocity and velocity added up.
+     */
+    private fun logStep(here: Position, aim: Int?, target: PathPoint?, speed: Double) {
+        val log = drone.flightLog ?: return
+        val now = System.currentTimeMillis()
+        val v = tracker.velocity()
+        val (tn, te, tu) = tracker.position()
+        val s = drone.sticks
+        log.line(String.format(Locale.US,
+            "step phase=%s dt_ms=%d x=%.2f y=%.2f depth=%.2f lat=%.7f lon=%.7f alt=%.2f " +
+                "aim=%s aim_x=%.2f aim_y=%.2f speed=%.2f stick_rh=%d stick_rv=%d stick_lv=%d " +
+                "vn=%.2f ve=%.2f vd=%.2f tn=%.2f te=%.2f tu=%.2f",
+            phase, if (lastStepMs == 0L) 0 else now - lastStepMs, here.x, here.y, here.depth, here.lat, here.lon, here.alt,
+            aim?.toString() ?: "-", target?.x ?: Double.NaN, target?.y ?: Double.NaN, speed,
+            s.rightStick.horizontalPosition, s.rightStick.verticalPosition, s.leftStick.verticalPosition,
+            v?.x ?: Double.NaN, v?.y ?: Double.NaN, v?.z ?: Double.NaN, tn, te, tu))
+        lastStepMs = now
+    }
+
+    /** Hovers for [ms] with the sticks centred, logging where the drone drifts meanwhile. */
+    private fun hold(frame: FigureFrame, ms: Long) = with(drone) {
+        val end = System.currentTimeMillis() + ms
+        zeroSticks()
+        while (System.currentTimeMillis() < end) {
+            checkAbort()
+            logStep(readPosition(frame), null, null, 0.0)
+            Thread.sleep(CONTROL_PERIOD_MS)
+        }
     }
 
     /** Switches the [pen] light and hovers while it switches; with [Pen.NONE] it does nothing. */
@@ -192,6 +363,7 @@ class LightPaintingMission(
             Pen.WHITE -> drone.setWhiteLight(if (on) AuxiliaryLightMode.ON else AuxiliaryLightMode.OFF)
             Pen.GREEN -> drone.setLights(on)
         }
+        drone.flightLog?.line("light pen=${pen.name.lowercase(Locale.US)} on=$on")
         drone.sleep(LIGHT_SWITCH_MS)
     }
 
@@ -232,6 +404,8 @@ class LightPaintingMission(
             }
         }
         log("Height limit ${heightLimit ?: "?"} m")
+        flightLog?.line(String.format(Locale.US, "pre sats=%d battery=%d need_battery=%d est_min=%.1f height_limit=%s",
+            sats, battery, needBattery, minutes, heightLimit))
     }
 
     /**
@@ -252,11 +426,15 @@ class LightPaintingMission(
         pathM += hypot(at.x, at.y - endY)
         val climbS = if (drawing.plane == Plane.FLAT) 2 * FLAT_ALT_M / CLIMB_MPS else 0.0
         val pausesS = drawing.lines.size * 2 * LENS_PAUSE_MS / 1000.0 + pieces * 2 * LIGHT_SWITCH_MS / 1000.0
-        return (pathM / SPEED_MPS + climbS + pausesS + TAKEOFF_LANDING_S) / 60.0
+        val gpsS = if (gpsCheck) GPS_MAX_WAIT_MS / 1000.0 else 0.0
+        return (pathM / SPEED_MPS + climbS + pausesS + gpsS + TAKEOFF_LANDING_S) / 60.0
     }
 
-    /** Where the drone is in the figure: [x] and [y] in the drawing plane, [depth] out of it. */
-    private class Position(val x: Double, val y: Double, val depth: Double)
+    /**
+     * Where the drone is in the figure: [x] and [y] in the drawing plane, [depth] out of it;
+     * and where GPS puts it on the globe.
+     */
+    private class Position(val x: Double, val y: Double, val depth: Double, val lat: Double, val lon: Double, val alt: Double)
 
     /**
      * The drawing plane, seen from the camera. x runs to the camera's right, which is the
@@ -275,8 +453,8 @@ class LightPaintingMission(
             val forward = north * cos(h) + east * sin(h)
             val right = -north * sin(h) + east * cos(h)
             return when (plane) {
-                Plane.UPRIGHT -> Position(x = -right, y = alt - BOTTOM_ALT_M, depth = forward)
-                Plane.FLAT -> Position(x = -right, y = forward, depth = alt - FLAT_ALT_M)
+                Plane.UPRIGHT -> Position(x = -right, y = alt - BOTTOM_ALT_M, depth = forward, lat, lon, alt)
+                Plane.FLAT -> Position(x = -right, y = forward, depth = alt - FLAT_ALT_M, lat, lon, alt)
             }
         }
     }
@@ -293,6 +471,7 @@ class LightPaintingMission(
                 // The other sticks stay centred, so the drone holds its place over the take-off spot.
                 val rate = (-APPROACH_GAIN * here.depth).coerceIn(-CLIMB_MPS, CLIMB_MPS)
                 sticks.leftStick.verticalPosition = toStick(rate * STICK_PER_MPS_VERTICAL)
+                logStep(here, null, null, rate)
                 Thread.sleep(CONTROL_PERIOD_MS)
             }
         } finally {
@@ -326,6 +505,7 @@ class LightPaintingMission(
                     else -> SPEED_MPS
                 }
                 steer(frame, here, points[aim], speed)
+                logStep(here, aim, points[aim], speed)
                 onProgress(100 * aim / max(1, points.lastIndex))
                 Thread.sleep(CONTROL_PERIOD_MS)
             }

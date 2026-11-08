@@ -126,13 +126,14 @@ The words are traced from the script font Agatha Bergman. Where the pen lifts, t
 turns its light off, flies to the next piece and turns it on again. The full picture
 covers about 800 m and takes roughly twelve minutes.
 
-The start dialog offers three choices; the flight log records all of them.
+The start dialog offers four drop-down lists; the flight log records all of them.
 
 | Choice | Options |
 |---|---|
 | Plane | **Upright**, standing in front of the camera, or **Flat (camera below)**, lying at 50 m |
 | Part | **Full picture**, or one line on its own: **Albstadt**, **Informatik** or **The heart** |
-| Light | **White light** (under the drone, the default), **Green light** (the status lights) or **No light** (both stay off during the figure, for a light of your own) |
+| Light | **White** (under the drone, the default), **Green** (the status lights) or **None (own light)** (both stay off during the figure) |
+| GPS check | **On** (the default): over the start of the figure the drone hovers until at least 15 satellites, a good GPS level and a position in the drawing plane that holds within 0.5 m for 20 s; at least 1 min, at most 3 min, or it stops and hovers. Then the white light flashes 3 times, with the lens still covered. **Off** skips it |
 
 A single line is drawn on its own: it starts at the take-off spot, and upright its lowest
 point is at 10 m. Flat, the figure is mirrored, so it reads
@@ -148,7 +149,7 @@ correctly from a camera on the ground looking up.
 | Pre-flight check, enforced by the app | Required |
 |---|---|
 | Satellites | at least 10 |
-| Battery | 30 % reserve + ~5 % per minute of the drawing: ~90 % for the whole figure, much less for one line (the simulator only warns) |
+| Battery | 30 % reserve + ~5 % per minute of the drawing, plus the GPS check's 3 minutes if on: ~90 % for the whole figure without it, much less for one line (the simulator only warns) |
 | Height limit | the top plus 5 m: 78 m for the full picture upright, 55 m for anything flat |
 | Distance limit, if enabled | upright: the width plus 10 m (71 m for the full picture); flat: the far corner of the flight box plus 2 m (101 m for the full picture) |
 
@@ -168,7 +169,7 @@ correctly from a camera on the ground looking up.
    ground under the middle of the figure (the dialog gives the distances), pointing straight
    up, with the top of the picture towards where the nose points. At 50 m a ~75° lens sees
    about 75 m across. The drone first climbs to 50 m over the take-off spot.
-5. Press the button, pick the plane, the part and the light, and type `yes, fly` to unlock the flight.
+5. Press the button, pick the plane, the part, the light and the GPS check, and type `yes, fly` to unlock the flight.
 6. Keep the shutter open for the whole flight. Uncover the lens at **UNCOVER THE LENS** and
    cover it at **COVER THE LENS**; the drone hovers 5 s at each and moves between lines
    while the lens is covered. At the end it flies back above the take-off spot and lands.
@@ -282,8 +283,13 @@ throws; `MainActivity` then lands the drone or, for Mission 2, leaves it hoverin
 
 Each mission writes one text file, `mission-<n>-<timestamp>.log`, with lines starting at the
 milliseconds since the mission began. It holds the obstacle-avoidance setting and obstacle
-readings; every mission except Mission 2 also records each control step. Logs stay out of the
-repo, so fetch them into the git-ignored `output/` directory at the repo root:
+readings, and every control step. Mission 2 records more, for comparing the flight with a
+photo: the planned points (`plan`), the take-off frame (`frame`), each phase with satellites,
+wind, heading and battery (`phase`, `status`), every step ten times a second, also while
+hovering, with the GPS position in the figure and on the globe, the aim point, the sticks and
+the drone's own velocity added up next to GPS (`step`), the GPS check's outcome (`gps_check`), the light switches (`light`) and how
+the flight ended (`result`). Logs stay out of the repo, so fetch them into the git-ignored
+`output/` directory at the repo root:
 
 ```bash
 mkdir -p ../../output/flight-logs
