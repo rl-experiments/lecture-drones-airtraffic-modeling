@@ -422,11 +422,10 @@ class Drone(private val display: Display) {
     }
 
     /**
-     * The white light under the drone. [on] null hands it back to the drone (Auto: on in the
-     * dark below ~5 m, where it helps the downward cameras land).
+     * The white light under the drone. [AuxiliaryLightMode.AUTO] is the drone's default: on in
+     * the dark below ~5 m, where it helps the downward cameras land.
      */
-    fun setWhiteLight(on: Boolean?) {
-        val mode = when (on) { true -> AuxiliaryLightMode.ON; false -> AuxiliaryLightMode.OFF; null -> AuxiliaryLightMode.AUTO }
+    fun setWhiteLight(mode: AuxiliaryLightMode) {
         KeyManager.getInstance().setValue(
             KeyTools.createKey(FlightAssistantKey.KeyBottomAuxiliaryLightMode),
             mode,
@@ -439,7 +438,7 @@ class Drone(private val display: Display) {
     /** At the end of a drawing, and when it fails: the pilot has to see the drone. */
     fun restoreLights() {
         setLights(true)
-        setWhiteLight(null)
+        setWhiteLight(AuxiliaryLightMode.AUTO)
         display.lightsRestored()
     }
 

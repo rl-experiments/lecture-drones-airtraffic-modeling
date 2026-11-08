@@ -7,6 +7,7 @@ import com.example.djihellodrone.Drone.Companion.STICK_PER_MPS_VERTICAL
 import com.example.djihellodrone.Drone.Companion.toStick
 import dji.sdk.keyvalue.key.BatteryKey
 import dji.sdk.keyvalue.key.FlightControllerKey
+import dji.sdk.keyvalue.value.flightassistant.AuxiliaryLightMode
 import java.util.Locale
 import kotlin.math.abs
 import kotlin.math.cos
@@ -57,7 +58,7 @@ class Drawing(val plane: Plane, val only: Int?) {
 class LightPaintingMission(
     private val drone: Drone,
     private val drawing: Drawing,
-    private val pen: Pen = Pen.WHITE,
+    private val pen: Pen,
 ) : Mission {
 
     private companion object {
@@ -150,7 +151,7 @@ class LightPaintingMission(
         try {
             // Both of the drone's lights off for the whole figure; only the pen comes on.
             setLights(false)
-            setWhiteLight(false)
+            setWhiteLight(AuxiliaryLightMode.OFF)
             for ((index, pieces) in lines.withIndex()) {
                 val line = drawing.only?.let { FigurePath.names[it] } ?: "line ${index + 1} of ${lines.size}"
 
@@ -185,13 +186,13 @@ class LightPaintingMission(
     }
 
     /** Switches the [pen] light and hovers while it switches; with [Pen.NONE] it does nothing. */
-    private fun setPen(on: Boolean) = with(drone) {
+    private fun setPen(on: Boolean) {
         when (pen) {
-            Pen.NONE -> return@with
-            Pen.WHITE -> setWhiteLight(on)
-            Pen.GREEN -> setLights(on)
+            Pen.NONE -> return
+            Pen.WHITE -> drone.setWhiteLight(if (on) AuxiliaryLightMode.ON else AuxiliaryLightMode.OFF)
+            Pen.GREEN -> drone.setLights(on)
         }
-        sleep(LIGHT_SWITCH_MS)
+        drone.sleep(LIGHT_SWITCH_MS)
     }
 
     /**
