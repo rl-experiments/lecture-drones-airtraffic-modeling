@@ -133,7 +133,31 @@ The start dialog offers four drop-down lists; the flight log records all of them
 | Plane | **Upright**, standing in front of the camera, or **Flat (camera below)**, lying at 50 m |
 | Part | **Full picture**, or one line on its own: **Albstadt**, **Informatik** or **The heart** |
 | Light | **White** (under the drone, the default), **Green** (the status lights) or **None (own light)** (both stay off during the figure) |
-| GPS check | **On** (the default): over the start of the figure the drone hovers until at least 15 satellites, a good GPS level and a position in the drawing plane that holds within 0.5 m for 20 s; at least 1 min, at most 3 min, or it stops and hovers. Then the white light flashes 3 times, with the lens still covered. **Off** skips it |
+| GPS check | **On** (the default): the drone waits over the start of the figure until GPS is stable (*What the drone does*, step 5), or **Off** |
+
+**What the drone does**, in order:
+
+1. **Checks before takeoff:** satellites, battery and the height and distance limits (table
+   below). If one fails, it does not take off.
+2. **Takes off.** The green lights are on; the white light is on Auto.
+3. **Flat only: climbs** to 50 m over the take-off spot.
+4. **Turns both lights off** and flies to the start of the first line.
+5. **GPS check, if on:** hovers there for at least 1 and at most 3 minutes, the status showing
+   time, satellites, GPS level and how far the position moves. It goes on once there are at
+   least 15 satellites, GPS level 4 or better, and a position in the drawing plane that has
+   held within 0.5 m for 20 s. Then the **white light flashes 3 times**, with the lens still
+   covered. After 3 minutes without that, the mission stops and the drone hovers with its
+   lights on: land it with **STOP + LAND** or the RC.
+6. **UNCOVER THE LENS:** hovers 5 s in the dark.
+7. **Draws the line:** for each piece it flies to the start, switches the chosen light on,
+   follows the piece and switches the light off. With **None** it switches nothing.
+8. **COVER THE LENS:** hovers 5 s, then flies to the start of the next line and repeats from
+   step 6. The GPS check runs only once, before the first line.
+9. **Flies back** above the take-off spot with the green lights on and the white light on
+   Auto, upright at the height where the drawing ended, flat at 50 m. Then it lands.
+
+From the flashes to the first light of the drawing it takes about 5 s. Every step goes to the
+flight log (see [Flight logs and analysis](#flight-logs-and-analysis)).
 
 A single line is drawn on its own: it starts at the take-off spot, and upright its lowest
 point is at 10 m. Flat, the figure is mirrored, so it reads
@@ -170,9 +194,8 @@ correctly from a camera on the ground looking up.
    up, with the top of the picture towards where the nose points. At 50 m a ~75° lens sees
    about 75 m across. The drone first climbs to 50 m over the take-off spot.
 5. Press the button, pick the plane, the part, the light and the GPS check, and type `yes, fly` to unlock the flight.
-6. Keep the shutter open for the whole flight. Uncover the lens at **UNCOVER THE LENS** and
-   cover it at **COVER THE LENS**; the drone hovers 5 s at each and moves between lines
-   while the lens is covered. At the end it flies back above the take-off spot and lands.
+6. Keep the shutter open for the whole flight, the lens covered except between **UNCOVER THE
+   LENS** and **COVER THE LENS** (*What the drone does*, steps 6 to 8).
 
 This mission steers on GPS position. If it leaves the box around the figure by more than
 8 m or loses its position, it stops and **hovers**: take over with the RC or press
