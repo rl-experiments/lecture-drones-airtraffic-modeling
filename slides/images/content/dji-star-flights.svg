@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 503" font-family="Inter, 'Segoe UI', Arial, sans-serif" role="img" aria-label="Two stars planned and flown, from the drone's own log. Mission 3 stands upright, mean deviation 7.4 centimetres, maximum 16.5. Mission 4 lies flat, mean 8.3 centimetres, maximum 48.8, overshooting the first tip by about half a metre.">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 503" font-family="Inter, 'Segoe UI', Arial, sans-serif" role="img" aria-label="Two stars planned and flown, from the drone's own log. The upright star: mean deviation 7.4 centimetres, maximum 16.5. The flat star: mean 8.3 centimetres, maximum 48.8, overshooting the first tip by about half a metre.">
 <rect x="0" y="0" width="1120" height="503" fill="#ffffff"/>
-<text x="62" y="28" font-size="17" font-weight="600" fill="#171717">Mission 3: star standing upright</text>
+<text x="62" y="28" font-size="17" font-weight="600" fill="#171717">Upright star</text>
 <text x="62" y="52" font-size="14" fill="#737373">Seen by a camera in front of the nose. Off the line: mean 7.4 cm, max 16.5 cm</text>
 <rect x="62" y="74" width="409.6" height="371.2" fill="#fafafa" stroke="#d4d4d4"/>
 <line x1="74.8" y1="74" x2="74.8" y2="445.2" stroke="#e5e5e5"/>
@@ -31,7 +31,7 @@
 <circle cx="388.0" cy="237.8" r="10" fill="#171717"/><text x="388.0" y="242.3" font-size="12.5" font-weight="600" text-anchor="middle" fill="#ffffff">3</text>
 <circle cx="145.6" cy="237.8" r="10" fill="#171717"/><text x="145.6" y="242.3" font-size="12.5" font-weight="600" text-anchor="middle" fill="#ffffff">4</text>
 <circle cx="342.6" cy="381.2" r="10" fill="#171717"/><text x="342.6" y="385.7" font-size="12.5" font-weight="600" text-anchor="middle" fill="#ffffff">5</text>
-<text x="652" y="28" font-size="17" font-weight="600" fill="#171717">Mission 4: star lying flat</text>
+<text x="652" y="28" font-size="17" font-weight="600" fill="#171717">Flat star</text>
 <text x="652" y="52" font-size="14" fill="#737373">Seen from above, nose pointing up. Off the line: mean 8.3 cm, max 48.8 cm</text>
 <rect x="652" y="74" width="409.6" height="371.2" fill="#fafafa" stroke="#d4d4d4"/>
 <line x1="664.8" y1="74" x2="664.8" y2="445.2" stroke="#e5e5e5"/>

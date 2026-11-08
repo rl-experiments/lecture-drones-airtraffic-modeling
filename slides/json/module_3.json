@@ -348,7 +348,7 @@
             [
               "Drone flies into a wall or a person",
               "SR-1: No leg of the mission commands more than <strong>2 m</strong> of travel; every leg has a <strong>hard timeout</strong>",
-              "<code>assertEquals(1.5, plan.legs[0].distanceMeters, 0.5)</code>; timed hop ends after <code>FORWARD_MS</code> even if the loop hangs"
+              "<code>assertEquals(1.5, plan.legs[0].distanceMeters, 0.5)</code>; the leg ends after <code>LEG_TIMEOUT_MS</code> even if it never arrives"
             ],
             [
               "Virtual stick stays live after an exception",
@@ -367,7 +367,7 @@
         "card": "Your turn — ten minutes",
         "items": [
           "Write <strong>one more row</strong> for the hazard <em>'takeoff succeeds but the drone is not yet stable when virtual stick is enabled'</em>",
-          "Then <strong>trace it</strong> (Principle 2): which line of <code>MainActivity.kt</code> implements the requirement, which test checks it &mdash; and what changes if you change <code>FORWARD_MS</code> (Principle 4: controlling change)",
+          "Then <strong>trace it</strong> (Principle 2): which line of <code>Drone.kt</code> implements the requirement, which test checks it &mdash; and what changes if you change <code>LEG_TIMEOUT_MS</code> (Principle 4: controlling change)",
           "This table <em>is</em> the Safety &amp; Testing gate of Module 2, written the way DO-178C writes it"
         ]
       }

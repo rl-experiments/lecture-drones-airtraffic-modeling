@@ -12,7 +12,7 @@ def load(f):
     return [(R(n,e),F(n,e),u) for n,e,u in legs[:6]],[(R(s['n'],s['e']),F(s['n'],s['e']),s['u']) for s in steps]
 S=128;PH=2.9*S;PW=3.2*S;TOP=74
 o=[]
-title="Two stars planned and flown, from the drone's own log. Mission 3 stands upright, mean deviation 7.4 centimetres, maximum 16.5. Mission 4 lies flat, mean 8.3 centimetres, maximum 48.8, overshooting the first tip by about half a metre."
+title="Two stars planned and flown, from the drone's own log. The upright star: mean deviation 7.4 centimetres, maximum 16.5. The flat star: mean 8.3 centimetres, maximum 48.8, overshooting the first tip by about half a metre."
 W,H=1120,TOP+PH+58
 o.append(f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H:.0f}" font-family="Inter, 'Segoe UI', Arial, sans-serif" role="img" aria-label="{title}">''')
 o.append(f'<rect x="0" y="0" width="{W}" height="{H:.0f}" fill="#ffffff"/>')
@@ -42,8 +42,8 @@ def panel(px,t,sub,tips,steps,fx,fy,xlab,ylab,y0):
         o.append(f'<circle cx="{X(fx(q)):.1f}" cy="{Y(fy(q)):.1f}" r="10" fill="#171717"/><text x="{X(fx(q)):.1f}" y="{Y(fy(q))+4.5:.1f}" font-size="12.5" font-weight="600" text-anchor="middle" fill="#ffffff">{i+1}</text>')
 t3,s3=load(lab+'/mission-3-2026-10-31_11-59-47.log')
 t4,s4=load(lab+'/mission-4-2026-10-31_12-23-06.log')
-panel(62,'Mission 3: star standing upright','Seen by a camera in front of the nose. Off the line: mean 7.4 cm, max 16.5 cm',t3,s3,lambda q:-q[0],lambda q:q[2],'Sideways, m','Height, m',0.7)
-panel(652,'Mission 4: star lying flat','Seen from above, nose pointing up. Off the line: mean 8.3 cm, max 48.8 cm',t4,s4,lambda q:q[0],lambda q:q[1],"Drone's right, m",'Ahead of the nose, m',-1.2)
+panel(62,'Upright star','Seen by a camera in front of the nose. Off the line: mean 7.4 cm, max 16.5 cm',t3,s3,lambda q:-q[0],lambda q:q[2],'Sideways, m','Height, m',0.7)
+panel(652,'Flat star','Seen from above, nose pointing up. Off the line: mean 8.3 cm, max 48.8 cm',t4,s4,lambda q:q[0],lambda q:q[1],"Drone's right, m",'Ahead of the nose, m',-1.2)
 # legend
 o.append(f'<line x1="500" y1="{H-14:.0f}" x2="540" y2="{H-14:.0f}" stroke="#737373" stroke-width="1.6" stroke-dasharray="6 5"/><text x="548" y="{H-9:.0f}" font-size="13.5" fill="#525252">Planned</text>')
 o.append(f'<line x1="616" y1="{H-14:.0f}" x2="656" y2="{H-14:.0f}" stroke="#2563eb" stroke-width="3"/><text x="664" y="{H-9:.0f}" font-size="13.5" fill="#525252">Flown</text>')

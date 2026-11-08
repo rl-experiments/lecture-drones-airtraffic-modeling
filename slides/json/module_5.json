@@ -78,9 +78,9 @@
       {
         "card": "What it does",
         "items": [
-          "A single screen with <strong>five mission buttons</strong> and a red <strong>STOP + LAND</strong>: a demo, light painting, two stars and a triangle",
+          "A single screen with <strong>three mission buttons</strong> and a red <strong>STOP + LAND</strong>: a demo, light painting (upright or flat, whole picture or one line) and a star or triangle (upright or flat)",
           "Press <strong>Mission 1 (demo)</strong> &rarr; the Mini 4 Pro <strong>takes off, flies ~1.5&nbsp;m forward, spins 180&deg;, flies ~1.5&nbsp;m back, and lands</strong> &mdash; entirely on its own",
-          "~1,700 lines of Kotlin on the DJI Mobile SDK v5, and every mission writes a flight log you can analyse",
+          "~2,000 lines of Kotlin on the DJI Mobile SDK v5, one class per mission, and every mission writes a flight log you can analyse",
           "Code &amp; full write-up: <a href=\"https://github.com/rl-experiments/lecture-drones-airtraffic-modeling/tree/main/labs/dji-hello-world\" target=\"_blank\"><strong>labs/dji-hello-world</strong></a>"
         ]
       },
@@ -226,10 +226,10 @@
     "mod": "5",
     "tag": "demo",
     "title": "The Code You Inherit: One Leg, One Turn",
-    "desc": "MainActivity.kt, condensed — closed-loop legs, closed-loop yaw, and the deadman that makes both survivable",
+    "desc": "Tracker.kt and DemoMission.kt, condensed — closed-loop legs, closed-loop yaw, and the deadman that makes both survivable",
     "body": [
       {
-        "code": "<span class=\"kw\">private fun</span> driveTo(tracker: Tracker, north: Double, east: Double) {\n    <span class=\"kw\">val</span> deadline = System.currentTimeMillis() + LEG_TIMEOUT_MS\n    <span class=\"kw\">try</span> { <span class=\"kw\">while</span> (<span class=\"kw\">true</span>) {\n        checkAbort()                     <span class=\"str\">// throws if STOP was pressed</span>\n        <span class=\"kw\">val</span> (n, e) = tracker.position()   <span class=\"str\">// measured velocity, added up</span>\n        <span class=\"kw\">val</span> dist = hypot(north - n, east - e)\n        <span class=\"kw\">if</span> (dist &lt; LEG_ARRIVE_M || System.currentTimeMillis() &gt; deadline) <span class=\"kw\">return</span>\n        steerTowards(north - n, east - e, min(LEG_MAX_MPS, APPROACH_GAIN * dist))\n        Thread.sleep(CONTROL_PERIOD_MS)\n    } } <span class=\"kw\">finally</span> { zeroSticks() }           <span class=\"str\">// the leg ends here, whatever happened</span>\n}\n\n<span class=\"kw\">private fun</span> rotate180() {\n    <span class=\"kw\">val</span> target = normalizeDeg(heading() + 180.0)\n    VirtualStickManager.getInstance().leftStick.horizontalPosition = YAW_STICK\n    <span class=\"kw\">val</span> deadline = System.currentTimeMillis() + YAW_TIMEOUT_MS\n    <span class=\"kw\">try</span> { <span class=\"kw\">while</span> (System.currentTimeMillis() &lt; deadline) {\n        checkAbort()\n        <span class=\"kw\">if</span> (abs(normalizeDeg(heading() - target)) &lt; YAW_TOLERANCE_DEG) <span class=\"kw\">break</span>\n        Thread.sleep(50)\n    } } <span class=\"kw\">finally</span> { zeroSticks() }           <span class=\"str\">// the deadman: sticks go to 0 on ANY exit</span>\n}"
+        "code": "<span class=\"kw\">fun</span> Drone.driveTo(tracker: Tracker, north: Double, east: Double) {\n    <span class=\"kw\">val</span> deadline = System.currentTimeMillis() + LEG_TIMEOUT_MS\n    <span class=\"kw\">try</span> { <span class=\"kw\">while</span> (<span class=\"kw\">true</span>) {\n        checkAbort()                     <span class=\"str\">// throws if STOP was pressed</span>\n        <span class=\"kw\">val</span> (n, e) = tracker.position()   <span class=\"str\">// measured velocity, added up</span>\n        <span class=\"kw\">val</span> dist = hypot(north - n, east - e)\n        <span class=\"kw\">if</span> (dist &lt; LEG_ARRIVE_M || System.currentTimeMillis() &gt; deadline) <span class=\"kw\">return</span>\n        steerTowards(north - n, east - e, min(LEG_MAX_MPS, APPROACH_GAIN * dist))\n        Thread.sleep(CONTROL_PERIOD_MS)\n    } } <span class=\"kw\">finally</span> { zeroSticks() }           <span class=\"str\">// the leg ends here, whatever happened</span>\n}\n\n<span class=\"kw\">private fun</span> rotate180() {\n    <span class=\"kw\">val</span> target = normalizeDeg(heading() + 180.0)\n    sticks.leftStick.horizontalPosition = YAW_STICK\n    <span class=\"kw\">val</span> deadline = System.currentTimeMillis() + YAW_TIMEOUT_MS\n    <span class=\"kw\">try</span> { <span class=\"kw\">while</span> (System.currentTimeMillis() &lt; deadline) {\n        checkAbort()\n        <span class=\"kw\">if</span> (abs(normalizeDeg(heading() - target)) &lt; YAW_TOLERANCE_DEG) <span class=\"kw\">break</span>\n        Thread.sleep(50)\n    } } <span class=\"kw\">finally</span> { zeroSticks() }           <span class=\"str\">// the deadman: sticks go to 0 on ANY exit</span>\n}"
       },
       {
         "card": "Read it like a safety reviewer",
@@ -299,12 +299,12 @@
     "type": "content",
     "mod": "5",
     "tag": "",
-    "title": "Plan vs. Flight: Two Stars",
+    "title": "Plan vs. Flight: Mission 3, Two Stars",
     "desc": "Both stars look right from a distance — the log shows how the drone really flew them",
     "body": [
       {
         "img": "dji-star-flights.svg",
-        "alt": "Two stars planned and flown, from the drone's own log. Mission 3 stands upright, mean deviation 7.4 centimetres, maximum 16.5. Mission 4 lies flat, mean 8.3 centimetres, maximum 48.8, overshooting the first tip by about half a metre",
+        "alt": "Two stars planned and flown, from the drone's own log. The upright star: mean deviation 7.4 centimetres, maximum 16.5. The flat star: mean 8.3 centimetres, maximum 48.8, overshooting the first tip by about half a metre",
         "height": 0,
         "fill": true,
         "caption": "Position is the drone's own summed-up velocity, not measured from outside, so real drift does not show. One flight each"
