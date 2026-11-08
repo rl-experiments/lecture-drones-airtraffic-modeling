@@ -4,12 +4,14 @@ import android.util.Log
 import dji.sdk.keyvalue.key.AirLinkKey
 import dji.sdk.keyvalue.key.DJIActionKeyInfo
 import dji.sdk.keyvalue.key.DJIKeyInfo
+import dji.sdk.keyvalue.key.FlightAssistantKey
 import dji.sdk.keyvalue.key.FlightControllerKey
 import dji.sdk.keyvalue.key.KeyTools
 import dji.sdk.keyvalue.key.ProductKey
 import dji.sdk.keyvalue.key.RemoteControllerKey
 import dji.sdk.keyvalue.value.common.EmptyMsg
 import dji.sdk.keyvalue.value.common.LocationCoordinate2D
+import dji.sdk.keyvalue.value.flightassistant.AuxiliaryLightMode
 import dji.sdk.keyvalue.value.flightcontroller.FlightControlAuthority
 import dji.sdk.keyvalue.value.flightcontroller.FlightControlAuthorityChangeReason
 import dji.sdk.keyvalue.value.flightcontroller.LEDsSettings
@@ -419,9 +421,25 @@ class Drone(private val display: Display) {
             })
     }
 
+    /**
+     * The white light under the drone. [on] null hands it back to the drone (Auto: on in the
+     * dark below ~5 m, where it helps the downward cameras land).
+     */
+    fun setWhiteLight(on: Boolean?) {
+        val mode = when (on) { true -> AuxiliaryLightMode.ON; false -> AuxiliaryLightMode.OFF; null -> AuxiliaryLightMode.AUTO }
+        KeyManager.getInstance().setValue(
+            KeyTools.createKey(FlightAssistantKey.KeyBottomAuxiliaryLightMode),
+            mode,
+            object : CommonCallbacks.CompletionCallback {
+                override fun onSuccess() = logOutcome("white light", "Switching the white light", "ok")
+                override fun onFailure(e: IDJIError) = logOutcome("white light", "Switching the white light", "failed: ${e.errorCode() ?: e}")
+            })
+    }
+
     /** At the end of a drawing, and when it fails: the pilot has to see the drone. */
     fun restoreLights() {
         setLights(true)
+        setWhiteLight(null)
         display.lightsRestored()
     }
 

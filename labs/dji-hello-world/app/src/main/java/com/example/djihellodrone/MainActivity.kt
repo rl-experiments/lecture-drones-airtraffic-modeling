@@ -192,8 +192,8 @@ class MainActivity : Activity(), Display {
     }
 
     /**
-     * Mission 2 (light painting): the pilot picks upright or flat and the whole picture or
-     * one line, and must type [CONFIRM_PHRASE] before Fly unlocks.
+     * Mission 2 (light painting): the pilot picks upright or flat, the whole picture or
+     * one line, and the light that draws, and must type [CONFIRM_PHRASE] before Fly unlocks.
      */
     private fun confirmMission2() {
         if (missionRunning) return
@@ -201,10 +201,14 @@ class MainActivity : Activity(), Display {
         val flat = radioButton("Flat (camera below)")
         val full = radioButton("Full picture")
         val single = FigurePath.names.map { radioButton(it.replaceFirstChar { c -> c.uppercase() }) }
+        val white = radioButton("White light")
+        val green = radioButton("Green light")
+        val noLight = radioButton("No light")
         val message = TextView(this).apply { setPadding(0, dp(8), 0, dp(8)) }
         fun mission() = LightPaintingMission(drone, Drawing(
             if (flat.isChecked) Plane.FLAT else Plane.UPRIGHT,
-            single.indexOfFirst { it.isChecked }.takeIf { it >= 0 }))
+            single.indexOfFirst { it.isChecked }.takeIf { it >= 0 }),
+            when { green.isChecked -> Pen.GREEN; noLight.isChecked -> Pen.NONE; else -> Pen.WHITE })
         fun update() {
             message.text = mission().briefing + "\n\n" +
                 (if (drone.simulatorOn) "SIMULATOR IS ON: nothing really flies.\n\n" else "") +
@@ -212,6 +216,7 @@ class MainActivity : Activity(), Display {
         }
         val planes = radioGroup(RadioGroup.HORIZONTAL, listOf(upright, flat)) { update() }
         val parts = radioGroup(RadioGroup.VERTICAL, listOf(full) + single) { update() }
+        val pens = radioGroup(RadioGroup.HORIZONTAL, listOf(white, green, noLight)) { update() }
         update()
         val input = EditText(this).apply {
             hint = CONFIRM_PHRASE
@@ -219,7 +224,7 @@ class MainActivity : Activity(), Display {
         }
         val dialog = AlertDialog.Builder(this)
             .setTitle("Start mission 2 (light painting, outdoors)?")
-            .setView(dialogBody(planes, parts, message, input))
+            .setView(dialogBody(planes, parts, pens, message, input))
             .setPositiveButton("Fly") { _, _ -> startMission(mission()) }
             .setNegativeButton("Cancel", null)
             .create()

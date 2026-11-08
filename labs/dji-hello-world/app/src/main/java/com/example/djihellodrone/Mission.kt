@@ -16,3 +16,10 @@ interface Mission {
 
 /** The plane a drawing lies in: standing across the nose, or lying flat. */
 enum class Plane { UPRIGHT, FLAT }
+
+/**
+ * The drone's own light that draws mission 2: none (an external light draws, and the
+ * drone's lights stay off during the figure), the white light under the drone, or the
+ * green status lights.
+ */
+enum class Pen { NONE, WHITE, GREEN }

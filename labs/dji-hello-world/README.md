@@ -123,15 +123,16 @@ drone reports no velocity or heading, the mission stops and lands on the spot.
 ### Mission 2 (light painting, outdoors)
 
 The words are traced from the script font Agatha Bergman. Where the pen lifts, the drone
-turns its lights off, flies to the next piece and turns them on again. The full picture
+turns its light off, flies to the next piece and turns it on again. The full picture
 covers about 800 m and takes roughly twelve minutes.
 
-The start dialog offers two choices; the flight log records both.
+The start dialog offers three choices; the flight log records all of them.
 
 | Choice | Options |
 |---|---|
 | Plane | **Upright**, standing in front of the camera, or **Flat (camera below)**, lying at 50 m |
 | Part | **Full picture**, or one line on its own: **Albstadt**, **Informatik** or **The heart** |
+| Light | **White light** (under the drone, the default), **Green light** (the status lights) or **No light** (both stay off during the figure, for a light of your own) |
 
 A single line is drawn on its own: it starts at the take-off spot, and upright its lowest
 point is at 10 m. Flat, the figure is mirrored, so it reads
@@ -155,8 +156,11 @@ correctly from a camera on the ground looking up.
    `LightPaintingMission.kt` have only been checked against a model, not on the drone. The flat
    version has never flown.
 2. **Check the lights.** With the drone connected on the table, untick **Drone lights on**:
-   the LEDs go dark and the log says *Switching the lights: ok*. If they stay on, the hops
-   between pieces show in the photo as thin lines.
+   the green lights go dark and the log says *Switching the lights: ok*. For the white light,
+   run the mission in the simulator with the real drone connected and watch for *Switching
+   the white light: ok*. If a light does not obey, the hops between pieces show in the photo
+   as thin lines, or nothing is drawn. After the figure the green lights come back on and the
+   white light returns to Auto, which lights it in the dark below ~5 m for the landing.
 3. **Upright:** put the camera on a tripod, framing ~70 m across and ~75 m up for the full
    picture. Place the drone with its **nose pointing at the camera**. That spot is under the
    bottom-left corner of the figure, as the camera sees it.
@@ -164,7 +168,7 @@ correctly from a camera on the ground looking up.
    ground under the middle of the figure (the dialog gives the distances), pointing straight
    up, with the top of the picture towards where the nose points. At 50 m a ~75° lens sees
    about 75 m across. The drone first climbs to 50 m over the take-off spot.
-5. Press the button, pick the plane and the part, and type `yes, fly` to unlock the flight.
+5. Press the button, pick the plane, the part and the light, and type `yes, fly` to unlock the flight.
 6. Keep the shutter open for the whole flight. Uncover the lens at **UNCOVER THE LENS** and
    cover it at **COVER THE LENS**; the drone hovers 5 s at each and moves between lines
    while the lens is covered. At the end it flies back above the take-off spot and lands.

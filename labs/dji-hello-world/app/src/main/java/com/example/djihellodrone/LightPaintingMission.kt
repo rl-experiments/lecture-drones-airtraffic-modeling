@@ -54,7 +54,11 @@ class Drawing(val plane: Plane, val only: Int?) {
  * GPS only: if the drone leaves the box around the drawing or loses its position, it
  * stops and hovers, because it may be far from the pilot and should not land blind.
  */
-class LightPaintingMission(private val drone: Drone, private val drawing: Drawing) : Mission {
+class LightPaintingMission(
+    private val drone: Drone,
+    private val drawing: Drawing,
+    private val pen: Pen = Pen.WHITE,
+) : Mission {
 
     private companion object {
         const val SPEED_MPS = 1.5
@@ -106,13 +110,18 @@ class LightPaintingMission(private val drone: Drone, private val drawing: Drawin
                 "Place the drone with its nose pointing at the camera. Seen from the camera, " +
                 "the figure appears above that spot and to the right of it."
         }
-        return "$where\n\nCover and uncover the lens when the status tells you to.\n\n" +
+        val light = when (pen) {
+            Pen.NONE -> "The drone's own lights stay off during the figure: fix your own light to it."
+            Pen.WHITE -> "The white light under the drone draws; the green lights stay off."
+            Pen.GREEN -> "The green lights draw; the white light under the drone stays off."
+        }
+        return "$where\n\n$light\n\nCover and uncover the lens when the status tells you to.\n\n" +
             "You need an open field, good GPS and a charged battery."
     }
 
     override fun run() = with(drone) {
-        log("Drawing: ${drawing.logName}, ${drawing.widthM.roundToInt()} × ${drawing.depthM.roundToInt()} m")
-        flightLog?.line("drawing ${drawing.logName}")
+        log("Drawing: ${drawing.logName}, ${drawing.widthM.roundToInt()} × ${drawing.depthM.roundToInt()} m, light ${pen.name.lowercase(Locale.US)}")
+        flightLog?.line("drawing ${drawing.logName} light ${pen.name.lowercase(Locale.US)}")
         waitForAircraft()
         checkPreconditions()
 
@@ -139,11 +148,13 @@ class LightPaintingMission(private val drone: Drone, private val drawing: Drawin
         // that lifts. The lens is covered while it flies from one line to the next.
         val lines = drawing.lines
         try {
+            // Both of the drone's lights off for the whole figure; only the pen comes on.
+            setLights(false)
+            setWhiteLight(false)
             for ((index, pieces) in lines.withIndex()) {
                 val line = drawing.only?.let { FigurePath.names[it] } ?: "line ${index + 1} of ${lines.size}"
 
                 step("Flying to the start of $line…")
-                setLights(false)
                 follow(frame, listOf(pieces.first().first()))
 
                 // The drone holds its own position while the sticks are centred.
@@ -153,11 +164,9 @@ class LightPaintingMission(private val drone: Drone, private val drawing: Drawin
                 step("Drawing $line…")
                 for ((n, piece) in pieces.withIndex()) {
                     follow(frame, listOf(piece.first()))
-                    setLights(true)
-                    sleep(LIGHT_SWITCH_MS)
+                    setPen(true)
                     follow(frame, piece) { percent -> progress("Drawing $line, part ${n + 1} of ${pieces.size}… $percent %") }
-                    setLights(false)
-                    sleep(LIGHT_SWITCH_MS)
+                    setPen(false)
                 }
 
                 step("COVER THE LENS.\nMoving on in ${LENS_PAUSE_MS / 1000} s.")
@@ -173,6 +182,16 @@ class LightPaintingMission(private val drone: Drone, private val drawing: Drawin
         follow(frame, listOf(PathPoint(0.0, endY)))
         sleep(1_500)   // brake & settle
         land(pull(FlightControllerKey.KeyAircraftLocation3D)?.altitude ?: drawing.topAltM)
+    }
+
+    /** Switches the [pen] light and hovers while it switches; with [Pen.NONE] it does nothing. */
+    private fun setPen(on: Boolean) = with(drone) {
+        when (pen) {
+            Pen.NONE -> return@with
+            Pen.WHITE -> setWhiteLight(on)
+            Pen.GREEN -> setLights(on)
+        }
+        sleep(LIGHT_SWITCH_MS)
     }
 
     /**
