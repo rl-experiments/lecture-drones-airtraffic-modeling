@@ -37,13 +37,23 @@
         android:checked="true"
         android:text="Drone lights on (untick to test switching them off)" />
 
+    <!-- Says in words why the mission buttons are grey, or that they are ready. -->
+    <TextView
+        android:id="@+id/hintText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
     <Button
         android:id="@+id/mission1Button"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginBottom="8dp"
-        android:backgroundTint="#2E7D32"
-        android:textColor="#FFFFFF"
+        android:backgroundTint="@color/mission_button_bg"
+        android:textColor="@color/mission_button_text"
         android:textSize="18sp"
         android:text="🚁  Mission 1 (demo)" />
 
@@ -52,8 +62,8 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginBottom="8dp"
-        android:backgroundTint="#2E7D32"
-        android:textColor="#FFFFFF"
+        android:backgroundTint="@color/mission_button_bg"
+        android:textColor="@color/mission_button_text"
         android:textSize="18sp"
         android:text="✨  Mission 2 (light painting, outdoors)" />
 
@@ -62,8 +72,8 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginBottom="16dp"
-        android:backgroundTint="#2E7D32"
-        android:textColor="#FFFFFF"
+        android:backgroundTint="@color/mission_button_bg"
+        android:textColor="@color/mission_button_text"
         android:textSize="18sp"
         android:text="⭐  Mission 3 (star or triangle)" />
 

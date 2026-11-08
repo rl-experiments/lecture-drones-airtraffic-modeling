@@ -2,6 +2,7 @@ package com.example.djihellodrone
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
@@ -15,8 +16,6 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.LinearLayout
-import android.widget.RadioButton
-import android.widget.RadioGroup
 import android.widget.ScrollView
 import android.widget.Spinner
 import android.widget.TextView
@@ -41,6 +40,7 @@ class MainActivity : Activity(), Display {
     }
 
     private lateinit var statusView: TextView
+    private lateinit var hintView: TextView
     private lateinit var mission1Button: Button
     private lateinit var mission2Button: Button
     private lateinit var mission3Button: Button
@@ -49,6 +49,7 @@ class MainActivity : Activity(), Display {
     private lateinit var logPanel: LogPanel
 
     private val drone = Drone(this)
+    @Volatile private var connected = false
     @Volatile private var missionRunning = false
     @Volatile private var showDiagnostics = false
 
@@ -57,6 +58,7 @@ class MainActivity : Activity(), Display {
         setContentView(R.layout.activity_main)
 
         statusView = findViewById(R.id.statusText)
+        hintView = findViewById(R.id.hintText)
         logPanel = findViewById(R.id.logPanel)
         mission1Button = findViewById(R.id.mission1Button)
         mission2Button = findViewById(R.id.mission2Button)
@@ -70,7 +72,7 @@ class MainActivity : Activity(), Display {
         // A check on the table, before mission 2 relies on it: do the drone's lights obey?
         lightsCheck = findViewById(R.id.lightsCheck)
         lightsCheck.setOnCheckedChangeListener { _, checked -> drone.setLights(checked) }
-        setControlsEnabled(false)
+        refreshControls()
 
         mission1Button.setOnClickListener { confirmMission1() }
         mission2Button.setOnClickListener { confirmMission2() }
@@ -162,7 +164,8 @@ class MainActivity : Activity(), Display {
             override fun onProductConnect(productId: Int) {
                 log("Product connected, id=$productId")
                 showDiagnostics = true
-                setControlsEnabled(true)
+                connected = true
+                refreshControls()
                 thread(name = "link-snapshot") { drone.logLinkSnapshot("after product connect") }
             }
 
@@ -170,7 +173,8 @@ class MainActivity : Activity(), Display {
                 log("Product disconnected, id=$productId")
                 showDiagnostics = false
                 status("Drone disconnected.")
-                setControlsEnabled(false)
+                connected = false
+                refreshControls()
                 drone.disconnected()
                 runOnUiThread { simulatorCheck.isChecked = false }
             }
@@ -244,45 +248,31 @@ class MainActivity : Activity(), Display {
         })
     }
 
-    /** Mission 3: the pilot picks the figure, upright or flat, and the height correction. */
+    /** Mission 3: the pilot picks the figure, the plane and the height correction from drop-down lists. */
     private fun confirmMission3() {
         if (missionRunning) return
-        val star = radioButton("Star")
-        val triangle = radioButton("Triangle")
-        val upright = radioButton("Upright")
-        val flat = radioButton("Flat")
-        val heightCheck = CheckBox(this).apply { text = "Height correction from the downward sensor" }
         val message = TextView(this).apply { setPadding(0, dp(8), 0, 0) }
+        lateinit var update: () -> Unit
+        val figure = choice(listOf("Star", "Triangle")) { update() }
+        val plane = choice(listOf("Upright", "Flat (camera below)")) { update() }
+        val height = choice(listOf("Off", "On (downward sensor, flat floor)")) { update() }
         fun mission() = FigureMission(drone,
-            if (triangle.isChecked) Figure.TRIANGLE else Figure.STAR,
-            if (flat.isChecked) Plane.FLAT else Plane.UPRIGHT,
-            heightCheck.isChecked)
-        fun update() { message.text = mission().briefing }
-        val shapes = radioGroup(RadioGroup.HORIZONTAL, listOf(star, triangle)) { update() }
-        val planes = radioGroup(RadioGroup.HORIZONTAL, listOf(upright, flat)) { update() }
-        heightCheck.setOnCheckedChangeListener { _, _ -> update() }
+            if (figure.selectedItemPosition == 1) Figure.TRIANGLE else Figure.STAR,
+            if (plane.selectedItemPosition == 1) Plane.FLAT else Plane.UPRIGHT,
+            height.selectedItemPosition == 1)
+        update = { message.text = mission().briefing }
         update()
 
         AlertDialog.Builder(this)
             .setTitle("Start mission 3 (star or triangle)?")
-            .setView(dialogBody(shapes, planes, heightCheck, message))
+            .setView(dialogBody(labeled("Figure", figure), labeled("Plane", plane),
+                labeled("Height fix", height), message))
             .setPositiveButton("Fly") { _, _ -> startMission(mission()) }
             .setNegativeButton("Cancel", null)
             .show()
     }
 
     private fun dp(value: Int): Int = (value * resources.displayMetrics.density).roundToInt()
-
-    private fun radioButton(label: String) = RadioButton(this).apply { id = View.generateViewId(); text = label }
-
-    /** A group of [buttons] with the first one checked; [onChange] runs on every new choice. */
-    private fun radioGroup(orientation: Int, buttons: List<RadioButton>, onChange: () -> Unit) =
-        RadioGroup(this).apply {
-            this.orientation = orientation
-            buttons.forEach { addView(it) }
-            check(buttons[0].id)
-            setOnCheckedChangeListener { _, _ -> onChange() }
-        }
 
     /** A drop-down list of [options] with the first one picked; [onChange] runs on every pick. */
     private fun choice(options: List<String>, onChange: () -> Unit) = Spinner(this).apply {
@@ -313,9 +303,18 @@ class MainActivity : Activity(), Display {
 
     // ---------------------------------------------------------------- running a mission
 
-    /** The mission buttons and the checkboxes: usable while connected and no mission flies. */
-    private fun setControlsEnabled(enabled: Boolean) {
+    /**
+     * The mission buttons and the checkboxes: usable while connected and no mission flies.
+     * The hint above the buttons says in words which of the three states the app is in.
+     */
+    private fun refreshControls() {
         runOnUiThread {
+            val enabled = connected && !missionRunning
+            when {
+                !connected -> hint("No drone connected: missions are locked.\nPlug in the RC and switch the drone on.", "#757575")
+                missionRunning -> hint("A mission is running: only STOP + LAND works now.", "#E65100")
+                else -> hint("Drone connected: tap a mission to see its briefing.", "#2E7D32")
+            }
             mission1Button.isEnabled = enabled
             mission2Button.isEnabled = enabled
             mission3Button.isEnabled = enabled
@@ -324,12 +323,17 @@ class MainActivity : Activity(), Display {
         }
     }
 
+    private fun hint(text: String, colour: String) {
+        hintView.text = text
+        hintView.setTextColor(Color.parseColor(colour))
+    }
+
     /** Runs [mission] on its own thread; on failure it lands, or hovers if [Mission.hoverOnFailure]. */
     private fun startMission(mission: Mission) {
         val name = mission.name
         missionRunning = true
         drone.arm()
-        setControlsEnabled(false)
+        refreshControls()
 
         thread(name = "mission") {
             try {
@@ -362,7 +366,7 @@ class MainActivity : Activity(), Display {
             } finally {
                 drone.closeFlightLog()
                 missionRunning = false
-                setControlsEnabled(true)
+                refreshControls()
             }
         }
     }
@@ -374,6 +378,8 @@ class MainActivity : Activity(), Display {
             if (drone.isFlying()) {
                 status("STOP pressed — landing…")
                 drone.recoverAndLand()
+            } else {
+                status("STOP pressed: the drone is not flying, nothing to land.")
             }
         }
     }
