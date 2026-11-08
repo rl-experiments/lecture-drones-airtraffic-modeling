@@ -65,7 +65,7 @@
         android:backgroundTint="@color/mission_button_bg"
         android:textColor="@color/mission_button_text"
         android:textSize="18sp"
-        android:text="❤️  Mission 2 (light painting, outdoors)" />
+        android:text="❤️  Mission 2 (light painting)" />
 
     <Button
         android:id="@+id/mission3Button"

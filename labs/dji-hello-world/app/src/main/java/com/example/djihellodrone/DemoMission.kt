@@ -28,8 +28,10 @@ class DemoMission(private val drone: Drone) : Mission {
 
     override val name = "Mission 1"
     override val hoverOnFailure = false
-    override val briefing = "The drone will TAKE OFF, fly ~1.5 m forward, turn 180°, fly ~1.5 m back and land.\n\n" +
-        "Make sure you have ~4 m of clear space and GPS signal. Keep hands off the RC sticks (moving them takes control back)."
+    override val briefing = "INDOORS OR OUTDOORS: without GPS the drone holds position on its downward cameras, " +
+        "so indoors keep the room well lit and the floor textured.\n\n" +
+        "The drone will TAKE OFF, fly ~1.5 m forward, turn 180°, fly ~1.5 m back and land.\n\n" +
+        "Make sure you have ~4 m of clear space. Keep hands off the RC sticks (moving them takes control back)."
 
     override fun run() = with(drone) {
         waitForAircraft()

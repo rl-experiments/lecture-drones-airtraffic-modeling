@@ -134,8 +134,8 @@ class LightPaintingMission(
         }
         val gps = if (gpsCheck) "\n\nBefore drawing it hovers over the start for 1 to 3 minutes until GPS is stable, " +
             "then flashes the white light $SIGNAL_FLASHES times. Keep the lens covered until UNCOVER THE LENS." else ""
-        return "$where\n\n$light$gps\n\nCover and uncover the lens when the status tells you to.\n\n" +
-            "You need an open field, good GPS and a charged battery."
+        return "OUTDOORS ONLY: the drone steers by GPS. You need an open field under open sky, " +
+            "and a charged battery.\n\n$where\n\n$light$gps\n\nCover and uncover the lens when the status tells you to."
     }
 
     // The flight log: what the drone was doing ([phase]) at every control step, and its own
@@ -376,7 +376,8 @@ class LightPaintingMission(
         // Unlike missions 1 and 3 this flight has no vision fallback: it is steered on GPS only.
         step("Checking GPS and battery…")
         val sats = pull(FlightControllerKey.KeyGPSSatelliteCount) ?: -1
-        if (sats < MIN_SATELLITES) throw IllegalStateException("GPS too weak: $sats satellites, need $MIN_SATELLITES.")
+        if (sats < MIN_SATELLITES) throw IllegalStateException("GPS too weak: $sats satellites, need $MIN_SATELLITES. " +
+            "Mission 2 flies outdoors only, under open sky.")
         val battery = pull(BatteryKey.KeyChargeRemainingInPercent) ?: -1
         val minutes = estimatedFlightMinutes()
         val needBattery = min(100, (BATTERY_RESERVE_PERCENT + BATTERY_PERCENT_PER_MIN * minutes).roundToInt())

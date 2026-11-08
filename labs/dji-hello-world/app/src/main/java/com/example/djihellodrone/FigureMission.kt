@@ -52,7 +52,8 @@ class FigureMission(
         val r = FIGURE_DIAMETER_M / 2
         val shape = figure.label
         val size = "${FIGURE_DIAMETER_M.roundToInt()} m $shape"
-        val text = StringBuilder()
+        val text = StringBuilder("INDOORS OR OUTDOORS: without GPS the drone holds position on its downward cameras, " +
+            "so indoors keep the room well lit and the floor textured.\n\n")
         when (plane) {
             Plane.UPRIGHT -> {
                 val top = FIGURE_BOTTOM_ALT_M + r * cos(Math.PI / figure.lines) + r
