@@ -315,6 +315,22 @@
     "type": "content",
     "mod": "5",
     "tag": "",
+    "title": "Plan vs. Flight: Mission 2, the Heart",
+    "desc": "This time a camera watched from outside, so the real drift shows",
+    "body": [
+      {
+        "img": "dji-heart-flight.svg",
+        "alt": "The heart of Mission 2, planned and flown flat at 50 m, photographed from below with a long exposure. The flown heart is about 0.6 metres off the plan on average, 2 metres at most; the left lobe is too big and the notch too low",
+        "height": 0,
+        "fill": true,
+        "caption": "The drone steers on GPS alone, and GPS wanders by a metre or more within minutes. The plan is laid over the photo by best fit, since the photo has no GPS. One flight"
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "5",
+    "tag": "",
     "title": "Slower Made It Worse",
     "desc": "We slowed the drone down to fly more accurately — and the app lost track of its height",
     "body": [
