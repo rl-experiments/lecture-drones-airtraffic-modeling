@@ -9,6 +9,8 @@
         android:required="true" />
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Mission 3 video correction: receive broadcasts from the video app on a second phone. -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
 
     <application
         android:name=".HelloDroneApplication"

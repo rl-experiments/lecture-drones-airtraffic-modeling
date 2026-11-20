@@ -14,3 +14,5 @@ dependencyResolutionManagement {
 }
 rootProject.name = "DroneHello"
 include ':app'
+// The experimental video app (videofix/) is git-ignored: built only where it exists locally.
+if (file('videofix').exists()) include ':videofix'

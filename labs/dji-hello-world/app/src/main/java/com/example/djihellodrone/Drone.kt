@@ -79,7 +79,7 @@ class Drone(private val display: Display) {
         private const val SIM_LONGITUDE = 9.0293
         private const val SIM_SATELLITES = 15
 
-        fun toStick(value: Double): Int = value.roundToInt().coerceIn(-MAX_STICK, MAX_STICK)
+        fun toStick(value: Double): Int = clampStick(value)
     }
 
     val sticks: IVirtualStickManager get() = VirtualStickManager.getInstance()

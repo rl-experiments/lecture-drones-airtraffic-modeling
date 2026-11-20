@@ -84,6 +84,16 @@ adb install -r app/build/outputs/apk/debug/app-debug.apk
 
 `adb` is in your Android SDK under `platform-tools/`.
 
+### Tests, before anything flies
+
+The steering maths in `LegControl.kt` has no SDK in it, so it runs as plain JVM tests on your
+computer: no phone, no drone. One test flies a leg against a fake drone that answers the sticks
+late, like the real one. Change the control law, run the tests, and only then fly.
+
+```bash
+./gradlew :app:testDebugUnitTest        # report: app/build/reports/tests/testDebugUnitTest/
+```
+
 ## 3. Connect the drone
 
 The connection chain is **phone → USB-C → RC-N3 → radio → drone**.
@@ -204,13 +214,14 @@ sets the flat height.
 
 ### Mission 3 (star or triangle)
 
-The start dialog offers three choices; the flight log records all of them.
+The start dialog offers four choices; the flight log records all of them.
 
 | Choice | Options |
 |---|---|
 | Figure | **Star** (five tips) or **Triangle** (three corners), both on a 2 m circle |
 | Plane | **Upright** across the nose, or **Flat** above the take-off spot |
 | Height correction | on or off |
+| Video correction | on or off |
 
 - **Upright:** the lowest tips at ~1.2 m. The star reaches 3.0 m and ~1 m to each side, the
   triangle 2.7 m and ~0.9 m to each side. Place the drone with its nose pointing at the
@@ -222,6 +233,27 @@ The start dialog offers three choices; the flight log records all of them.
   **flat floor** with no tables or stairs below; a reading that jumps by more than 0.4 m is
   dropped. The flight log records each correction and the on-screen log reports readings used
   and dropped.
+- **Video correction:** a second phone on a tripod films the figure and sends where the
+  drone's light really is; the tracked position follows it while the lights are on, which
+  takes out the drift the drone cannot see itself. **Upright only**: the phone films from the
+  front, where a flat figure is seen edge-on. That phone joins the hotspot of the phone
+  on the RC-N2 and broadcasts one UDP line per frame to port 5005, such as
+  `seq=1234 x=0.42 y=-0.31 ok=1`: metres in the figure plane from the centre of the circle,
+  x to the camera's right (the drone's left), y up, `ok=0` when the light
+  is not found. A tip at angle *a* round the circle is at x = -r·sin *a*, y = r·cos *a*, so
+  the tips marked in the room calibrate the camera. Without at least 10 lines a second the
+  drone does not take off. At the first tip it hovers lit for 2 s while the video corrects
+  it.
+
+**The video app** (module `videofix`, no DJI SDK, no App Key) runs on the second phone:
+build it with `gradlew :videofix:assembleDebug` and install
+`videofix/build/outputs/apk/debug/videofix-debug.apk`. Put the phone on a tripod facing the
+figure, in front of the drone's nose, and join the
+hotspot of the phone on the RC-N2. With the room lit, tap **Calibrate** and tap the tips
+marked in the room in the order the screen asks; the planned figure is then drawn over the
+picture and must sit on the marks. Dim the room, switch to **Exposure: dark** and adjust the
+shutter until only the drone's light shows a red cross, then **Sending: on**. The
+calibration is kept while the tripod stays put.
 
 Both figures fly indoors and outdoors. Tune with `FIGURE_DIAMETER_M`, `FIGURE_BOTTOM_ALT_M` and
 `FIGURE_FLAT_ALT_M` in `FigureMission.kt`.
@@ -355,13 +387,15 @@ Module 3).
 dji-hello-world/
 ├─ app/
 │  ├─ build.gradle                 # module config, DJI SDK dependencies
+│  ├─ src/test/                    # JVM unit tests of LegControl.kt
 │  └─ src/main/
 │     ├─ AndroidManifest.xml        # USB-accessory intent, API_KEY placeholder
 │     ├─ java/.../HelloDroneApplication.kt
 │     ├─ java/.../MainActivity.kt   # the screen; see How it works for every file
 │     ├─ java/.../*Mission.kt       # one class per mission
 │     ├─ java/.../Drone.kt          # the SDK as blocking calls
-│     ├─ java/.../Tracker.kt        # position from velocity, steering on it
+│     ├─ java/.../Tracker.kt        # listens to the drone's velocity, flies the legs
+│     ├─ java/.../LegControl.kt     # the pure maths behind it: no SDK, unit-tested
 │     ├─ java/.../FigurePath.kt     # the points of the Mission 2 figure
 │     ├─ java/.../FlightLog.kt      # one log file per mission
 │     ├─ java/.../LogPanel.kt       # the on-screen log

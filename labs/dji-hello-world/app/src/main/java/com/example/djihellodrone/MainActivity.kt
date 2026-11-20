@@ -248,7 +248,10 @@ class MainActivity : Activity(), Display {
         })
     }
 
-    /** Mission 3: the pilot picks the figure, the plane and the height correction from drop-down lists. */
+    /** Mission 3's receiver for the video app on a second phone; listens only while a mission uses it. */
+    private val videoFix by lazy { VideoFix(applicationContext) }
+
+    /** Mission 3: the pilot picks the figure, the plane, the height and the video correction from drop-down lists. */
     private fun confirmMission3() {
         if (missionRunning) return
         val message = TextView(this).apply { setPadding(0, dp(8), 0, 0) }
@@ -256,17 +259,19 @@ class MainActivity : Activity(), Display {
         val figure = choice(listOf("Star", "Triangle")) { update() }
         val plane = choice(listOf("Upright", "Flat (camera below)")) { update() }
         val height = choice(listOf("Off", "On (downward sensor, flat floor)")) { update() }
+        val video = choice(listOf("Off", "On (second phone films)")) { update() }
         fun mission() = FigureMission(drone,
             if (figure.selectedItemPosition == 1) Figure.TRIANGLE else Figure.STAR,
             if (plane.selectedItemPosition == 1) Plane.FLAT else Plane.UPRIGHT,
-            height.selectedItemPosition == 1)
+            height.selectedItemPosition == 1,
+            if (video.selectedItemPosition == 1) videoFix else null)
         update = { message.text = mission().briefing }
         update()
 
         AlertDialog.Builder(this)
             .setTitle("Start mission 3 (star or triangle)?")
             .setView(dialogBody(labeled("Figure", figure), labeled("Plane", plane),
-                labeled("Height fix", height), message))
+                labeled("Height fix", height), labeled("Video fix", video), message))
             .setPositiveButton("Fly") { _, _ -> startMission(mission()) }
             .setNegativeButton("Cancel", null)
             .show()

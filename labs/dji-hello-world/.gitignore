@@ -22,3 +22,6 @@ app/build/
 
 # === Claude Code local settings ===
 .claude/
+
+# === Experimental second app (video fix on a second phone): stays local, never committed ===
+videofix/
