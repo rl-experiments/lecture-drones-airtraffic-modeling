@@ -453,6 +453,35 @@
   {
     "type": "content",
     "mod": "5",
+    "tag": "",
+    "title": "Camera and gimbal: what your code can set",
+    "desc": "Where the camera looks, how the picture is exposed, and where the images go",
+    "body": [
+      {
+        "img": "dji-camera-gimbal.svg",
+        "alt": "Left: the gimbal seen from the side. From code the camera tilts from minus 90 degrees, straight down, to plus 60 degrees, up; 0 is the horizon. Roll is 0 for landscape or minus 90 for portrait. Pan cannot be set; turn the drone instead. Right: the camera has three settings, shutter 1/16000 to 2 seconds, ISO 100 to 6400, and exposure compensation; the aperture is fixed at f/1.7. Out come photos and videos on the SD card, downloads through MediaManager, and live frames through CameraStreamManager.",
+        "height": 430,
+        "caption": "Ranges from DJI's Mini 4 Pro specs (12&nbsp;MP photos; at 48&nbsp;MP: ISO up to 3200, shutter from 1/8000&nbsp;s) &middot; key names checked in MSDK 5.18.0"
+      },
+      {
+        "card": "Possible &mdash; and not",
+        "items": [
+          "<strong>Possible</strong>: tilt the camera, switch landscape/portrait, set shutter, ISO and EV, take photos and videos, download them, and process the live picture in your own code",
+          "<strong>Not possible</strong>: turning the camera sideways (pan) &mdash; turn the whole drone; changing the aperture; real exposures longer than 2&nbsp;s (DJI lists 2.5exposures longer than 2&nbsp;s (DJI Fly only fakes them from several shots)ndash;8&nbsp;s only as a simulated long exposure)"
+        ]
+      },
+      {
+        "card": "Not tested by us yet",
+        "warn": true,
+        "items": [
+          "The lab app does not use the camera or the gimbal so far &mdash; every call on this slide is a project waiting to be done, and the first one to try it in the simulator finds out what really happens"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "5",
     "tag": "exercise",
     "title": "Set Up the Toolchain",
     "desc": "Four downloads, one account, everything free — then a first run with the props off",

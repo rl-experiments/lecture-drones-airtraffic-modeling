@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 600" font-family="Inter, 'Segoe UI', Arial, sans-serif" role="img" aria-label="Left: the gimbal seen from the side. From code the camera tilts from minus 90 degrees, straight down, to plus 60 degrees, up; 0 is the horizon. Roll is 0 for landscape or minus 90 for portrait. Pan cannot be set; turn the drone instead. Keys: GimbalKey.KeyRotateByAngle, KeyGimbalAttitude, KeyGimbalReset. Right: the camera has three settings, shutter 1/16000 to 2 seconds, ISO 100 to 6400, and exposure compensation; the aperture is fixed at f/1.7. Out come photos and videos on the SD card, downloads through MediaManager, and live frames through CameraStreamManager.">
+  <defs><marker id="a171717" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="9" markerHeight="9" orient="auto"><path d="M1 1 L11 6 L1 11 Z" fill="#171717"/></marker><marker id="a0369a1" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="9" markerHeight="9" orient="auto"><path d="M1 1 L11 6 L1 11 Z" fill="#0369a1"/></marker></defs>
+  <rect x="0" y="0" width="1180" height="600" fill="#ffffff"/>
+  <text x="40" y="40" font-size="25" fill="#171717" text-anchor="start" font-weight="700">Gimbal: where the camera looks</text>
+  <text x="40" y="66" font-size="18" fill="#525252" text-anchor="start" font-weight="400">side view, nose to the right</text>
+  <rect x="110" y="180" width="150" height="24" rx="8" fill="#171717"/>
+  <line x1="90" y1="170" x2="150" y2="170" stroke="#171717" stroke-width="3"/>
+  <line x1="120" y1="170" x2="120" y2="182" stroke="#171717" stroke-width="3"/>
+  <line x1="220" y1="170" x2="280" y2="170" stroke="#171717" stroke-width="3"/>
+  <line x1="250" y1="170" x2="250" y2="182" stroke="#171717" stroke-width="3"/>
+  <circle cx="230" cy="220" r="14" fill="#ffffff" stroke="#171717" stroke-width="3"/>
+  <line x1="230" y1="204" x2="230" y2="206" stroke="#171717" stroke-width="3"/>
+  <path d="M230,220 L295.0,107.4 A130,130 0 0 1 230.0,350.0 Z" fill="#dbeafe" stroke="none"/>
+  <line x1="230" y1="220" x2="295.0" y2="107.41669750802298" stroke="#0369a1" stroke-width="2.5" marker-end="url(#a0369a1)"/>
+  <text x="303.0" y="103.41669750802298" font-size="18" fill="#0369a1" text-anchor="start" font-weight="700">+60° up</text>
+  <line x1="230" y1="220" x2="360.0" y2="220.0" stroke="#0369a1" stroke-width="2.5" marker-end="url(#a0369a1)"/>
+  <text x="370.0" y="226.0" font-size="18" fill="#0369a1" text-anchor="start" font-weight="700">0° horizon</text>
+  <line x1="230" y1="220" x2="230.0" y2="350.0" stroke="#0369a1" stroke-width="2.5" marker-end="url(#a0369a1)"/>
+  <text x="242.0" y="346.0" font-size="18" fill="#0369a1" text-anchor="start" font-weight="700">−90° straight down</text>
+  <text x="120" y="270" font-size="17" fill="#525252" text-anchor="end" font-weight="400">tilt, from code:</text>
+  <text x="120" y="292" font-size="17" fill="#525252" text-anchor="end" font-weight="400">−90° … +60°</text>
+  <text x="40" y="444" font-size="19" fill="#171717" text-anchor="start" font-weight="700">Roll: landscape or portrait</text>
+  <rect x="40" y="462" width="70" height="42" rx="4" fill="none" stroke="#0369a1" stroke-width="3"/>
+  <text x="75" y="528" font-size="17" fill="#0369a1" text-anchor="middle" font-weight="700">0°</text>
+  <rect x="160" y="456" width="42" height="70" rx="4" fill="none" stroke="#0369a1" stroke-width="3"/>
+  <text x="181" y="548" font-size="17" fill="#0369a1" text-anchor="middle" font-weight="700">−90°</text>
+  <text x="240" y="480" font-size="17" fill="#b91c1c" text-anchor="start" font-weight="700">Pan (sideways) cannot be</text>
+  <text x="240" y="502" font-size="17" fill="#b91c1c" text-anchor="start" font-weight="700">set: turn the drone instead</text>
+  <text x="40" y="572" font-size="16" fill="#525252" text-anchor="start" font-weight="400" font-family="Consolas, Menlo, monospace">GimbalKey.KeyRotateByAngle · KeyGimbalAttitude · KeyGimbalReset</text>
+  <text x="620" y="40" font-size="25" fill="#171717" text-anchor="start" font-weight="700">Camera: three settings, one picture</text>
+  <text x="620" y="66" font-size="18" fill="#525252" text-anchor="start" font-weight="400">the aperture is fixed at f/1.7</text>
+  <rect x="620" y="110" width="530" height="66" rx="8" fill="#fff7ed" stroke="#b45309" stroke-width="1.5"/>
+  <text x="634" y="138" font-size="20" fill="#b45309" text-anchor="start" font-weight="700">Shutter</text>
+  <text x="730" y="138" font-size="17" fill="#171717" text-anchor="start" font-weight="400">how long light comes in</text>
+  <text x="634" y="164" font-size="17" fill="#171717" text-anchor="start" font-weight="700">1/16000 s … 2 s</text>
+  <text x="1136" y="164" font-size="15" fill="#525252" text-anchor="end" font-weight="400" font-family="Consolas, Menlo, monospace">CameraKey.KeyShutterSpeed</text>
+  <rect x="620" y="190" width="530" height="66" rx="8" fill="#fff7ed" stroke="#b45309" stroke-width="1.5"/>
+  <text x="634" y="218" font-size="20" fill="#b45309" text-anchor="start" font-weight="700">ISO</text>
+  <text x="730" y="218" font-size="17" fill="#171717" text-anchor="start" font-weight="400">how much the signal is amplified</text>
+  <text x="634" y="244" font-size="17" fill="#171717" text-anchor="start" font-weight="700">100 … 6400</text>
+  <text x="1136" y="244" font-size="15" fill="#525252" text-anchor="end" font-weight="400" font-family="Consolas, Menlo, monospace">CameraKey.KeyISO</text>
+  <rect x="620" y="270" width="530" height="66" rx="8" fill="#fff7ed" stroke="#b45309" stroke-width="1.5"/>
+  <text x="634" y="298" font-size="20" fill="#b45309" text-anchor="start" font-weight="700">EV</text>
+  <text x="730" y="298" font-size="17" fill="#171717" text-anchor="start" font-weight="400">brighter or darker than automatic</text>
+  <text x="634" y="324" font-size="17" fill="#171717" text-anchor="start" font-weight="700">e.g. −3 … +3</text>
+  <text x="1136" y="324" font-size="15" fill="#525252" text-anchor="end" font-weight="400" font-family="Consolas, Menlo, monospace">CameraKey.KeyExposureCompensation</text>
+  <text x="620" y="364" font-size="20" fill="#171717" text-anchor="start" font-weight="700">What comes out</text>
+  <text x="620" y="426" font-size="18" fill="#0369a1" text-anchor="start" font-weight="700">photo / video</text>
+  <line x1="760" y1="420" x2="800" y2="420" stroke="#0369a1" stroke-width="2" marker-end="url(#a0369a1)"/>
+  <text x="810" y="426" font-size="17" fill="#171717" text-anchor="start" font-weight="400">stored on the drone's SD card</text>
+  <text x="810" y="446" font-size="15" fill="#525252" text-anchor="start" font-weight="400" font-family="Consolas, Menlo, monospace">KeyStartShootPhoto · KeyStartRecord</text>
+  <text x="620" y="472" font-size="18" fill="#0369a1" text-anchor="start" font-weight="700">download</text>
+  <line x1="760" y1="466" x2="800" y2="466" stroke="#0369a1" stroke-width="2" marker-end="url(#a0369a1)"/>
+  <text x="810" y="472" font-size="17" fill="#171717" text-anchor="start" font-weight="400">files into your app</text>
+  <text x="810" y="492" font-size="15" fill="#525252" text-anchor="start" font-weight="400" font-family="Consolas, Menlo, monospace">MediaManager</text>
+  <text x="620" y="518" font-size="18" fill="#0369a1" text-anchor="start" font-weight="700">live frames</text>
+  <line x1="760" y1="512" x2="800" y2="512" stroke="#0369a1" stroke-width="2" marker-end="url(#a0369a1)"/>
+  <text x="810" y="518" font-size="17" fill="#171717" text-anchor="start" font-weight="400">into your code, for image processing</text>
+  <text x="810" y="538" font-size="15" fill="#525252" text-anchor="start" font-weight="400" font-family="Consolas, Menlo, monospace">CameraStreamManager</text>
+</svg>
