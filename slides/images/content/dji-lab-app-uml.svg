@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 596" font-family="Inter, 'Segoe UI', Arial, sans-serif" role="img" aria-label="UML class diagram of the lab app: MainActivity implements Display and runs a Mission on the mission thread. DemoMission, LightPaintingMission and FigureMission implement Mission and fly with Drone. Drone reports to Display, asks LegControl, plain maths with unit tests, for the sticks, reads Tracker, writes FlightLog, and talks to the DJI SDK: KeyManager for keys, VirtualStickManager for the sticks. Tracker gets the velocity from KeyManager. STOP calls Drone.abort().">
+  <defs>
+    <marker id="open" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="11" markerHeight="11" orient="auto"><path d="M1 1 L11 6 L1 11" fill="none" stroke="#171717" stroke-width="1.6"/></marker>
+    <marker id="tri" viewBox="0 0 14 14" refX="13" refY="7" markerWidth="13" markerHeight="13" orient="auto"><path d="M1 1 L13 7 L1 13 Z" fill="#ffffff" stroke="#171717" stroke-width="1.4"/></marker>
+  </defs>
+  <rect x="0" y="0" width="1180" height="596" fill="#ffffff"/>
+  <rect x="30" y="20" width="240" height="96" rx="6" fill="#ffffff" stroke="#171717" stroke-width="1.8"/>
+  <text x="150.0" y="47" font-size="16" font-weight="700" fill="#171717" text-anchor="middle">MainActivity</text>
+  <line x1="30" y1="62" x2="270" y2="62" stroke="#171717" stroke-width="1.2"/>
+  <text x="42" y="84" font-size="14" fill="#171717">+startMission(mission)</text>
+  <text x="42" y="105" font-size="14" fill="#171717">+emergencyStop()</text>
+  <rect x="30" y="200" width="240" height="145" rx="6" fill="#ffffff" stroke="#171717" stroke-width="1.8"/>
+  <text x="150.0" y="219" font-size="12.5" fill="#525252" text-anchor="middle">«interface»</text>
+  <text x="150.0" y="239" font-size="16" font-weight="700" fill="#171717" text-anchor="middle">Display</text>
+  <line x1="30" y1="250" x2="270" y2="250" stroke="#171717" stroke-width="1.2"/>
+  <text x="42" y="272" font-size="14" fill="#171717">+log(msg)</text>
+  <text x="42" y="293" font-size="14" fill="#171717">+status(msg)</text>
+  <text x="42" y="314" font-size="14" fill="#171717">+progress(msg)</text>
+  <polyline points="150,200 150,116" fill="none" stroke="#171717" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#tri)"/>
+  <text x="158" y="165" font-size="13" font-style="italic" fill="#525252" text-anchor="start">implements</text>
+  <rect x="450" y="20" width="280" height="145" rx="6" fill="#ffffff" stroke="#171717" stroke-width="1.8"/>
+  <text x="590.0" y="39" font-size="12.5" fill="#525252" text-anchor="middle">«interface»</text>
+  <text x="590.0" y="59" font-size="16" font-weight="700" fill="#171717" text-anchor="middle">Mission</text>
+  <line x1="450" y1="70" x2="730" y2="70" stroke="#171717" stroke-width="1.2"/>
+  <text x="462" y="92" font-size="14" fill="#171717">+name, +briefing</text>
+  <text x="462" y="113" font-size="14" fill="#171717">+hoverOnFailure</text>
+  <text x="462" y="134" font-size="14" fill="#171717">+run()</text>
+  <rect x="300" y="236" width="160" height="50" rx="6" fill="#ffffff" stroke="#171717" stroke-width="1.8"/>
+  <text x="380.0" y="267" font-size="16" font-weight="700" fill="#171717" text-anchor="middle">DemoMission</text>
+  <rect x="480" y="236" width="220" height="50" rx="6" fill="#ffffff" stroke="#171717" stroke-width="1.8"/>
+  <text x="590.0" y="267" font-size="16" font-weight="700" fill="#171717" text-anchor="middle">LightPaintingMission</text>
+  <rect x="720" y="236" width="170" height="50" rx="6" fill="#ffffff" stroke="#171717" stroke-width="1.8"/>
+  <text x="805.0" y="267" font-size="16" font-weight="700" fill="#171717" text-anchor="middle">FigureMission</text>
+  <polyline points="380,236 380,205" fill="none" stroke="#171717" stroke-width="1.6" stroke-dasharray="6 4"/>
+  <polyline points="590,236 590,205" fill="none" stroke="#171717" stroke-width="1.6" stroke-dasharray="6 4"/>
+  <polyline points="805,236 805,205" fill="none" stroke="#171717" stroke-width="1.6" stroke-dasharray="6 4"/>
+  <polyline points="380,205 805,205" fill="none" stroke="#171717" stroke-width="1.6" stroke-dasharray="6 4"/>
+  <polyline points="590,205 590,165" fill="none" stroke="#171717" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#tri)"/>
+  <text x="598" y="193" font-size="13" font-style="italic" fill="#525252" text-anchor="start">implements</text>
+  <polyline points="270,62 450,62" fill="none" stroke="#171717" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#open)"/>
+  <text x="360" y="54" font-size="13" font-style="italic" fill="#525252" text-anchor="middle">runs on the mission thread</text>
+  <rect x="380" y="370" width="300" height="180" rx="6" fill="#ffffff" stroke="#171717" stroke-width="1.8"/>
+  <text x="530.0" y="397" font-size="16" font-weight="700" fill="#171717" text-anchor="middle">Drone</text>
+  <line x1="380" y1="412" x2="680" y2="412" stroke="#171717" stroke-width="1.2"/>
+  <text x="392" y="434" font-size="14" fill="#171717">+takeOff()</text>
+  <text x="392" y="455" font-size="14" fill="#171717">+takeSticks()</text>
+  <text x="392" y="476" font-size="14" fill="#171717">+driveTo(tracker, north, east)</text>
+  <text x="392" y="497" font-size="14" fill="#171717">+checkAbort()</text>
+  <text x="392" y="518" font-size="14" fill="#171717">+zeroSticks()</text>
+  <text x="392" y="539" font-size="14" fill="#171717">+land()</text>
+  <polyline points="380,286 380,316" fill="none" stroke="#171717" stroke-width="1.6" stroke-dasharray="6 4"/>
+  <polyline points="590,286 590,316" fill="none" stroke="#171717" stroke-width="1.6" stroke-dasharray="6 4"/>
+  <polyline points="805,286 805,316" fill="none" stroke="#171717" stroke-width="1.6" stroke-dasharray="6 4"/>
+  <polyline points="380,316 805,316" fill="none" stroke="#171717" stroke-width="1.6" stroke-dasharray="6 4"/>
+  <polyline points="530,316 530,370" fill="none" stroke="#171717" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#open)"/>
+  <text x="538" y="350" font-size="13" font-style="italic" fill="#525252" text-anchor="start">fly with</text>
+  <polyline points="380,420 320,420 320,300 270,300" fill="none" stroke="#171717" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#open)"/>
+  <text x="328" y="362" font-size="13" font-style="italic" fill="#525252" text-anchor="start">reports to</text>
+  <polyline points="30,95 14,95 14,530 380,530" fill="none" stroke="#171717" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#open)"/>
+  <text x="24" y="522" font-size="13" font-style="italic" fill="#525252" text-anchor="start">STOP: abort()</text>
+  <rect x="50" y="400" width="220" height="103" rx="6" fill="#ffffff" stroke="#171717" stroke-width="1.8"/>
+  <text x="160.0" y="419" font-size="12.5" fill="#525252" text-anchor="middle">«pure, unit-tested»</text>
+  <text x="160.0" y="439" font-size="16" font-weight="700" fill="#171717" text-anchor="middle">LegControl</text>
+  <line x1="50" y1="450" x2="270" y2="450" stroke="#171717" stroke-width="1.2"/>
+  <text x="62" y="472" font-size="14" fill="#171717">+legStep(...): LegCommand</text>
+  <polyline points="380,460 270,460" fill="none" stroke="#171717" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#open)"/>
+  <text x="325" y="452" font-size="13" font-style="italic" fill="#525252" text-anchor="middle">sticks from</text>
+  <rect x="720" y="390" width="200" height="96" rx="6" fill="#ffffff" stroke="#171717" stroke-width="1.8"/>
+  <text x="820.0" y="417" font-size="16" font-weight="700" fill="#171717" text-anchor="middle">Tracker</text>
+  <line x1="720" y1="432" x2="920" y2="432" stroke="#171717" stroke-width="1.2"/>
+  <text x="732" y="454" font-size="14" fill="#171717">+start()</text>
+  <text x="732" y="475" font-size="14" fill="#171717">+position()</text>
+  <polyline points="680,430 720,430" fill="none" stroke="#171717" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#open)"/>
+  <text x="700" y="422" font-size="13" font-style="italic" fill="#525252" text-anchor="middle">reads</text>
+  <rect x="720" y="505" width="200" height="75" rx="6" fill="#ffffff" stroke="#171717" stroke-width="1.8"/>
+  <text x="820.0" y="532" font-size="16" font-weight="700" fill="#171717" text-anchor="middle">FlightLog</text>
+  <line x1="720" y1="547" x2="920" y2="547" stroke="#171717" stroke-width="1.2"/>
+  <text x="732" y="569" font-size="14" fill="#171717">+line(text)</text>
+  <polyline points="680,535 720,535" fill="none" stroke="#171717" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#open)"/>
+  <text x="700" y="527" font-size="13" font-style="italic" fill="#525252" text-anchor="middle">writes</text>
+  <rect x="950" y="236" width="220" height="300" rx="8" fill="none" stroke="#525252" stroke-width="1.4" stroke-dasharray="3 4"/>
+  <text x="1060" y="258" font-size="13" font-weight="700" fill="#525252" text-anchor="middle">DJI SDK (slides 3–6)</text>
+  <rect x="965" y="320" width="190" height="50" rx="6" fill="#f5f5f5" stroke="#171717" stroke-width="1.8"/>
+  <text x="1060.0" y="351" font-size="16" font-weight="700" fill="#171717" text-anchor="middle">KeyManager</text>
+  <rect x="965" y="450" width="190" height="50" rx="6" fill="#f5f5f5" stroke="#171717" stroke-width="1.8"/>
+  <text x="1060.0" y="481" font-size="16" font-weight="700" fill="#171717" text-anchor="middle">VirtualStickManager</text>
+  <polyline points="680,385 700,385 700,345 965,345" fill="none" stroke="#171717" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#open)"/>
+  <text x="830" y="338" font-size="13" font-style="italic" fill="#525252" text-anchor="middle">reads, fires keys</text>
+  <polyline points="920,440 940,440 940,362 965,362" fill="none" stroke="#171717" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#open)"/>
+  <text x="934" y="381" font-size="13" font-style="italic" fill="#525252" text-anchor="end">velocity</text>
+  <polyline points="600,550 600,588 940,588 940,475 965,475" fill="none" stroke="#171717" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#open)"/>
+  <text x="946" y="560" font-size="13" font-style="italic" fill="#525252" text-anchor="start">sets sticks</text>
+</svg>

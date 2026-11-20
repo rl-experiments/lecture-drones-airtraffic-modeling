@@ -15,7 +15,7 @@
     "bg": 5,
     "h1": "Module 5",
     "lead": "We Made a Drone Fly — Now It's Your Turn",
-    "sub": "A one-button app already flies the Mini 4 Pro from our own code. That's your launch pad — build your own idea on top of it.",
+    "sub": "A small app already flies the Mini 4 Pro from our own code. That's your launch pad — build your own idea on top of it.",
     "badges": [
       "DJI Mini 4 Pro",
       "Mobile SDK v5",
@@ -72,7 +72,7 @@
     "type": "content",
     "mod": "5",
     "tag": "important",
-    "title": "One Button, One Full Mission",
+    "title": "Three missions and one STOP button",
     "desc": "labs/dji-hello-world — a real app that flies a real drone",
     "body": [
       {
@@ -218,6 +218,29 @@
             }
           ]
         }
+      }
+    ]
+  },
+  {
+    "type": "content",
+    "mod": "5",
+    "tag": "important",
+    "title": "Inside the lab app: who calls whom",
+    "desc": "The SDK is one layer — this is the app on top of it, and where your own mission goes",
+    "body": [
+      {
+        "img": "dji-lab-app-uml.svg",
+        "alt": "UML class diagram of the lab app: MainActivity implements Display and runs a Mission on the mission thread. DemoMission, LightPaintingMission and FigureMission implement Mission and fly with Drone. Drone reports to Display, gets its sticks from LegControl (plain maths with unit tests), reads Tracker, writes FlightLog and talks to KeyManager and VirtualStickManager. STOP calls Drone.abort().",
+        "height": 380,
+        "caption": "Dashed line with triangle: implements &middot; dashed arrow: uses &middot; only the methods a mission needs are listed"
+      },
+      {
+        "card": "How to read it",
+        "items": [
+          "<strong>One interface per mission</strong>: MainActivity runs Mission.run() on its own thread, so the screen never waits for the drone &mdash; your project is a new class next to DemoMission, plus a button",
+          "<strong>Drone makes the SDK blocking</strong>: takeOff() returns once the drone flies, or throws. Every 100&nbsp;ms driveTo asks <strong>LegControl</strong> for the sticks &mdash; plain maths without the SDK, so unit tests check it before anything flies",
+          "<strong>STOP only sets a flag</strong>: the next checkAbort() throws, the sticks go to zero, the drone lands &mdash; and FlightLog has recorded every step"
+        ]
       }
     ]
   },
@@ -442,6 +465,7 @@
         "card": "First run in the lab — props off, drone on the desk",
         "items": [
           "<strong>Build and install</strong> the app on the phone; connect via the RC's <em>data</em> port and wait for <code>FC connected: true</code> in the log",
+          "<strong>Run the unit tests</strong>: <code>./gradlew :app:testDebugUnitTest</code> &mdash; the steering maths flies against a fake drone on your laptop, no phone needed",
           "<strong>Enable the simulator</strong> (<code>SimulatorManager.enableSimulator</code>, README &sect;4) &mdash; the flight controller now flies a virtual aircraft",
           "<strong>Read one value</strong> from KeyManager &mdash; <code>KeyGPSSatelliteCount</code> or <code>KeyAircraftLocation3D</code> &mdash; and log it every second: your first telemetry",
           "<strong>Press Mission 1 (demo)</strong> and watch the <code>step()</code> lines scroll: takeoff, hop, turn, hop, landing &mdash; in the simulator, nothing moves but the numbers",
