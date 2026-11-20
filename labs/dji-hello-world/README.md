@@ -87,8 +87,10 @@ adb install -r app/build/outputs/apk/debug/app-debug.apk
 ### Tests, before anything flies
 
 The steering maths in `LegControl.kt` has no SDK in it, so it runs as plain JVM tests on your
-computer: no phone, no drone. One test flies a leg against a fake drone that answers the sticks
-late, like the real one. Change the control law, run the tests, and only then fly.
+computer: no phone, no drone. `StarSimulationTest` flies the whole Mission 3 star against
+`FakeDrone`, which answers the sticks the way the real drone did in the 31 Oct flights: a dead
+time of 0.4-0.5 s, and velocity reported in 0.1 m/s steps cut towards zero. Its numbers come from
+`tools/flight-analysis/fit_response.py`. Change the control law, run the tests, and only then fly.
 
 ```bash
 ./gradlew :app:testDebugUnitTest        # report: app/build/reports/tests/testDebugUnitTest/

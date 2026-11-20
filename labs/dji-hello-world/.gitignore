@@ -25,3 +25,6 @@ app/build/
 
 # === Experimental second app (video fix on a second phone): stays local, never committed ===
 videofix/
+
+# Python bytecode
+__pycache__/
