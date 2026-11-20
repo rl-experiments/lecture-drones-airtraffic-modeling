@@ -506,16 +506,21 @@
             ],
             [
               "3",
-              "Start from the <strong>course client</strong> (already flies) or the official sample",
-              "<a href=\"https://github.com/rl-experiments/lecture-drones-airtraffic-modeling/tree/main/labs/dji-hello-world\" target=\"_blank\"><strong>labs/dji-hello-world</strong></a> &middot; <a href=\"https://github.com/dji-sdk/Mobile-SDK-Android-V5\" target=\"_blank\">dji-sdk/Mobile-SDK-Android-V5</a>"
+              "Start from the <strong>course client</strong> &mdash; it already flies the Mini 4 Pro",
+              "<a href=\"https://github.com/rl-experiments/lecture-drones-airtraffic-modeling/tree/main/labs/dji-hello-world\" target=\"_blank\"><strong>labs/dji-hello-world</strong></a>"
             ],
             [
               "4",
+              "Use DJI's <strong>official sample</strong> only to look up how a call works &mdash; it is built for enterprise drones, and much of it is <strong>not usable on the Mini 4 Pro</strong>",
+              "<a href=\"https://github.com/dji-sdk/Mobile-SDK-Android-V5\" target=\"_blank\">dji-sdk/Mobile-SDK-Android-V5</a>"
+            ],
+            [
+              "5",
               "Install <strong>DJI Fly</strong> on the phone and <strong>check that it connects</strong> to the RC: <strong>update the firmware</strong>, link the RC, then force-stop it",
               "<a href=\"https://www.dji.com/de/downloads/djiapp/dji-fly\" target=\"_blank\">dji.com: DJI Fly</a> (not on Google Play)"
             ],
             [
-              "5",
+              "6",
               "Bookmark the docs for reference",
               "<a href=\"https://developer.dji.com/doc/mobile-sdk-tutorial/en/\" target=\"_blank\">Mobile SDK tutorial</a> &middot; <a href=\"https://developer.dji.com/api-reference-v5/android-api/\" target=\"_blank\">API reference (v5)</a>"
             ]
