@@ -84,6 +84,9 @@ class Drone(private val display: Display) {
         private const val EXTRAS_FAST_MS = 100L      // position, attitude, ultrasonic: at most 10 lines a second
         // An unreadable altitude during an emergency landing: assume the 120 m open-category ceiling.
         private const val UNKNOWN_ALTITUDE_M = 120.0
+        private const val LANDING_ATTEMPTS = 5      // landing requests, 0.5 s apart
+        private const val LANDING_STALL_MS = 5_000L // not sinking this long: ask for the landing again
+        private const val LANDING_SETTLE_MS = 1_000L // after handing back the sticks, before asking to land
 
         // Where the simulated drone stands (Albstadt-Ebingen).
         private const val SIM_LATITUDE = 48.2112
@@ -381,8 +384,30 @@ class Drone(private val display: Display) {
     fun land(fromAltM: Double = 0.0) {
         step("Landing…")
         disableVirtualStickQuietly()
-        performAction(FlightControllerKey.KeyStartAutoLanding, "start landing")
+        startLanding("start landing")
         awaitLanded(40_000 + (max(0.0, fromAltM) * 1000).toLong())
+    }
+
+    /**
+     * Asks for the auto-landing, up to [LANDING_ATTEMPTS] times: right after the sticks are
+     * handed back the drone may refuse the first request, and then it just hovers.
+     */
+    private fun startLanding(what: String) {
+        // 21 Nov: a landing asked 0.1 s after the sticks were handed back was dropped by the
+        // drone after 0.3 s, and it hovered; with ~1.4 s in between it landed.
+        Thread.sleep(LANDING_SETTLE_MS)
+        var attempt = 0
+        while (true) {
+            try {
+                performAction(FlightControllerKey.KeyStartAutoLanding, what)
+                flightLog?.line("landing_started attempt=${attempt + 1}")
+                return
+            } catch (e: Exception) {
+                if (++attempt >= LANDING_ATTEMPTS || pull(FlightControllerKey.KeyIsFlying) == false) throw e
+                flightLog?.line("landing_retry ${e.message}")
+                Thread.sleep(500)
+            }
+        }
     }
 
     /**
@@ -396,9 +421,10 @@ class Drone(private val display: Display) {
             try {
                 zeroSticks()
                 disableVirtualStickQuietly()
-                if (isFlying()) {
+                // Only a sure "not flying" skips the landing: a read that fails still lands.
+                if (pull(FlightControllerKey.KeyIsFlying) != false) {
                     val altitude = pull(FlightControllerKey.KeyAircraftLocation3D)?.altitude ?: UNKNOWN_ALTITUDE_M
-                    performAction(FlightControllerKey.KeyStartAutoLanding, "emergency landing")
+                    startLanding("emergency landing")
                     awaitLanded(40_000 + (max(0.0, altitude) * 1000).toLong())
                     display.status("Landed.")
                 }
@@ -419,7 +445,18 @@ class Drone(private val display: Display) {
 
     private fun awaitLanded(timeoutMs: Long) {
         val deadline = System.currentTimeMillis() + timeoutMs
+        // A drone that stops sinking (landing cancelled or never begun) gets asked again.
+        var lowest = pull(FlightControllerKey.KeyAltitude, 1000) ?: Double.MAX_VALUE
+        var lowestAtMs = System.currentTimeMillis()
         while (System.currentTimeMillis() < deadline) {
+            pull(FlightControllerKey.KeyAltitude, 1000)?.let { alt ->
+                if (alt < lowest - 0.1) { lowest = alt; lowestAtMs = System.currentTimeMillis() }
+            }
+            if (System.currentTimeMillis() - lowestAtMs > LANDING_STALL_MS) {
+                flightLog?.line("landing_stalled alt=${"%.2f".format(java.util.Locale.US, lowest)}")
+                try { startLanding("landing again") } catch (e: Exception) { Log.w(TAG, "Landing again failed: ${e.message}") }
+                lowestAtMs = System.currentTimeMillis()
+            }
             // Landing protection may ask for confirmation ~0.7 m above ground
             if (pull(FlightControllerKey.KeyIsLandingConfirmationNeeded) == true) {
                 try {
