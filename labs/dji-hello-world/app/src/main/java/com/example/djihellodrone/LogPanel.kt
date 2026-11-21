@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Looper
 import android.util.AttributeSet
-import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.ScrollView
@@ -31,6 +30,7 @@ class LogPanel @JvmOverloads constructor(
 
     private val logView: TextView
     private val logScroll: ScrollView
+    private var follow = true   // UI thread only
 
     init {
         orientation = VERTICAL
@@ -38,6 +38,11 @@ class LogPanel @JvmOverloads constructor(
         logView = findViewById(R.id.logText)
         logScroll = findViewById(R.id.logScroll)
         findViewById<Button>(R.id.shareLogButton).setOnClickListener { share() }
+        // Follow new lines while the reader is at the bottom; once they scroll up to read,
+        // stay put until they scroll back down. Decided when the reader scrolls, not at each
+        // new line: lines arriving faster than the scroll caught up used to stop the following.
+        // The app's own scroll always lands at the very bottom, so it keeps the following on.
+        logScroll.setOnScrollChangeListener { _, _, _, _, _ -> follow = !logScroll.canScrollVertically(1) }
     }
 
     fun append(msg: String) {
@@ -50,11 +55,8 @@ class LogPanel @JvmOverloads constructor(
     }
 
     private fun render(text: String) {
-        // Follow new lines only while the reader is at the bottom; once they
-        // scroll up to read, stay put until they scroll back down.
-        val atBottom = !logScroll.canScrollVertically(1)
         logView.text = text
-        if (atBottom) logScroll.post { logScroll.fullScroll(View.FOCUS_DOWN) }
+        if (follow) logScroll.post { logScroll.scrollTo(0, logView.height) }
     }
 
     private fun share() {
