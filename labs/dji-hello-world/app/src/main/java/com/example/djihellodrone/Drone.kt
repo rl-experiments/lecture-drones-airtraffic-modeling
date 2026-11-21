@@ -119,6 +119,8 @@ class Drone(private val display: Display) {
         override fun onVirtualStickStateUpdate(state: VirtualStickState) {
             val appInControl = state.isVirtualStickEnable &&
                 state.currentFlightControlAuthorityOwner == FlightControlAuthority.MSDK
+            flightLog?.line("stick_state enabled=${state.isVirtualStickEnable} " +
+                "advanced=${state.isVirtualStickAdvancedModeEnabled} owner=${state.currentFlightControlAuthorityOwner}")
             if (appInControl) appWasInControl = true
             // Only after the app has been seen in control: the first updates after
             // enabling can still show the old owner.
@@ -129,6 +131,7 @@ class Drone(private val display: Display) {
 
         override fun onChangeReasonUpdate(reason: FlightControlAuthorityChangeReason) {
             display.log("Flight control changed hands: $reason")
+            flightLog?.line("control_change reason=$reason")
             if (appHoldsSticks && reason != FlightControlAuthorityChangeReason.MSDK_REQUEST) {
                 noteTakenBack(reason.toString())
             }
@@ -521,16 +524,35 @@ class Drone(private val display: Display) {
         sticks.setVirtualStickAdvancedModeEnabled(true)
         advancedParam = advancedHover()
         advancedSender = thread(name = "advanced sticks", isDaemon = true) {
+            // 21 Nov: twice the drone stood still for the rest of the figure with no sign why;
+            // the log now shows whether this thread keeps sending, and anything that stops it.
+            var sent = 0L
+            var failures = 0L
+            var why = "mode ended"
             try {
                 while (true) {
                     val p = advancedParam ?: break
-                    if (takenBack != null || !appHoldsSticks) break   // command nothing once control is gone
-                    sticks.sendVirtualStickAdvancedParam(p)
+                    if (takenBack != null) { why = "control taken back"; break }   // command nothing once control is gone
+                    if (!appHoldsSticks) { why = "sticks handed back"; break }
+                    try {
+                        sticks.sendVirtualStickAdvancedParam(p)
+                        sent++
+                    } catch (e: InterruptedException) {
+                        throw e
+                    } catch (e: Exception) {
+                        if (failures++ < 5) flightLog?.line("advanced_send_failed ${e.javaClass.simpleName} ${e.message}")
+                    }
+                    if (sent % 10 == 0L) flightLog?.line(String.format(java.util.Locale.US,
+                        "advanced_sender sent=%d failed=%d pitch=%.2f roll=%.2f throttle=%.2f",
+                        sent, failures, p.pitch ?: Double.NaN, p.roll ?: Double.NaN, p.verticalThrottle ?: Double.NaN))
                     Thread.sleep(CONTROL_PERIOD_MS)
                 }
             } catch (e: InterruptedException) {
-                // stopped
+                why = "interrupted"
+            } catch (e: Throwable) {
+                why = "crashed: $e"
             }
+            flightLog?.line("advanced_sender stopped sent=$sent failed=$failures why=$why")
         }
     }
 
