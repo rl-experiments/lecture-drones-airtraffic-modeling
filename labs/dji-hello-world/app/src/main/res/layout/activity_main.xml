@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Compact controls at the bottom so the log keeps most of the screen. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="24dp"
-    android:gravity="center_horizontal">
+    android:padding="12dp">
 
+    <!-- Wraps its text, at most 4 lines; longer messages scroll inside it (set in MainActivity). -->
     <TextView
         android:id="@+id/statusText"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:textSize="20sp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:gravity="center_horizontal"
+        android:maxLines="4"
+        android:scrollbars="vertical"
+        android:textSize="16sp"
         android:text="Starting…" />
 
     <com.example.djihellodrone.LogPanel
@@ -23,66 +26,87 @@
         android:layout_marginBottom="8dp"
         android:background="#ECEFF1" />
 
-    <CheckBox
-        android:id="@+id/simulatorCheck"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Simulator (props off, nothing really flies)" />
+        android:orientation="horizontal">
 
-    <CheckBox
-        android:id="@+id/lightsCheck"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:checked="true"
-        android:text="Drone lights on (untick to test switching them off)" />
+        <CheckBox
+            android:id="@+id/simulatorCheck"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="13sp"
+            android:text="Simulator (props off)" />
+
+        <CheckBox
+            android:id="@+id/lightsCheck"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checked="true"
+            android:textSize="13sp"
+            android:text="Drone lights on" />
+    </LinearLayout>
 
     <!-- Says in words why the mission buttons are grey, or that they are ready. -->
     <TextView
         android:id="@+id/hintText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="4dp"
         android:gravity="center"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/mission1Button"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginBottom="8dp"
-        android:backgroundTint="@color/mission_button_bg"
-        android:textColor="@color/mission_button_text"
-        android:textSize="18sp"
-        android:text="🚁  Mission 1 (demo)" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/mission2Button"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginBottom="8dp"
-        android:backgroundTint="@color/mission_button_bg"
-        android:textColor="@color/mission_button_text"
-        android:textSize="18sp"
-        android:text="❤️  Mission 2 (light painting)" />
+        <Button
+            android:id="@+id/mission1Button"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="4dp"
+            android:backgroundTint="@color/mission_button_bg"
+            android:textColor="@color/mission_button_text"
+            android:textAllCaps="false"
+            android:textSize="13sp"
+            android:text="🚁 Mission 1\nDemo" />
 
-    <Button
-        android:id="@+id/mission3Button"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/mission_button_bg"
-        android:textColor="@color/mission_button_text"
-        android:textSize="18sp"
-        android:text="⭐  Mission 3 (star or triangle)" />
+        <Button
+            android:id="@+id/mission2Button"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="4dp"
+            android:backgroundTint="@color/mission_button_bg"
+            android:textColor="@color/mission_button_text"
+            android:textAllCaps="false"
+            android:textSize="13sp"
+            android:text="❤️ Mission 2\nLight painting" />
+
+        <Button
+            android:id="@+id/mission3Button"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/mission_button_bg"
+            android:textColor="@color/mission_button_text"
+            android:textAllCaps="false"
+            android:textSize="13sp"
+            android:text="⭐ Mission 3\nStar or triangle" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/stopButton"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="56dp"
         android:backgroundTint="#C62828"
         android:textColor="#FFFFFF"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:text="■  STOP + LAND" />
 </LinearLayout>

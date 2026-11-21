@@ -58,6 +58,7 @@ class MainActivity : Activity(), Display {
         setContentView(R.layout.activity_main)
 
         statusView = findViewById(R.id.statusText)
+        statusView.movementMethod = android.text.method.ScrollingMovementMethod()
         hintView = findViewById(R.id.hintText)
         logPanel = findViewById(R.id.logPanel)
         mission1Button = findViewById(R.id.mission1Button)
@@ -120,7 +121,7 @@ class MainActivity : Activity(), Display {
     }
 
     override fun progress(msg: String) {
-        runOnUiThread { statusView.text = msg }
+        runOnUiThread { statusView.text = msg; statusView.scrollTo(0, 0) }
     }
 
     override fun lightsRestored() {
