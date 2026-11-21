@@ -76,7 +76,9 @@ class Tracker(startUp: Double = 0.0) {
  *   the sticks and waits until the drone stands still, so sharp corners stay sharp.
  *
  * With [firmHeight] a small height error gets its full correction even at low speed,
- * where the line's share of the stick would be too small to move the drone. Gives up
+ * where the line's share of the stick would be too small to move the drone. In the
+ * advanced mode ([Drone.usesAdvancedSticks]) the same wish goes out as m/s instead of
+ * sticks, without turning. Gives up
  * after [LEG_TIMEOUT_MS] where it is; every control step goes to the flight log.
  */
 fun Drone.driveTo(
@@ -90,6 +92,8 @@ fun Drone.driveTo(
     flightLog?.line(String.format(Locale.US, "leg target n=%.2f e=%.2f u=%s from_n=%.2f from_e=%.2f from_u=%.2f",
         north, east, up?.let { "%.2f".format(Locale.US, it) }, an, ae, au))
     val leg = Leg(an, ae, au, north, east, up, firmHeight)
+    val advanced = usesAdvancedSticks
+    var wrongWay = 0
     try {
         while (true) {
             checkAbort()
@@ -107,15 +111,30 @@ fun Drone.driveTo(
                 flightLog?.line(String.format(Locale.US, "leg gave_up dist=%.2f", cmd.dist))
                 return
             }
-            sticks.rightStick.verticalPosition = cmd.stickForward
-            sticks.rightStick.horizontalPosition = cmd.stickRight
-            sticks.leftStick.verticalPosition = cmd.stickUp
+            if (advanced) {
+                // The axes of the advanced mode are not checked on a flight yet: stop if it flies another way.
+                val agrees = movesAsWished(cmd.velocityNorth, cmd.velocityEast, cmd.velocityUp,
+                    v?.x ?: 0.0, v?.y ?: 0.0, v?.z ?: 0.0)
+                wrongWay = if (agrees) 0 else wrongWay + 1
+                if (wrongWay >= DIRECTION_CHECK_STEPS) {
+                    zeroSticks()
+                    flightLog?.line("leg wrong_way")
+                    throw IllegalStateException("Advanced mode: the drone flies another way than asked. " +
+                        "Fly mission 3 with stick steering.")
+                }
+                sendVelocity(cmd.velocityNorth, cmd.velocityEast, cmd.velocityUp)
+            } else {
+                sticks.rightStick.verticalPosition = cmd.stickForward
+                sticks.rightStick.horizontalPosition = cmd.stickRight
+                sticks.leftStick.verticalPosition = cmd.stickUp
+            }
             val now = System.currentTimeMillis()
             flightLog?.line(String.format(Locale.US,
                 "step dt_ms=%d n=%.2f e=%.2f u=%.2f dist=%.2f heading=%.1f stick_fwd=%d stick_right=%d stick_up=%d " +
-                    "vn=%.2f ve=%.2f vd=%.2f updates=%d cross=%.2f speed=%.2f",
+                    "vn=%.2f ve=%.2f vd=%.2f updates=%d cross=%.2f speed=%.2f want_n=%.2f want_e=%.2f want_u=%.2f",
                 now - lastStepMs, n, e, u, cmd.dist, h, cmd.stickForward, cmd.stickRight, cmd.stickUp,
-                v?.x ?: Double.NaN, v?.y ?: Double.NaN, v?.z ?: Double.NaN, tracker.updates, cmd.cross, cmd.speed))
+                v?.x ?: Double.NaN, v?.y ?: Double.NaN, v?.z ?: Double.NaN, tracker.updates, cmd.cross, cmd.speed,
+                cmd.velocityNorth, cmd.velocityEast, cmd.velocityUp))
             lastStepMs = now
             Thread.sleep(CONTROL_PERIOD_MS)
         }

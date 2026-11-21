@@ -27,7 +27,9 @@ enum class Figure(val label: String, val lines: Int, val stepDeg: Double) {
  * the height follows the downward sensor, which needs a flat floor. With [videoFix] a
  * second phone films the figure from the front and sends where the light really is; the
  * tracked position follows it while the lights are on, which takes out the drift the
- * tracker cannot see. Upright only: from the front a flat figure is seen edge-on.
+ * tracker cannot see. Upright only: from the front a flat figure is seen edge-on. With
+ * [advancedSticks] it steers in the advanced virtual-stick mode: velocities in m/s that the
+ * drone holds itself, instead of stick positions.
  */
 class FigureMission(
     private val drone: Drone,
@@ -35,6 +37,7 @@ class FigureMission(
     private val plane: Plane,
     private val heightCorrection: Boolean,
     private val videoFix: VideoFix? = null,
+    private val advancedSticks: Boolean = false,
 ) : Mission {
 
     private companion object {
@@ -92,6 +95,10 @@ class FigureMission(
                 "it must be on this phone's hotspot with the video app running, or the drone will not take off. " +
                 "At the first tip the drone hovers lit for ${VIDEO_SETTLE_MS / 1000} s while the video corrects it. ")
         }
+        if (advancedSticks) {
+            text.append("With advanced steering, the app asks for speeds in m/s instead of stick positions. " +
+                "This is new and has not flown yet: if the drone flies another way than asked, it stops and lands. ")
+        }
         text.append("Stay out of the way at this height. Keep hands off the RC sticks (moving them takes control back).")
         return text.toString()
     }
@@ -104,6 +111,7 @@ class FigureMission(
         flightLog?.line("figure $shape $planeName")
         flightLog?.line("height_correction $correction")
         flightLog?.line("video_correction ${if (videoFix != null) "on" else "off"}")
+        flightLog?.line("steering ${if (advancedSticks) "advanced" else "sticks"}")
 
         if (videoFix != null && plane == Plane.FLAT) {
             throw IllegalStateException("Video correction works only upright: from the front the phone sees a flat figure edge-on.")
@@ -143,6 +151,7 @@ class FigureMission(
         val shape = figure.label
         takeOff()
         takeSticks()
+        if (advancedSticks) useAdvancedSticks()
 
         // Height above the take-off spot, from the barometer; the tracker carries it on.
         val tracker = Tracker(pull(FlightControllerKey.KeyAltitude) ?: FIGURE_BOTTOM_ALT_M)

@@ -41,7 +41,11 @@ class Leg(
     internal val len = sqrt(ln * ln + le * le + lu * lu)
 }
 
-/** What one control step decided: the sticks, or [arrived] (then the sticks are 0). */
+/**
+ * What one control step decided, or [arrived] (then everything is 0): the sticks for the
+ * basic virtual sticks, and the same wish as velocities in m/s north, east and up for the
+ * advanced mode, where the drone itself holds the velocity.
+ */
 data class LegCommand(
     val arrived: Boolean,
     val dist: Double,
@@ -50,6 +54,9 @@ data class LegCommand(
     val stickUp: Int = 0,
     val cross: Double = 0.0,
     val speed: Double = 0.0,
+    val velocityNorth: Double = 0.0,
+    val velocityEast: Double = 0.0,
+    val velocityUp: Double = 0.0,
 )
 
 /**
@@ -104,7 +111,28 @@ fun legStep(
         stickRight = clampStick(right * LEG_STICK_PER_MPS_HORIZONTAL),
         stickUp = clampStick(climb * LEG_STICK_PER_MPS_VERTICAL),
         cross = cross, speed = speed,
+        velocityNorth = dn * scale, velocityEast = de * scale, velocityUp = climb,
     )
+}
+
+// The advanced mode's axes are not checked on a flight yet. If the drone flies another way
+// than asked for this long, something is mapped wrong and the mission has to stop.
+internal const val DIRECTION_CHECK_MIN_MPS = 0.25   // only judge a clear wish…
+internal const val DIRECTION_CHECK_SEEN_MPS = 0.2   // …and a clear movement
+internal const val DIRECTION_CHECK_STEPS = 8        // control steps in a row, past the ~0.5 s dead time
+
+/**
+ * False when the drone clearly moves another way than wished: horizontally more than
+ * about 70° off ([wishN], [wishE] against [vn], [ve]), or vertically the wrong way
+ * ([wishUp] against [vd], which points down). True otherwise, also when too slow to judge.
+ */
+fun movesAsWished(wishN: Double, wishE: Double, wishUp: Double, vn: Double, ve: Double, vd: Double): Boolean {
+    val wish = sqrt(wishN * wishN + wishE * wishE)
+    val seen = sqrt(vn * vn + ve * ve)
+    if (wish >= DIRECTION_CHECK_MIN_MPS && seen >= DIRECTION_CHECK_SEEN_MPS &&
+        (wishN * vn + wishE * ve) / (wish * seen) < 0.35) return false
+    if (abs(wishUp) >= DIRECTION_CHECK_MIN_MPS && abs(vd) >= DIRECTION_CHECK_SEEN_MPS && wishUp * -vd < 0) return false
+    return true
 }
 
 /**

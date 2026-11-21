@@ -260,18 +260,20 @@ class MainActivity : Activity(), Display {
         val plane = choice(listOf("Upright", "Flat (camera below)")) { update() }
         val height = choice(listOf("Off", "On (downward sensor, flat floor)")) { update() }
         val video = choice(listOf("Off", "On (second phone films)")) { update() }
+        val steering = choice(listOf("Sticks", "Advanced (m/s, not flown yet)")) { update() }
         fun mission() = FigureMission(drone,
             if (figure.selectedItemPosition == 1) Figure.TRIANGLE else Figure.STAR,
             if (plane.selectedItemPosition == 1) Plane.FLAT else Plane.UPRIGHT,
             height.selectedItemPosition == 1,
-            if (video.selectedItemPosition == 1) videoFix else null)
+            if (video.selectedItemPosition == 1) videoFix else null,
+            steering.selectedItemPosition == 1)
         update = { message.text = mission().briefing }
         update()
 
         AlertDialog.Builder(this)
             .setTitle("Start mission 3 (star or triangle)?")
             .setView(dialogBody(labeled("Figure", figure), labeled("Plane", plane),
-                labeled("Height fix", height), labeled("Video fix", video), message))
+                labeled("Height fix", height), labeled("Video fix", video), labeled("Steering", steering), message))
             .setPositiveButton("Fly") { _, _ -> startMission(mission()) }
             .setNegativeButton("Cancel", null)
             .show()

@@ -2,6 +2,7 @@ package com.example.djihellodrone
 
 import android.util.Log
 import dji.sdk.keyvalue.key.AirLinkKey
+import dji.sdk.keyvalue.key.BatteryKey
 import dji.sdk.keyvalue.key.DJIActionKeyInfo
 import dji.sdk.keyvalue.key.DJIKeyInfo
 import dji.sdk.keyvalue.key.FlightAssistantKey
@@ -14,7 +15,12 @@ import dji.sdk.keyvalue.value.common.LocationCoordinate2D
 import dji.sdk.keyvalue.value.flightassistant.AuxiliaryLightMode
 import dji.sdk.keyvalue.value.flightcontroller.FlightControlAuthority
 import dji.sdk.keyvalue.value.flightcontroller.FlightControlAuthorityChangeReason
+import dji.sdk.keyvalue.value.flightcontroller.FlightCoordinateSystem
 import dji.sdk.keyvalue.value.flightcontroller.LEDsSettings
+import dji.sdk.keyvalue.value.flightcontroller.RollPitchControlMode
+import dji.sdk.keyvalue.value.flightcontroller.VerticalControlMode
+import dji.sdk.keyvalue.value.flightcontroller.VirtualStickFlightControlParam
+import dji.sdk.keyvalue.value.flightcontroller.YawControlMode
 import dji.v5.common.callback.CommonCallbacks
 import dji.v5.common.error.IDJIError
 import dji.v5.manager.KeyManager
@@ -34,6 +40,7 @@ import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicReference
+import kotlin.concurrent.thread
 import kotlin.math.max
 import kotlin.math.roundToInt
 
@@ -57,6 +64,8 @@ class ControlTakenBack(why: String) : RuntimeException(why)
  *
  * Movement uses the *basic* virtual-stick API: emulated stick positions with the exact
  * semantics of the physical RC in mode 2 (right stick up = forward, left stick sideways = rotate).
+ * Mission 3 can switch to the *advanced* mode instead ([useAdvancedSticks]): velocities in m/s
+ * that the drone holds itself.
  */
 class Drone(private val display: Display) {
 
@@ -71,6 +80,8 @@ class Drone(private val display: Display) {
         const val APPROACH_GAIN = 0.8               // m/s per metre left to the target
 
         private const val OBSTACLE_LOG_PERIOD_MS = 200L
+        private const val EXTRAS_PROBE_MS = 500L     // per key, once when the log opens
+        private const val EXTRAS_FAST_MS = 100L      // position, attitude, ultrasonic: at most 10 lines a second
         // An unreadable altitude during an emergency landing: assume the 120 m open-category ceiling.
         private const val UNKNOWN_ALTITUDE_M = 120.0
 
@@ -163,10 +174,82 @@ class Drone(private val display: Display) {
         } catch (e: Exception) {
             display.log("Obstacle avoidance could not be read: $e")
         }
+        listenToExtras(log)
+    }
+
+    // The drone's own idea of where it is, and how sure it is: logged only, to compare with
+    // the tracker after a flight. Not every key is documented for the Mini 4 Pro; the probe
+    // at the start shows which ones answer.
+    private val extrasHolder = Any()
+    private val extrasLastMs = ConcurrentHashMap<String, Long>()
+    private val extrasLastText = ConcurrentHashMap<String, String>()
+
+    private fun listenToExtras(log: FlightLog) {
+        extrasLastMs.clear()
+        extrasLastText.clear()
+        try {
+            val keys = listOf(
+                "takeoff_pos" to FlightControllerKey.KeyRelateToTakeOffPosition,
+                "vision_level" to FlightControllerKey.KeyVisionPositioningLevel,
+                "fusion_level" to FlightControllerKey.KeyFusionPositioningLevel,
+                "position_source" to FlightControllerKey.KeyDronePositionSource,
+                "positioning_data" to FlightControllerKey.KeyPositioningDataSource,
+                "vision_used" to FlightControllerKey.KeyIsVisionSensorUsed,
+                "without_vision" to FlightControllerKey.KeyIsWithoutVisionPosition,
+                "ultrasonic" to FlightControllerKey.KeyUltrasonicHeight,
+                "attitude" to FlightControllerKey.KeyAircraftAttitude,
+                "flight_mode" to FlightControllerKey.KeyFlightMode,
+                "fc_flight_mode" to FlightControllerKey.KeyFCFlightMode,
+                "wind" to FlightControllerKey.KeyWindWarning,
+                "battery" to BatteryKey.KeyChargeRemainingInPercent,
+                "gps_satellites" to FlightControllerKey.KeyGPSSatelliteCount,
+                "gps_level" to FlightControllerKey.KeyGPSSignalLevel,
+            )
+            for ((name, key) in keys) log.line("probe $name ${describe(key, EXTRAS_PROBE_MS).replace(' ', '_')}")
+
+            logChanges("takeoff_pos", FlightControllerKey.KeyRelateToTakeOffPosition, EXTRAS_FAST_MS) {
+                String.format(Locale.US, "x=%.3f y=%.3f z=%.3f", it.x ?: Double.NaN, it.y ?: Double.NaN, it.z ?: Double.NaN)
+            }
+            logChanges("attitude", FlightControllerKey.KeyAircraftAttitude, EXTRAS_FAST_MS) {
+                String.format(Locale.US, "pitch=%.2f roll=%.2f yaw=%.2f", it.pitch ?: Double.NaN, it.roll ?: Double.NaN, it.yaw ?: Double.NaN)
+            }
+            logChanges("ultrasonic", FlightControllerKey.KeyUltrasonicHeight, EXTRAS_FAST_MS) { "raw=$it" }
+            logChanges("vision_level", FlightControllerKey.KeyVisionPositioningLevel, 0) { "level=${it.level}" }
+            logChanges("fusion_level", FlightControllerKey.KeyFusionPositioningLevel, 0) { "level=${it.level}" }
+            logChanges("position_source", FlightControllerKey.KeyDronePositionSource, 0) { "value=$it" }
+            logChanges("positioning_data", FlightControllerKey.KeyPositioningDataSource, 0) { "value=$it" }
+            logChanges("vision_used", FlightControllerKey.KeyIsVisionSensorUsed, 0) { "value=$it" }
+            logChanges("without_vision", FlightControllerKey.KeyIsWithoutVisionPosition, 0) { "value=$it" }
+            // Holding position on the cameras or only on attitude (ATTI): the latter drifts away indoors.
+            logChanges("flight_mode", FlightControllerKey.KeyFlightMode, 0) { "value=$it" }
+            logChanges("fc_flight_mode", FlightControllerKey.KeyFCFlightMode, 0) { "value=$it" }
+            logChanges("wind", FlightControllerKey.KeyWindWarning, 0) { "value=$it" }
+            logChanges("battery", BatteryKey.KeyChargeRemainingInPercent, 0) { "percent=$it" }
+            logChanges("gps_satellites", FlightControllerKey.KeyGPSSatelliteCount, 0) { "count=$it" }
+            logChanges("gps_level", FlightControllerKey.KeyGPSSignalLevel, 0) { "value=$it" }
+        } catch (e: Exception) {
+            display.log("Extra drone values could not be logged: $e")
+        }
+    }
+
+    /** Writes [name] and the value as [text] when it changes, at most once per [periodMs]. */
+    private fun <T> logChanges(name: String, key: DJIKeyInfo<T>, periodMs: Long, text: (T) -> String) {
+        KeyManager.getInstance().listen(KeyTools.createKey(key), extrasHolder, object : CommonCallbacks.KeyListener<T> {
+            override fun onValueChange(oldValue: T?, newValue: T?) {
+                val line = if (newValue == null) "null" else text(newValue)
+                if (line == extrasLastText[name]) return
+                val now = System.currentTimeMillis()
+                if (now - (extrasLastMs[name] ?: 0L) < periodMs) return
+                extrasLastText[name] = line
+                extrasLastMs[name] = now
+                flightLog?.line("$name $line")
+            }
+        })
     }
 
     fun closeFlightLog() {
         onObstacle = null
+        KeyManager.getInstance().cancelListen(extrasHolder)
         try {
             PerceptionManager.getInstance().removeObstacleDataListener(obstacleListener)
         } catch (e: Exception) {
@@ -289,6 +372,7 @@ class Drone(private val display: Display) {
     fun takeSticks() {
         step("Enabling virtual stick…")
         enableVirtualStick()
+        stopAdvancedSticks()
         sticks.setVirtualStickAdvancedModeEnabled(false)
         zeroSticks()
     }
@@ -374,11 +458,65 @@ class Drone(private val display: Display) {
 
     // ---------------------------------------------------------------- sticks
 
+    /** Centres the sticks; in the advanced mode, asks for zero velocity: the drone hovers. */
     fun zeroSticks() {
         sticks.leftStick.horizontalPosition = 0
         sticks.leftStick.verticalPosition = 0
         sticks.rightStick.horizontalPosition = 0
         sticks.rightStick.verticalPosition = 0
+        synchronized(advancedLock) { if (advancedParam != null) advancedParam = advancedHover() }
+    }
+
+    // ---------------------------------------------------------------- advanced virtual sticks
+
+    // The advanced mode wants its command again and again; a sender thread repeats the last
+    // one every control period, so the drone also gets it while a mission sleeps between legs.
+    @Volatile private var advancedParam: VirtualStickFlightControlParam? = null
+    private var advancedSender: Thread? = null
+    private val advancedLock = Any()   // STOP's hover must not bring back a mode that just ended
+
+    /** True while the advanced mode steers: [driveTo] then sends velocities, not sticks. */
+    val usesAdvancedSticks: Boolean get() = advancedParam != null
+
+    /** After [takeSticks]: switches to the advanced mode and hovers. Ends with [land] or [letGo]. */
+    fun useAdvancedSticks() {
+        step("Enabling advanced virtual stick…")
+        sticks.setVirtualStickAdvancedModeEnabled(true)
+        advancedParam = advancedHover()
+        advancedSender = thread(name = "advanced sticks", isDaemon = true) {
+            try {
+                while (true) {
+                    val p = advancedParam ?: break
+                    if (takenBack != null || !appHoldsSticks) break   // command nothing once control is gone
+                    sticks.sendVirtualStickAdvancedParam(p)
+                    Thread.sleep(CONTROL_PERIOD_MS)
+                }
+            } catch (e: InterruptedException) {
+                // stopped
+            }
+        }
+    }
+
+    /**
+     * Asks for [north], [east] and [up] m/s over the ground, without turning (yaw rate 0).
+     * Axes as MSDK documents them for the ground frame: roll is north, pitch is east.
+     * Not checked on a flight yet; [driveTo] stops the mission if the drone flies another way.
+     */
+    fun sendVelocity(north: Double, east: Double, up: Double) = synchronized(advancedLock) {
+        if (advancedParam == null) return
+        advancedParam = VirtualStickFlightControlParam(east, north, 0.0, up,
+            VerticalControlMode.VELOCITY, RollPitchControlMode.VELOCITY, YawControlMode.ANGULAR_VELOCITY, FlightCoordinateSystem.GROUND)
+    }
+
+    private fun advancedHover() = VirtualStickFlightControlParam(0.0, 0.0, 0.0, 0.0,
+        VerticalControlMode.VELOCITY, RollPitchControlMode.VELOCITY, YawControlMode.ANGULAR_VELOCITY, FlightCoordinateSystem.GROUND)
+
+    private fun stopAdvancedSticks() {
+        if (advancedParam == null && advancedSender == null) return
+        synchronized(advancedLock) { advancedParam = null }
+        advancedSender?.join(2 * CONTROL_PERIOD_MS)
+        advancedSender = null
+        sticks.setVirtualStickAdvancedModeEnabled(false)
     }
 
     private fun enableVirtualStick() {
@@ -396,6 +534,7 @@ class Drone(private val display: Display) {
     }
 
     private fun disableVirtualStickQuietly() {
+        stopAdvancedSticks()
         appHoldsSticks = false   // from here on, losing control is our own doing
         val latch = CountDownLatch(1)
         sticks.disableVirtualStick(object : CommonCallbacks.CompletionCallback {

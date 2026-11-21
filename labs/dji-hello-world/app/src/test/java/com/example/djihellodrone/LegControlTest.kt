@@ -117,4 +117,29 @@ class DeadReckoningTest {
         r.correctUp(measured = 2.0, gain = 0.25)
         assertEquals(1.25, r.up, 1e-9)
     }
+
+    @Test fun theAdvancedModeGetsTheSameWishInMetresPerSecondWhateverTheHeading() {
+        val diagonal = Leg(0.0, 0.0, 1.0, north = 3.0, east = 3.0, up = null)
+        for (heading in listOf(0.0, 90.0, -135.0)) {
+            val cmd = legStep(diagonal, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, heading)
+            assertEquals(LEG_MAX_MPS, hypot(cmd.velocityNorth, cmd.velocityEast), 1e-9)
+            assertEquals(cmd.velocityNorth, cmd.velocityEast, 1e-9)
+            assertEquals(0.0, cmd.velocityUp, 1e-9)
+        }
+    }
+
+    @Test fun theAdvancedClimbIsInMetresPerSecondUp() {
+        val climb = Leg(0.0, 0.0, 1.0, north = 0.0, east = 0.0, up = 2.0)
+        val cmd = legStep(climb, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0)
+        assertEquals(LEG_MAX_MPS, cmd.velocityUp, 1e-9)
+    }
+
+    @Test fun flyingAnotherWayThanWishedIsCaught() {
+        assertTrue(movesAsWished(0.5, 0.0, 0.0, vn = 0.4, ve = 0.1, vd = 0.0))
+        assertFalse("backwards", movesAsWished(0.5, 0.0, 0.0, vn = -0.4, ve = 0.0, vd = 0.0))
+        assertFalse("north and east swapped", movesAsWished(0.5, 0.0, 0.0, vn = 0.0, ve = 0.4, vd = 0.0))
+        assertFalse("sinks instead of climbing", movesAsWished(0.0, 0.0, 0.5, vn = 0.0, ve = 0.0, vd = 0.3))
+        assertTrue("climbs, z points down", movesAsWished(0.0, 0.0, 0.5, vn = 0.0, ve = 0.0, vd = -0.3))
+        assertTrue("too slow to judge", movesAsWished(0.5, 0.0, 0.0, vn = -0.1, ve = 0.0, vd = 0.0))
+    }
 }
