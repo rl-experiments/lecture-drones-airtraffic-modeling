@@ -8,7 +8,6 @@ import kotlin.math.abs
 import kotlin.math.cos
 import kotlin.math.exp
 import kotlin.math.hypot
-import kotlin.math.roundToInt
 import kotlin.math.sin
 
 /** The figures of mission 3: [lines] lines close the figure, each jumping [stepDeg] round the circle. */
@@ -19,7 +18,7 @@ enum class Figure(val label: String, val lines: Int, val stepDeg: Double) {
 
 /**
  * Mission 3: takes off, draws a star or a triangle with its tips on a circle of
- * [FIGURE_DIAMETER_M] and lands. Steered on the [Tracker] like mission 1, so it flies
+ * [diameter] metres and lands. Steered on the [Tracker] like mission 1, so it flies
  * indoors and outdoors; the lights are on while the figure is drawn. [Plane.UPRIGHT]
  * stands above the take-off spot across the nose, its lowest tips at [FIGURE_BOTTOM_ALT_M],
  * so a camera in front of the nose sees it whole. [Plane.FLAT] lies at [FIGURE_FLAT_ALT_M]
@@ -38,6 +37,7 @@ class FigureMission(
     private val heightCorrection: Boolean,
     private val videoFix: VideoFix? = null,
     private val advancedSticks: Boolean = false,
+    private val diameter: Double = FIGURE_DIAMETER_M,
 ) : Mission {
 
     private companion object {
@@ -64,9 +64,9 @@ class FigureMission(
     override val hoverOnFailure = false
 
     override val briefing: String get() {
-        val r = FIGURE_DIAMETER_M / 2
+        val r = diameter / 2
         val shape = figure.label
-        val size = "${FIGURE_DIAMETER_M.roundToInt()} m $shape"
+        val size = "${"%.1f".format(Locale.US, diameter)} m $shape"
         val text = StringBuilder("INDOORS OR OUTDOORS: without GPS the drone holds position on its downward cameras, " +
             "so indoors keep the room well lit and the floor textured.\n\n")
         when (plane) {
@@ -80,14 +80,17 @@ class FigureMission(
             }
             Plane.FLAT -> text.append("The drone will TAKE OFF and draw a $size lying flat " +
                 "at about ${"%.1f".format(Locale.US, FIGURE_FLAT_ALT_M)} m, centred above the take-off spot. Then it flies back and lands.\n\n" +
-                "The $shape spreads ${"%.0f".format(Locale.US, r)} m in every direction, and the drone can overshoot its tips: " +
+                "The $shape spreads ${"%.1f".format(Locale.US, r)} m in every direction, and the drone can overshoot its tips: " +
                 "keep that clear, plus room to spare. Film it from above or below. ")
         }
         if (heightCorrection) {
             text.append("With height correction, the drone holds its height on the downward sensor: " +
                 "fly over a flat floor, with no tables or stairs below. ")
         }
-        if (videoFix != null && plane == Plane.FLAT) {
+        if (videoFix != null && diameter != FIGURE_DIAMETER_M) {
+            text.append("VIDEO CORRECTION WORKS ONLY AT ${"%.0f".format(Locale.US, FIGURE_DIAMETER_M)} M: the video app expects the tips marked for that size. " +
+                "Switch it off or choose ${"%.0f".format(Locale.US, FIGURE_DIAMETER_M)} m. ")
+        } else if (videoFix != null && plane == Plane.FLAT) {
             text.append("VIDEO CORRECTION WORKS ONLY UPRIGHT: from the front the phone sees a flat $shape edge-on. " +
                 "Switch it off or choose upright. ")
         } else if (videoFix != null) {
@@ -97,7 +100,7 @@ class FigureMission(
         }
         if (advancedSticks) {
             text.append("With advanced steering, the app asks for speeds in m/s instead of stick positions. " +
-                "This is new and has not flown yet: if the drone flies another way than asked, it stops and lands. ")
+                "If the drone flies another way than asked, it stops and lands. ")
         }
         text.append("Stay out of the way at this height. Keep hands off the RC sticks (moving them takes control back).")
         return text.toString()
@@ -107,14 +110,19 @@ class FigureMission(
         val shape = figure.label
         val planeName = plane.name.lowercase(Locale.US)
         val correction = if (heightCorrection) "on" else "off"
-        log("Figure: $shape, $planeName, height correction $correction")
+        log("Figure: $shape, $planeName, ${"%.1f".format(Locale.US, diameter)} m, height correction $correction")
         flightLog?.line("figure $shape $planeName")
+        flightLog?.line(String.format(Locale.US, "diameter %.2f", diameter))
         flightLog?.line("height_correction $correction")
         flightLog?.line("video_correction ${if (videoFix != null) "on" else "off"}")
         flightLog?.line("steering ${if (advancedSticks) "advanced" else "sticks"}")
 
         if (videoFix != null && plane == Plane.FLAT) {
             throw IllegalStateException("Video correction works only upright: from the front the phone sees a flat figure edge-on.")
+        }
+        if (videoFix != null && diameter != FIGURE_DIAMETER_M) {
+            throw IllegalStateException("Video correction works only at ${"%.0f".format(Locale.US, FIGURE_DIAMETER_M)} m: " +
+                "the video app expects the tips marked for that size.")
         }
         waitForAircraft()
         if (videoFix != null) checkVideo(videoFix)
@@ -218,7 +226,7 @@ class FigureMission(
     }
 
     /** North, east and height of each tip, from the first back to the first, for the start heading [h] in radians. */
-    private fun tips(h: Double) = figureTips(figure, plane, h)
+    private fun tips(h: Double) = figureTips(figure, plane, h, diameter)
 
     /**
      * Pulls the tracked height towards the downward sensor. The tracker misses slow climbs,

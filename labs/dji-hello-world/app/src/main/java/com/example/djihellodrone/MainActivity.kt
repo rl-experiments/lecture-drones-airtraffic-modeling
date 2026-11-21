@@ -20,7 +20,11 @@ import android.widget.ScrollView
 import android.widget.Spinner
 import android.widget.TextView
 import com.example.djihellodrone.Drone.Companion.TAG
+import dji.sdk.keyvalue.key.FlightControllerKey
+import dji.sdk.keyvalue.key.KeyTools
+import dji.v5.common.callback.CommonCallbacks
 import dji.v5.common.error.IDJIError
+import dji.v5.manager.KeyManager
 import dji.v5.common.register.DJISDKInitEvent
 import dji.v5.manager.SDKManager
 import dji.v5.manager.interfaces.SDKManagerCallback
@@ -49,7 +53,8 @@ class MainActivity : Activity(), Display {
     private lateinit var logPanel: LogPanel
 
     private val drone = Drone(this)
-    @Volatile private var connected = false
+    @Volatile private var connected = false            // the SDK sees a product: the RC is enough for that
+    @Volatile private var aircraftConnected = false    // the flight controller answers
     @Volatile private var missionRunning = false
     @Volatile private var showDiagnostics = false
 
@@ -80,7 +85,8 @@ class MainActivity : Activity(), Display {
         mission3Button.setOnClickListener { confirmMission3() }
         findViewById<Button>(R.id.stopButton).setOnClickListener { emergencyStop() }
 
-        log("Drone Hello on ${Build.MANUFACTURER} ${Build.MODEL}, Android ${Build.VERSION.RELEASE}")
+        val built = packageManager.getPackageInfo(packageName, 0).versionName
+        log("Drone Hello, build $built, on ${Build.MANUFACTURER} ${Build.MODEL}, Android ${Build.VERSION.RELEASE}")
 
         // Surface ANY crash (any thread) on screen instead of silently closing.
         Thread.setDefaultUncaughtExceptionHandler { _, e ->
@@ -167,7 +173,19 @@ class MainActivity : Activity(), Display {
                 showDiagnostics = true
                 connected = true
                 refreshControls()
-                thread(name = "link-snapshot") { drone.logLinkSnapshot("after product connect") }
+                // "Product connected" comes with the RC alone: the missions wait for the aircraft.
+                KeyManager.getInstance().listen(KeyTools.createKey(FlightControllerKey.KeyConnection), this@MainActivity,
+                    object : CommonCallbacks.KeyListener<Boolean> {
+                        override fun onValueChange(oldValue: Boolean?, newValue: Boolean?) {
+                            aircraftConnected = newValue == true
+                            refreshControls()
+                        }
+                    })
+                thread(name = "link-snapshot") {
+                    aircraftConnected = drone.pull(FlightControllerKey.KeyConnection) == true
+                    refreshControls()
+                    drone.logLinkSnapshot("after product connect")
+                }
             }
 
             override fun onProductDisconnect(productId: Int) {
@@ -175,6 +193,8 @@ class MainActivity : Activity(), Display {
                 showDiagnostics = false
                 status("Drone disconnected.")
                 connected = false
+                aircraftConnected = false
+                KeyManager.getInstance().cancelListen(this@MainActivity)
                 refreshControls()
                 drone.disconnected()
                 runOnUiThread { simulatorCheck.isChecked = false }
@@ -259,21 +279,23 @@ class MainActivity : Activity(), Display {
         lateinit var update: () -> Unit
         val figure = choice(listOf("Star", "Triangle")) { update() }
         val plane = choice(listOf("Upright", "Flat (camera below)")) { update() }
+        val size = choice(FIGURE_DIAMETERS_M.map { String.format(java.util.Locale.US, "%.1f m", it) }) { update() }
         val height = choice(listOf("Off", "On (downward sensor, flat floor)")) { update() }
         val video = choice(listOf("Off", "On (second phone films)")) { update() }
-        val steering = choice(listOf("Sticks", "Advanced (m/s, not flown yet)")) { update() }
+        val steering = choice(listOf("Sticks", "Advanced (m/s)")) { update() }
         fun mission() = FigureMission(drone,
             if (figure.selectedItemPosition == 1) Figure.TRIANGLE else Figure.STAR,
             if (plane.selectedItemPosition == 1) Plane.FLAT else Plane.UPRIGHT,
             height.selectedItemPosition == 1,
             if (video.selectedItemPosition == 1) videoFix else null,
-            steering.selectedItemPosition == 1)
+            steering.selectedItemPosition == 1,
+            FIGURE_DIAMETERS_M[size.selectedItemPosition])
         update = { message.text = mission().briefing }
         update()
 
         AlertDialog.Builder(this)
             .setTitle("Start mission 3 (star or triangle)?")
-            .setView(dialogBody(labeled("Figure", figure), labeled("Plane", plane),
+            .setView(dialogBody(labeled("Figure", figure), labeled("Plane", plane), labeled("Size", size),
                 labeled("Height fix", height), labeled("Video fix", video), labeled("Steering", steering), message))
             .setPositiveButton("Fly") { _, _ -> startMission(mission()) }
             .setNegativeButton("Cancel", null)
@@ -317,9 +339,11 @@ class MainActivity : Activity(), Display {
      */
     private fun refreshControls() {
         runOnUiThread {
-            val enabled = connected && !missionRunning
+            val enabled = connected && aircraftConnected && !missionRunning
             when {
                 !connected -> hint("No drone connected: missions are locked.\nPlug in the RC and switch the drone on.", "#757575")
+                !aircraftConnected && !missionRunning ->
+                    hint("RC connected, but the drone does not answer: missions are locked.\nSwitch the drone on and close DJI Fly.", "#757575")
                 missionRunning -> hint("A mission is running: only STOP + LAND works now.", "#E65100")
                 else -> hint("Drone connected: tap a mission to see its briefing.", "#2E7D32")
             }
@@ -382,13 +406,11 @@ class MainActivity : Activity(), Display {
     /** STOP + LAND: stops the mission and lands, also a drone that mission 2 left hovering. */
     private fun emergencyStop() {
         drone.abort()
+        // Answer at once, so one tap is clearly enough; the drone's own state comes after.
+        status("STOP pressed — landing…")
         thread {
-            if (drone.isFlying()) {
-                status("STOP pressed — landing…")
-                drone.recoverAndLand()
-            } else {
-                status("STOP pressed: the drone is not flying, nothing to land.")
-            }
+            drone.recoverAndLand()
+            if (!drone.isFlying()) status("STOP: the drone is on the ground.")
         }
     }
 }
